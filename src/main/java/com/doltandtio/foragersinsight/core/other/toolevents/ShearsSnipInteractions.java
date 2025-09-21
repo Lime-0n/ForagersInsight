@@ -31,7 +31,7 @@ import net.minecraftforge.fml.common.Mod;
 import vectorwing.farmersdelight.common.block.MushroomColonyBlock;
 import vectorwing.farmersdelight.common.block.TomatoVineBlock;
 import vectorwing.farmersdelight.common.utility.TextUtils;
-import net.minecraft.world.item.DyeColor; // for getWoolItemByColor
+import net.minecraft.world.item.DyeColor;
 
 import java.util.ArrayDeque;
 import java.util.function.Predicate;
@@ -48,7 +48,7 @@ public class ShearsSnipInteractions {
         return EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, tool);
     }
 
-    /** Each fortune level has 20% to add +1 */
+    /** Each fortune level has 20% to add +1 to total drops */
     private static int rollFortuneExtras(RandomSource rand, int fortuneLevels) {
         int extra = 0;
         for (int i = 0; i < fortuneLevels; i++) {
@@ -65,19 +65,19 @@ public class ShearsSnipInteractions {
         tool.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
     }
     private static int harvestVerticalTop(Level level, BlockPos basePos, Predicate<BlockState> isSameCrop, int maxBreak) {
-        // Build stack from base upward
+
         ArrayDeque<BlockPos> stack = new ArrayDeque<>();
         BlockPos.MutableBlockPos cursor = basePos.mutable();
         while (isSameCrop.test(level.getBlockState(cursor))) {
             stack.addLast(cursor.immutable());
             cursor.move(Direction.UP);
         }
-        if (stack.size() <= 1) return 0; // nothing to cut if only base exists
-        stack.removeFirst(); // never break base
+        if (stack.size() <= 1) return 0;
+        stack.removeFirst();
 
         int broken = 0;
         while (broken < maxBreak && !stack.isEmpty()) {
-            BlockPos top = stack.removeLast(); // break from the top down
+            BlockPos top = stack.removeLast();
             level.destroyBlock(top, false);
             broken++;
         }
@@ -110,8 +110,7 @@ public class ShearsSnipInteractions {
         level.addFreshEntity(drop);
     }
 
-    /* --------------------------- block interactions --------------------------- */
-
+    /* CROPS */
     @SubscribeEvent
     public static void onShearCrop(RightClickBlock event) {
         Level level = event.getLevel();
@@ -127,7 +126,7 @@ public class ShearsSnipInteractions {
         RandomSource rand = level.getRandom();
 
         //Bountiful Crops
-        // Bountiful Dark Oak and Oak Leaves
+             // Bountiful Dark Oak and Oak Leaves
         if (state.getBlock() instanceof BountifulLeavesBlock leavesBlock) {
             int age = state.getValue(BountifulLeavesBlock.AGE);
             if (age >= BountifulLeavesBlock.MAX_AGE) {
@@ -148,7 +147,7 @@ public class ShearsSnipInteractions {
                 return;
             }
 
-            // Bountiful Spruce Tips
+                // Bountiful Spruce Tips
             if (state.getBlock() instanceof SpruceTipBlock tip && tip.isRandomlyTicking(state)) {
                 age = state.getValue(SpruceTipBlock.AGE);
                 if (age >= SpruceTipBlock.MAX_AGE) {
@@ -175,7 +174,7 @@ public class ShearsSnipInteractions {
             int broken = harvestVerticalTop(
                     level, pos,
                     bs -> bs.is(Blocks.KELP) || bs.is(Blocks.KELP_PLANT),
-                    2 // snip up to 2 segments
+                    2 // snip up to 2 kelp
             );
             if (broken <= 0) return;
 
@@ -212,7 +211,7 @@ public class ShearsSnipInteractions {
 
         // Sugar Cane
         if (state.is(Blocks.SUGAR_CANE)) {
-            // snip 1 top segment if stack height >= 2
+            // snip 1 sugarcane if plant is 2 blocks or taller, this will not snip if the total height is 1 block
             int broken = harvestVerticalTop(level, pos, bs -> bs.is(Blocks.SUGAR_CANE), 1);
             if (broken > 0) {
                 event.setCanceled(true);
@@ -229,7 +228,7 @@ public class ShearsSnipInteractions {
             return;
         }
 
-        // Sweet Berry Bush (mature)
+        // Sweet Berry Bush
         if (state.getBlock() instanceof SweetBerryBushBlock &&
                 state.getValue(SweetBerryBushBlock.AGE) >= SweetBerryBushBlock.MAX_AGE) {
 
@@ -262,8 +261,8 @@ public class ShearsSnipInteractions {
                         2 + extraDrops
                 );
                 dropItemInFront(level, player, tomatoDrop);
-
-                if (rand.nextFloat() < 0.05F) { // 5% chance
+                // chance for rotten tomatoes
+                if (rand.nextFloat() < 0.05F) {
                     ItemStack rotten = new ItemStack(
                             vectorwing.farmersdelight.common.registry.ModItems.ROTTEN_TOMATO.get()
                     );
@@ -281,7 +280,7 @@ public class ShearsSnipInteractions {
         }
     }
 
-    /* --------------------------- entity interactions --------------------------- */
+    /* MOBS */
 
     // Entities
     // Chickens
