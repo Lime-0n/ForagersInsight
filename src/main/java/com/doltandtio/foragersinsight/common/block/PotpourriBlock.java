@@ -109,7 +109,7 @@ public class PotpourriBlock extends BaseEntityBlock {
     public <T extends BlockEntity> @Nullable BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state,
                                                                             @NotNull BlockEntityType<T> type) {
         if (level.isClientSide) {
-            return null;
+            return createTickerHelper(type, FIBlockEntityTypes.POTPOURRI.get(), PotpourriBlockEntity::clientTick);
         }
         return createTickerHelper(type, FIBlockEntityTypes.POTPOURRI.get(), PotpourriBlockEntity::serverTick);
     }

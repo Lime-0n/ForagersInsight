@@ -4,6 +4,8 @@ import com.doltandtio.foragersinsight.core.registry.FIBlockEntityTypes;
 import com.doltandtio.foragersinsight.core.registry.FIItems;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -35,28 +37,24 @@ import java.util.stream.Collectors;
 public class PotpourriBlockEntity extends BlockEntity implements Clearable {
     private static final int SLOT_COUNT = 3;
     private static final int EFFECT_INTERVAL = 40;
+    private static final int MAX_BLEND_DURATION_TICKS = 20 * 60 * 20;
 
-    private static final Map<List<ResourceLocation>, PotpourriInfusion> INFUSIONS = Util.make(new HashMap<>(), map -> {
-        map.put(keyOf(FIItems.ROSE_PETALS), new PotpourriInfusion(MobEffects.REGENERATION, 200, 0, 5.0D));
-        map.put(keyOf(FIItems.ROSELLE_PETALS), new PotpourriInfusion(MobEffects.DAMAGE_RESISTANCE, 200, 0, 5.0D));
-        map.put(keyOf(FIItems.SPRUCE_TIPS), new PotpourriInfusion(MobEffects.MOVEMENT_SPEED, 200, 0, 5.0D));
-        map.put(keyOf(() -> Items.GLOW_BERRIES), new PotpourriInfusion(MobEffects.NIGHT_VISION, 200, 0, 6.0D));
+    private static final Map<List<ResourceLocation>, ScentBlend> SCENT_BLENDS = Util.make(new HashMap<>(), map -> {
+        map.put(keyOf(FIItems.ROSE_PETALS, FIItems.ROSE_PETALS, FIItems.ROSE_PETALS),
+                new ScentBlend(MobEffects.REGENERATION, 200, 0, 5.0D));
 
-        map.put(keyOf(FIItems.ROSE_PETALS, FIItems.ROSELLE_PETALS), new PotpourriInfusion(MobEffects.HEALTH_BOOST, 400, 0, 7.0D));
-        map.put(keyOf(FIItems.ROSE_PETALS, FIItems.SPRUCE_TIPS), new PotpourriInfusion(MobEffects.LUCK, 400, 0, 7.0D));
-        map.put(keyOf(FIItems.ROSELLE_PETALS, FIItems.SPRUCE_TIPS), new PotpourriInfusion(MobEffects.DAMAGE_BOOST, 200, 1, 7.0D));
-        map.put(keyOf(FIItems.ROSE_PETALS, () -> Items.GLOW_BERRIES), new PotpourriInfusion(MobEffects.GLOWING, 200, 0, 6.0D));
-        map.put(keyOf(FIItems.SPRUCE_TIPS, () -> Items.GLOW_BERRIES), new PotpourriInfusion(MobEffects.MOVEMENT_SPEED, 200, 1, 7.0D));
+        map.put(keyOf(FIItems.SPRUCE_TIPS, FIItems.SPRUCE_TIPS, FIItems.SPRUCE_TIPS),
+                new ScentBlend(MobEffects.DAMAGE_RESISTANCE, 200, 0, 5.0D));
 
-        map.put(keyOf(FIItems.ROSE_PETALS, FIItems.ROSELLE_PETALS, FIItems.SPRUCE_TIPS),
-                new PotpourriInfusion(MobEffects.REGENERATION, 200, 1, 10.0D));
     });
 
-    private final net.minecraft.core.NonNullList<ItemStack> items = net.minecraft.core.NonNullList.withSize(SLOT_COUNT, ItemStack.EMPTY);
+    private final NonNullList<ItemStack> items = NonNullList.withSize(SLOT_COUNT, ItemStack.EMPTY);
+    @SuppressWarnings("unused")
     private final List<ItemStack> displayView = java.util.Collections.unmodifiableList(items);
 
     @Nullable
-    private PotpourriInfusion cachedEffect;
+    private ScentBlend cachedBlend;
+    private int remainingBlendTicks;
     private int tickCounter;
 
     public PotpourriBlockEntity(BlockPos pos, BlockState state) {
@@ -88,17 +86,13 @@ public class PotpourriBlockEntity extends BlockEntity implements Clearable {
         return ItemStack.EMPTY;
     }
 
-    public net.minecraft.core.NonNullList<ItemStack> getItemsForDrop() {
-        net.minecraft.core.NonNullList<ItemStack> drops = net.minecraft.core.NonNullList.withSize(items.size(), ItemStack.EMPTY);
-        for (int i = 0; i < items.size(); i++) {
-            ItemStack stack = items.get(i);
-            drops.set(i, stack.isEmpty() ? ItemStack.EMPTY : stack.copy());
+    public boolean isFull() {
+        for (ItemStack stack : items) {
+            if (stack.isEmpty()) {
+                return false;
+            }
         }
-        return drops;
-    }
-
-    public List<ItemStack> getDisplayedItems() {
-        return displayView;
+        return true;
     }
 
     public boolean isEmpty() {
@@ -110,18 +104,8 @@ public class PotpourriBlockEntity extends BlockEntity implements Clearable {
         return true;
     }
 
-    public boolean isFull() {
-        for (ItemStack stack : items) {
-            if (stack.isEmpty()) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     @Override
     public void clearContent() {
-        // Replace loop with replaceAll (same effect, cleaner)
         Collections.fill(items, ItemStack.EMPTY);
         onContentsChanged();
     }
@@ -130,19 +114,22 @@ public class PotpourriBlockEntity extends BlockEntity implements Clearable {
     public void load(@NotNull CompoundTag tag) {
         super.load(tag);
         ContainerHelper.loadAllItems(tag, items);
-        refreshEffect();
+        remainingBlendTicks = tag.getInt("BlendTime");
+        refreshBlend(false);
     }
 
     @Override
     protected void saveAdditional(@NotNull CompoundTag tag) {
         super.saveAdditional(tag);
         ContainerHelper.saveAllItems(tag, items);
+        tag.putInt("BlendTime", remainingBlendTicks);
     }
 
     @Override
     public @NotNull CompoundTag getUpdateTag() {
         CompoundTag tag = super.getUpdateTag();
         ContainerHelper.saveAllItems(tag, items);
+        tag.putInt("BlendTime", remainingBlendTicks);
         return tag;
     }
 
@@ -158,17 +145,37 @@ public class PotpourriBlockEntity extends BlockEntity implements Clearable {
     }
 
     private void onContentsChanged() {
-        refreshEffect();
+        refreshBlend();
         setChanged();
         if (level != null && !level.isClientSide) {
             level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
         }
     }
 
-    private void refreshEffect() {
+    private void refreshBlend() {
+        refreshBlend(true);
+    }
+
+    private void refreshBlend(boolean resetToFullDuration) {
         List<ResourceLocation> cachedKey = createKeyFromInventory();
-        cachedEffect = INFUSIONS.get(cachedKey);
-        tickCounter = cachedEffect == null ? 0 : EFFECT_INTERVAL - 1;
+        if (cachedKey.size() != SLOT_COUNT) {
+            cachedBlend = null;
+            tickCounter = 0;
+            remainingBlendTicks = 0;
+            return;
+        }
+
+        cachedBlend = SCENT_BLENDS.get(cachedKey);
+        if (cachedBlend == null) {
+            tickCounter = 0;
+            remainingBlendTicks = 0;
+            return;
+        }
+
+        tickCounter = EFFECT_INTERVAL - 1;
+        if (resetToFullDuration || remainingBlendTicks <= 0 || remainingBlendTicks > MAX_BLEND_DURATION_TICKS) {
+            remainingBlendTicks = MAX_BLEND_DURATION_TICKS;
+        }
     }
 
     private List<ResourceLocation> createKeyFromInventory() {
@@ -196,15 +203,24 @@ public class PotpourriBlockEntity extends BlockEntity implements Clearable {
         return List.copyOf(key);
     }
 
-    @SuppressWarnings("unused")
     public static void serverTick(Level level, BlockPos pos, BlockState state, PotpourriBlockEntity blockEntity) {
         if (level.isClientSide) {
             return;
         }
-        PotpourriInfusion infusion = blockEntity.cachedEffect;
-        if (infusion == null) {
+        ScentBlend blend = blockEntity.cachedBlend;
+        if (blend == null) {
             blockEntity.tickCounter = 0;
             return;
+        }
+
+        if (blockEntity.remainingBlendTicks <= 0) {
+            blockEntity.clearContent();
+            return;
+        }
+
+        blockEntity.remainingBlendTicks--;
+        if (blockEntity.remainingBlendTicks % 20 == 0) {
+            blockEntity.setChanged();
         }
 
         blockEntity.tickCounter++;
@@ -217,12 +233,41 @@ public class PotpourriBlockEntity extends BlockEntity implements Clearable {
             return;
         }
 
-        // FIX: use BlockPos overload directly, then inflate
-        AABB area = new AABB(pos).inflate(infusion.radius());
+        AABB area = new AABB(pos).inflate(blend.radius());
         for (Player player : serverLevel.getEntitiesOfClass(Player.class, area, Player::isAlive)) {
-            player.addEffect(new MobEffectInstance(infusion.effect(), infusion.duration(), infusion.amplifier(), true, true));
+            player.addEffect(new MobEffectInstance(blend.effect(), blend.duration(), blend.amplifier(), true, true));
         }
     }
 
-    private record PotpourriInfusion(MobEffect effect, int duration, int amplifier, double radius) {}
+    public static void clientTick(Level level, BlockPos pos, BlockState state, PotpourriBlockEntity blockEntity) {
+        if (blockEntity.isEmpty()) {
+            return;
+        }
+
+        if (level.random.nextInt(4) != 0) {
+            return;
+        }
+
+        double centerX = pos.getX() + 0.5D;
+        double centerY = pos.getY() + 0.6D;
+        double centerZ = pos.getZ() + 0.5D;
+        double offsetX = (level.random.nextDouble() - 0.5D) * 0.3D;
+        double offsetZ = (level.random.nextDouble() - 0.5D) * 0.3D;
+        double verticalSpeed = 0.02D + level.random.nextDouble() * 0.02D;
+
+        level.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE,
+                centerX + offsetX,
+                centerY,
+                centerZ + offsetZ,
+                0.0D,
+                verticalSpeed,
+                0.0D);
+    }
+
+    private record ScentBlend(MobEffect effect, int duration, int amplifier, double radius) {}
+
+    @SuppressWarnings("unused")
+    public List<ItemStack> getDisplayView() {
+        return java.util.Collections.unmodifiableList(items);
+    }
 }
