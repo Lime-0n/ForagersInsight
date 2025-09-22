@@ -53,6 +53,7 @@ public class FIBlocks {
         //Syrup Tap
     public static final RegistryObject<Block> TAPPER = HELPER.createBlockNoItem("tapper", () ->
             new TapperBlock(copy(Blocks.IRON_BLOCK).noOcclusion()));
+
     //DECORATIVE
         //Foliage Mats
     public static final RegistryObject<Block> SCATTERED_ROSE_PETAL_MAT = HELPER.createBlock("scattered_rose_petals", FoliageMatBlock::new);
@@ -63,6 +64,8 @@ public class FIBlocks {
     public static final RegistryObject<Block> DENSE_SPRUCE_TIP_MAT = HELPER.createBlock("dense_spruce_tips", FoliageMatBlock::new);
     public static final RegistryObject<Block> DENSE_ROSELLE_PETAL_MAT = HELPER.createBlock("dense_roselle_petals", FoliageMatBlock::new);
     public static final RegistryObject<Block> DENSE_ROSE_PETAL_MAT = HELPER.createBlock("dense_rose_petals", FoliageMatBlock::new);
+        //Potpourri
+    public static final RegistryObject<Block> POTPOURRI = HELPER.createBlock("potpourri", PotpourriBlock::new);
         //Wildflowers
     public static final RegistryObject<Block> ROSELLE_BUSH = HELPER.createBlockNoItem("roselle_bush", () ->
           new TallFlowerBlock(copy(Blocks.LILAC)));

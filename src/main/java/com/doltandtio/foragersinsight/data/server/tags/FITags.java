@@ -30,6 +30,8 @@ public class FITags {
         public static final TagKey<net.minecraft.world.item.Item> MUSHROOM = TagUtil.itemTag("forge", "crops/mushroom");
         //Handbasket
         public static final TagKey<Item> HANDBASKET_ALLOWED = TagKey.create(Registries.ITEM, new ResourceLocation("foragersinsight","handbasket_allowed"));
+        //Potpourri
+        public static final TagKey<Item> AROMATICS = TagKey.create(Registries.ITEM, new ResourceLocation(ForagersInsight.MOD_ID, "aromatics"));
 
         public static final TagKey<Item> STORAGE_BLOCK_ROSE_HIP = storageTag("rose_hip");
         public static final TagKey<Item> STORAGE_BLOCK_SPRUCE_TIPS = storageTag("spruce_tips");

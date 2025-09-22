@@ -55,6 +55,10 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.matBlock(DENSE_ROSE_PETAL_MAT, "dense_rose_petals");
         this.matBlock(DENSE_ROSELLE_PETAL_MAT, "dense_roselle_petals");
 
+        //Potpourri
+        this.simpleBlock(POTPOURRI.get(), models().getExistingFile(modLoc("block/potpourri")));
+        this.blockItem(POTPOURRI.get());
+
 
     }
     private void age5Crop(RegistryObject<Block> crop, RegistryObject<Item> seeds) {

@@ -106,7 +106,6 @@ public class FILoot extends LootTableProvider {
                                     .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2)))
                                     .when(HAS_KNIFE)))));
             //Dandelion
-            //Dandelion
             this.createFlowerBushDrops(DANDELION_BUSH, DANDELION_ROOT, Items.YELLOW_DYE);
             //Poppy
             this.createFlowerBushDrops(POPPY_BUSH, POPPY_SEEDS, Items.RED_DYE);
@@ -147,6 +146,7 @@ public class FILoot extends LootTableProvider {
             this.dropSelf(DENSE_SPRUCE_TIP_MAT.get());
             this.dropSelf(DENSE_ROSE_PETAL_MAT.get());
             this.dropSelf(DENSE_ROSELLE_PETAL_MAT.get());
+            this.dropSelf(FIBlocks.POTPOURRI.get());
                 //Saplings and Tree Stuff
             this.dropSelf(BOUNTIFUL_OAK_SAPLING.get());
             this.dropSelf(BOUNTIFUL_DARK_OAK_SAPLING.get());
