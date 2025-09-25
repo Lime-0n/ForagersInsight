@@ -20,7 +20,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -49,8 +48,6 @@ public class PotpourriBlockEntity extends BlockEntity implements Clearable {
     });
 
     private final NonNullList<ItemStack> items = NonNullList.withSize(SLOT_COUNT, ItemStack.EMPTY);
-    @SuppressWarnings("unused")
-    private final List<ItemStack> displayView = java.util.Collections.unmodifiableList(items);
 
     @Nullable
     private ScentBlend cachedBlend;

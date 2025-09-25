@@ -1,13 +1,10 @@
 package com.doltandtio.foragersinsight.client;
 
 import com.doltandtio.foragersinsight.core.ForagersInsight;
-import com.doltandtio.foragersinsight.client.renderer.PotpourriBlockRenderer;
-import com.doltandtio.foragersinsight.core.registry.FIBlockEntityTypes;
 import com.doltandtio.foragersinsight.core.registry.FIMenuTypes;
 import com.doltandtio.foragersinsight.core.registry.FIItems;
 import com.doltandtio.foragersinsight.client.gui.HandbasketScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -30,10 +27,6 @@ public class ClientSetup {
             MenuScreens.register(
                     FIMenuTypes.HANDBASKET_MENU.get(),
                     HandbasketScreen::new
-            );
-            BlockEntityRenderers.register(
-                    FIBlockEntityTypes.POTPOURRI.get(),
-                    PotpourriBlockRenderer::new
             );
             // "full" handbasket property
             ItemProperties.register(
