@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "contents=empty": { "model": "foragersinsight:block/potpourri_empty" },
+    "contents=rosey": { "model": "foragersinsight:block/potpourri_fill_rose" },
+    "contents=coniferous": { "model": "foragersinsight:block/potpourri_fill_spruce" }
+  }
+}

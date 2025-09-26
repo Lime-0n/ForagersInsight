@@ -1,6 +1,7 @@
 package com.doltandtio.foragersinsight.data.client;
 
 import com.doltandtio.foragersinsight.common.block.BountifulLeavesBlock;
+import com.doltandtio.foragersinsight.common.block.PotpourriBlock;
 import com.doltandtio.foragersinsight.common.block.RoseCropBlock;
 import com.doltandtio.foragersinsight.common.block.SpruceTipBlock;
 import com.doltandtio.foragersinsight.core.ForagersInsight;
@@ -56,9 +57,20 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.matBlock(DENSE_ROSELLE_PETAL_MAT, "dense_roselle_petals");
 
         //Potpourri
-        this.simpleBlock(POTPOURRI.get(), models().getExistingFile(modLoc("block/potpourri")));
+        VariantBlockStateBuilder potpourriBuilder = this.getVariantBuilder(POTPOURRI.get());
+        potpourriBuilder.partialState()
+                .with(PotpourriBlock.CONTENTS, PotpourriBlock.PotpourriContents.EMPTY)
+                .modelForState()
+                .modelFile(models().getExistingFile(modLoc("block/potpourri_empty")));
+        potpourriBuilder.partialState()
+                .with(PotpourriBlock.CONTENTS, PotpourriBlock.PotpourriContents.ROSEY)
+                .modelForState()
+                .modelFile(models().getExistingFile(modLoc("block/potpourri_fill_rose")));
+        potpourriBuilder.partialState()
+                .with(PotpourriBlock.CONTENTS, PotpourriBlock.PotpourriContents.CONIFEROUS)
+                .modelForState()
+                .modelFile(models().getExistingFile(modLoc("block/potpourri_fill_spruce")));
         this.blockItem(POTPOURRI.get());
-
 
     }
     private void age5Crop(RegistryObject<Block> crop, RegistryObject<Item> seeds) {

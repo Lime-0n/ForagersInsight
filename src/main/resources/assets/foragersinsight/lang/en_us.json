@@ -61,6 +61,8 @@
   "item.foragersinsight.rose_petals": "Rose Petals",
   "item.foragersinsight.roselle_petals": "Roselle Petals",
 
+  "item.foragersinsight.potpourri": "Potpourri Bowl",
+
   "item.foragersinsight.slice_of_acorn_carrot_cake": "Slice of Acorn Carrot Cake",
   "item.foragersinsight.acorn_carrot_cake_item": "Acorn Carrot Cake",
   "block.foragersinsight.acorn_carrot_cake": "Acorn Carrot Cake",
@@ -98,6 +100,7 @@
   "block.foragersinsight.rose_hip_sack": "Sack of Rose Hips",
   "block.foragersinsight.roselle_calyx_sack": "Sack of Roselle Calyces",
   "block.foragersinsight.spruce_tips_sack": "Sack of Spruce Tips",
+  "block.foragersinsight.potpourri": "Potpourri Bowl",
 
   "block.foragersinsight.dense_rose_petals": "Dense Rose Petals",
   "block.foragersinsight.dense_roselle_petals": "Dense Roselle Petals",
@@ -117,6 +120,8 @@
   "effect.foragersinsight.bloom": "Bloom",
   "effect.foragersinsight.chilled": "Chilled",
   "effect.foragersinsight.medicinal": "Medicinal",
+  "blend.foragersinsight.rosey": "Rosey",
+  "blend.foragersinsight.coniferous": "Coniferous",
 
   "effect.foragersinsight.bloom.desc": "Gain 20% more experience and pay 20% less experience for actions.",
   "effect.foragersinsight.chilled.desc": "Freeze the duration of beneficial effects.",
