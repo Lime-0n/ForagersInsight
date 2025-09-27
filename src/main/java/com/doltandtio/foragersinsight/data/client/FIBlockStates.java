@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
+import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.VariantBlockStateBuilder;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.registries.RegistryObject;
@@ -57,19 +58,23 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.matBlock(DENSE_ROSELLE_PETAL_MAT, "dense_roselle_petals");
 
         //Potpourri
+        ModelFile potpourriEmpty = new ModelFile.UncheckedModelFile(modLoc("block/potpourri_empty"));
+        ModelFile potpourriRose = new ModelFile.UncheckedModelFile(modLoc("block/potpourri_rose"));
+        ModelFile potpourriSpruce = new ModelFile.UncheckedModelFile(modLoc("block/potpourri_spruce"));
+
         VariantBlockStateBuilder potpourriBuilder = this.getVariantBuilder(POTPOURRI.get());
         potpourriBuilder.partialState()
                 .with(PotpourriBlock.CONTENTS, PotpourriBlock.PotpourriContents.EMPTY)
                 .modelForState()
-                .modelFile(models().getExistingFile(modLoc("block/potpourri_empty")));
+                .modelFile(potpourriEmpty);
         potpourriBuilder.partialState()
                 .with(PotpourriBlock.CONTENTS, PotpourriBlock.PotpourriContents.ROSEY)
                 .modelForState()
-                .modelFile(models().getExistingFile(modLoc("block/potpourri_rose")));
+                .modelFile(potpourriRose);
         potpourriBuilder.partialState()
                 .with(PotpourriBlock.CONTENTS, PotpourriBlock.PotpourriContents.CONIFEROUS)
                 .modelForState()
-                .modelFile(models().getExistingFile(modLoc("block/potpourri_spruce")));
+                .modelFile(potpourriSpruce);
         this.blockItem(POTPOURRI.get());
 
     }

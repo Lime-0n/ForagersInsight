@@ -39,6 +39,7 @@ public class ForagersInsight {
 
 		REGISTRY_HELPER.register(bus);
 		FIEnchantments.register();
+		FIBlockEntityTypes.register(bus);
 		FIFoliagePlacerType.FOLIAGE_PLACER_TYPE.register(bus);
 		FILootModifiers.LOOT_MODIFIERS.register(bus);
 		FIMenuTypes.MENUS.register(bus);

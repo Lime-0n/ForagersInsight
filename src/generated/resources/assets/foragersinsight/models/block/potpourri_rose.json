@@ -1,8 +1,8 @@
 {
 	"textures": {
-		"1": "potpourri_rose",
-		"3": "potpourri_empty",
-		"particle": "potpourri_rose"
+		"1": "foragersinsight:block/potpourri_rose",
+		"3": "foragersinsight:block/potpourri_empty",
+		"particle": "foragersinsight:block/potpourri_rose"
 	},
 	"elements": [
 		{

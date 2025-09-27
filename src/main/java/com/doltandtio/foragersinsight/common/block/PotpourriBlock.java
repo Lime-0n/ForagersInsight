@@ -18,6 +18,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -29,6 +30,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import vectorwing.farmersdelight.common.utility.TextUtils;
 
 public class PotpourriBlock extends BaseEntityBlock {
     public static final EnumProperty<PotpourriContents> CONTENTS = EnumProperty.create("contents", PotpourriContents.class);
@@ -51,6 +53,11 @@ public class PotpourriBlock extends BaseEntityBlock {
     }
 
     @Override
+    public @NotNull RenderShape getRenderShape(@NotNull BlockState state) {
+        return RenderShape.MODEL;
+    }
+
+    @Override
     public @NotNull InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos,
                                           @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
         BlockEntity be = level.getBlockEntity(pos);
@@ -59,12 +66,18 @@ public class PotpourriBlock extends BaseEntityBlock {
         }
 
         if (potpourri.isBlendActive()) {
-            return InteractionResult.PASS;
+            if (!level.isClientSide) {
+                potpourri.getActiveBlendName().ifPresent(name ->
+                        player.displayClientMessage(
+                                TextUtils.getTranslation("interaction.potpourri.active", name),
+                                true));
+            }
+
+        return InteractionResult.sidedSuccess(level.isClientSide);
         }
 
         ItemStack held = player.getItemInHand(hand);
 
-        // Insert aromatic
         if (!held.isEmpty() && held.is(FITags.ItemTag.AROMATICS)) {
             if (level.isClientSide) {
                 return potpourri.isFull() ? InteractionResult.PASS : InteractionResult.SUCCESS;
