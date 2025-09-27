@@ -18,6 +18,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Clearable;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -333,15 +334,16 @@ public class PotpourriBlockEntity extends BlockEntity implements Clearable {
 
     public Container getItemsForDrop() {
         if (isBlendActive()) {
-            return (Container) Collections.emptyList();
+            return new SimpleContainer(0);
         }
-        List<ItemStack> drops = new ArrayList<>();
-        for (ItemStack stack : items) {
+        SimpleContainer container = new SimpleContainer(SLOT_COUNT);
+        for (int i = 0; i < SLOT_COUNT; i++) {
+            ItemStack stack = items.get(i);
             if (!stack.isEmpty()) {
-                drops.add(stack.copy());
+                container.setItem(i, stack.copy());
             }
         }
-        return (Container) drops;
+        return container;
     }
 
     public Optional<Component> getActiveBlendName() {

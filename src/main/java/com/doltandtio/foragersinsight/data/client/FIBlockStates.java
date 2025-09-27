@@ -75,7 +75,7 @@ public class FIBlockStates extends FIBlockStatesHelper {
                 .with(PotpourriBlock.CONTENTS, PotpourriBlock.PotpourriContents.CONIFEROUS)
                 .modelForState()
                 .modelFile(potpourriSpruce);
-        this.blockItem(POTPOURRI.get());
+        this.itemModels().withExistingParent(name(POTPOURRI.get()), modLoc("block/potpourri_empty"));
 
     }
     private void age5Crop(RegistryObject<Block> crop, RegistryObject<Item> seeds) {
