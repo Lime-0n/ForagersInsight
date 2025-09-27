@@ -354,14 +354,6 @@ public class PotpourriBlockEntity extends BlockEntity implements Clearable {
         }
     }
 
-    @SuppressWarnings("unused")
-    public List<ItemStack> getDisplayView() {
-        if (isBlendActive()) {
-            return Collections.emptyList();
-        }
-        return Collections.unmodifiableList(items);
-    }
-
     private void updateAppearance() {
         if (level == null || level.isClientSide) {
             return;

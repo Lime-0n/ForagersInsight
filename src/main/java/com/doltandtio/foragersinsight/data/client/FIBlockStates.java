@@ -65,11 +65,11 @@ public class FIBlockStates extends FIBlockStatesHelper {
         potpourriBuilder.partialState()
                 .with(PotpourriBlock.CONTENTS, PotpourriBlock.PotpourriContents.ROSEY)
                 .modelForState()
-                .modelFile(models().getExistingFile(modLoc("block/potpourri_fill_rose")));
+                .modelFile(models().getExistingFile(modLoc("block/potpourri_rose")));
         potpourriBuilder.partialState()
                 .with(PotpourriBlock.CONTENTS, PotpourriBlock.PotpourriContents.CONIFEROUS)
                 .modelForState()
-                .modelFile(models().getExistingFile(modLoc("block/potpourri_fill_spruce")));
+                .modelFile(models().getExistingFile(modLoc("block/potpourri_spruce")));
         this.blockItem(POTPOURRI.get());
 
     }
