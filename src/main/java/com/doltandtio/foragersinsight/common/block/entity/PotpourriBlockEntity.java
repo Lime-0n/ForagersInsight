@@ -52,6 +52,7 @@ public class PotpourriBlockEntity extends BlockEntity implements Clearable {
 
     private static final Map<List<ResourceLocation>, ScentBlend> SCENT_BLENDS = new HashMap<>();
     private static final Map<ResourceLocation, ScentBlend> SCENT_BLENDS_BY_ID = new HashMap<>();
+    private static final Map<Item, PotpourriBlock.PotpourriContents> AROMATIC_CONTENTS = new HashMap<>();
 
     static {
         registerBlend("rosey", MobEffects.REGENERATION,
@@ -261,12 +262,23 @@ public class PotpourriBlockEntity extends BlockEntity implements Clearable {
         List<ResourceLocation> key = keyOf(ingredients);
         SCENT_BLENDS.put(key, blend);
         SCENT_BLENDS_BY_ID.put(id, blend);
+
+        PotpourriBlock.PotpourriContents contents = PotpourriBlock.PotpourriContents.fromBlend(id);
+        if (contents != PotpourriBlock.PotpourriContents.EMPTY) {
+            for (Supplier<? extends Item> supplier : ingredients) {
+                Item ingredient = supplier.get();
+                if (ingredient != null) {
+                    AROMATIC_CONTENTS.put(ingredient, contents);
+                }
+            }
+        }
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, PotpourriBlockEntity blockEntity) {
         if (level.isClientSide) {
             return;
         }
+        blockEntity.updateAppearance(state);
         if (!blockEntity.isBlendActive()) {
             blockEntity.tickCounter = 0;
             return;
@@ -311,6 +323,8 @@ public class PotpourriBlockEntity extends BlockEntity implements Clearable {
         if (level.random.nextInt(4) != 0) {
             return;
         }
+
+        blockEntity.updateAppearance(state);
 
         double centerX = pos.getX() + 0.5D;
         double centerY = pos.getY() + 0.6D;
@@ -357,16 +371,35 @@ public class PotpourriBlockEntity extends BlockEntity implements Clearable {
     }
 
     private void updateAppearance() {
+        updateAppearance(null);
+    }
+
+    public void updateAppearance(@Nullable BlockState providedState) {
         if (level == null || level.isClientSide) {
             return;
         }
-        BlockState state = level.getBlockState(worldPosition);
+        BlockState state = providedState != null ? providedState : level.getBlockState(worldPosition);
         if (!state.hasProperty(PotpourriBlock.CONTENTS)) {
             return;
         }
         PotpourriBlock.PotpourriContents desired = PotpourriBlock.PotpourriContents.fromBlend(activeBlend != null ? activeBlend.id() : null);
+        if (desired == PotpourriBlock.PotpourriContents.EMPTY) {
+            desired = determineContentsFromInventory();
+        }
         if (state.getValue(PotpourriBlock.CONTENTS) != desired) {
             level.setBlock(worldPosition, state.setValue(PotpourriBlock.CONTENTS, desired), Block.UPDATE_ALL);
         }
+    }
+
+    private PotpourriBlock.PotpourriContents determineContentsFromInventory() {
+        for (ItemStack stack : items) {
+            if (!stack.isEmpty()) {
+                PotpourriBlock.PotpourriContents contents = AROMATIC_CONTENTS.get(stack.getItem());
+                if (contents != null) {
+                    return contents;
+                }
+            }
+        }
+        return PotpourriBlock.PotpourriContents.EMPTY;
     }
 }

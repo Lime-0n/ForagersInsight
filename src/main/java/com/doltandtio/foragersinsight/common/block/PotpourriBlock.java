@@ -89,6 +89,7 @@ public class PotpourriBlock extends BaseEntityBlock {
                     held.shrink(1);
                 }
                 level.playSound(null, pos, SoundEvents.BREWING_STAND_BREW, SoundSource.BLOCKS, 0.6F, 1.0F);
+                potpourri.updateAppearance(state);
                 return InteractionResult.CONSUME;
             }
             return InteractionResult.PASS;
@@ -104,6 +105,7 @@ public class PotpourriBlock extends BaseEntityBlock {
                 if (!player.addItem(removed)) {
                     player.drop(removed, false);
                 }
+                potpourri.updateAppearance(state);
                 return InteractionResult.CONSUME;
             }
             return InteractionResult.PASS;

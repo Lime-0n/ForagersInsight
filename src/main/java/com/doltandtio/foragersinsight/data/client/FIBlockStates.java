@@ -61,22 +61,13 @@ public class FIBlockStates extends FIBlockStatesHelper {
         ModelFile potpourriEmpty = new ModelFile.UncheckedModelFile(modLoc("block/potpourri_empty"));
         ModelFile potpourriRose = new ModelFile.UncheckedModelFile(modLoc("block/potpourri_rose"));
         ModelFile potpourriSpruce = new ModelFile.UncheckedModelFile(modLoc("block/potpourri_spruce"));
-
         VariantBlockStateBuilder potpourriBuilder = this.getVariantBuilder(POTPOURRI.get());
-        potpourriBuilder.partialState()
-                .with(PotpourriBlock.CONTENTS, PotpourriBlock.PotpourriContents.EMPTY)
-                .modelForState()
-                .modelFile(potpourriEmpty);
-        potpourriBuilder.partialState()
-                .with(PotpourriBlock.CONTENTS, PotpourriBlock.PotpourriContents.ROSEY)
-                .modelForState()
-                .modelFile(potpourriRose);
-        potpourriBuilder.partialState()
-                .with(PotpourriBlock.CONTENTS, PotpourriBlock.PotpourriContents.CONIFEROUS)
-                .modelForState()
-                .modelFile(potpourriSpruce);
-        this.itemModels().withExistingParent(name(POTPOURRI.get()), modLoc("block/potpourri_empty"));
-
+        potpourriBuilder.partialState().with(PotpourriBlock.CONTENTS, PotpourriBlock.PotpourriContents.EMPTY)
+                .modelForState().modelFile(potpourriEmpty);
+        potpourriBuilder.partialState().with(PotpourriBlock.CONTENTS, PotpourriBlock.PotpourriContents.ROSEY)
+                .modelForState().modelFile(potpourriRose);
+        potpourriBuilder.partialState().with(PotpourriBlock.CONTENTS, PotpourriBlock.PotpourriContents.CONIFEROUS)
+                .modelForState().modelFile(potpourriSpruce);
     }
     private void age5Crop(RegistryObject<Block> crop, RegistryObject<Item> seeds) {
         CropBlock cropBlock = (CropBlock) crop.get();
