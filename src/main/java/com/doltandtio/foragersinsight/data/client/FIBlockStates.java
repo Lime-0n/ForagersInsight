@@ -63,11 +63,11 @@ public class FIBlockStates extends FIBlockStatesHelper {
         ModelFile potpourriSpruce = new ModelFile.UncheckedModelFile(modLoc("block/potpourri_spruce"));
         VariantBlockStateBuilder potpourriBuilder = this.getVariantBuilder(POTPOURRI.get());
         potpourriBuilder.partialState().with(PotpourriBlock.CONTENTS, PotpourriBlock.PotpourriContents.EMPTY)
-                .modelForState().modelFile(potpourriEmpty);
+                .modelForState().modelFile(potpourriEmpty).addModel();
         potpourriBuilder.partialState().with(PotpourriBlock.CONTENTS, PotpourriBlock.PotpourriContents.ROSEY)
-                .modelForState().modelFile(potpourriRose);
+                .modelForState().modelFile(potpourriRose).addModel();
         potpourriBuilder.partialState().with(PotpourriBlock.CONTENTS, PotpourriBlock.PotpourriContents.CONIFEROUS)
-                .modelForState().modelFile(potpourriSpruce);
+                .modelForState().modelFile(potpourriSpruce).addModel();
     }
     private void age5Crop(RegistryObject<Block> crop, RegistryObject<Item> seeds) {
         CropBlock cropBlock = (CropBlock) crop.get();
@@ -78,9 +78,9 @@ public class FIBlockStates extends FIBlockStatesHelper {
             builder.partialState().with(age, i)
                     .modelForState()
                     .modelFile(models().cross("%s_stage%d".formatted(name(cropBlock), i),
-                            concatRL(blockTexture(cropBlock), "_stage%d".formatted(i))).renderType("cutout"));
+                            concatRL(blockTexture(cropBlock), "_stage%d".formatted(i))).renderType("cutout"))
+                    .addModel();
         }
-
         this.itemModels().basicItem(seeds.get());
     }
     public void crossCutout(RegistryObject<? extends Block> cross) {

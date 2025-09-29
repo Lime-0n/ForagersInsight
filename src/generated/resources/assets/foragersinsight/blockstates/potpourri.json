@@ -1,7 +1,13 @@
 {
-"variants": {
-"contents=empty": { "model": "foragersinsight:block/potpourri_empty" },
-"contents=rosey": { "model": "foragersinsight:block/potpourri_rose" },
-"contents=coniferous": { "model": "foragersinsight:block/potpourri_spruce" }
-}
+  "variants": {
+    "contents=coniferous": {
+      "model": "foragersinsight:block/potpourri_spruce"
+    },
+    "contents=empty": {
+      "model": "foragersinsight:block/potpourri_empty"
+    },
+    "contents=rosey": {
+      "model": "foragersinsight:block/potpourri_rose"
+    }
+  }
 }

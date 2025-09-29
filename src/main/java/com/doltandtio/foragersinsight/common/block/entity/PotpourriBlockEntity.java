@@ -52,7 +52,6 @@ public class PotpourriBlockEntity extends BlockEntity implements Clearable {
 
     private static final Map<List<ResourceLocation>, ScentBlend> SCENT_BLENDS = new HashMap<>();
     private static final Map<ResourceLocation, ScentBlend> SCENT_BLENDS_BY_ID = new HashMap<>();
-    private static final Map<Item, PotpourriBlock.PotpourriContents> AROMATIC_CONTENTS = new HashMap<>();
 
     static {
         registerBlend("rosey", MobEffects.REGENERATION,
@@ -268,7 +267,6 @@ public class PotpourriBlockEntity extends BlockEntity implements Clearable {
             for (Supplier<? extends Item> supplier : ingredients) {
                 Item ingredient = supplier.get();
                 if (ingredient != null) {
-                    AROMATIC_CONTENTS.put(ingredient, contents);
                 }
             }
         }
@@ -382,24 +380,12 @@ public class PotpourriBlockEntity extends BlockEntity implements Clearable {
         if (!state.hasProperty(PotpourriBlock.CONTENTS)) {
             return;
         }
-        PotpourriBlock.PotpourriContents desired = PotpourriBlock.PotpourriContents.fromBlend(activeBlend != null ? activeBlend.id() : null);
-        if (desired == PotpourriBlock.PotpourriContents.EMPTY) {
-            desired = determineContentsFromInventory();
+        PotpourriBlock.PotpourriContents desired = PotpourriBlock.PotpourriContents.EMPTY;
+        if (activeBlend != null) {
+            desired = PotpourriBlock.PotpourriContents.fromBlend(activeBlend.id());
         }
         if (state.getValue(PotpourriBlock.CONTENTS) != desired) {
             level.setBlock(worldPosition, state.setValue(PotpourriBlock.CONTENTS, desired), Block.UPDATE_ALL);
         }
-    }
-
-    private PotpourriBlock.PotpourriContents determineContentsFromInventory() {
-        for (ItemStack stack : items) {
-            if (!stack.isEmpty()) {
-                PotpourriBlock.PotpourriContents contents = AROMATIC_CONTENTS.get(stack.getItem());
-                if (contents != null) {
-                    return contents;
-                }
-            }
-        }
-        return PotpourriBlock.PotpourriContents.EMPTY;
     }
 }
