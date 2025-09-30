@@ -120,8 +120,9 @@
   "effect.foragersinsight.bloom": "Bloom",
   "effect.foragersinsight.chilled": "Chilled",
   "effect.foragersinsight.medicinal": "Medicinal",
-  "blend.foragersinsight.rosey": "Rosey",
-  "blend.foragersinsight.coniferous": "Coniferous",
+  "scent.foragersinsight.rosey": "Rosey",
+  "scent.foragersinsight.coniferous": "Coniferous",
+  "scent.foragersinsight.floral": "Floral",
 
   "effect.foragersinsight.bloom.desc": "Gain 20% more experience and pay 20% less experience for actions.",
   "effect.foragersinsight.chilled.desc": "Freeze the duration of beneficial effects.",
@@ -136,6 +137,7 @@
   "farmersdelight.tool_interaction.shears.baby_chicken": "Baby chickens cannot be sheared.",
   "farmersdelight.tool_interaction.mallet.anvil_no_repairs": "This anvil is fully repaired.",
   "farmersdelight.interaction.potpourri.active": "The potpourri is releasing a %s scent.",
+  "reveal_scent.potpourri.active": "The potpourri is currently releasing a %s scent.",
 
   "itemGroup.foragersinsight": "Forager's Insight"
 }

@@ -61,6 +61,7 @@ public class FIBlockStates extends FIBlockStatesHelper {
         ModelFile potpourriEmpty = new ModelFile.UncheckedModelFile(modLoc("block/potpourri_empty"));
         ModelFile potpourriRose = new ModelFile.UncheckedModelFile(modLoc("block/potpourri_rose"));
         ModelFile potpourriSpruce = new ModelFile.UncheckedModelFile(modLoc("block/potpourri_spruce"));
+        ModelFile potpourriFloral = new ModelFile.UncheckedModelFile(modLoc("block/potpourri_floral"));
         VariantBlockStateBuilder potpourriBuilder = this.getVariantBuilder(POTPOURRI.get());
         potpourriBuilder.partialState().with(PotpourriBlock.CONTENTS, PotpourriBlock.PotpourriContents.EMPTY)
                 .modelForState().modelFile(potpourriEmpty).addModel();
@@ -68,6 +69,8 @@ public class FIBlockStates extends FIBlockStatesHelper {
                 .modelForState().modelFile(potpourriRose).addModel();
         potpourriBuilder.partialState().with(PotpourriBlock.CONTENTS, PotpourriBlock.PotpourriContents.CONIFEROUS)
                 .modelForState().modelFile(potpourriSpruce).addModel();
+        potpourriBuilder.partialState().with(PotpourriBlock.CONTENTS, PotpourriBlock.PotpourriContents.FLORAL)
+                .modelForState().modelFile(potpourriFloral).addModel();
     }
     private void age5Crop(RegistryObject<Block> crop, RegistryObject<Item> seeds) {
         CropBlock cropBlock = (CropBlock) crop.get();
