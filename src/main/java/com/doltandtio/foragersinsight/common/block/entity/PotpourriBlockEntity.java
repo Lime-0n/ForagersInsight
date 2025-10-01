@@ -46,7 +46,7 @@ import java.util.stream.Collectors;
 public class PotpourriBlockEntity extends BlockEntity implements Clearable {
     private static final int SLOT_COUNT = 3;
     private static final int EFFECT_INTERVAL = 40;
-    private static final int SCENT_DURATION_TICKS = 15 * 60 * 20;
+    private static final int SCENT_DURATION_TICKS = 18000;
 
     private static final List<ScentRecipe> RECIPES = List.of(
             new ScentRecipe(PotpourriScent.ROSEY,
@@ -234,19 +234,29 @@ public class PotpourriBlockEntity extends BlockEntity implements Clearable {
             level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
         }
     }
-
     private void updateState() {
         if (level == null || level.isClientSide) {
             return;
         }
-        BlockState state = level.getBlockState(worldPosition);
-        if (!state.hasProperty(PotpourriBlock.CONTENTS)) {
+
+        BlockState currentState = level.getBlockState(worldPosition);
+        if (!currentState.hasProperty(PotpourriBlock.CONTENTS)) {
             return;
         }
-        PotpourriBlock.PotpourriContents desired = activeScent != null ? activeScent.contents() : PotpourriBlock.PotpourriContents.EMPTY;
-        if (state.getValue(PotpourriBlock.CONTENTS) != desired) {
-            level.setBlock(worldPosition, state.setValue(PotpourriBlock.CONTENTS, desired), Block.UPDATE_ALL);
+
+        PotpourriBlock.PotpourriContents desired = activeScent != null
+                ? activeScent.contents()
+                : PotpourriBlock.PotpourriContents.EMPTY;
+
+        if (currentState.getValue(PotpourriBlock.CONTENTS) == desired) {
+            return;
         }
+
+        BlockState newState = currentState.setValue(PotpourriBlock.CONTENTS, desired);
+
+        level.setBlock(worldPosition, newState,
+                Block.UPDATE_CLIENTS | Block.UPDATE_NEIGHBORS | Block.UPDATE_KNOWN_SHAPE);
+        level.sendBlockUpdated(worldPosition, currentState, newState, Block.UPDATE_CLIENTS);
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, PotpourriBlockEntity blockEntity) {

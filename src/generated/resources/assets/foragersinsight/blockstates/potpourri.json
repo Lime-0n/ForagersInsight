@@ -1,10 +1,10 @@
 {
   "variants": {
-    "contents=empty": {
-      "model": "foragersinsight:block/potpourri_empty"
-    },
     "contents=coniferous": {
       "model": "foragersinsight:block/potpourri_spruce"
+    },
+    "contents=empty": {
+      "model": "foragersinsight:block/potpourri_empty"
     },
     "contents=floral": {
       "model": "foragersinsight:block/potpourri_floral"

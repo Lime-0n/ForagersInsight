@@ -30,12 +30,9 @@ public abstract class FIBlockStatesHelper extends BlueprintBlockStateProvider {
         return new ResourceLocation(loc.getNamespace(), loc.getPath() + str);
     }
 
-    public static ResourceLocation modTexture(String str, String string) {
-        return new ResourceLocation(str, "block/" + string);
-    }
-
     public static ResourceLocation itemTexture(Block item) {
         ResourceLocation loc = loc(item);
         return new ResourceLocation(loc.getNamespace(), "item/" + loc.getPath());
     }
+
 }

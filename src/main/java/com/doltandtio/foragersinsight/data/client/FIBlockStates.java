@@ -53,9 +53,11 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.matBlock(SCATTERED_ROSE_PETAL_MAT, "scattered_rose_petals");
         this.matBlock(SCATTERED_ROSELLE_PETAL_MAT, "scattered_roselle_petals");
         this.matBlock(SCATTERED_SPRUCE_TIP_MAT, "scattered_spruce_tips");
+        this.matBlock(SCATTERED_STRAW_MAT, "scattered_straw");
         this.matBlock(DENSE_SPRUCE_TIP_MAT, "dense_spruce_tips");
         this.matBlock(DENSE_ROSE_PETAL_MAT, "dense_rose_petals");
         this.matBlock(DENSE_ROSELLE_PETAL_MAT, "dense_roselle_petals");
+        this.matBlock(DENSE_STRAW_MAT, "dense_straw");
 
         //Potpourri
         ModelFile potpourriEmpty = new ModelFile.UncheckedModelFile(modLoc("block/potpourri_empty"));
@@ -71,6 +73,12 @@ public class FIBlockStates extends FIBlockStatesHelper {
                 .modelForState().modelFile(potpourriSpruce).addModel();
         potpourriBuilder.partialState().with(PotpourriBlock.CONTENTS, PotpourriBlock.PotpourriContents.FLORAL)
                 .modelForState().modelFile(potpourriFloral).addModel();
+
+        //Wildflowers
+        this.crossCutout(STOUT_BEACH_ROSE_BUSH);
+        this.crossCutout(ROSELLE_BUSH);
+        this.crossCutout(TALL_BEACH_ROSE_BUSH);
+
     }
     private void age5Crop(RegistryObject<Block> crop, RegistryObject<Item> seeds) {
         CropBlock cropBlock = (CropBlock) crop.get();
@@ -174,6 +182,7 @@ public class FIBlockStates extends FIBlockStatesHelper {
                         .renderType("cutout"));
         this.blockItem(block.get());
     }
+
 
     private void spruceTipBlock() {
         Block tip = ((RegistryObject<? extends Block>) com.doltandtio.foragersinsight.core.registry.FIBlocks.BOUNTIFUL_SPRUCE_TIPS).get();
