@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model": "foragersinsight:block/stout_beach_rose_bush" }
+    "": {
+      "model": "foragersinsight:block/stout_beach_rose_bush"
+    }
   }
 }

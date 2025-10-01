@@ -4,18 +4,17 @@ import com.doltandtio.foragersinsight.common.block.BountifulLeavesBlock;
 import com.doltandtio.foragersinsight.common.block.PotpourriBlock;
 import com.doltandtio.foragersinsight.common.block.RoseCropBlock;
 import com.doltandtio.foragersinsight.common.block.SpruceTipBlock;
+import com.doltandtio.foragersinsight.common.block.TapperBlock;
 import com.doltandtio.foragersinsight.core.ForagersInsight;
 import com.doltandtio.foragersinsight.core.registry.FIItems;
+import net.minecraft.core.Direction;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.client.model.generators.VariantBlockStateBuilder;
+import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.registries.RegistryObject;
-
 import static com.doltandtio.foragersinsight.core.registry.FIBlocks.*;
 
 public class FIBlockStates extends FIBlockStatesHelper {
@@ -43,9 +42,9 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.bountifulLeaves(BOUNTIFUL_OAK_LEAVES, Blocks.OAK_LEAVES);
         this.crossCutout(BOUNTIFUL_DARK_OAK_SAPLING);
         this.bountifulLeaves(BOUNTIFUL_DARK_OAK_LEAVES, Blocks.DARK_OAK_LEAVES);
+        this.bountifulLeaves(BOUNTIFUL_SPRUCE_LEAVES, Blocks.SPRUCE_LEAVES);
         this.spruceTipBlock();
-        this.axisBlock((RotatedPillarBlock) SAPPY_BIRCH_LOG.get(),
-                modTexture("sappy_birch_log"), mcLoc("block/birch_log_top"));
+        this.axisBlock((RotatedPillarBlock) SAPPY_BIRCH_LOG.get(), modTexture("sappy_birch_log"), mcLoc("block/birch_log_top"));
         this.blockItem(SAPPY_BIRCH_LOG.get());
         this.crossCutout(BOUNTIFUL_SPRUCE_SAPLING);
 
@@ -61,6 +60,7 @@ public class FIBlockStates extends FIBlockStatesHelper {
 
         //Potpourri
         this.potpourriBlock();
+        this.tapperBlock();
 
         //Wildflowers
         this.crossCutout(STOUT_BEACH_ROSE_BUSH);
@@ -102,9 +102,9 @@ public class FIBlockStates extends FIBlockStatesHelper {
                 .partialState().with(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER)
                 .modelForState().modelFile(upper).addModel();
 
-        this.generatedItem(block, "block");
-    }
-
+        this.itemModels().withExistingParent(name(block), mcLoc("item/generated"))
+                .texture("layer0", concatRL(this.blockTexture(block), "_lower"));
+}
 
     public void sackBlock(RegistryObject<? extends Block> block) {
         String name = name(block.get());
@@ -127,17 +127,32 @@ public class FIBlockStates extends FIBlockStatesHelper {
     }
 
     private void bountifulLeaves(RegistryObject<? extends Block> block, Block base) {
-        BountifulLeavesBlock leavesBlock = (BountifulLeavesBlock) block.get();
+        Block leaves = block.get();
 
-        this.getVariantBuilder(leavesBlock).forAllStatesExcept(state -> {
-            int age = leavesBlock.getAge(state);
+        if (leaves instanceof BountifulLeavesBlock bountifulLeaves) {
+            this.getVariantBuilder(bountifulLeaves).forAllStatesExcept(state -> {
+                int age = bountifulLeaves.getAge(state);
+                String stageName = "%s_stage%d".formatted(name(bountifulLeaves), age);
 
-             return ConfiguredModel.builder().modelFile(models().withExistingParent("%s_stage%d".formatted(name(leavesBlock), age), "foragersinsight:block/leaves_with_overlay")
-                     .texture("all", blockTexture(base)).texture("overlay", "%s_stage%d".formatted(blockTexture(leavesBlock), age))).build();
+                ModelFile stageModel = models()
+                        .withExistingParent(stageName, "foragersinsight:block/leaves_with_overlay")
+                        .texture("all", blockTexture(base))
+                        .texture("overlay", concatRL(blockTexture(bountifulLeaves), "_stage%d".formatted(age)));
 
-        }, LeavesBlock.DISTANCE, LeavesBlock.PERSISTENT, LeavesBlock.WATERLOGGED);
+                return ConfiguredModel.builder().modelFile(stageModel).build();
+            }, LeavesBlock.DISTANCE, LeavesBlock.PERSISTENT, LeavesBlock.WATERLOGGED);
 
-        this.itemModels().withExistingParent(name(leavesBlock), concatRL(blockTexture(leavesBlock), "_stage0"));
+            this.itemModels().withExistingParent(name(bountifulLeaves), concatRL(blockTexture(bountifulLeaves), "_stage0"));
+            return;
+        }
+
+        if (leaves instanceof LeavesBlock leavesBlock) {
+            this.simpleBlock(leavesBlock, models().cubeAll(name(leavesBlock), blockTexture(leavesBlock)).renderType("cutout_mipped"));
+            this.blockItem(leavesBlock);
+            return;
+        }
+
+        throw new IllegalArgumentException("Expected a leaves block for datagen but found: " + leaves);
     }
 
     public void RoseCrop(RegistryObject<? extends Block> crop) {
@@ -210,4 +225,97 @@ public class FIBlockStates extends FIBlockStatesHelper {
                                 concatRL(blockTexture(tip), "_stage%d".formatted(state.getValue(SpruceTipBlock.AGE))))
                         .renderType("cutout")).build());
     }
+
+
+    private void tapperBlock() {
+        Block tapper = TAPPER.get();
+
+        ModelFile[] fillModels = new ModelFile[] {
+                tapperModel(name(tapper), "bucket_top_stage0", "bucket_side", "knife_tap"),
+                tapperModel(name(tapper) + "_stage1", "bucket_top_stage1", "bucket_side", "sappy_knife_tap"),
+                tapperModel(name(tapper) + "_stage2", "bucket_top_stage2", "bucket_side", "sappy_knife_tap"),
+                tapperModel(name(tapper) + "_stage3", "bucket_top_stage3", "bucket_side", "sappy_knife_tap"),
+                tapperModel(name(tapper) + "_stage4", "bucket_top_stage4", "bucket_side_full", "sappy_knife_tap")
+        };
+
+        VariantBlockStateBuilder builder = this.getVariantBuilder(tapper);
+        for (int fill = 0; fill < fillModels.length; fill++) {
+            ModelFile model = fillModels[fill];
+            for (Direction direction : Direction.Plane.HORIZONTAL) {
+                builder.partialState()
+                        .with(TapperBlock.FILL, fill)
+                        .with(TapperBlock.FACING, direction)
+                        .modelForState()
+                        .modelFile(model)
+                        .rotationY((int) direction.toYRot())
+                        .addModel();
+            }
+        }
+    }
+
+    private ModelFile tapperModel(String name, String bucketTop, String bucketSide, String tapTexture) {
+        BlockModelBuilder builder = this.models().getBuilder(name)
+                .texture("particle", modTexture(bucketTop))
+                .texture("4", modTexture(bucketTop))
+                .texture("7", modTexture("bucket_bottom"))
+                .texture("8", modTexture(bucketSide))
+                .texture("12", modTexture(tapTexture));
+
+        builder.element().from(7.5f, 12f, 0f).to(8.5f, 15f, 6f)
+                .face(Direction.NORTH).uvs(8f, 5f, 9f, 8f).texture("#12").end()
+                .face(Direction.EAST).uvs(0f, 1f, 6f, 4f).texture("#12").end()
+                .face(Direction.SOUTH).uvs(5f, 5f, 4f, 8f).texture("#12").end()
+                .face(Direction.WEST).uvs(0f, 1f, 6f, 4f).texture("#12").end()
+                .face(Direction.UP).uvs(6f, 1f, 0f, 2f).rotation(ModelBuilder.FaceRotation.CLOCKWISE_90).texture("#12").end()
+                .face(Direction.DOWN).uvs(6f, 3f, 0f, 4f).rotation(ModelBuilder.FaceRotation.COUNTERCLOCKWISE_90).texture("#12").end()
+                .end();
+
+        builder.element().from(7.5f, 13f, 6f).to(8.5f, 15f, 11f)
+                .face(Direction.NORTH).uvs(10f, 1f, 9f, 3f).texture("#12").end()
+                .face(Direction.EAST).uvs(10f, 3f, 5f, 1f).texture("#12").end()
+                .face(Direction.SOUTH).uvs(9f, 1f, 10f, 3f).texture("#12").end()
+                .face(Direction.WEST).uvs(5f, 3f, 10f, 1f).texture("#12").end()
+                .face(Direction.UP).uvs(10f, 1f, 5f, 2f).rotation(ModelBuilder.FaceRotation.COUNTERCLOCKWISE_90).texture("#12").end()
+                .face(Direction.DOWN).uvs(10f, 1f, 5f, 2f).rotation(ModelBuilder.FaceRotation.CLOCKWISE_90).texture("#12").end()
+                .end();
+
+        builder.element().from(3.5f, 2f, 1f).to(12.5f, 11f, 10f)
+                .face(Direction.NORTH).uvs(0f, 2f, 9f, 11f).texture("#8").end()
+                .face(Direction.EAST).uvs(0f, 2f, 9f, 11f).texture("#8").end()
+                .face(Direction.SOUTH).uvs(0f, 2f, 9f, 11f).texture("#8").end()
+                .face(Direction.WEST).uvs(0f, 2f, 9f, 11f).texture("#8").end()
+                .face(Direction.UP).uvs(0f, 0f, 9f, 9f).rotation(ModelBuilder.FaceRotation.CLOCKWISE_90).texture("#4").end()
+                .face(Direction.DOWN).uvs(0f, 0f, 9f, 9f).rotation(ModelBuilder.FaceRotation.COUNTERCLOCKWISE_90).texture("#7").end()
+                .end();
+
+        builder.element().from(11.5f, 11f, 5f).to(11.5f, 15f, 6f)
+                .face(Direction.NORTH).uvs(10f, 6f, 11f, 1f).texture("#8").end()
+                .face(Direction.EAST).uvs(10f, 5f, 11f, 1f).texture("#8").end()
+                .face(Direction.SOUTH).uvs(10f, 6f, 11f, 1f).texture("#8").end()
+                .face(Direction.WEST).uvs(10f, 5f, 11f, 1f).texture("#8").end()
+                .face(Direction.UP).uvs(10f, 6f, 11f, 1f).rotation(ModelBuilder.FaceRotation.COUNTERCLOCKWISE_90).texture("#8").end()
+                .face(Direction.DOWN).uvs(10f, 5f, 11f, 1f).rotation(ModelBuilder.FaceRotation.CLOCKWISE_90).texture("#8").end()
+                .end();
+
+        builder.element().from(4.5f, 11f, 5f).to(4.5f, 15f, 6f)
+                .face(Direction.NORTH).uvs(10f, 6f, 11f, 1f).texture("#8").end()
+                .face(Direction.EAST).uvs(10f, 5f, 11f, 1f).texture("#8").end()
+                .face(Direction.SOUTH).uvs(10f, 6f, 11f, 1f).texture("#8").end()
+                .face(Direction.WEST).uvs(10f, 5f, 11f, 1f).texture("#8").end()
+                .face(Direction.UP).uvs(10f, 6f, 11f, 1f).rotation(ModelBuilder.FaceRotation.COUNTERCLOCKWISE_90).texture("#8").end()
+                .face(Direction.DOWN).uvs(10f, 5f, 11f, 1f).rotation(ModelBuilder.FaceRotation.CLOCKWISE_90).texture("#8").end()
+                .end();
+
+        builder.element().from(4.5f, 15f, 5f).to(11.5f, 15f, 6f)
+                .face(Direction.NORTH).uvs(10f, 1f, 11f, 10f).texture("#8").end()
+                .face(Direction.EAST).uvs(10f, 1f, 11f, 10f).texture("#8").end()
+                .face(Direction.SOUTH).uvs(10f, 1f, 11f, 10f).texture("#8").end()
+                .face(Direction.WEST).uvs(10f, 1f, 11f, 10f).texture("#8").end()
+                .face(Direction.UP).uvs(10f, 0f, 11f, 7f).rotation(ModelBuilder.FaceRotation.COUNTERCLOCKWISE_90).texture("#8").end()
+                .face(Direction.DOWN).uvs(10f, 0f, 11f, 7f).rotation(ModelBuilder.FaceRotation.CLOCKWISE_90).texture("#8").end()
+                .end();
+
+        return builder;
+    }
+
 }

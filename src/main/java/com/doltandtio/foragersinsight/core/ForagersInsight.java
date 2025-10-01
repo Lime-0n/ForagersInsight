@@ -6,6 +6,7 @@ import com.doltandtio.foragersinsight.core.other.FIDataUtil;
 import com.doltandtio.foragersinsight.core.registry.*;
 import com.doltandtio.foragersinsight.data.client.FIBlockStates;
 import com.doltandtio.foragersinsight.data.client.FIItemModels;
+import com.doltandtio.foragersinsight.data.client.FIParticles;
 import com.doltandtio.foragersinsight.data.server.FIAdvancements;
 import com.doltandtio.foragersinsight.data.server.FILoot;
 import com.doltandtio.foragersinsight.data.server.FIWorldgen;
@@ -83,5 +84,6 @@ public class ForagersInsight {
 		boolean client = event.includeClient();
 		gen.addProvider(client, new FIBlockStates(event));
 		gen.addProvider(client, new FIItemModels(event));
+		gen.addProvider(client, new FIParticles(event));
 	}
 }

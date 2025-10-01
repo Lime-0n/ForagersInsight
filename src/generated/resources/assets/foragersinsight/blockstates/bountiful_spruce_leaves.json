@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model": "foragersinsight:block/bountiful_spruce_leaves" }
+    "": {
+      "model": "foragersinsight:block/bountiful_spruce_leaves"
+    }
   }
 }

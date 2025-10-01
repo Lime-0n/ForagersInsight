@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_rose_petals": {
+    "has_straw": {
       "conditions": {
         "items": [
           {
             "items": [
-              "foragersinsight:rose_petals"
+              "farmersdelight:straw"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_rose_petals",
+      "has_straw",
       "has_the_recipe"
     ]
   ],

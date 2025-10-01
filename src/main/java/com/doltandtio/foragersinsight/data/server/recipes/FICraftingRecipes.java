@@ -249,11 +249,11 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .save(consumer);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, SCATTERED_STRAW_MAT.get())
                 .requires(ModItems.STRAW.get(), 4)
-                .unlockedBy("has_rose_petals", has(FIItems.ROSE_PETALS.get()))
+                .unlockedBy("has_straw", has(ModItems.STRAW.get()))
                 .save(consumer);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, DENSE_STRAW_MAT.get())
                 .requires(FIBlocks.SCATTERED_STRAW_MAT.get(), 2)
-                .unlockedBy("has_rose_petals", has(FIItems.ROSE_PETALS.get()))
+                .unlockedBy("has_scattered_straw", has(SCATTERED_STRAW_MAT.get()))
                 .save(consumer);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, DENSE_ROSE_PETAL_MAT.get())
                 .requires(FIBlocks.SCATTERED_ROSE_PETAL_MAT.get(), 2)
