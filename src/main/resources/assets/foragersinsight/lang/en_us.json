@@ -136,7 +136,7 @@
   "farmersdelight.tool_interaction.shears.chicken": "Please wait %s seconds to shear this chicken again.",
   "farmersdelight.tool_interaction.shears.baby_chicken": "Baby chickens cannot be sheared.",
   "farmersdelight.tool_interaction.mallet.anvil_no_repairs": "This anvil is fully repaired.",
-  "farmersdelight.reveal_scent.potpourri.active": "The potpourri is diffusing a %s aroma.",
+  "farmersdelight.reveal_scent.potpourri": "The potpourri is diffusing a %s aroma.",
 
   "itemGroup.foragersinsight": "Forager's Insight"
 }

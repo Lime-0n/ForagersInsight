@@ -60,24 +60,12 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.matBlock(DENSE_STRAW_MAT, "dense_straw");
 
         //Potpourri
-        ModelFile potpourriEmpty = new ModelFile.UncheckedModelFile(modLoc("block/potpourri_empty"));
-        ModelFile potpourriRose = new ModelFile.UncheckedModelFile(modLoc("block/potpourri_rose"));
-        ModelFile potpourriSpruce = new ModelFile.UncheckedModelFile(modLoc("block/potpourri_spruce"));
-        ModelFile potpourriFloral = new ModelFile.UncheckedModelFile(modLoc("block/potpourri_floral"));
-        VariantBlockStateBuilder potpourriBuilder = this.getVariantBuilder(POTPOURRI.get());
-        potpourriBuilder.partialState().with(PotpourriBlock.CONTENTS, PotpourriBlock.PotpourriContents.EMPTY)
-                .modelForState().modelFile(potpourriEmpty).addModel();
-        potpourriBuilder.partialState().with(PotpourriBlock.CONTENTS, PotpourriBlock.PotpourriContents.ROSEY)
-                .modelForState().modelFile(potpourriRose).addModel();
-        potpourriBuilder.partialState().with(PotpourriBlock.CONTENTS, PotpourriBlock.PotpourriContents.CONIFEROUS)
-                .modelForState().modelFile(potpourriSpruce).addModel();
-        potpourriBuilder.partialState().with(PotpourriBlock.CONTENTS, PotpourriBlock.PotpourriContents.FLORAL)
-                .modelForState().modelFile(potpourriFloral).addModel();
+        this.potpourriBlock();
 
         //Wildflowers
         this.crossCutout(STOUT_BEACH_ROSE_BUSH);
-        this.crossCutout(ROSELLE_BUSH);
-        this.crossCutout(TALL_BEACH_ROSE_BUSH);
+        this.doubleCrossCutout(ROSELLE_BUSH);
+        this.doubleCrossCutout(TALL_BEACH_ROSE_BUSH);
 
     }
     private void age5Crop(RegistryObject<Block> crop, RegistryObject<Item> seeds) {
@@ -99,6 +87,24 @@ public class FIBlockStates extends FIBlockStatesHelper {
                 .renderType("cutout"));
         this.generatedItem(cross.get(), "block");
     }
+    public void doubleCrossCutout(RegistryObject<? extends Block> plant) {
+        DoublePlantBlock block = (DoublePlantBlock) plant.get();
+        ModelFile lower = this.models().cross(name(block) + "_lower", concatRL(this.blockTexture(block), "_lower"))
+                .renderType("cutout");
+        ModelFile upper = this.models().cross(name(block) + "_upper", concatRL(this.blockTexture(block), "_upper"))
+                .renderType("cutout");
+
+        this.getVariantBuilder(block)
+                .partialState().with(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)
+                .modelForState().modelFile(lower).addModel();
+
+        this.getVariantBuilder(block)
+                .partialState().with(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER)
+                .modelForState().modelFile(upper).addModel();
+
+        this.generatedItem(block, "block");
+    }
+
 
     public void sackBlock(RegistryObject<? extends Block> block) {
         String name = name(block.get());
@@ -182,8 +188,21 @@ public class FIBlockStates extends FIBlockStatesHelper {
                         .renderType("cutout"));
         this.blockItem(block.get());
     }
-
-
+    private void potpourriBlock() {
+        Block potpourri = POTPOURRI.get();
+        VariantBlockStateBuilder builder = this.getVariantBuilder(potpourri);
+        builder.forAllStates(state -> {
+            PotpourriBlock.PotpourriContents contents = state.getValue(PotpourriBlock.CONTENTS);
+            ModelFile model = switch (contents) {
+                case EMPTY -> new ModelFile.UncheckedModelFile(modLoc("block/potpourri_empty"));
+                case ROSEY -> new ModelFile.UncheckedModelFile(modLoc("block/potpourri_rose"));
+                case CONIFEROUS -> new ModelFile.UncheckedModelFile(modLoc("block/potpourri_spruce"));
+                case FLORAL -> new ModelFile.UncheckedModelFile(modLoc("block/potpourri_floral"));
+            };
+            return ConfiguredModel.builder().modelFile(model).build();
+        });
+        this.blockItem(potpourri);
+    }
     private void spruceTipBlock() {
         Block tip = ((RegistryObject<? extends Block>) com.doltandtio.foragersinsight.core.registry.FIBlocks.BOUNTIFUL_SPRUCE_TIPS).get();
         this.getVariantBuilder(tip).forAllStates(state -> ConfiguredModel.builder()

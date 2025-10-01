@@ -86,7 +86,7 @@ public class PotpourriBlock extends BaseEntityBlock {
         if (potpourri.isScentActive()) {
             if (!level.isClientSide) {
                 potpourri.getActiveScentName().ifPresent(name -> player.displayClientMessage(
-                        TextUtils.getTranslation("reveal_scent.potpourri.active", name), true));
+                        TextUtils.getTranslation("reveal_scent.potpourri", name), true));
             }
             return InteractionResult.sidedSuccess(level.isClientSide);
         }
