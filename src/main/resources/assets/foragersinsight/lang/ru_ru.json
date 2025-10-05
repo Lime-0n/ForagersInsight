@@ -61,6 +61,8 @@
   "item.foragersinsight.rose_petals": "Лепестки роз",
   "item.foragersinsight.roselle_petals": "Лепестки розеллы",
 
+  "item.foragersinsight.potpourri": "Миска попурри"
+  
   "item.foragersinsight.slice_of_acorn_carrot_cake": "Кусок морковного торта с желудями",
   "item.foragersinsight.acorn_carrot_cake_item": "Морковный торт с желудями",
   "block.foragersinsight.acorn_carrot_cake": "Морковный торт с желудями",
@@ -80,6 +82,8 @@
   "item.foragersinsight.tapper": "Подсочник",
 
   "block.foragersinsight.roselle_bush": "Куст розеллы",
+  "block.foragersinsight.stout_beach_rose_bush": "Куст плотной береговой розы",
+  "block.foragersinsight.tall_beach_rose_bush": "Высокий куст береговой розы",
 
   "block.foragersinsight.bountiful_dark_oak_leaves": "Обильная листва тёмного дуба",
   "block.foragersinsight.bountiful_oak_leaves": "Обильная листва дуба",
@@ -96,6 +100,7 @@
   "block.foragersinsight.rose_hip_sack": "Мешок шиповника",
   "block.foragersinsight.roselle_calyx_sack": "Мешок чашечек розеллы",
   "block.foragersinsight.spruce_tips_sack": "Мешок еловых почек",
+  "block.foragersinsight.potpourri": "Миска попурри",
 
   "block.foragersinsight.dense_rose_petals": "Куча лепестков роз",
   "block.foragersinsight.dense_roselle_petals": "Куча лепестков розеллы",
@@ -115,6 +120,9 @@
   "effect.foragersinsight.bloom": "Расцвет",
   "effect.foragersinsight.chilled": "Охлаждённый",
   "effect.foragersinsight.medicinal": "Целебный",
+  "scent.foragersinsight.rosey": "Розовый аромат",
+  "scent.foragersinsight.coniferous": "Хвойный аромат",
+  "scent.foragersinsight.floral": "Цветочный аромат",
 
   "effect.foragersinsight.bloom.desc": "Ты получаешь на 20% и тратишь на 20% меньше опыта.",
   "effect.foragersinsight.chilled.desc": "Замораживает продолжительность полезных эффектов.",
@@ -128,6 +136,7 @@
   "farmersdelight.tool_interaction.shears.chicken": "Пожалуйста, подождите %s секунд, чтобы снова подстричь эту курицу.",
   "farmersdelight.tool_interaction.shears.baby_chicken": "Молодых куриц нельзя стричь.",
   "farmersdelight.tool_interaction.mallet.anvil_no_repairs": "Эта наковальня полностью отремонтирована.",
+   "farmersdelight.reveal_scent.potpourri": "The potpourri is diffusing a %s aroma.",
 
   "itemGroup.foragersinsight": "Forager's Insight"
 }
