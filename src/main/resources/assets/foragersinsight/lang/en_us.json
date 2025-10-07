@@ -100,7 +100,6 @@
   "block.foragersinsight.rose_hip_sack": "Sack of Rose Hips",
   "block.foragersinsight.roselle_calyx_sack": "Sack of Roselle Calyces",
   "block.foragersinsight.spruce_tips_sack": "Sack of Spruce Tips",
-  "block.foragersinsight.potpourri": "Potpourri Bowl",
 
   "block.foragersinsight.dense_rose_petals": "Dense Rose Petals",
   "block.foragersinsight.dense_roselle_petals": "Dense Roselle Petals",
@@ -136,7 +135,7 @@
   "farmersdelight.tool_interaction.shears.chicken": "Please wait %s seconds to shear this chicken again.",
   "farmersdelight.tool_interaction.shears.baby_chicken": "Baby chickens cannot be sheared.",
   "farmersdelight.tool_interaction.mallet.anvil_no_repairs": "This anvil is fully repaired.",
-  "farmersdelight.reveal_scent.potpourri": "The potpourri is diffusing a %s aroma.",
+
 
   "itemGroup.foragersinsight": "Forager's Insight"
 }
