@@ -3,6 +3,7 @@ package com.tiomadre.foragersinsight.client;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIMenuTypes;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
+import com.tiomadre.foragersinsight.client.gui.DiffuserScreen;
 import com.tiomadre.foragersinsight.client.gui.HandbasketScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.item.ItemProperties;

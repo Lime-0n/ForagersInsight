@@ -1,5 +1,6 @@
 package com.tiomadre.foragersinsight.core.registry;
 
+import com.tiomadre.foragersinsight.common.gui.DiffuserMenu;
 import com.tiomadre.foragersinsight.common.gui.HandbasketMenu;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import net.minecraft.world.inventory.MenuType;

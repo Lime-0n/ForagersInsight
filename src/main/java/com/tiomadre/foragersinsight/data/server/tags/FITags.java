@@ -28,6 +28,9 @@ public class FITags {
         public static final TagKey<net.minecraft.world.item.Item> COCOA = TagUtil.itemTag("forge", "crops/cocoa");
         public static final TagKey<net.minecraft.world.item.Item> ROOTS = TagUtil.itemTag("forge", "crops/root_vegetable");
         public static final TagKey<net.minecraft.world.item.Item> MUSHROOM = TagUtil.itemTag("forge", "crops/mushroom");
+        //Diffuser
+        public static final TagKey<Item> AROMATICS = TagKey.create(Registries.ITEM,
+                new ResourceLocation(ForagersInsight.MOD_ID, "aromatics"));
         //Handbasket
         public static final TagKey<Item> HANDBASKET_ALLOWED = TagKey.create(Registries.ITEM, new ResourceLocation("foragersinsight","handbasket_allowed"));
 

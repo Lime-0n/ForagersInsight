@@ -1,6 +1,6 @@
 package com.tiomadre.foragersinsight.common.gui;
 
-import com.tiomadre.foragersinsight.common.blockentity.DiffuserBlockEntity;
+import com.tiomadre.foragersinsight.common.block.entity.DiffuserBlockEntity;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIMenuTypes;
 import com.tiomadre.foragersinsight.data.server.tags.FITags;
@@ -9,12 +9,12 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.network.FriendlyByteBuf;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -29,24 +29,36 @@ public class DiffuserMenu extends AbstractContainerMenu {
     private static final int INV_START_Y = 84;
     private static final int HOTBAR_Y = INV_START_Y + 3 * SLOT_SIZE + 4;
 
-    private final Container diffuserInv;
-    private final ContainerLevelAccess access;
+    private static final int DATA_LIT_TIME = 0;
+    private static final int DATA_LIT_DURATION = 1;
+    private static final int DATA_PROGRESS = 2;
+    private static final int DATA_TOTAL = 3;
 
-    public DiffuserMenu(int id, Inventory playerInv, FriendlyByteBuf buf) {
+    private Container diffuserInv;
+    private ContainerLevelAccess access;
+    private ContainerData data;
+
+    public DiffuserMenu(int id, Inventory playerInv, DiffuserBlockEntity buf, Container diffuserInv, ContainerLevelAccess access, ContainerData data) {
         this(id, playerInv, getBlockEntity(playerInv, buf));
+        this.diffuserInv = diffuserInv;
+        this.access = access;
+        this.data = data;
     }
 
-    public DiffuserMenu(int id, Inventory playerInv, DiffuserBlockEntity entity) {
-        this(id, playerInv, entity, entity.getLevel() == null
-                ? ContainerLevelAccess.NULL
-                : ContainerLevelAccess.create(entity.getLevel(), entity.getBlockPos()));
+    public DiffuserMenu(int id, Inventory playerInv, DiffuserBlockEntity be) {
+        this(id, playerInv,
+                be,
+                be.getLevel() == null ? ContainerLevelAccess.NULL : ContainerLevelAccess.create(be.getLevel(), be.getBlockPos()),
+                be.getDataAccess());
     }
 
-    public DiffuserMenu(int id, Inventory playerInv, Container container, ContainerLevelAccess access) {
+    private DiffuserMenu(int id, Inventory playerInv, Container container, ContainerLevelAccess access, ContainerData data) {
         super(FIMenuTypes.DIFFUSER_MENU.get(), id);
         checkContainerSize(container, SLOT_COUNT);
         this.diffuserInv = container;
         this.access = access;
+        this.data = data;
+        this.addDataSlots(this.data);
         container.startOpen(playerInv.player);
 
         for (int slot = 0; slot < SLOT_COUNT; slot++) {
@@ -74,16 +86,14 @@ public class DiffuserMenu extends AbstractContainerMenu {
         }
     }
 
-    private static DiffuserBlockEntity getBlockEntity(Inventory playerInv, FriendlyByteBuf buf) {
+    private static DiffuserBlockEntity getBlockEntity(Inventory playerInv, DiffuserBlockEntity buf) {
         Objects.requireNonNull(playerInv, "playerInv");
         Objects.requireNonNull(buf, "buf");
         BlockPos pos = buf.readBlockPos();
         Level level = playerInv.player.level();
         Objects.requireNonNull(level, "player level");
         BlockEntity entity = level.getBlockEntity(pos);
-        if (entity instanceof DiffuserBlockEntity diffuser) {
-            return diffuser;
-        }
+        if (entity instanceof DiffuserBlockEntity diffuser) return diffuser;
         throw new IllegalStateException("Missing Diffuser block entity at %s".formatted(pos));
     }
 
@@ -101,30 +111,41 @@ public class DiffuserMenu extends AbstractContainerMenu {
     @Override
     public @NotNull ItemStack quickMoveStack(@NotNull Player player, int index) {
         Slot sourceSlot = this.slots.get(index);
-        if (!sourceSlot.hasItem()) {
-            return ItemStack.EMPTY;
-        }
-
+        if (!sourceSlot.hasItem()) return ItemStack.EMPTY;
         ItemStack sourceStack = sourceSlot.getItem();
         ItemStack copyOfSource = sourceStack.copy();
 
         if (index < SLOT_COUNT) {
-            if (!this.moveItemStackTo(sourceStack, SLOT_COUNT, this.slots.size(), true)) {
+            if (!this.moveItemStackTo(sourceStack, SLOT_COUNT, this.slots.size(), true))
                 return ItemStack.EMPTY;
-            }
         } else {
             if (!sourceStack.is(FITags.ItemTag.AROMATICS) ||
-                    !this.moveItemStackTo(sourceStack, 0, SLOT_COUNT, false)) {
+                    !this.moveItemStackTo(sourceStack, 0, SLOT_COUNT, false))
                 return ItemStack.EMPTY;
-            }
         }
 
-        if (sourceStack.isEmpty()) {
-            sourceSlot.set(ItemStack.EMPTY);
-        } else {
-            sourceSlot.setChanged();
-        }
-
+        if (sourceStack.isEmpty()) sourceSlot.set(ItemStack.EMPTY);
+        else sourceSlot.setChanged();
         return copyOfSource;
+    }
+
+    public boolean isLit() {
+        return this.data.get(DATA_LIT_TIME) > 0;
+    }
+
+    public int getLitProgress() {
+        int lit = this.data.get(DATA_LIT_TIME);
+        int dur = this.data.get(DATA_LIT_DURATION);
+        if (dur <= 0) return 0;
+        int max = 14;
+        return Math.min(max, (int)((long)lit * max / dur));
+    }
+
+    public int getCraftProgress() {
+        int prog = this.data.get(DATA_PROGRESS);
+        int total = this.data.get(DATA_TOTAL);
+        if (total <= 0) return 0;
+        int max = 24;
+        return Math.min(max, (int)((long)prog * max / total));
     }
 }
