@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.common.block;
 
 import com.tiomadre.foragersinsight.common.block.entity.DiffuserBlockEntity;
+import com.tiomadre.foragersinsight.common.diffuser.DiffuserScent;
 import com.tiomadre.foragersinsight.core.registry.FIBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustColorTransitionOptions;
@@ -12,6 +13,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -22,6 +24,8 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -38,45 +42,24 @@ public class DiffuserBlock extends BaseEntityBlock {
 
     @Override
     public @Nullable BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-        return new DiffuserBlockEntity(pos, state) {
-            @Override
-            public boolean isEmpty() {
-                return false;
-            }
-
-            @Override
-            public @NotNull ItemStack getItem(int pSlot) {
-                return null;
-            }
-
-            @Override
-            public @NotNull ItemStack removeItem(int pSlot, int pAmount) {
-                return null;
-            }
-
-            @Override
-            public @NotNull ItemStack removeItemNoUpdate(int pSlot) {
-                return null;
-            }
-
-            @Override
-            public void setItem(int pSlot, @NotNull ItemStack pStack) {
-
-            }
-
-            @Override
-            public boolean stillValid(@NotNull Player pPlayer) {
-                return false;
-            }
-        };
+        return new DiffuserBlockEntity(pos, state);
     }
 
     @Override
     public @NotNull InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos,
                                           @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+        ItemStack held = player.getItemInHand(hand);
+        boolean flintAndSteel = held.is(Items.FLINT_AND_STEEL);
+
         if (!level.isClientSide) {
             BlockEntity entity = level.getBlockEntity(pos);
             if (entity instanceof DiffuserBlockEntity diffuser) {
+                if (flintAndSteel && diffuser.tryStartDiffusion()) {
+                    held.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
+                    level.playSound(null, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F,
+                            level.random.nextFloat() * 0.4F + 0.8F);
+                    return InteractionResult.CONSUME;
+                }
                 player.openMenu(diffuser);
             }
         }
@@ -121,14 +104,19 @@ public class DiffuserBlock extends BaseEntityBlock {
             level.addParticle(ParticleTypes.SMOKE, x, y + 0.05D, z, offsetX, 0.02D, offsetZ);
         }
 
-        Vec3 scentColor = getScentColor(state);
+        Vec3 scentColor = getScentColor(level, pos, state);
         Vector3f tint = new Vector3f((float) scentColor.x(), (float) scentColor.y(), (float) scentColor.z());
         ParticleOptions scentedParticle = new DustColorTransitionOptions(tint, tint, 0.75F);
         level.addParticle(scentedParticle, x, y + 0.15D, z, offsetX * 1.5D, 0.01D, offsetZ * 1.5D);
     }
 
-    protected @NotNull Vec3 getScentColor(@NotNull BlockState state) {
-        return new Vec3(0.8D, 0.8D, 0.8D);
+    protected @NotNull Vec3 getScentColor(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
+        BlockEntity entity = level.getBlockEntity(pos);
+        if (entity instanceof DiffuserBlockEntity diffuser) {
+            net.minecraft.world.phys.Vec3 color = diffuser.getScentColor();
+            return new Vec3(color.x(), color.y(), color.z());
+        }
+        return DiffuserScent.DEFAULT_COLOR;
     }
 
     @Override
