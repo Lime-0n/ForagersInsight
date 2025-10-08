@@ -61,7 +61,6 @@
   "item.foragersinsight.rose_petals": "Rose Petals",
   "item.foragersinsight.roselle_petals": "Roselle Petals",
 
-  "item.foragersinsight.potpourri": "Potpourri Bowl",
 
   "item.foragersinsight.slice_of_acorn_carrot_cake": "Slice of Acorn Carrot Cake",
   "item.foragersinsight.acorn_carrot_cake_item": "Acorn Carrot Cake",
@@ -70,6 +69,8 @@
   "item.foragersinsight.birch_sap_bottle": "Birch Sap Bottle",
   "item.foragersinsight.birch_sap_bucket": "Birch Sap Bucket",
 
+  "item.foragersinsight.diffuser": "Diffuser",
+  "block.foragersinsight.diffuser": "Diffuser",
   "container.foragersinsight.handbasket": "Handbasket",
   "item.foragersinsight.handbasket": "Handbasket",
 

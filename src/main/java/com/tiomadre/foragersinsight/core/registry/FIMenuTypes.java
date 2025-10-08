@@ -15,4 +15,7 @@ public class FIMenuTypes {
     public static final RegistryObject<MenuType<HandbasketMenu>> HANDBASKET_MENU =
             MENUS.register("handbasket",
                     () -> IForgeMenuType.create(HandbasketMenu::new));
+    public static final RegistryObject<MenuType<DiffuserMenu>> DIFFUSER_MENU =
+            MENUS.register("diffuser",
+                    () -> IForgeMenuType.create(DiffuserMenu::new));
 }

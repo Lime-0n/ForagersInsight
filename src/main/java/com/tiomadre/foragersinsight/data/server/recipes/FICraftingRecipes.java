@@ -216,6 +216,18 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .define('s', STICK)
                 .unlockedBy("has_netherite",has(NETHERITE_INGOT))
                 .save(consumer);
+        //Diffuser
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, FIItems.DIFFUSER.get())
+                .pattern("BCB")
+                .pattern("CGC")
+                .pattern("CTC")
+                .define('B', HONEYCOMB)
+                .define('C', Items.COPPER_INGOT)
+                .define('G', Items.GLASS_BOTTLE)
+                .define('T', Items.TORCH)
+                .unlockedBy("has_copper_ingot", has(COPPER_INGOT))
+                .save(consumer, ForagersInsight.rl("diffuser"));
+
         //Handbasket
         ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, HANDBASKET.get())
                 .pattern(" ) ")

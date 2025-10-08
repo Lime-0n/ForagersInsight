@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "lit=false": { "model": "foragersinsight:block/diffuser" },
+    "lit=true": { "model": "foragersinsight:block/diffuser" }
+  }
+}

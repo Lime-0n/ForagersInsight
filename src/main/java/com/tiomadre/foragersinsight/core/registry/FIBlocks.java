@@ -53,6 +53,9 @@ public class FIBlocks {
         //Syrup Tap
     public static final RegistryObject<Block> TAPPER = HELPER.createBlockNoItem("tapper", () ->
             new TapperBlock(copy(Blocks.IRON_BLOCK).noOcclusion()));
+    //Diffuser
+    public static final RegistryObject<Block> DIFFUSER = HELPER.createBlock("diffuser", () ->
+            new DiffuserBlock(copy(Blocks.SMOKER).lightLevel(state -> state.getValue(DiffuserBlock.LIT) ? 13 : 0)));
 
     //DECORATIVE
         //Foliage Mats

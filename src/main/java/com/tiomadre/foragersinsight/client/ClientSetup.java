@@ -28,6 +28,11 @@ public class ClientSetup {
                     FIMenuTypes.HANDBASKET_MENU.get(),
                     HandbasketScreen::new
             );
+            //diffuser screen
+            MenuScreens.register(
+                    FIMenuTypes.DIFFUSER_MENU.get(),
+                    DiffuserScreen::new
+            );
             // "full" handbasket property
             ItemProperties.register(
                     FIItems.HANDBASKET.get(),

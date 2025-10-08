@@ -147,10 +147,8 @@ public class FIBlockStates extends FIBlockStatesHelper {
         if (leaves instanceof LeavesBlock leavesBlock) {
             this.simpleBlock(leavesBlock, models().cubeAll(name(leavesBlock), blockTexture(leavesBlock)).renderType("cutout_mipped"));
             this.blockItem(leavesBlock);
-            return;
         }
 
-        throw new IllegalArgumentException("Expected a leaves block for datagen but found: " + leaves);
     }
 
     public void RoseCrop(RegistryObject<? extends Block> crop) {
