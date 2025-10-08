@@ -1,5 +1,6 @@
 package com.tiomadre.foragersinsight.common.diffuser;
 
+import com.google.common.base.Suppliers;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import net.minecraft.ChatFormatting;
@@ -24,16 +25,19 @@ public final class DiffuserScent {
     private static final List<DiffuserScent> ALL = new ArrayList<>();
     private static final Map<ResourceLocation, DiffuserScent> BY_ID = new ConcurrentHashMap<>();
 
-    public static final DiffuserScent ROSEY = register(
-            ForagersInsight.rl("rosey"),
-            List.of(IngredientCount.of(FIItems.ROSE_PETALS.get(), 3)),
-            ForagersInsight.rl("textures/scents/rosey.png"),
-            colorFromRgb(0xff007f),
-            STANDARD_DURATION,
-            "scent.foragersinsight.rosey",
-            "scent.foragersinsight.rosey.description",
-            8.0D,
-            () -> new MobEffectInstance(MobEffects.REGENERATION, 200, 0, true, true, true)
+    public static final Supplier<DiffuserScent> ROSEY = Suppliers.memoize(() ->
+            new DiffuserScent(
+                    new ResourceLocation("foragersinsight", "rosey"),
+                    List.of(IngredientCount.of(Ingredient.of(FIItems.ROSE_PETALS.get()), 3)),
+                    new ResourceLocation("foragersinsight", "textures/item/rosey_icon.png"),
+                    new Vec3(0.9, 0.1, 0.1),
+                    1800,
+                    "diffuser.rosey",
+                    "diffuser.rosey.description",
+                    4.5,
+                    () -> new MobEffectInstance(MobEffects.HEAL, 100, 1),
+                    0
+            )
     );
 
     public static void bootstrap() {
@@ -189,23 +193,31 @@ public final class DiffuserScent {
     }
 
     public static final class IngredientCount {
-        private final Ingredient ingredient;
+        private final Supplier<Ingredient> ingredientSupplier;
+        private Ingredient ingredient;
         private final int count;
 
-        private IngredientCount(Ingredient ingredient, int count) {
-            this.ingredient = ingredient;
+        private IngredientCount(Supplier<Ingredient> ingredientSupplier, int count) {
+            this.ingredientSupplier = ingredientSupplier;
             this.count = count;
         }
 
         public static IngredientCount of(Ingredient ingredient, int count) {
-            return new IngredientCount(ingredient, count);
+            return new IngredientCount(() -> ingredient, count);
         }
 
         public static IngredientCount of(ItemLike item, int count) {
-            return new IngredientCount(Ingredient.of(item), count);
+            return new IngredientCount(() -> Ingredient.of(item), count);
+        }
+
+        public static IngredientCount of(Supplier<? extends ItemLike> item, int count) {
+            return new IngredientCount(() -> Ingredient.of(item.get()), count);
         }
 
         public Ingredient ingredient() {
+            if (this.ingredient == null) {
+                this.ingredient = Objects.requireNonNull(this.ingredientSupplier.get(), "ingredient");
+            }
             return this.ingredient;
         }
 
@@ -214,12 +226,12 @@ public final class DiffuserScent {
         }
 
         public boolean matches(ItemStack stack) {
-            return this.ingredient.test(stack) && stack.getCount() >= this.count;
+            return this.ingredient().test(stack) && stack.getCount() >= this.count;
         }
 
         @Override
         public String toString() {
-            return "IngredientCount[" + ingredient + " x" + count + "]";
+            return "IngredientCount[" + ingredient() + " x" + count + "]";
         }
     }
     public static Optional<DiffuserScent> findMatch(List<ItemStack> stacks) {
@@ -237,3 +249,4 @@ public final class DiffuserScent {
     }
 
 }
+
