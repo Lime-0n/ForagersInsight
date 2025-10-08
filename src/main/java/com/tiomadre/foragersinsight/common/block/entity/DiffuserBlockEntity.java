@@ -1,38 +1,52 @@
 package com.tiomadre.foragersinsight.common.block.entity;
 
 import com.tiomadre.foragersinsight.common.block.DiffuserBlock;
+import com.tiomadre.foragersinsight.common.diffuser.DiffuserScent;
 import com.tiomadre.foragersinsight.common.gui.DiffuserMenu;
 import com.tiomadre.foragersinsight.core.registry.FIBlockEntityTypes;
+import com.tiomadre.foragersinsight.core.registry.FIMenuTypes;
 import com.tiomadre.foragersinsight.data.server.tags.FITags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 public class DiffuserBlockEntity extends BaseContainerBlockEntity {
-    private static final int SLOT_COUNT = 3;
+    public static final int INPUT_SLOT_COUNT = 3;
+    public static final int RESULT_SLOT_INDEX = INPUT_SLOT_COUNT;
+    private static final int SLOT_COUNT = INPUT_SLOT_COUNT + 1;
     private static final int DATA_COUNT = 4;
 
     private static final int DEFAULT_DIFFUSION_TIME = 200;
-
 
     private NonNullList<ItemStack> items = NonNullList.withSize(SLOT_COUNT, ItemStack.EMPTY);
     private int litTime;
     private int litDuration;
     private int craftProgress;
     private int craftTimeTotal = DEFAULT_DIFFUSION_TIME;
+    private DiffuserScent activeScent;
 
     private final ContainerData dataAccess = new ContainerData() {
         @Override
@@ -76,19 +90,14 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
 
         if (blockEntity.isLit()) {
             blockEntity.craftProgress = Mth.clamp(blockEntity.craftProgress + 1, 0, blockEntity.craftTimeTotal);
+        } else if (blockEntity.craftProgress != 0) {
+            blockEntity.craftProgress = 0;
+            changed = true;
         }
 
-        if (!level.isClientSide) {
-            if (!blockEntity.isLit()) {
-                if (blockEntity.craftProgress != 0) {
-                    blockEntity.craftProgress = 0;
-                    changed = true;
-                }
-                if (blockEntity.consumeOneAromatic()) {
-                    blockEntity.startCycle();
-                    changed = true;
-                }
-            }
+        if (!level.isClientSide && !blockEntity.isLit() && blockEntity.activeScent != null) {
+            blockEntity.clearActiveScent();
+            changed = true;
         }
 
         if (wasLit != blockEntity.isLit()) {
@@ -102,33 +111,85 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         }
     }
 
-    private void startCycle() {
-        this.litDuration = DEFAULT_DIFFUSION_TIME;
-        this.craftTimeTotal = DEFAULT_DIFFUSION_TIME;
+    private void startCycle(DiffuserScent scent) {
+        this.activeScent = scent;
+        int duration = Math.max(DEFAULT_DIFFUSION_TIME, scent.duration());
+        this.litDuration = duration;
+        this.craftTimeTotal = duration;
         this.litTime = this.litDuration;
         this.craftProgress = 0;
     }
 
-    private boolean consumeOneAromatic() {
-        for (int slot = 0; slot < this.items.size(); slot++) {
-            ItemStack stack = this.items.get(slot);
-            if (!stack.isEmpty() && stack.is(FITags.ItemTag.AROMATICS)) {
-                stack.shrink(1);
+    private void consumeIngredients(DiffuserScent scent) {
+        for (DiffuserScent.IngredientCount ingredient : scent.ingredients()) {
+            int remaining = ingredient.count();
+            for (int slot = 0; slot < INPUT_SLOT_COUNT && remaining > 0; slot++) {
+                ItemStack stack = this.items.get(slot);
+                if (stack.isEmpty()) {
+                    continue;
+                }
+
+                if (!ingredient.ingredient().test(stack)) {
+                    continue;
+                }
+
+                int removed = Math.min(stack.getCount(), remaining);
+                stack.shrink(removed);
+                remaining -= removed;
                 if (stack.isEmpty()) {
                     this.items.set(slot, ItemStack.EMPTY);
                 }
-                return true;
             }
         }
-        return false;
+    }
+
+    private Optional<DiffuserScent> findMatchingScent() {
+        List<ItemStack> inputs = new ArrayList<>(INPUT_SLOT_COUNT);
+        for (int slot = 0; slot < INPUT_SLOT_COUNT; slot++) {
+            inputs.add(this.items.get(slot));
+        }
+        return DiffuserScent.findMatch(inputs);
+    }
+
+    private void clearActiveScent() {
+        this.activeScent = null;
+    }
+
+    public Optional<DiffuserScent> getActiveScent() {
+        if (this.activeScent != null) {
+            return Optional.of(this.activeScent);
+        }
+        return findMatchingScent();
+    }
+
+    public boolean tryStartDiffusion() {
+        if (this.level == null || this.isLit()) {
+            return false;
+        }
+        Optional<DiffuserScent> match = findMatchingScent();
+        if (match.isEmpty()) {
+            return false;
+        }
+
+        DiffuserScent scent = match.get();
+        consumeIngredients(scent);
+        startCycle(scent);
+        this.setChanged();
+        BlockState state = this.getBlockState();
+        if (!state.getValue(DiffuserBlock.LIT)) {
+            this.level.setBlock(this.worldPosition, state.setValue(DiffuserBlock.LIT, true), Block.UPDATE_ALL);
+        } else {
+            this.level.sendBlockUpdated(this.worldPosition, state, state, Block.UPDATE_ALL);
+        }
+        return true;
     }
 
     public boolean isLit() {
         return this.litTime > 0;
     }
 
-    public ContainerData getDataAccess() {
-        return this.dataAccess;
+    public Vec3 getScentColor() {
+        return this.activeScent != null ? this.activeScent.particleColor() : DiffuserScent.DEFAULT_COLOR;
     }
 
     @Override
@@ -138,7 +199,13 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
 
     @Override
     protected @NotNull AbstractContainerMenu createMenu(int id, @NotNull Inventory inventory) {
-        return new DiffuserMenu(id, inventory, this);
+        return new DiffuserMenu(FIMenuTypes.DIFFUSER_MENU.get(), id) {
+            @Override
+            public boolean stillValid(@NotNull Player pPlayer) {
+                return ContainerLevelAccess.create(level, worldPosition).evaluate((level, pos) ->
+                        pPlayer.distanceToSqr(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D) <= 64.0D, false);
+            }
+        };
     }
 
     @Override
@@ -148,42 +215,86 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
 
     @Override
     public boolean isEmpty() {
-        return false;
+        for (int slot = 0; slot < INPUT_SLOT_COUNT; slot++) {
+            if (!this.items.get(slot).isEmpty()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
     public @NotNull ItemStack getItem(int pSlot) {
-        return null;
+        return this.items.get(pSlot);
     }
 
     @Override
     public @NotNull ItemStack removeItem(int pSlot, int pAmount) {
-        return null;
+        ItemStack result = ContainerHelper.removeItem(this.items, pSlot, pAmount);
+        if (!result.isEmpty()) {
+            if (this.activeScent != null && !this.isLit()) {
+                this.clearActiveScent();
+            }
+            this.setChanged();
+        }
+        return result;
     }
 
     @Override
     public @NotNull ItemStack removeItemNoUpdate(int pSlot) {
-        return null;
+        ItemStack result = ContainerHelper.takeItem(this.items, pSlot);
+        if (!result.isEmpty()) {
+            if (this.activeScent != null && !this.isLit()) {
+                this.clearActiveScent();
+            }
+            this.setChanged();
+        }
+        return result;
     }
 
     @Override
     public void setItem(int pSlot, @NotNull ItemStack pStack) {
+        if (pSlot < 0 || pSlot >= this.items.size()) {
+            return;
+        }
+        if (pSlot == RESULT_SLOT_INDEX) {
+            return;
+        }
 
+        this.items.set(pSlot, pStack);
+        if (pStack.getCount() > this.getMaxStackSize()) {
+            pStack.setCount(this.getMaxStackSize());
+        }
+        if (this.activeScent != null && !this.isLit()) {
+            this.clearActiveScent();
+        }
+        this.setChanged();
     }
 
     @Override
     public boolean stillValid(@NotNull Player pPlayer) {
-        return false;
+        if (this.level == null) {
+            return false;
+        }
+        if (this.level.getBlockEntity(this.worldPosition) != this) {
+            return false;
+        }
+        return pPlayer.distanceToSqr(
+                this.worldPosition.getX() + 0.5D,
+                this.worldPosition.getY() + 0.5D,
+                this.worldPosition.getZ() + 0.5D
+        ) <= 64.0D;
     }
 
     @Override
     public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
-        return stack.is(FITags.ItemTag.AROMATICS);
+        return slot < INPUT_SLOT_COUNT && stack.is(FITags.ItemTag.AROMATICS);
     }
 
     @Override
     public void clearContent() {
         this.items = NonNullList.withSize(SLOT_COUNT, ItemStack.EMPTY);
+        this.clearActiveScent();
     }
 
     @Override
@@ -195,6 +306,13 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         this.litDuration = tag.getInt("LitDuration");
         this.craftProgress = tag.getInt("CraftProgress");
         this.craftTimeTotal = Math.max(DEFAULT_DIFFUSION_TIME, tag.getInt("CraftTimeTotal"));
+        this.activeScent = null;
+        if (tag.contains("ActiveScent", CompoundTag.TAG_STRING)) {
+            DiffuserScent.byId(new ResourceLocation(tag.getString("ActiveScent")))
+                    .ifPresent(scent -> this.activeScent = scent);
+        } else if (tag.contains("ActiveScentId", CompoundTag.TAG_INT)) {
+            DiffuserScent.byNetworkId(tag.getInt("ActiveScentId")).ifPresent(scent -> this.activeScent = scent);
+        }
     }
 
     @Override
@@ -205,9 +323,23 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         tag.putInt("LitDuration", this.litDuration);
         tag.putInt("CraftProgress", this.craftProgress);
         tag.putInt("CraftTimeTotal", this.craftTimeTotal);
+        if (this.activeScent != null) {
+            tag.putString("ActiveScent", this.activeScent.id().toString());
+            tag.putInt("ActiveScentId", this.activeScent.networkId());
+        }
     }
 
-    public BlockPos readBlockPos() {
-        return null;
+    @Override
+    public @NotNull CompoundTag getUpdateTag() {
+        return this.saveWithoutMetadata();
+    }
+
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    public ContainerData getDataAccess() {
+        return dataAccess;
     }
 }
