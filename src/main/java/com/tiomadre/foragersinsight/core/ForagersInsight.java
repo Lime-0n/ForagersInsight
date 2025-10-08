@@ -1,5 +1,6 @@
 package com.tiomadre.foragersinsight.core;
 
+import com.tiomadre.foragersinsight.common.diffuser.DiffuserScent;
 import com.tiomadre.foragersinsight.core.registry.FIEnchantments;
 import com.tiomadre.foragersinsight.core.other.FIClientCompat;
 import com.tiomadre.foragersinsight.core.other.FIDataUtil;
@@ -48,6 +49,7 @@ public class ForagersInsight {
 		FIParticleTypes.PARTICLES.register(bus);
 		FITabs.TABS.register(bus);
 		FITreeDecoratorTypes.TREE_DECORATOR_TYPES.register(bus);
+		DiffuserScent.bootstrap();
 
 		bus.addListener(this::commonSetup);
 		bus.addListener(this::clientSetup);

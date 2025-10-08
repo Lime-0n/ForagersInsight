@@ -2,11 +2,9 @@ package com.tiomadre.foragersinsight.common.diffuser;
 
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.phys.Vec3;
@@ -27,35 +25,53 @@ public final class DiffuserScent {
     private static final List<DiffuserScent> ALL = new ArrayList<>();
     private static final Map<ResourceLocation, DiffuserScent> BY_ID = new ConcurrentHashMap<>();
 
-    public static final DiffuserScent ROSEY = register(new DiffuserScent(
+    public static final DiffuserScent ROSEY = register(
             ForagersInsight.rl("rosey"),
             List.of(IngredientCount.of(FIItems.ROSE_PETALS, 3)),
-            createIcon(0xff007f, "scent.foragersinsight.rosey"),
+            ForagersInsight.rl("textures/scents/rosey.png"),
             colorFromRgb(0xff007f),
-            STANDARD_DURATION
-    ));
+            STANDARD_DURATION,
+            "scent.foragersinsight.rosey"
+    );
+
+    public static void bootstrap() {
+        Objects.requireNonNull(ROSEY, "Default scent not registered");
+    }
 
     private final ResourceLocation id;
     private final List<IngredientCount> ingredients;
-    private final ItemStack icon;
+    private final ResourceLocation icon;
     private final Vec3 particleColor;
     private final int duration;
     private final int totalItemCount;
+    private final String translationKey;
+    private final int networkId;
 
     private DiffuserScent(ResourceLocation id,
                           List<IngredientCount> ingredients,
-                          ItemStack icon,
+                          ResourceLocation icon,
                           Vec3 particleColor,
-                          int duration) {
+                          int duration,
+                          String translationKey,
+                          int networkId) {
         this.id = Objects.requireNonNull(id, "id");
         this.ingredients = List.copyOf(ingredients);
-        this.icon = icon.copy();
+        this.icon = Objects.requireNonNull(icon, "icon");
         this.particleColor = particleColor;
         this.duration = duration;
         this.totalItemCount = this.ingredients.stream().mapToInt(IngredientCount::count).sum();
+        this.translationKey = Objects.requireNonNull(translationKey, "translationKey");
+        this.networkId = networkId;
     }
 
-    private static DiffuserScent register(DiffuserScent scent) {
+    private static DiffuserScent register(ResourceLocation id,
+                                          List<IngredientCount> ingredients,
+                                          ResourceLocation icon,
+                                          Vec3 particleColor,
+                                          int duration,
+                                          String translationKey) {
+        int networkId = ALL.size();
+        DiffuserScent scent = new DiffuserScent(id, ingredients, icon, particleColor, duration, translationKey, networkId);
         ALL.add(scent);
         BY_ID.put(scent.id, scent);
         return scent;
@@ -69,8 +85,8 @@ public final class DiffuserScent {
         return this.ingredients;
     }
 
-    public ItemStack createIcon() {
-        return this.icon.copy();
+    public ResourceLocation icon() {
+        return this.icon;
     }
 
     public Vec3 particleColor() {
@@ -92,6 +108,21 @@ public final class DiffuserScent {
 
     public static Optional<DiffuserScent> byId(ResourceLocation id) {
         return Optional.ofNullable(BY_ID.get(id));
+    }
+
+    public int networkId() {
+        return this.networkId;
+    }
+
+    public static Optional<DiffuserScent> byNetworkId(int networkId) {
+        if (networkId < 0 || networkId >= ALL.size()) {
+            return Optional.empty();
+        }
+        return Optional.ofNullable(ALL.get(networkId));
+    }
+
+    public Component displayName() {
+        return Component.translatable(this.translationKey);
     }
 
     private boolean matches(List<ItemStack> stacks) {
@@ -136,14 +167,6 @@ public final class DiffuserScent {
             }
         }
         return true;
-    }
-
-    private static ItemStack createIcon(int color, String translationKey) {
-        ItemStack stack = new ItemStack(Items.FIREWORK_STAR);
-        CompoundTag explosion = stack.getOrCreateTagElement("Explosion");
-        explosion.putIntArray("Colors", new int[]{color});
-        stack.setHoverName(Component.translatable(translationKey));
-        return stack;
     }
 
     private static Vec3 colorFromRgb(int rgb) {
