@@ -31,6 +31,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
+import vectorwing.farmersdelight.common.utility.TextUtils;
 
 public class DiffuserBlock extends BaseEntityBlock {
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
@@ -50,19 +51,31 @@ public class DiffuserBlock extends BaseEntityBlock {
                                           @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
         ItemStack held = player.getItemInHand(hand);
         boolean flintAndSteel = held.is(Items.FLINT_AND_STEEL);
+        BlockEntity entity = level.getBlockEntity(pos);
+        if (!(entity instanceof DiffuserBlockEntity diffuser)) {
+            return InteractionResult.sidedSuccess(level.isClientSide);
+        }
+
+        if (player.isShiftKeyDown()) {
+            if (!level.isClientSide) {
+                diffuser.getActiveScent().ifPresentOrElse(
+                        scent -> player.displayClientMessage(
+                                TextUtils.getTranslation("diffuser.scent_info", scent.displayName(), scent.description()), true),
+                        () -> player.displayClientMessage(TextUtils.getTranslation("diffuser.no_scent"), true)
+                );
+            }
+            return InteractionResult.sidedSuccess(level.isClientSide);
+        }
 
         if (!level.isClientSide) {
-            BlockEntity entity = level.getBlockEntity(pos);
-            if (entity instanceof DiffuserBlockEntity diffuser) {
-                if (flintAndSteel && diffuser.tryStartDiffusion()) {
-                    held.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
-                    level.playSound(null, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F,
-                            level.random.nextFloat() * 0.4F + 0.8F);
-                    return InteractionResult.CONSUME;
-                }
-                player.openMenu(diffuser);
+            if (flintAndSteel && diffuser.tryStartDiffusion()) {
+                held.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
+                level.playSound(null, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F,
+                        level.random.nextFloat() * 0.4F + 0.8F);
+                return InteractionResult.CONSUME;
             }
-        }
+            player.openMenu(diffuser);
+            }
         return InteractionResult.sidedSuccess(level.isClientSide);
     }
 

@@ -106,6 +106,7 @@ public class DiffuserScreen extends AbstractContainerScreen<DiffuserMenu> {
         int iconY = top + slot.y;
         if (mouseX >= iconX && mouseX < iconX + ICON_SIZE && mouseY >= iconY && mouseY < iconY + ICON_SIZE) {
             gui.renderTooltip(this.font, scent.get().displayName(), mouseX, mouseY);
+            gui.renderComponentTooltip(this.font, scent.get().tooltip(), mouseX, mouseY);
         }
     }
 }

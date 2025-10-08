@@ -4,7 +4,6 @@ import com.tiomadre.foragersinsight.common.block.DiffuserBlock;
 import com.tiomadre.foragersinsight.common.diffuser.DiffuserScent;
 import com.tiomadre.foragersinsight.common.gui.DiffuserMenu;
 import com.tiomadre.foragersinsight.core.registry.FIBlockEntityTypes;
-import com.tiomadre.foragersinsight.core.registry.FIMenuTypes;
 import com.tiomadre.foragersinsight.data.server.tags.FITags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -16,16 +15,18 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
@@ -39,7 +40,8 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
     private static final int SLOT_COUNT = INPUT_SLOT_COUNT + 1;
     private static final int DATA_COUNT = 4;
 
-    private static final int DEFAULT_DIFFUSION_TIME = 200;
+    private static final int DEFAULT_DIFFUSION_TIME = DiffuserScent.STANDARD_DURATION;
+    private static final int EFFECT_APPLY_INTERVAL = 40;
 
     private NonNullList<ItemStack> items = NonNullList.withSize(SLOT_COUNT, ItemStack.EMPTY);
     private int litTime;
@@ -47,6 +49,7 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
     private int craftProgress;
     private int craftTimeTotal = DEFAULT_DIFFUSION_TIME;
     private DiffuserScent activeScent;
+    private int effectTickCounter;
 
     private final ContainerData dataAccess = new ContainerData() {
         @Override
@@ -90,9 +93,17 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
 
         if (blockEntity.isLit()) {
             blockEntity.craftProgress = Mth.clamp(blockEntity.craftProgress + 1, 0, blockEntity.craftTimeTotal);
+            if (!level.isClientSide) {
+                blockEntity.effectTickCounter++;
+                if (blockEntity.effectTickCounter >= EFFECT_APPLY_INTERVAL) {
+                    blockEntity.effectTickCounter = 0;
+                    blockEntity.applyActiveScentEffects();
+                }
+            }
         } else if (blockEntity.craftProgress != 0) {
             blockEntity.craftProgress = 0;
             changed = true;
+            blockEntity.effectTickCounter = 0;
         }
 
         if (!level.isClientSide && !blockEntity.isLit() && blockEntity.activeScent != null) {
@@ -118,6 +129,7 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         this.craftTimeTotal = duration;
         this.litTime = this.litDuration;
         this.craftProgress = 0;
+        this.effectTickCounter = 0;
     }
 
     private void consumeIngredients(DiffuserScent scent) {
@@ -153,6 +165,7 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
 
     private void clearActiveScent() {
         this.activeScent = null;
+        this.effectTickCounter = 0;
     }
 
     public Optional<DiffuserScent> getActiveScent() {
@@ -199,13 +212,7 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
 
     @Override
     protected @NotNull AbstractContainerMenu createMenu(int id, @NotNull Inventory inventory) {
-        return new DiffuserMenu(FIMenuTypes.DIFFUSER_MENU.get(), id) {
-            @Override
-            public boolean stillValid(@NotNull Player pPlayer) {
-                return ContainerLevelAccess.create(level, worldPosition).evaluate((level, pos) ->
-                        pPlayer.distanceToSqr(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D) <= 64.0D, false);
-            }
-        };
+        return new DiffuserMenu(id, inventory, this);
     }
 
     @Override
@@ -230,6 +237,9 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
 
     @Override
     public @NotNull ItemStack removeItem(int pSlot, int pAmount) {
+        if (this.isLit()) {
+            return ItemStack.EMPTY;
+        }
         ItemStack result = ContainerHelper.removeItem(this.items, pSlot, pAmount);
         if (!result.isEmpty()) {
             if (this.activeScent != null && !this.isLit()) {
@@ -242,6 +252,9 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
 
     @Override
     public @NotNull ItemStack removeItemNoUpdate(int pSlot) {
+        if (this.isLit()) {
+            return ItemStack.EMPTY;
+        }
         ItemStack result = ContainerHelper.takeItem(this.items, pSlot);
         if (!result.isEmpty()) {
             if (this.activeScent != null && !this.isLit()) {
@@ -258,6 +271,9 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
             return;
         }
         if (pSlot == RESULT_SLOT_INDEX) {
+            return;
+        }
+        if (this.isLit()) {
             return;
         }
 
@@ -306,6 +322,7 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         this.litDuration = tag.getInt("LitDuration");
         this.craftProgress = tag.getInt("CraftProgress");
         this.craftTimeTotal = Math.max(DEFAULT_DIFFUSION_TIME, tag.getInt("CraftTimeTotal"));
+        this.effectTickCounter = 0;
         this.activeScent = null;
         if (tag.contains("ActiveScent", CompoundTag.TAG_STRING)) {
             DiffuserScent.byId(new ResourceLocation(tag.getString("ActiveScent")))
@@ -341,5 +358,25 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
 
     public ContainerData getDataAccess() {
         return dataAccess;
+    }
+
+    private void applyActiveScentEffects() {
+        if (this.level == null || this.activeScent == null) {
+            return;
+        }
+
+        Optional<MobEffectInstance> optionalEffect = this.activeScent.createEffectInstance();
+        if (optionalEffect.isEmpty()) {
+            return;
+        }
+
+        MobEffectInstance template = optionalEffect.get();
+        AABB area = new AABB(this.worldPosition).inflate(this.activeScent.radius());
+        List<LivingEntity> entities = this.level.getEntitiesOfClass(LivingEntity.class, area);
+        for (LivingEntity entity : entities) {
+            MobEffectInstance instance = new MobEffectInstance(template.getEffect(), template.getDuration(),
+                    template.getAmplifier(), template.isAmbient(), template.isVisible(), template.showIcon());
+            entity.addEffect(instance);
+        }
     }
 }

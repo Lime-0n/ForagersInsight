@@ -10,6 +10,7 @@ import com.teamabnormals.blueprint.core.util.registry.BlockSubRegistryHelper;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
@@ -54,9 +55,8 @@ public class FIBlocks {
     public static final RegistryObject<Block> TAPPER = HELPER.createBlockNoItem("tapper", () ->
             new TapperBlock(copy(Blocks.IRON_BLOCK).noOcclusion()));
     //Diffuser
-    public static final RegistryObject<Block> DIFFUSER = HELPER.createBlock("diffuser", () ->
-            new DiffuserBlock(copy(Blocks.SMOKER).lightLevel(state -> state.getValue(DiffuserBlock.LIT) ? 13 : 0)));
-
+    public static final RegistryObject<Block> DIFFUSER = HELPER.createBlock("diffuser",
+            () -> new DiffuserBlock(BlockBehaviour.Properties.copy(Blocks.SMOKER)));
     //DECORATIVE
         //Foliage Mats
     public static final RegistryObject<Block> SCATTERED_ROSE_PETAL_MAT = HELPER.createBlock("scattered_rose_petals", FoliageMatBlock::new);
