@@ -5,6 +5,7 @@ import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIMenuTypes;
 import com.tiomadre.foragersinsight.data.server.tags.FITags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -34,16 +35,14 @@ public class DiffuserMenu extends AbstractContainerMenu {
     private static final int DATA_PROGRESS = 2;
     private static final int DATA_TOTAL = 3;
 
-    private Container diffuserInv;
-    private ContainerLevelAccess access;
-    private ContainerData data;
+    private final Container diffuserInv;
+    private final ContainerLevelAccess access;
+    private final ContainerData data;
 
-    public DiffuserMenu(int id, Inventory playerInv, DiffuserBlockEntity buf, Container diffuserInv, ContainerLevelAccess access, ContainerData data) {
+    public DiffuserMenu(int id, Inventory playerInv, FriendlyByteBuf buf) {
         this(id, playerInv, getBlockEntity(playerInv, buf));
-        this.diffuserInv = diffuserInv;
-        this.access = access;
-        this.data = data;
     }
+
 
     public DiffuserMenu(int id, Inventory playerInv, DiffuserBlockEntity be) {
         this(id, playerInv,
@@ -86,7 +85,7 @@ public class DiffuserMenu extends AbstractContainerMenu {
         }
     }
 
-    private static DiffuserBlockEntity getBlockEntity(Inventory playerInv, DiffuserBlockEntity buf) {
+    private static DiffuserBlockEntity getBlockEntity(Inventory playerInv, FriendlyByteBuf buf) {
         Objects.requireNonNull(playerInv, "playerInv");
         Objects.requireNonNull(buf, "buf");
         BlockPos pos = buf.readBlockPos();
