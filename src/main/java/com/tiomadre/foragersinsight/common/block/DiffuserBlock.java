@@ -17,6 +17,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -32,6 +34,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import vectorwing.farmersdelight.common.utility.TextUtils;
+import net.minecraftforge.network.NetworkHooks;
 
 public class DiffuserBlock extends BaseEntityBlock {
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
@@ -74,9 +77,17 @@ public class DiffuserBlock extends BaseEntityBlock {
                         level.random.nextFloat() * 0.4F + 0.8F);
                 return InteractionResult.CONSUME;
             }
-            player.openMenu(diffuser);
+
+            if (player instanceof ServerPlayer serverPlayer) {
+                NetworkHooks.openScreen(serverPlayer, diffuser, pos);
             }
+        }
         return InteractionResult.sidedSuccess(level.isClientSide);
+    }
+
+    @Override
+    public @NotNull RenderShape getRenderShape(@NotNull BlockState state) {
+        return RenderShape.MODEL;
     }
 
     @Override
@@ -91,6 +102,7 @@ public class DiffuserBlock extends BaseEntityBlock {
         }
         super.onRemove(state, level, pos, newState, isMoving);
     }
+
 
     @Nullable
     @Override

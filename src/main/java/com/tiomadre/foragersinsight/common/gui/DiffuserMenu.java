@@ -11,6 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -69,14 +70,15 @@ public class DiffuserMenu extends AbstractContainerMenu {
         BlockPos pos = buffer.readBlockPos();
         Level level = playerInventory.player.level();
         if (level == null) {
+            throw new IllegalStateException("Player level is not available");
         }
 
-        if (level.getBlockEntity(pos) instanceof DiffuserBlockEntity diffuser) {
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+        if (blockEntity instanceof DiffuserBlockEntity diffuser) {
             return diffuser;
         }
         return null;
     }
-
     private void addDiffuserSlots() {
         for (int slot = 0; slot < INPUT_SLOT_COUNT; slot++) {
             int x = SLOT_START_X + slot * SLOT_SPACING;
