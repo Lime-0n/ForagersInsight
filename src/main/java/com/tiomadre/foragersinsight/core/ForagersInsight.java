@@ -49,7 +49,6 @@ public class ForagersInsight {
 		FIParticleTypes.PARTICLES.register(bus);
 		FITabs.TABS.register(bus);
 		FITreeDecoratorTypes.TREE_DECORATOR_TYPES.register(bus);
-		DiffuserScent.bootstrap();
 
 		bus.addListener(this::commonSetup);
 		bus.addListener(this::clientSetup);
@@ -63,7 +62,10 @@ public class ForagersInsight {
 	}
 
 	private void commonSetup(FMLCommonSetupEvent event) {
-		event.enqueueWork(FIDataUtil::registerCompat);
+		event.enqueueWork(() -> {
+			FIDataUtil.registerCompat();
+			DiffuserScent.bootstrap();
+		});
 	}
 
 	private void clientSetup(FMLClientSetupEvent event) {

@@ -29,12 +29,12 @@ public class DiffuserMenu extends AbstractContainerMenu {
     private static final int DATA_TOTAL = 3;
 
     private static final int SLOT_SIZE = 18;
-    private static final int SLOT_SPACING = SLOT_SIZE + 2;
-    private static final int SLOT_Y = 41;
-    private static final int SLOT_START_X = 28;
-    private static final int RESULT_SLOT_X = 134;
+    private static final int SLOT_SPACING = SLOT_SIZE;
+    private static final int SLOT_Y = 37;
+    private static final int SLOT_START_X = 34;
+    private static final int RESULT_SLOT_X = 126;
     private static final int INV_START_X = 8;
-    private static final int INV_START_Y = 84;
+    private static final int INV_START_Y = 87;
     private static final int HOTBAR_Y = INV_START_Y + PLAYER_INVENTORY_ROWS * SLOT_SIZE + 4;
 
     private final Container diffuserContainer;

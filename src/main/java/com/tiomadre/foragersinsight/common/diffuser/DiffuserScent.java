@@ -1,7 +1,6 @@
 package com.tiomadre.foragersinsight.common.diffuser;
 
 import com.google.common.base.Suppliers;
-import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -29,19 +28,35 @@ public final class DiffuserScent {
             new DiffuserScent(
                     new ResourceLocation("foragersinsight", "rosey"),
                     List.of(IngredientCount.of(Ingredient.of(FIItems.ROSE_PETALS.get()), 3)),
-                    new ResourceLocation("foragersinsight", "textures/item/rosey_icon.png"),
+                    new ResourceLocation("foragersinsight", "textures/item/rosey.png"),
                     new Vec3(0.9, 0.1, 0.1),
                     1800,
                     "diffuser.rosey",
                     "diffuser.rosey.description",
-                    4.5,
-                    () -> new MobEffectInstance(MobEffects.HEAL, 100, 1),
+                    5.0,
+                    () -> new MobEffectInstance(MobEffects.REGENERATION, 100, 0),
                     0
             )
     );
 
+    public static final Supplier<DiffuserScent> CONIFEROUS = Suppliers.memoize(() ->
+            new DiffuserScent(
+                    new ResourceLocation("foragersinsight", "coniferous"),
+                    List.of(IngredientCount.of(Ingredient.of(FIItems.SPRUCE_TIPS.get()), 3)),
+                    new ResourceLocation("foragersinsight", "textures/item/coniferous.png"),
+                    new Vec3(0.2, 0.5, 0.3),
+                    1800,
+                    "diffuser.coniferous",
+                    "diffuser.coniferous.description",
+                    5.0,
+                    () -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 100, 0),
+                    1
+            )
+    );
+
     public static void bootstrap() {
-        Objects.requireNonNull(ROSEY, "Default scent not registered");
+        ROSEY.get();
+        CONIFEROUS.get();
     }
 
     private final ResourceLocation id;
@@ -77,23 +92,8 @@ public final class DiffuserScent {
         this.radius = radius;
         this.effectSupplier = Objects.requireNonNull(effectSupplier, "effectSupplier");
         this.networkId = networkId;
-    }
-
-    private static DiffuserScent register(ResourceLocation id,
-                                          List<IngredientCount> ingredients,
-                                          ResourceLocation icon,
-                                          Vec3 particleColor,
-                                          int duration,
-                                          String translationKey,
-                                          String descriptionKey,
-                                          double radius,
-                                          Supplier<MobEffectInstance> effectSupplier) {
-        int networkId = ALL.size();
-        DiffuserScent scent = new DiffuserScent(id, ingredients, icon, particleColor, duration, translationKey,
-                descriptionKey, radius, effectSupplier, networkId);
-        ALL.add(scent);
-        BY_ID.put(scent.id, scent);
-        return scent;
+        ALL.add(this);
+        BY_ID.put(this.id, this);
     }
 
     public ResourceLocation id() {
@@ -234,6 +234,7 @@ public final class DiffuserScent {
             return "IngredientCount[" + ingredient() + " x" + count + "]";
         }
     }
+
     public static Optional<DiffuserScent> findMatch(List<ItemStack> stacks) {
         if (stacks == null || stacks.isEmpty()) {
             return Optional.empty();
@@ -247,6 +248,4 @@ public final class DiffuserScent {
 
         return Optional.empty();
     }
-
 }
-

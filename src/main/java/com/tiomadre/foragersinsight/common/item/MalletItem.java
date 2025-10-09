@@ -19,7 +19,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
-import vectorwing.farmersdelight.common.utility.TextUtils;
+import com.tiomadre.foragersinsight.common.utility.TextUtils;
 
 import java.util.HashMap;
 import java.util.Map;

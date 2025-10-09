@@ -113,17 +113,14 @@
   "block.foragersinsight.scattered_spruce_tips": "Scattered Spruce Tips",
 
   "foragersinsight.flavortext.dandelion_root_tea": "A curative tisane made from dandelion roots.",
-  "foragersinsight.flavortext.forest_elixir": "A sweetened coniferous drink made of syrup and spruce tips.",
+  "foragersinsight.flavortext.forest_elixir": "A coniferous drink made of syrup and spruce tips.",
   "foragersinsight.flavortext.rose_cordial": "A healing tea made from floral rose petals.",
-  "foragersinsight.flavortext.roselle_juice": "A tart infusion reminiscent of the juice of sour fruits.",
+  "foragersinsight.flavortext.roselle_juice": "A tart infusion reminiscent of sour fruits.",
   "foragersinsight.flavortext.seed_milk_bucket": "A bucket of milk derived from various seeds.",
 
   "effect.foragersinsight.bloom": "Bloom",
   "effect.foragersinsight.chilled": "Chilled",
   "effect.foragersinsight.medicinal": "Medicinal",
-  "scent.foragersinsight.rosey": "Rosey",
-  "scent.foragersinsight.coniferous": "Coniferous",
-  "scent.foragersinsight.floral": "Floral",
 
   "effect.foragersinsight.bloom.desc": "Gain 20% more experience and pay 20% less experience for actions.",
   "effect.foragersinsight.chilled.desc": "Freeze the duration of beneficial effects.",
@@ -134,11 +131,14 @@
 
   "farmersdelight.tooltip.seed_milk_bottle": "Clears 1 Effect",
 
-  "farmersdelight.tool_interaction.shears.chicken": "Please wait %s seconds to shear this chicken again.",
-  "farmersdelight.tool_interaction.shears.baby_chicken": "Baby chickens cannot be sheared.",
-  "farmersdelight.tool_interaction.mallet.anvil_no_repairs": "This anvil is fully repaired.",
-  "farmersdelight.diffuser.no_scent": "The diffuser is not currently exuding a scent.",
-  "farmersdelight.diffuser.rosey":"The diffuser is exuding a Rosey scent!",
+  "foragersinsight.tool_interaction.shears.chicken": "Please wait %s seconds to shear this chicken again.",
+  "foragersinsight.tool_interaction.shears.baby_chicken": "Baby chickens cannot be sheared.",
+  "foragersinsight.tool_interaction.mallet.anvil_no_repairs": "This anvil is fully repaired.",
+  "foragersinsight.diffuser.no_scent": "The diffuser is not currently exuding a scent.",
+  "foragersinsight.diffuser.rosey":"The diffuser is exuding a Rosey scent!",
+  "foragersinsight.diffuser.coniferous":"The diffuser is exuding a Coniferous scent!",
+  "foragersinsight.diffuser.rosey.description": "A comforting rosey scent fills the air, granting Regeneration when near this Diffuser.",
+  "foragersinsight.diffuser.coniferous.description": "An invigorating coniferous scent fills the air, giving Resistance when near this Diffuser.",
 
   "itemGroup.foragersinsight": "Forager's Insight"
 }

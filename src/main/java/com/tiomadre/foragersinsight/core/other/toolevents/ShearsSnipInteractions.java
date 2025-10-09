@@ -30,7 +30,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import vectorwing.farmersdelight.common.block.MushroomColonyBlock;
 import vectorwing.farmersdelight.common.block.TomatoVineBlock;
-import vectorwing.farmersdelight.common.utility.TextUtils;
+import com.tiomadre.foragersinsight.common.utility.TextUtils;
 import net.minecraft.world.item.DyeColor;
 
 import java.util.ArrayDeque;
