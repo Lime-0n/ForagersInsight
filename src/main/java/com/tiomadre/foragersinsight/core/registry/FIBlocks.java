@@ -55,7 +55,7 @@ public class FIBlocks {
     public static final RegistryObject<Block> TAPPER = HELPER.createBlockNoItem("tapper", () ->
             new TapperBlock(copy(Blocks.IRON_BLOCK).noOcclusion()));
     //Diffuser
-    public static final RegistryObject<Block> DIFFUSER = HELPER.createBlock("diffuser",
+    public static final RegistryObject<Block> DIFFUSER = HELPER.createBlockNoItem("diffuser",
             () -> new DiffuserBlock(BlockBehaviour.Properties.copy(Blocks.SMOKER)));
     //DECORATIVE
         //Foliage Mats

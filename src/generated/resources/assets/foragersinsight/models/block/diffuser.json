@@ -1,9 +1,9 @@
 {
 	"textures": {
-		"1": "diffuser_bottom",
-		"2": "diffuser_side",
-		"3": "diffuser_top",
-		"particle": "diffuser_side"
+		"1": "foragersinsight:block/diffuser_bottom",
+		"2": "foragersinsight:block/diffuser_side",
+		"3": "foragersinsight:block/diffuser_top",
+		"particle": "foragersinsight:block/diffuser_side"
 	},
 	"elements": [
 		{

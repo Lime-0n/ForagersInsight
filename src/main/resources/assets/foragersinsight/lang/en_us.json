@@ -137,7 +137,8 @@
   "farmersdelight.tool_interaction.shears.chicken": "Please wait %s seconds to shear this chicken again.",
   "farmersdelight.tool_interaction.shears.baby_chicken": "Baby chickens cannot be sheared.",
   "farmersdelight.tool_interaction.mallet.anvil_no_repairs": "This anvil is fully repaired.",
-
+  "farmersdelight.diffuser.no_scent": "The diffuser is not currently exuding a scent.",
+  "farmersdelight.diffuser.rosey":"The diffuser is exuding a Rosey scent!",
 
   "itemGroup.foragersinsight": "Forager's Insight"
 }
