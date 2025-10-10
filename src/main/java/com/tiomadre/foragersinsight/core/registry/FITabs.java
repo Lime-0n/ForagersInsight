@@ -113,6 +113,7 @@ public class FITabs {
                         output.accept(FIItems.ROSE_CORDIAL.get());
                         output.accept(FIItems.ROSELLE_JUICE.get());
                             //Tools
+                        output.accept(FIItems.DIFFUSER.get());
                         output.accept(FIItems.HANDBASKET.get());
                         output.accept(FIItems.FLINT_MALLET.get());
                         output.accept(FIItems.IRON_MALLET.get());

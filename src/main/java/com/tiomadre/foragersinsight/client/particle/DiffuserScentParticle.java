@@ -19,13 +19,15 @@ public class DiffuserScentParticle extends TextureSheetParticle {
         this.hasPhysics = false;
         this.lifetime = 40 + level.random.nextInt(20);
         this.setSize(0.08F, 0.08F);
-        this.pickSprite(spriteSet);
+        if (this.spriteSet != null) {
+            this.pickSprite(this.spriteSet);
+        }
     }
 
     @Override
     public void tick() {
         super.tick();
-        if (!this.removed && this.age % 5 == 0) {
+        if (!this.removed && this.age % 5 == 0 && this.spriteSet != null) {
             this.pickSprite(this.spriteSet);
         }
     }
