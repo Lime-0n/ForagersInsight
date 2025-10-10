@@ -4,7 +4,7 @@ import com.tiomadre.foragersinsight.common.block.entity.DiffuserBlockEntity;
 import com.tiomadre.foragersinsight.common.diffuser.DiffuserScent;
 import com.tiomadre.foragersinsight.core.registry.FIBlockEntityTypes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.DustColorTransitionOptions;
+
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
@@ -30,13 +30,11 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
 import com.tiomadre.foragersinsight.common.utility.TextUtils;
 import net.minecraftforge.network.NetworkHooks;
 
@@ -73,11 +71,15 @@ public class DiffuserBlock extends BaseEntityBlock {
 
         if (player.isShiftKeyDown()) {
             if (!level.isClientSide) {
-                diffuser.getActiveScent().ifPresentOrElse(
-                        scent -> player.displayClientMessage(
-                                TextUtils.getTranslation("diffuser.scent", scent.displayName(), scent.description()), true),
-                        () -> player.displayClientMessage(TextUtils.getTranslation("diffuser.no_scent"), true)
-                );
+          if (diffuser.isLit()) {
+                    diffuser.getActiveScent().ifPresentOrElse(
+                            scent -> player.displayClientMessage(
+                                    TextUtils.getTranslation("diffuser.scent", scent.displayName(), scent.description()), true),
+                            () -> player.displayClientMessage(TextUtils.getTranslation("diffuser.no_scent"), true)
+                    );
+                } else {
+                    player.displayClientMessage(TextUtils.getTranslation("diffuser.no_scent"), true);
+                }
             }
             return InteractionResult.sidedSuccess(level.isClientSide);
         }
@@ -158,19 +160,30 @@ public class DiffuserBlock extends BaseEntityBlock {
             level.addParticle(ParticleTypes.SMOKE, x, y + 0.05D, z, offsetX, 0.02D, offsetZ);
         }
 
-        Vec3 scentColor = getScentColor(level, pos, state);
-        Vector3f tint = new Vector3f((float) scentColor.x(), (float) scentColor.y(), (float) scentColor.z());
-        ParticleOptions scentedParticle = new DustColorTransitionOptions(tint, tint, 0.75F);
-        level.addParticle(scentedParticle, x, y + 0.15D, z, offsetX * 1.5D, 0.01D, offsetZ * 1.5D);
+    }
+    private void spawnScentParticle(Level level, RandomSource random, double x, double y, double z, DiffuserScent scent) {
+        ParticleOptions particle = getScentParticle(scent);
+        if (particle == null) {
+            return;
+        }
+
+        double driftX = (random.nextDouble() - 0.5D) * 0.08D;
+        double driftY = 0.03D + random.nextDouble() * 0.02D;
+        double driftZ = (random.nextDouble() - 0.5D) * 0.08D;
+        level.addParticle(particle, x, y, z, driftX, driftY, driftZ);
     }
 
-    protected @NotNull Vec3 getScentColor(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state) {
-        BlockEntity entity = level.getBlockEntity(pos);
-        if (entity instanceof DiffuserBlockEntity diffuser) {
-            net.minecraft.world.phys.Vec3 color = diffuser.getScentColor();
-            return new Vec3(color.x(), color.y(), color.z());
+    private @Nullable ParticleOptions getScentParticle(DiffuserScent scent) {
+        if (scent == DiffuserScent.ROSEY.get()) {
+            return ParticleTypes.HEART;
         }
-        return DiffuserScent.DEFAULT_COLOR;
+        if (scent == DiffuserScent.CONIFEROUS.get()) {
+            return ParticleTypes.HAPPY_VILLAGER;
+        }
+        if (scent == DiffuserScent.FLORAL.get()) {
+            return ParticleTypes.END_ROD;
+        }
+        return null;
     }
 
     @Override

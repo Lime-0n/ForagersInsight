@@ -27,7 +27,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -124,9 +123,8 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
 
     private void startCycle(DiffuserScent scent) {
         this.activeScent = scent;
-        int duration = Math.max(DEFAULT_DIFFUSION_TIME, scent.duration());
-        this.litDuration = duration;
-        this.craftTimeTotal = duration;
+          this.litDuration = DEFAULT_DIFFUSION_TIME;
+        this.craftTimeTotal = DEFAULT_DIFFUSION_TIME;
         this.litTime = this.litDuration;
         this.craftProgress = 0;
         this.effectTickCounter = 0;
@@ -199,10 +197,6 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
 
     public boolean isLit() {
         return this.litTime > 0;
-    }
-
-    public Vec3 getScentColor() {
-        return this.activeScent != null ? this.activeScent.particleColor() : DiffuserScent.DEFAULT_COLOR;
     }
 
     @Override

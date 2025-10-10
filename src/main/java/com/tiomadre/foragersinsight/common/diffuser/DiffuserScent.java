@@ -30,8 +30,6 @@ public final class DiffuserScent {
                     new ResourceLocation("foragersinsight", "rosey"),
                     List.of(IngredientCount.of(Ingredient.of(FIItems.ROSE_PETALS.get()), 3)),
                     new ResourceLocation("foragersinsight", "textures/scents/rosey.png"),
-                    new Vec3(1, 0.16, 0.37),
-                    12000,
                     "foragersinsight.diffuser.rosey",
                     "foragersinsight.diffuser.rosey.description",
                     5.0,
@@ -43,8 +41,6 @@ public final class DiffuserScent {
                     new ResourceLocation("foragersinsight", "coniferous"),
                     List.of(IngredientCount.of(Ingredient.of(FIItems.SPRUCE_TIPS.get()), 3)),
                     new ResourceLocation("foragersinsight", "textures/scents/coniferous.png"),
-                    new Vec3(0.2, 0.5, 0.3),
-                    1800,
                     "foragersinsight.diffuser.coniferous",
                     "foragersinsight.diffuser.coniferous.description",
                     5.0,
@@ -58,8 +54,6 @@ public final class DiffuserScent {
                             IngredientCount.of(Ingredient.of(FIItems.ROSE_PETALS.get()), 1),
                             IngredientCount.of(Ingredient.of(Items.LILAC), 1)),
                     new ResourceLocation("foragersinsight", "textures/scents/floral.png"),
-                    new Vec3(1, 0.16, 0.37),
-                    12000,
                     "foragersinsight.diffuser.floral",
                     "foragersinsight.diffuser.floral.description",
                     5.0,
@@ -75,8 +69,6 @@ public final class DiffuserScent {
     private final ResourceLocation id;
     private final List<IngredientCount> ingredients;
     private final ResourceLocation icon;
-    private final Vec3 particleColor;
-    private final int duration;
     private final int totalItemCount;
     private final String translationKey;
     private final String descriptionKey;
@@ -87,8 +79,6 @@ public final class DiffuserScent {
     private DiffuserScent(ResourceLocation id,
                           List<IngredientCount> ingredients,
                           ResourceLocation icon,
-                          Vec3 particleColor,
-                          int duration,
                           String translationKey,
                           String descriptionKey,
                           double radius,
@@ -97,8 +87,6 @@ public final class DiffuserScent {
         this.id = Objects.requireNonNull(id, "id");
         this.ingredients = List.copyOf(ingredients);
         this.icon = Objects.requireNonNull(icon, "icon");
-        this.particleColor = particleColor;
-        this.duration = duration;
         this.totalItemCount = this.ingredients.stream().mapToInt(IngredientCount::count).sum();
         this.translationKey = Objects.requireNonNull(translationKey, "translationKey");
         this.descriptionKey = Objects.requireNonNull(descriptionKey, "descriptionKey");
@@ -119,14 +107,6 @@ public final class DiffuserScent {
 
     public ResourceLocation icon() {
         return this.icon;
-    }
-
-    public Vec3 particleColor() {
-        return this.particleColor;
-    }
-
-    public int duration() {
-        return this.duration;
     }
 
     public static Optional<DiffuserScent> byId(ResourceLocation id) {
