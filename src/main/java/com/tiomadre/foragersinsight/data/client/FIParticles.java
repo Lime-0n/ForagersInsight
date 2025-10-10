@@ -24,12 +24,21 @@ public class FIParticles implements DataProvider {
 
     @Override
     public @NotNull CompletableFuture<?> run(@NotNull CachedOutput output) {
+        return CompletableFuture.allOf(
+                saveParticle(output, FIParticleTypes.DRIPPING_SAP.getId(), ForagersInsight.MOD_ID + ":" + FIParticleTypes.DRIPPING_SAP.getId().getPath()),
+                saveParticle(output, FIParticleTypes.ROSE_SCENT.getId(), "foragersinsight:particles/rose_scent"),
+                saveParticle(output, FIParticleTypes.CONIFEROUS_SCENT.getId(), "foragersinsight:particles/coniferous_scent"),
+                saveParticle(output, FIParticleTypes.FLORAL_SCENT.getId(), "foragersinsight:particles/floral_scent")
+        );
+    }
+
+    private CompletableFuture<?> saveParticle(CachedOutput output, ResourceLocation id, String texture) {
         JsonObject json = new JsonObject();
         JsonArray textures = new JsonArray();
-        textures.add(ForagersInsight.MOD_ID + ":" + FIParticleTypes.DRIPPING_SAP.getId().getPath());
+        textures.add(texture);
         json.add("textures", textures);
 
-        Path path = particlePathProvider.json(ResourceLocation.tryParse(FIParticleTypes.DRIPPING_SAP.getId().getPath()));
+        Path path = particlePathProvider.json(id);
         return DataProvider.saveStable(output, json, path);
     }
 

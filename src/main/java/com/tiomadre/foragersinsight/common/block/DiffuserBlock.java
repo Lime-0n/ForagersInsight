@@ -3,10 +3,11 @@ package com.tiomadre.foragersinsight.common.block;
 import com.tiomadre.foragersinsight.common.block.entity.DiffuserBlockEntity;
 import com.tiomadre.foragersinsight.common.diffuser.DiffuserScent;
 import com.tiomadre.foragersinsight.core.registry.FIBlockEntityTypes;
+import com.tiomadre.foragersinsight.core.registry.FIParticleTypes;
 import net.minecraft.core.BlockPos;
 
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -159,29 +160,39 @@ public class DiffuserBlock extends BaseEntityBlock {
         } else {
             level.addParticle(ParticleTypes.SMOKE, x, y + 0.05D, z, offsetX, 0.02D, offsetZ);
         }
+        if (random.nextInt(5) == 0) {
+            BlockEntity entity = level.getBlockEntity(pos);
+            if (entity instanceof DiffuserBlockEntity diffuser) {
+                diffuser.getActiveScent().ifPresent(scent -> {
+                    double scentX = x + (random.nextDouble() - 0.5D) * 0.3D;
+                    double scentY = y + 0.2D + random.nextDouble() * 0.2D;
+                    double scentZ = z + (random.nextDouble() - 0.5D) * 0.3D;
+                    spawnScentParticle(level, random, scentX, scentY, scentZ, scent);
+                });
+            }
+        }
 
     }
     private void spawnScentParticle(Level level, RandomSource random, double x, double y, double z, DiffuserScent scent) {
-        ParticleOptions particle = getScentParticle(scent);
+        SimpleParticleType particle = getScentParticleType(scent);
         if (particle == null) {
             return;
         }
-
         double driftX = (random.nextDouble() - 0.5D) * 0.08D;
         double driftY = 0.03D + random.nextDouble() * 0.02D;
         double driftZ = (random.nextDouble() - 0.5D) * 0.08D;
         level.addParticle(particle, x, y, z, driftX, driftY, driftZ);
     }
 
-    private @Nullable ParticleOptions getScentParticle(DiffuserScent scent) {
+    private @Nullable SimpleParticleType getScentParticleType(DiffuserScent scent) {
         if (scent == DiffuserScent.ROSEY.get()) {
-            return ParticleTypes.HEART;
+            return FIParticleTypes.ROSE_SCENT.get();
         }
         if (scent == DiffuserScent.CONIFEROUS.get()) {
-            return ParticleTypes.HAPPY_VILLAGER;
+            return FIParticleTypes.CONIFEROUS_SCENT.get();
         }
         if (scent == DiffuserScent.FLORAL.get()) {
-            return ParticleTypes.END_ROD;
+            return FIParticleTypes.FLORAL_SCENT.get();
         }
         return null;
     }

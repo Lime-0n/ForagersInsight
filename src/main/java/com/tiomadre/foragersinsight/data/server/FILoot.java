@@ -156,6 +156,7 @@ public class FILoot extends LootTableProvider {
             this.add(BOUNTIFUL_DARK_OAK_LEAVES.get(), this.createBountifulLeavesDrops(BOUNTIFUL_DARK_OAK_LEAVES, BOUNTIFUL_DARK_OAK_SAPLING.get()));
             this.add(BOUNTIFUL_SPRUCE_LEAVES.get(), this.createSpruceLeavesDrops(BOUNTIFUL_SPRUCE_LEAVES.get(), BOUNTIFUL_SPRUCE_SAPLING.get()));
                 //Tools + Workstations
+            this.add(FIBlocks.DIFFUSER.get(), block -> createSingleItemTable(FIItems.DIFFUSER.get()));
             this.add(FIBlocks.TAPPER.get(), block -> createSingleItemTable(FIItems.TAPPER.get()));
 
         }
