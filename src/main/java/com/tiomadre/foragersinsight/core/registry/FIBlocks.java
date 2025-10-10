@@ -56,7 +56,7 @@ public class FIBlocks {
             new TapperBlock(copy(Blocks.IRON_BLOCK).noOcclusion()));
     //Diffuser
     public static final RegistryObject<Block> DIFFUSER = HELPER.createBlockNoItem("diffuser",
-            () -> new DiffuserBlock(BlockBehaviour.Properties.copy(Blocks.SMOKER)));
+            () -> new DiffuserBlock(BlockBehaviour.Properties.copy(Blocks.SMOKER).noOcclusion()));
     //DECORATIVE
         //Foliage Mats
     public static final RegistryObject<Block> SCATTERED_ROSE_PETAL_MAT = HELPER.createBlock("scattered_rose_petals", FoliageMatBlock::new);

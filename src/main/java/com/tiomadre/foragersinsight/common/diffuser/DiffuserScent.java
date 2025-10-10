@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.phys.Vec3;
@@ -28,35 +29,47 @@ public final class DiffuserScent {
             new DiffuserScent(
                     new ResourceLocation("foragersinsight", "rosey"),
                     List.of(IngredientCount.of(Ingredient.of(FIItems.ROSE_PETALS.get()), 3)),
-                    new ResourceLocation("foragersinsight", "textures/item/rosey.png"),
-                    new Vec3(0.9, 0.1, 0.1),
-                    1800,
-                    "diffuser.rosey",
-                    "diffuser.rosey.description",
+                    new ResourceLocation("foragersinsight", "textures/scents/rosey.png"),
+                    new Vec3(1, 0.16, 0.37),
+                    12000,
+                    "foragersinsight.diffuser.rosey",
+                    "foragersinsight.diffuser.rosey.description",
                     5.0,
-                    () -> new MobEffectInstance(MobEffects.REGENERATION, 100, 0),
-                    0
-            )
-    );
+                    (Supplier<MobEffectInstance>) () -> new MobEffectInstance(MobEffects.REGENERATION, 100, 0),
+                    0));
 
     public static final Supplier<DiffuserScent> CONIFEROUS = Suppliers.memoize(() ->
             new DiffuserScent(
                     new ResourceLocation("foragersinsight", "coniferous"),
                     List.of(IngredientCount.of(Ingredient.of(FIItems.SPRUCE_TIPS.get()), 3)),
-                    new ResourceLocation("foragersinsight", "textures/item/coniferous.png"),
+                    new ResourceLocation("foragersinsight", "textures/scents/coniferous.png"),
                     new Vec3(0.2, 0.5, 0.3),
                     1800,
-                    "diffuser.coniferous",
-                    "diffuser.coniferous.description",
+                    "foragersinsight.diffuser.coniferous",
+                    "foragersinsight.diffuser.coniferous.description",
                     5.0,
                     () -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 100, 0),
-                    1
-            )
-    );
+                    1));
+
+    public static final Supplier<DiffuserScent> FLORAL = Suppliers.memoize(() ->
+            new DiffuserScent(
+                    new ResourceLocation("foragersinsight", "floral"),
+                    List.of(IngredientCount.of(Ingredient.of(FIItems.ROSELLE_PETALS.get()), 1),
+                            IngredientCount.of(Ingredient.of(FIItems.ROSE_PETALS.get()), 1),
+                            IngredientCount.of(Ingredient.of(Items.LILAC), 1)),
+                    new ResourceLocation("foragersinsight", "textures/scents/floral.png"),
+                    new Vec3(1, 0.16, 0.37),
+                    12000,
+                    "foragersinsight.diffuser.floral",
+                    "foragersinsight.diffuser.floral.description",
+                    5.0,
+                    () -> new MobEffectInstance(MobEffects.REGENERATION, 100, 0),
+                    0));
 
     public static void bootstrap() {
         ROSEY.get();
         CONIFEROUS.get();
+        FLORAL.get();
     }
 
     private final ResourceLocation id;

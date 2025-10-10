@@ -134,11 +134,14 @@
   "foragersinsight.tool_interaction.shears.chicken": "Please wait %s seconds to shear this chicken again.",
   "foragersinsight.tool_interaction.shears.baby_chicken": "Baby chickens cannot be sheared.",
   "foragersinsight.tool_interaction.mallet.anvil_no_repairs": "This anvil is fully repaired.",
+  "foragersinsight.diffuser.scent": "%s",
   "foragersinsight.diffuser.no_scent": "The diffuser is not currently exuding a scent.",
   "foragersinsight.diffuser.rosey":"The diffuser is exuding a Rosey scent!",
   "foragersinsight.diffuser.coniferous":"The diffuser is exuding a Coniferous scent!",
+  "foragersinsight.diffuser.floral":"The diffuser is exuding a Floral scent!",
   "foragersinsight.diffuser.rosey.description": "A comforting rosey scent fills the air, granting Regeneration when near this Diffuser.",
   "foragersinsight.diffuser.coniferous.description": "An invigorating coniferous scent fills the air, giving Resistance when near this Diffuser.",
+  "foragersinsight.diffuser.floral.description": "An blossoming floral scent fills the air, giving Bloom when near this Diffuser.",
 
   "itemGroup.foragersinsight": "Forager's Insight"
 }

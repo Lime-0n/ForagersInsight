@@ -15,6 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.server.level.ServerPlayer;
@@ -30,6 +31,9 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
@@ -38,6 +42,14 @@ import net.minecraftforge.network.NetworkHooks;
 
 public class DiffuserBlock extends BaseEntityBlock {
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
+    private static final VoxelShape SHAPE = Shapes.or(
+            Block.box(4.0D, 0.0D, 4.0D, 12.0D, 12.0D, 12.0D),
+            Block.box(9.0D, 12.0D, 6.0D, 10.0D, 14.0D, 10.0D),
+            Block.box(6.0D, 12.0D, 6.0D, 7.0D, 14.0D, 10.0D),
+            Block.box(7.0D, 12.0D, 6.0D, 9.0D, 14.0D, 7.0D),
+            Block.box(7.0D, 12.0D, 9.0D, 9.0D, 14.0D, 10.0D)
+    );
+
 
     public DiffuserBlock(Properties properties) {
         super(properties);
@@ -63,7 +75,7 @@ public class DiffuserBlock extends BaseEntityBlock {
             if (!level.isClientSide) {
                 diffuser.getActiveScent().ifPresentOrElse(
                         scent -> player.displayClientMessage(
-                                TextUtils.getTranslation("diffuser.scent_info", scent.displayName(), scent.description()), true),
+                                TextUtils.getTranslation("diffuser.scent", scent.displayName(), scent.description()), true),
                         () -> player.displayClientMessage(TextUtils.getTranslation("diffuser.no_scent"), true)
                 );
             }
@@ -83,6 +95,23 @@ public class DiffuserBlock extends BaseEntityBlock {
             }
         }
         return InteractionResult.sidedSuccess(level.isClientSide);
+    }
+    @Override
+    public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos,
+                                        @NotNull CollisionContext context) {
+        return SHAPE;
+    }
+
+    @Override
+    public @NotNull VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter level,
+                                                 @NotNull BlockPos pos, @NotNull CollisionContext context) {
+        return SHAPE;
+    }
+
+    @Override
+    public @NotNull VoxelShape getOcclusionShape(@NotNull BlockState state, @NotNull BlockGetter level,
+                                                 @NotNull BlockPos pos) {
+        return Shapes.empty();
     }
 
     @Override
