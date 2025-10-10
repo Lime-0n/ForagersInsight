@@ -19,7 +19,7 @@ public final class FIParticleTypes {
     public static final RegistryObject<SimpleParticleType> CONIFEROUS_SCENT =
             PARTICLES.register("coniferous_scent", () -> new SimpleParticleType(false));
     public static final RegistryObject<SimpleParticleType> ROSE_SCENT =
-            PARTICLES.register("rosey_scent", () -> new SimpleParticleType(false));
+            PARTICLES.register("rose_scent", () -> new SimpleParticleType(false));
     public static final RegistryObject<SimpleParticleType> FLORAL_SCENT =
             PARTICLES.register("floral_scent", () -> new SimpleParticleType(false));
 

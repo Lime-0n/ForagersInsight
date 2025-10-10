@@ -57,7 +57,7 @@ public class FIItemModels extends BlueprintItemModelProvider {
                 //Wildflowers + Plants
                 ROSELLE_BUSH_ITEM,STOUT_BEACH_ROSE_BUSH_ITEM,TALL_BEACH_ROSE_BUSH_ITEM,
                 //Tools and Workstations
-                HANDBASKET, FLINT_MALLET, IRON_MALLET, GOLD_MALLET, DIAMOND_MALLET, NETHERITE_MALLET, FLINT_SHEARS, TAPPER
+                HANDBASKET, FLINT_MALLET, IRON_MALLET, GOLD_MALLET, DIAMOND_MALLET, NETHERITE_MALLET, FLINT_SHEARS, TAPPER, DIFFUSER
 
                 );
 

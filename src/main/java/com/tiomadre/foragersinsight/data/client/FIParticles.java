@@ -25,11 +25,15 @@ public class FIParticles implements DataProvider {
     @Override
     public @NotNull CompletableFuture<?> run(@NotNull CachedOutput output) {
         return CompletableFuture.allOf(
-                saveParticle(output, FIParticleTypes.DRIPPING_SAP.getId(), ForagersInsight.MOD_ID + ":" + FIParticleTypes.DRIPPING_SAP.getId().getPath()),
-                saveParticle(output, FIParticleTypes.ROSE_SCENT.getId(), "foragersinsight:particles/rose_scent"),
-                saveParticle(output, FIParticleTypes.CONIFEROUS_SCENT.getId(), "foragersinsight:particles/coniferous_scent"),
-                saveParticle(output, FIParticleTypes.FLORAL_SCENT.getId(), "foragersinsight:particles/floral_scent")
+                saveParticle(output, FIParticleTypes.DRIPPING_SAP.getId()),
+                saveParticle(output, FIParticleTypes.ROSE_SCENT.getId()),
+                saveParticle(output, FIParticleTypes.CONIFEROUS_SCENT.getId()),
+                saveParticle(output, FIParticleTypes.FLORAL_SCENT.getId())
         );
+    }
+
+    private CompletableFuture<?> saveParticle(CachedOutput output, ResourceLocation id) {
+        return saveParticle(output, id, textureLocation(id));
     }
 
     private CompletableFuture<?> saveParticle(CachedOutput output, ResourceLocation id, String texture) {
@@ -40,6 +44,10 @@ public class FIParticles implements DataProvider {
 
         Path path = particlePathProvider.json(id);
         return DataProvider.saveStable(output, json, path);
+    }
+
+    private static String textureLocation(ResourceLocation id) {
+        return id.getNamespace() + ":particle/" + id.getPath();
     }
 
     @Override

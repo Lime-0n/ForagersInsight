@@ -57,7 +57,8 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.matBlock(DENSE_ROSELLE_PETAL_MAT, "dense_roselle_petals");
         this.matBlock(DENSE_STRAW_MAT, "dense_straw");
 
-        //Potpourri
+        //Diffuser n Tapper
+        this.diffuserBlock();
         this.tapperBlock();
 
         //Wildflowers
@@ -80,6 +81,65 @@ public class FIBlockStates extends FIBlockStatesHelper {
         }
         this.itemModels().basicItem(seeds.get());
     }
+    private void diffuserBlock() {
+        Block diffuser = DIFFUSER.get();
+
+        BlockModelBuilder model = this.models().getBuilder(name(diffuser))
+                .parent(new ModelFile.UncheckedModelFile(mcLoc("block/block")))
+                .texture("1", modTexture("diffuser_bottom"))
+                .texture("2", modTexture("diffuser_side"))
+                .texture("3", modTexture("diffuser_top"))
+                .texture("particle", modTexture("diffuser_side"));
+
+        model.element().from(4f, 0f, 4f).to(12f, 12f, 12f)
+                .face(Direction.NORTH).uvs(4f, 4f, 12f, 16f).texture("#2").end()
+                .face(Direction.EAST).uvs(4f, 4f, 12f, 16f).texture("#2").end()
+                .face(Direction.SOUTH).uvs(4f, 4f, 12f, 16f).texture("#2").end()
+                .face(Direction.WEST).uvs(4f, 4f, 12f, 16f).texture("#2").end()
+                .face(Direction.UP).uvs(4f, 4f, 12f, 12f).texture("#3").end()
+                .face(Direction.DOWN).uvs(4f, 4f, 12f, 12f).texture("#1").end()
+                .end();
+
+        model.element().from(9f, 12f, 6f).to(10f, 14f, 10f)
+                .face(Direction.NORTH).uvs(9f, 2f, 10f, 4f).texture("#2").end()
+                .face(Direction.EAST).uvs(6f, 2f, 10f, 4f).texture("#2").end()
+                .face(Direction.SOUTH).uvs(6f, 2f, 7f, 4f).texture("#2").end()
+                .face(Direction.WEST).uvs(6f, 2f, 10f, 4f).texture("#2").end()
+                .face(Direction.UP).uvs(10f, 3f, 6f, 2f).rotation(ModelBuilder.FaceRotation.CLOCKWISE_90).texture("#2").end()
+                .face(Direction.DOWN).uvs(6f, 2f, 10f, 4f).texture("#2").end()
+                .end();
+
+        model.element().from(6f, 12f, 6f).to(7f, 14f, 10f)
+                .face(Direction.NORTH).uvs(9f, 2f, 10f, 4f).texture("#2").end()
+                .face(Direction.EAST).uvs(6f, 2f, 10f, 4f).texture("#2").end()
+                .face(Direction.SOUTH).uvs(6f, 2f, 7f, 4f).texture("#2").end()
+                .face(Direction.WEST).uvs(6f, 2f, 10f, 4f).texture("#2").end()
+                .face(Direction.UP).uvs(10f, 3f, 6f, 2f).rotation(ModelBuilder.FaceRotation.CLOCKWISE_90).texture("#2").end()
+                .face(Direction.DOWN).uvs(6f, 2f, 10f, 4f).texture("#2").end()
+                .end();
+
+        model.element().from(7f, 12f, 6f).to(9f, 14f, 7f)
+                .face(Direction.NORTH).uvs(7f, 2f, 9f, 4f).texture("#2").end()
+                .face(Direction.EAST).uvs(7f, 2f, 9f, 4f).texture("#2").end()
+                .face(Direction.SOUTH).uvs(7f, 2f, 9f, 4f).texture("#2").end()
+                .face(Direction.WEST).uvs(7f, 2f, 9f, 4f).texture("#2").end()
+                .face(Direction.UP).uvs(7f, 2f, 9f, 3f).texture("#2").end()
+                .face(Direction.DOWN).uvs(7f, 2f, 9f, 4f).texture("#2").end()
+                .end();
+
+        model.element().from(7f, 12f, 9f).to(9f, 14f, 10f)
+                .face(Direction.NORTH).uvs(7f, 2f, 9f, 4f).texture("#2").end()
+                .face(Direction.EAST).uvs(7f, 2f, 9f, 4f).texture("#2").end()
+                .face(Direction.SOUTH).uvs(7f, 2f, 9f, 4f).texture("#2").end()
+                .face(Direction.WEST).uvs(7f, 2f, 9f, 4f).texture("#2").end()
+                .face(Direction.UP).uvs(7f, 2f, 9f, 3f).texture("#2").end()
+                .face(Direction.DOWN).uvs(7f, 2f, 9f, 4f).texture("#2").end()
+                .end();
+
+        this.simpleBlock(diffuser, model);
+        this.blockItem(diffuser);
+    }
+
     public void crossCutout(RegistryObject<? extends Block> cross) {
         this.simpleBlock(cross.get(), this.models().cross(name(cross.get()), this.blockTexture(cross.get()))
                 .renderType("cutout"));
