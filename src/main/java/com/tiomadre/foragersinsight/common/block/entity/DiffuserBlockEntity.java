@@ -231,7 +231,7 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
 
     @Override
     public @NotNull ItemStack removeItem(int pSlot, int pAmount) {
-        if (this.isLit()) {
+        if (this.hasActiveScent()) {
             return ItemStack.EMPTY;
         }
         ItemStack result = ContainerHelper.removeItem(this.items, pSlot, pAmount);
@@ -246,7 +246,7 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
 
     @Override
     public @NotNull ItemStack removeItemNoUpdate(int pSlot) {
-        if (this.isLit()) {
+        if (this.hasActiveScent()) {
             return ItemStack.EMPTY;
         }
         ItemStack result = ContainerHelper.takeItem(this.items, pSlot);
@@ -267,7 +267,7 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         if (pSlot == RESULT_SLOT_INDEX) {
             return;
         }
-        if (this.isLit()) {
+        if (this.hasActiveScent()) {
             return;
         }
 
@@ -298,9 +298,8 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
 
     @Override
     public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
-        return slot < INPUT_SLOT_COUNT && stack.is(FITags.ItemTag.AROMATICS);
+        return slot < INPUT_SLOT_COUNT && stack.is(FITags.ItemTag.AROMATICS) && !this.hasActiveScent();
     }
-
     @Override
     public void clearContent() {
         this.items = NonNullList.withSize(SLOT_COUNT, ItemStack.EMPTY);
@@ -338,6 +337,10 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
             tag.putString("ActiveScent", this.activeScent.id().toString());
             tag.putInt("ActiveScentId", this.activeScent.networkId());
         }
+    }
+
+    public boolean hasActiveScent() {
+        return this.activeScent != null;
     }
 
     @Override

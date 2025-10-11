@@ -49,7 +49,7 @@ public class TapperItem extends Item {
         if (!level.isClientSide) {
             // place the tapper block
             BlockState tapperState = FIBlocks.TAPPER.get().defaultBlockState()
-                    .setValue(TapperBlock.FACING, face.getOpposite())
+                    .setValue(TapperBlock.FACING, face)
                     .setValue(TapperBlock.HAS_TAPPER, true)
                     .setValue(TapperBlock.FILL, 0);
             level.setBlock(targetPos, tapperState, Block.UPDATE_ALL);

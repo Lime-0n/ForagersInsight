@@ -289,7 +289,7 @@ public class FIBlockStates extends FIBlockStatesHelper {
                         .with(TapperBlock.FACING, direction)
                         .modelForState()
                         .modelFile(model)
-                        .rotationY((int) direction.toYRot())
+                        .rotationY((int) direction.getOpposite().toYRot())
                         .addModel();
             }
         }

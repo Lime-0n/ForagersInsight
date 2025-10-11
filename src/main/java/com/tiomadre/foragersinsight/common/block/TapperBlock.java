@@ -107,7 +107,7 @@ public class TapperBlock extends HorizontalDirectionalBlock {
         Direction face = context.getClickedFace();
         if (face.getAxis().isVertical()) return null;
         Level level = context.getLevel();
-        BlockPos logPos = context.getClickedPos().relative(face);
+        BlockPos logPos = context.getClickedPos().relative(face.getOpposite());
         BlockState logState = level.getBlockState(logPos);
 
         // place on a Sappy Birch Log to begin harvest
@@ -116,7 +116,7 @@ public class TapperBlock extends HorizontalDirectionalBlock {
             return null;
         }
         return defaultBlockState()
-                .setValue(FACING, face.getOpposite())
+                .setValue(FACING, face)
                 .setValue(HAS_TAPPER, true)
                 .setValue(FILL, 0);
     }

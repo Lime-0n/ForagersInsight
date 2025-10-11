@@ -188,8 +188,6 @@ public class DiffuserBlock extends BaseEntityBlock {
 
         if (random.nextInt(4) == 0) {
             level.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, x, y, z, offsetX * 0.6D, 0.07D, offsetZ * 0.6D);
-        } else {
-            level.addParticle(ParticleTypes.SMOKE, x, y + 0.05D, z, offsetX, 0.02D, offsetZ);
         }
         if (random.nextInt(5) == 0) {
             BlockEntity entity = level.getBlockEntity(pos);

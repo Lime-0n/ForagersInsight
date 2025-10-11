@@ -18,6 +18,6 @@ public class DiffuserScentParticleProvider implements ParticleProvider<SimplePar
     public TextureSheetParticle createParticle(@NotNull SimpleParticleType type, @NotNull ClientLevel level,
                                                double x, double y, double z,
                                                double velocityX, double velocityY, double velocityZ) {
-        return new DiffuserScentParticle(level, x, y, z, velocityX, velocityY, velocityZ, this.sprite);
+        return new DiffuserScentParticle(level, x, y, z, velocityX, velocityY, velocityZ, sprite);
     }
 }
