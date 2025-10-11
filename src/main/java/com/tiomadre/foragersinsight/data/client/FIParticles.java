@@ -47,7 +47,7 @@ public class FIParticles implements DataProvider {
     }
 
     private static String textureLocation(ResourceLocation id) {
-        return id.getNamespace() + ":particle/" + id.getPath();
+        return id.getNamespace() + ":" + id.getPath();
     }
 
     @Override

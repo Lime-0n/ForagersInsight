@@ -69,9 +69,6 @@ public class DiffuserMenu extends AbstractContainerMenu {
 
         BlockPos pos = buffer.readBlockPos();
         Level level = playerInventory.player.level();
-        if (level == null) {
-            throw new IllegalStateException("Player level is not available");
-        }
 
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if (blockEntity instanceof DiffuserBlockEntity diffuser) {
@@ -82,7 +79,15 @@ public class DiffuserMenu extends AbstractContainerMenu {
     private void addDiffuserSlots() {
         for (int slot = 0; slot < INPUT_SLOT_COUNT; slot++) {
             int x = SLOT_START_X + slot * SLOT_SPACING;
-            this.addSlot(new Slot(this.diffuserContainer, slot, x, SLOT_Y));
+            this.addSlot(new Slot(this.diffuserContainer, slot, x, SLOT_Y) {
+                @Override
+                public boolean mayPlace(@NotNull ItemStack stack) {
+                    if (DiffuserMenu.this.diffuser.hasActiveScent()) {
+                        return false;
+                    }
+                    return super.mayPlace(stack);
+                }
+            });
         }
 
         this.addSlot(new Slot(this.diffuserContainer, RESULT_SLOT_INDEX, RESULT_SLOT_X, SLOT_Y) {
@@ -117,7 +122,7 @@ public class DiffuserMenu extends AbstractContainerMenu {
     @Override
     public @NotNull ItemStack quickMoveStack(@NotNull Player player, int index) {
         Slot sourceSlot = this.slots.get(index);
-        if (sourceSlot == null || !sourceSlot.hasItem()) {
+        if (!sourceSlot.hasItem()) {
             return ItemStack.EMPTY;
         }
 
