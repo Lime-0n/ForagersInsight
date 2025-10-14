@@ -12,6 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import vectorwing.farmersdelight.common.registry.ModItems;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -31,7 +32,7 @@ public final class DiffuserScent {
                     new ResourceLocation("foragersinsight", "textures/scents/rosey.png"),
                     "foragersinsight.diffuser.rosey",
                     "foragersinsight.diffuser.rosey.description",
-                    5.0,
+                    8.0,
                     (Supplier<MobEffectInstance>) () -> new MobEffectInstance(MobEffects.REGENERATION, 100, 0),
                     0));
 
@@ -42,7 +43,7 @@ public final class DiffuserScent {
                     new ResourceLocation("foragersinsight", "textures/scents/coniferous.png"),
                     "foragersinsight.diffuser.coniferous",
                     "foragersinsight.diffuser.coniferous.description",
-                    5.0,
+                    8.0,
                     () -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 100, 0),
                     1));
 
@@ -55,17 +56,17 @@ public final class DiffuserScent {
                     new ResourceLocation("foragersinsight", "textures/scents/floral.png"),
                     "foragersinsight.diffuser.floral",
                     "foragersinsight.diffuser.floral.description",
-                    5.0,
+                    8.0,
                     () -> new MobEffectInstance(FIMobEffects.BLOOM.get(), 100, 0),
                     0));
     public static final Supplier<DiffuserScent> FOUL = Suppliers.memoize(() ->
             new DiffuserScent(
                     new ResourceLocation("foragersinsight", "foul"),
-                    List.of(IngredientCount.of(Ingredient.of(Items.ROTTEN_FLESH), 4)),
+                    List.of(IngredientCount.of(Ingredient.of(ModItems.ORGANIC_COMPOST.get()), 3)),
                     new ResourceLocation("foragersinsight", "textures/scents/foul.png"),
                     "foragersinsight.diffuser.foul",
                     "foragersinsight.diffuser.foul.description",
-                    5.0,
+                    8.0,
                     () -> new MobEffectInstance(FIMobEffects.ODOROUS.get(), 100, 0),
                     3));
 

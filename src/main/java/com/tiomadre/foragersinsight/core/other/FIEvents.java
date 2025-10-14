@@ -30,10 +30,10 @@ public class FIEvents {
 
         boolean alreadyPresent = mob.goalSelector.getAvailableGoals().stream()
                 .map(WrappedGoal::getGoal)
-                .anyMatch(goal -> goal instanceof AvoidOdorousPlayersGoal);
+                .anyMatch(goal -> goal instanceof AvoidStinky);
         if (alreadyPresent) return;
 
-        mob.goalSelector.addGoal(3, new AvoidOdorousPlayersGoal(mob, 1.1D, 1.25D));
+        mob.goalSelector.addGoal(3, new AvoidStinky(mob, 1.1D, 1.25D));
     }
     // Farmhand Enchant logic
     @SubscribeEvent

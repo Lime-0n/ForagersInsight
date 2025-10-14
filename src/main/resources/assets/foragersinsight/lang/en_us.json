@@ -121,10 +121,12 @@
   "effect.foragersinsight.bloom": "Bloom",
   "effect.foragersinsight.chilled": "Chilled",
   "effect.foragersinsight.medicinal": "Medicinal",
+  "effect.foragersinsight.odorous": "Odorous",
 
   "effect.foragersinsight.bloom.desc": "Gain 20% more experience and pay 20% less experience for actions.",
   "effect.foragersinsight.chilled.desc": "Freeze the duration of beneficial effects.",
   "effect.foragersinsight.medicinal.desc": "Removes and prevents the application of Poison and Wither. The player is also healed per effect removed.",
+  "effect.foragersinsight.odorous.desc": "This unit stinks causing nearby mobs to avoid them.",
 
   "enchantment.foragersinsight.farmhand": "Farmhand",
   "enchantment.foragersinsight.concussive": "Concussive",
@@ -134,14 +136,16 @@
   "foragersinsight.tool_interaction.shears.chicken": "Please wait %s seconds to shear this chicken again.",
   "foragersinsight.tool_interaction.shears.baby_chicken": "Baby chickens cannot be sheared.",
   "foragersinsight.tool_interaction.mallet.anvil_no_repairs": "This anvil is fully repaired.",
-  "foragersinsight.diffuser.scent": "%s",
+
   "foragersinsight.diffuser.no_scent": "The diffuser is not currently exuding a scent.",
   "foragersinsight.diffuser.rosey":"The diffuser is exuding a Rosey scent!",
   "foragersinsight.diffuser.coniferous":"The diffuser is exuding a Coniferous scent!",
   "foragersinsight.diffuser.floral":"The diffuser is exuding a Floral scent!",
-  "foragersinsight.diffuser.rosey.description": "A comforting rosey scent fills the air, granting Regeneration when near this Diffuser.",
-  "foragersinsight.diffuser.coniferous.description": "An invigorating coniferous scent fills the air, giving Resistance when near this Diffuser.",
-  "foragersinsight.diffuser.floral.description": "A blossoming floral scent fills the air, giving Bloom when near this Diffuser.",
+  "foragersinsight.diffuser.foul":"The diffuser is exuding a Foul scent!",
+  "foragersinsight.diffuser.rosey.description": "A comforting rosey scent fills the air, granting Regeneration to those near this Diffuser.",
+  "foragersinsight.diffuser.coniferous.description": "An invigorating coniferous scent fills the air, giving Resistance to those near this Diffuser.",
+  "foragersinsight.diffuser.floral.description": "A blossoming floral scent fills the air, giving Bloom to those near this Diffuser.",
+  "foragersinsight.diffuser.foul.description": "A stinky aroma fills the air, giving Odorous to those near this Diffuser.",
 
   "itemGroup.foragersinsight": "Forager's Insight"
 }

@@ -3,6 +3,7 @@ package com.tiomadre.foragersinsight.core.registry;
 import com.tiomadre.foragersinsight.common.effect.BloomEffect;
 import com.tiomadre.foragersinsight.common.effect.ChilledEffect;
 import com.tiomadre.foragersinsight.common.effect.MedicinalEffect;
+import com.tiomadre.foragersinsight.common.effect.OdorousEffect;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraftforge.registries.DeferredRegister;
