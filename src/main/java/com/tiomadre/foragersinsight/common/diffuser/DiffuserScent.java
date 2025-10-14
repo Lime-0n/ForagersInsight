@@ -2,6 +2,7 @@ package com.tiomadre.foragersinsight.common.diffuser;
 
 import com.google.common.base.Suppliers;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
+import com.tiomadre.foragersinsight.core.registry.FIMobEffects;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -11,7 +12,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.phys.Vec3;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -20,7 +20,6 @@ import java.util.function.Supplier;
 @SuppressWarnings("ALL")
 public final class DiffuserScent {
     public static final int STANDARD_DURATION = 12000;
-    public static final Vec3 DEFAULT_COLOR = new Vec3(0.8D, 0.8D, 0.8D);
 
     private static final List<DiffuserScent> ALL = new ArrayList<>();
     private static final Map<ResourceLocation, DiffuserScent> BY_ID = new ConcurrentHashMap<>();
@@ -57,7 +56,7 @@ public final class DiffuserScent {
                     "foragersinsight.diffuser.floral",
                     "foragersinsight.diffuser.floral.description",
                     5.0,
-                    () -> new MobEffectInstance(MobEffects.REGENERATION, 100, 0),
+                    () -> new MobEffectInstance(FIMobEffects.BLOOM.get(), 100, 0),
                     0));
 
     public static void bootstrap() {
@@ -176,13 +175,6 @@ public final class DiffuserScent {
         }
 
         return totalItems == this.totalItemCount && Arrays.stream(remaining).allMatch(r -> r == 0);
-    }
-
-    public static Vec3 colorFromRgb(int rgb) {
-        double r = ((rgb >> 16) & 0xFF) / 255.0;
-        double g = ((rgb >> 8) & 0xFF) / 255.0;
-        double b = (rgb & 0xFF) / 255.0;
-        return new Vec3(r, g, b);
     }
 
     public static final class IngredientCount {

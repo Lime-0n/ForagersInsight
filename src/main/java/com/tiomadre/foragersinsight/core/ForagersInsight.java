@@ -3,7 +3,7 @@ package com.tiomadre.foragersinsight.core;
 import com.tiomadre.foragersinsight.common.diffuser.DiffuserScent;
 import com.tiomadre.foragersinsight.core.registry.FIEnchantments;
 import com.tiomadre.foragersinsight.core.other.FIClientCompat;
-import com.tiomadre.foragersinsight.core.other.FIDataUtil;
+import com.tiomadre.foragersinsight.core.other.FICompostable;
 import com.tiomadre.foragersinsight.core.registry.*;
 import com.tiomadre.foragersinsight.data.client.FIBlockStates;
 import com.tiomadre.foragersinsight.data.client.FIItemModels;
@@ -63,7 +63,7 @@ public class ForagersInsight {
 
 	private void commonSetup(FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
-			FIDataUtil.registerCompat();
+			FICompostable.registerCompat();
 			DiffuserScent.bootstrap();
 		});
 	}
