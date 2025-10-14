@@ -6,11 +6,14 @@ import com.tiomadre.foragersinsight.core.ForagersInsight;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.ai.goal.WrappedGoal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.player.PlayerXpEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -20,6 +23,18 @@ import java.util.List;
 
 @Mod.EventBusSubscriber(modid = ForagersInsight.MOD_ID)
 public class FIEvents {
+    @SubscribeEvent
+    public static void onMobJoin(EntityJoinLevelEvent event) {
+        if (event.getLevel().isClientSide()) return;
+        if (!(event.getEntity() instanceof PathfinderMob mob)) return;
+
+        boolean alreadyPresent = mob.goalSelector.getAvailableGoals().stream()
+                .map(WrappedGoal::getGoal)
+                .anyMatch(goal -> goal instanceof AvoidOdorousPlayersGoal);
+        if (alreadyPresent) return;
+
+        mob.goalSelector.addGoal(3, new AvoidOdorousPlayersGoal(mob, 1.1D, 1.25D));
+    }
     // Farmhand Enchant logic
     @SubscribeEvent
     public static void onBlockBreak(BlockEvent.BreakEvent event) {

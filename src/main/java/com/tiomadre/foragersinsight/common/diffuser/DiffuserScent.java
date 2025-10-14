@@ -58,11 +58,22 @@ public final class DiffuserScent {
                     5.0,
                     () -> new MobEffectInstance(FIMobEffects.BLOOM.get(), 100, 0),
                     0));
+    public static final Supplier<DiffuserScent> FOUL = Suppliers.memoize(() ->
+            new DiffuserScent(
+                    new ResourceLocation("foragersinsight", "foul"),
+                    List.of(IngredientCount.of(Ingredient.of(Items.ROTTEN_FLESH), 4)),
+                    new ResourceLocation("foragersinsight", "textures/scents/foul.png"),
+                    "foragersinsight.diffuser.foul",
+                    "foragersinsight.diffuser.foul.description",
+                    5.0,
+                    () -> new MobEffectInstance(FIMobEffects.ODOROUS.get(), 100, 0),
+                    3));
 
     public static void bootstrap() {
         ROSEY.get();
         CONIFEROUS.get();
         FLORAL.get();
+        FOUL.get();
     }
 
     private final ResourceLocation id;

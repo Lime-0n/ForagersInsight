@@ -22,7 +22,8 @@ public final class FIParticleTypes {
             PARTICLES.register("rose_scent", () -> new SimpleParticleType(false));
     public static final RegistryObject<SimpleParticleType> FLORAL_SCENT =
             PARTICLES.register("floral_scent", () -> new SimpleParticleType(false));
-
+    public static final RegistryObject<SimpleParticleType> FOUL_SCENT =
+            PARTICLES.register("foul_scent", () -> new SimpleParticleType(false));
     private FIParticleTypes() {}
 
     public static void register(IEventBus bus) {

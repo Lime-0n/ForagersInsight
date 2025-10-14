@@ -15,4 +15,5 @@ public class FIMobEffects {
     public static final RegistryObject<MobEffect> CHILLED = MOB_EFFECTS.register("chilled", ChilledEffect::new);
     public static final RegistryObject<MobEffect> MEDICINAL = MOB_EFFECTS.register("medicinal", MedicinalEffect::new);
     public static final RegistryObject<MobEffect> BLOOM = MOB_EFFECTS.register("bloom", BloomEffect::new);
+    public static final RegistryObject<MobEffect> ODOROUS = MOB_EFFECTS.register("odorous", OdorousEffect::new);
 }

@@ -223,6 +223,9 @@ public class DiffuserBlock extends BaseEntityBlock {
         if (scent == DiffuserScent.FLORAL.get()) {
             return FIParticleTypes.FLORAL_SCENT.get();
         }
+        if (scent == DiffuserScent.FOUL.get()) {
+            return FIParticleTypes.FOUL_SCENT.get();
+        }
         return null;
     }
 
