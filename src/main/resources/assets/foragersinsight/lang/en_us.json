@@ -61,7 +61,6 @@
   "item.foragersinsight.rose_petals": "Rose Petals",
   "item.foragersinsight.roselle_petals": "Roselle Petals",
 
-  "item.foragersinsight.potpourri": "Potpourri Bowl",
 
   "item.foragersinsight.slice_of_acorn_carrot_cake": "Slice of Acorn Carrot Cake",
   "item.foragersinsight.acorn_carrot_cake_item": "Acorn Carrot Cake",
@@ -70,6 +69,9 @@
   "item.foragersinsight.birch_sap_bottle": "Birch Sap Bottle",
   "item.foragersinsight.birch_sap_bucket": "Birch Sap Bucket",
 
+  "item.foragersinsight.diffuser": "Diffuser",
+  "block.foragersinsight.diffuser": "Diffuser",
+  "container.foragersinsight.diffuser": "Diffuser",
   "container.foragersinsight.handbasket": "Handbasket",
   "item.foragersinsight.handbasket": "Handbasket",
 
@@ -100,7 +102,6 @@
   "block.foragersinsight.rose_hip_sack": "Sack of Rose Hips",
   "block.foragersinsight.roselle_calyx_sack": "Sack of Roselle Calyces",
   "block.foragersinsight.spruce_tips_sack": "Sack of Spruce Tips",
-  "block.foragersinsight.potpourri": "Potpourri Bowl",
 
   "block.foragersinsight.dense_rose_petals": "Dense Rose Petals",
   "block.foragersinsight.dense_roselle_petals": "Dense Roselle Petals",
@@ -112,31 +113,39 @@
   "block.foragersinsight.scattered_spruce_tips": "Scattered Spruce Tips",
 
   "foragersinsight.flavortext.dandelion_root_tea": "A curative tisane made from dandelion roots.",
-  "foragersinsight.flavortext.forest_elixir": "A sweetened coniferous drink made of syrup and spruce tips.",
+  "foragersinsight.flavortext.forest_elixir": "A coniferous drink made of syrup and spruce tips.",
   "foragersinsight.flavortext.rose_cordial": "A healing tea made from floral rose petals.",
-  "foragersinsight.flavortext.roselle_juice": "A tart infusion reminiscent of the juice of sour fruits.",
+  "foragersinsight.flavortext.roselle_juice": "A tart infusion reminiscent of sour fruits.",
   "foragersinsight.flavortext.seed_milk_bucket": "A bucket of milk derived from various seeds.",
 
   "effect.foragersinsight.bloom": "Bloom",
   "effect.foragersinsight.chilled": "Chilled",
   "effect.foragersinsight.medicinal": "Medicinal",
-  "scent.foragersinsight.rosey": "Rosey",
-  "scent.foragersinsight.coniferous": "Coniferous",
-  "scent.foragersinsight.floral": "Floral",
+  "effect.foragersinsight.odorous": "Odorous",
 
   "effect.foragersinsight.bloom.desc": "Gain 20% more experience and pay 20% less experience for actions.",
   "effect.foragersinsight.chilled.desc": "Freeze the duration of beneficial effects.",
   "effect.foragersinsight.medicinal.desc": "Removes and prevents the application of Poison and Wither. The player is also healed per effect removed.",
+  "effect.foragersinsight.odorous.desc": "This unit stinks causing nearby mobs to avoid them.",
 
   "enchantment.foragersinsight.farmhand": "Farmhand",
   "enchantment.foragersinsight.concussive": "Concussive",
 
   "farmersdelight.tooltip.seed_milk_bottle": "Clears 1 Effect",
 
-  "farmersdelight.tool_interaction.shears.chicken": "Please wait %s seconds to shear this chicken again.",
-  "farmersdelight.tool_interaction.shears.baby_chicken": "Baby chickens cannot be sheared.",
-  "farmersdelight.tool_interaction.mallet.anvil_no_repairs": "This anvil is fully repaired.",
-  "farmersdelight.reveal_scent.potpourri": "The potpourri is diffusing a %s aroma.",
+  "foragersinsight.tool_interaction.shears.chicken": "Please wait %s seconds to shear this chicken again.",
+  "foragersinsight.tool_interaction.shears.baby_chicken": "Baby chickens cannot be sheared.",
+  "foragersinsight.tool_interaction.mallet.anvil_no_repairs": "This anvil is fully repaired.",
+
+  "foragersinsight.diffuser.no_scent": "The diffuser is not currently exuding a scent.",
+  "foragersinsight.diffuser.rosey":"The diffuser is exuding a Rosey scent!",
+  "foragersinsight.diffuser.coniferous":"The diffuser is exuding a Coniferous scent!",
+  "foragersinsight.diffuser.floral":"The diffuser is exuding a Floral scent!",
+  "foragersinsight.diffuser.foul":"The diffuser is exuding a Foul scent!",
+  "foragersinsight.diffuser.rosey.description": "A comforting rosey scent fills the air, granting Regeneration to those near this Diffuser.",
+  "foragersinsight.diffuser.coniferous.description": "An invigorating coniferous scent fills the air, giving Resistance to those near this Diffuser.",
+  "foragersinsight.diffuser.floral.description": "A blossoming floral scent fills the air, giving Bloom to those near this Diffuser.",
+  "foragersinsight.diffuser.foul.description": "A stinky aroma fills the air, giving Odorous to those near this Diffuser.",
 
   "itemGroup.foragersinsight": "Forager's Insight"
 }
