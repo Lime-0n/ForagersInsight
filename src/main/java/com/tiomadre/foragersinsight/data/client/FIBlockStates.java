@@ -1,9 +1,6 @@
 package com.tiomadre.foragersinsight.data.client;
 
-import com.tiomadre.foragersinsight.common.block.BountifulLeavesBlock;
-import com.tiomadre.foragersinsight.common.block.RoseCropBlock;
-import com.tiomadre.foragersinsight.common.block.SpruceTipBlock;
-import com.tiomadre.foragersinsight.common.block.TapperBlock;
+import com.tiomadre.foragersinsight.common.block.*;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import net.minecraft.core.Direction;
@@ -22,6 +19,9 @@ public class FIBlockStates extends FIBlockStatesHelper {
     }
     @Override
     protected void registerStatesAndModels() {
+        //Cakes and Feasts
+        this.sliceableCake();
+
         //Flower Crops
         this.RoseCrop(ROSE_CROP);
         this.RoselleCrop(ROSELLE_CROP);
@@ -294,6 +294,27 @@ public class FIBlockStates extends FIBlockStatesHelper {
             }
         }
     }
+
+    private void sliceableCake() {
+        SliceableCakeBlock cake = (SliceableCakeBlock) ACORN_CARROT_CAKE.get();
+        String name = name(cake);
+
+        VariantBlockStateBuilder builder = this.getVariantBuilder(cake);
+        for (int bites = 0; bites < cake.getMaxBites(); bites++) {
+            String parent = bites == 0 ? "block/cake" : "block/cake_slice" + bites;
+            ModelFile model = this.models().withExistingParent(bites == 0 ? name : name + "_slice" + bites, mcLoc(parent))
+                    .texture("particle", modTexture(name + "_side"))
+                    .texture("bottom", modTexture(name + "_bottom"))
+                    .texture("top", modTexture(name + "_top"))
+                    .texture("side", modTexture(name + "_side"))
+                    .texture("inner", modTexture(name + "_inner"));
+
+            builder.partialState().with(SliceableCakeBlock.BITES, bites)
+                    .modelForState().modelFile(model)
+                    .addModel();
+        }
+    }
+
 
     private ModelFile tapperModel(String name, String bucketTop, String bucketSide, String tapTexture) {
         BlockModelBuilder builder = this.models().getBuilder(name)
