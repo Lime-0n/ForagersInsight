@@ -272,7 +272,9 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         }
 
         this.items.set(pSlot, pStack);
-        if (pStack.getCount() > this.getMaxStackSize()) {
+        if (pSlot < INPUT_SLOT_COUNT && pStack.getCount() > 1) {
+            pStack.setCount(1);
+        } else if (pStack.getCount() > this.getMaxStackSize()) {
             pStack.setCount(this.getMaxStackSize());
         }
         if (this.activeScent != null && !this.isLit()) {
@@ -311,6 +313,12 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         super.load(tag);
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, this.items);
+        for (int slot = 0; slot < INPUT_SLOT_COUNT; slot++) {
+            ItemStack stack = this.items.get(slot);
+            if (!stack.isEmpty() && stack.getCount() > 1) {
+                stack.setCount(1);
+            }
+        }
         this.litTime = tag.getInt("LitTime");
         this.litDuration = tag.getInt("LitDuration");
         this.craftProgress = tag.getInt("CraftProgress");

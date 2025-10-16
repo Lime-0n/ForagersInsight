@@ -137,6 +137,7 @@
   "foragersinsight.tool_interaction.shears.baby_chicken": "Baby chickens cannot be sheared.",
   "foragersinsight.tool_interaction.mallet.anvil_no_repairs": "This anvil is fully repaired.",
 
+  "foragersinsight.diffuser.scent": "%s",
   "foragersinsight.diffuser.no_scent": "The diffuser is not currently exuding a scent.",
   "foragersinsight.diffuser.rosey":"The diffuser is exuding a Rosey scent!",
   "foragersinsight.diffuser.coniferous":"The diffuser is exuding a Coniferous scent!",
