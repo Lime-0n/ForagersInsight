@@ -18,18 +18,11 @@ public class DiffuserScreen extends AbstractContainerScreen<DiffuserMenu> {
     private static final ResourceLocation TEXTURE =
             new ResourceLocation("foragersinsight", "textures/gui/diffuser.png");
 
-
-    private static final int FLAME_U = 176;
-    private static final int FLAME_V = 0;
-    private static final int FLAME_W = 14;
-    private static final int FLAME_H = 14;
-
     private static final int ARROW_U = 176;
     private static final int ARROW_V = 14;
     private static final int ARROW_H = 17;
 
     private static final int ICON_SIZE = 16;
-    private static final int TEXT_COLOR = 0x404040;
 
     public DiffuserScreen(DiffuserMenu menu, Inventory inv, Component title) {
         super(menu, inv, title);
@@ -50,17 +43,6 @@ public class DiffuserScreen extends AbstractContainerScreen<DiffuserMenu> {
 
         gui.blit(TEXTURE, left, top, 0, 0, this.imageWidth, this.imageHeight);
 
-        int flameX = left + 57;
-        int flameY = top + 36;
-
-        if (this.menu.isLit()) {
-            int lit = this.menu.getLitProgress();
-            gui.blit(TEXTURE,
-                    flameX, flameY + (FLAME_H - lit),
-                    FLAME_U, FLAME_V + (FLAME_H - lit),
-                    FLAME_W, lit);
-        }
-
         int arrowX = left + 97;
         int arrowY = top + 34;
         int progress = this.menu.getCraftProgress();
@@ -73,7 +55,6 @@ public class DiffuserScreen extends AbstractContainerScreen<DiffuserMenu> {
         }
 
         renderScentIcon(gui, left, top);
-        renderProgressInfo(gui, left, top);
     }
 
     @Override
@@ -107,32 +88,6 @@ public class DiffuserScreen extends AbstractContainerScreen<DiffuserMenu> {
         int iconY = top + slot.y;
         if (mouseX >= iconX && mouseX < iconX + ICON_SIZE && mouseY >= iconY && mouseY < iconY + ICON_SIZE) {
             gui.renderComponentTooltip(this.font, scent.get().tooltip(), mouseX, mouseY);
-        }
-    }
-    private void renderProgressInfo(GuiGraphics gui, int left, int top) {
-        int infoX = left + 8;
-        int infoY = top + 55;
-
-        if (this.menu.isDiffusing()) {
-            int percent = this.menu.getCraftProgressPercent();
-            if (percent > 0) {
-                Component progressText = Component.translatable("gui.foragersinsight.diffuser.progress", percent);
-                gui.drawString(this.font, progressText, infoX, infoY, TEXT_COLOR, false);
-                infoY += this.font.lineHeight + 2;
-            }
-
-            int totalSeconds = this.menu.getTotalCraftSeconds();
-            int remainingSeconds = this.menu.getRemainingCraftSeconds();
-            if (totalSeconds > 0) {
-                Component timeText = Component.translatable("gui.foragersinsight.diffuser.time_remaining", remainingSeconds, totalSeconds);
-                gui.drawString(this.font, timeText, infoX, infoY, TEXT_COLOR, false);
-            }
-        } else if (this.menu.getActiveScent().isPresent()) {
-            Component readyText = Component.translatable("gui.foragersinsight.diffuser.ready");
-            gui.drawString(this.font, readyText, infoX, infoY, TEXT_COLOR, false);
-        } else {
-            Component idleText = Component.translatable("gui.foragersinsight.diffuser.insert_items");
-            gui.drawString(this.font, idleText, infoX, infoY, TEXT_COLOR, false);
         }
     }
 }

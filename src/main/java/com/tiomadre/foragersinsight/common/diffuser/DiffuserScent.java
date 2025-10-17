@@ -33,7 +33,7 @@ public final class DiffuserScent {
                     "foragersinsight.diffuser.rosey",
                     "foragersinsight.diffuser.rosey.description",
                     8.0,
-                    (Supplier<MobEffectInstance>) () -> new MobEffectInstance(MobEffects.REGENERATION, 100, 0),
+                    (Supplier<MobEffectInstance>) () -> new MobEffectInstance(MobEffects.REGENERATION, 200, 0),
                     0));
 
     public static final Supplier<DiffuserScent> CONIFEROUS = Suppliers.memoize(() ->
@@ -44,7 +44,7 @@ public final class DiffuserScent {
                     "foragersinsight.diffuser.coniferous",
                     "foragersinsight.diffuser.coniferous.description",
                     8.0,
-                    () -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 100, 0),
+                    () -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 500, 0),
                     1));
 
     public static final Supplier<DiffuserScent> FLORAL = Suppliers.memoize(() ->
@@ -57,7 +57,7 @@ public final class DiffuserScent {
                     "foragersinsight.diffuser.floral",
                     "foragersinsight.diffuser.floral.description",
                     8.0,
-                    () -> new MobEffectInstance(FIMobEffects.BLOOM.get(), 100, 0),
+                    () -> new MobEffectInstance(FIMobEffects.BLOOM.get(), 1200, 0),
                     0));
     public static final Supplier<DiffuserScent> FOUL = Suppliers.memoize(() ->
             new DiffuserScent(
@@ -67,7 +67,7 @@ public final class DiffuserScent {
                     "foragersinsight.diffuser.foul",
                     "foragersinsight.diffuser.foul.description",
                     8.0,
-                    () -> new MobEffectInstance(FIMobEffects.ODOROUS.get(), 100, 0),
+                    () -> new MobEffectInstance(FIMobEffects.ODOROUS.get(), 1200, 0),
                     3));
 
     public static void bootstrap() {

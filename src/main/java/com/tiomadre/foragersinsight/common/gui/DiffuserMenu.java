@@ -1,12 +1,10 @@
 package com.tiomadre.foragersinsight.common.gui;
 
 import com.tiomadre.foragersinsight.common.block.entity.DiffuserBlockEntity;
-import com.tiomadre.foragersinsight.common.diffuser.DiffuserScent;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIMenuTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -25,8 +23,6 @@ public class DiffuserMenu extends AbstractContainerMenu {
     private static final int DIFFUSER_SLOT_COUNT = INPUT_SLOT_COUNT + 1;
     private static final int PLAYER_INVENTORY_ROWS = 3;
     private static final int PLAYER_INVENTORY_COLUMNS = 9;
-    private static final int DATA_LIT_TIME = 0;
-    private static final int DATA_LIT_DURATION = 1;
     private static final int DATA_PROGRESS = 2;
     private static final int DATA_TOTAL = 3;
 
@@ -38,8 +34,6 @@ public class DiffuserMenu extends AbstractContainerMenu {
     private static final int INV_START_X = 8;
     private static final int INV_START_Y = 87;
     private static final int HOTBAR_Y = INV_START_Y + PLAYER_INVENTORY_ROWS * SLOT_SIZE + 4;
-    private static final int FLAME_PIXEL_HEIGHT = 14;
-    private static final int ARROW_PIXEL_WIDTH = 24;
 
     private final Container diffuserContainer;
     private final DiffuserBlockEntity diffuser;
@@ -156,68 +150,18 @@ public class DiffuserMenu extends AbstractContainerMenu {
         return copy;
     }
 
-    public boolean isLit() {
-        return this.dataAccess.get(DATA_LIT_TIME) > 0;
-    }
-
-    public int getLitProgress() {
-        int lit = this.dataAccess.get(DATA_LIT_TIME);
-        if (lit <= 0) {
-            return 0;
-        }
-
-        int duration = this.dataAccess.get(DATA_LIT_DURATION);
-        if (duration <= 0) {
-            duration = DiffuserScent.STANDARD_DURATION;
-        }
-
-        int scaled = Mth.ceil((double) lit * FLAME_PIXEL_HEIGHT / duration);
-        return Mth.clamp(scaled, 1, FLAME_PIXEL_HEIGHT);
-    }
-
     public int getCraftProgress() {
         int progress = this.dataAccess.get(DATA_PROGRESS);
-        int total = this.dataAccess.get(DATA_TOTAL);
-        if (progress <= 0 || total <= 0) {
-            return 0;
-        }
-
-        int scaled = Mth.ceil((double) progress * ARROW_PIXEL_WIDTH / total);
-        return Mth.clamp(scaled, 1, ARROW_PIXEL_WIDTH);
-    }
-
-    public int getCraftProgressPercent() {
-        int progress = this.dataAccess.get(DATA_PROGRESS);
-        int total = this.dataAccess.get(DATA_TOTAL);
-        if (progress <= 0 || total <= 0) {
-            return 0;
-        }
-        return Mth.clamp((int) Math.round((double) progress * 100.0D / total), 1, 100);
-    }
-
-    public int getTotalCraftSeconds() {
         int total = this.dataAccess.get(DATA_TOTAL);
         if (total <= 0) {
             return 0;
         }
-        return Mth.ceil(total / 20.0F);
+        int max = 24;
+        return Math.min(max, (int) ((long) progress * max / total));
     }
 
-    public int getRemainingCraftSeconds() {
-        int progress = this.dataAccess.get(DATA_PROGRESS);
-        int total = this.dataAccess.get(DATA_TOTAL);
-        if (progress < 0 || total <= 0 || progress >= total) {
-            return 0;
-        }
-        return Mth.ceil((total - progress) / 20.0F);
-    }
-
-    public boolean isDiffusing() {
-        return this.isLit() || this.dataAccess.get(DATA_PROGRESS) > 0;
-    }
-
-    public Optional<DiffuserScent> getActiveScent() {
-        return this.diffuser.getActiveScent();
+    public <diffuserScent> Optional<diffuserScent> getActiveScent() {
+        return (Optional<diffuserScent>) this.diffuser.getActiveScent();
     }
 
     @Override

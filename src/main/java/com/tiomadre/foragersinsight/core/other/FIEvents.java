@@ -6,14 +6,18 @@ import com.tiomadre.foragersinsight.core.ForagersInsight;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.WrappedGoal;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
 import net.minecraftforge.event.entity.player.PlayerXpEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -23,6 +27,7 @@ import java.util.List;
 
 @Mod.EventBusSubscriber(modid = ForagersInsight.MOD_ID)
 public class FIEvents {
+    //Odorous Effect logic
     @SubscribeEvent
     public static void onMobJoin(EntityJoinLevelEvent event) {
         if (event.getLevel().isClientSide()) return;
@@ -34,6 +39,19 @@ public class FIEvents {
         if (alreadyPresent) return;
 
         mob.goalSelector.addGoal(3, new AvoidStinky(mob, 1.1D, 1.25D));
+    }
+
+    @SubscribeEvent
+    public static void onMobTargetChange(LivingChangeTargetEvent event) {
+        LivingEntity attacker = event.getEntity();
+        LivingEntity newTarget = event.getNewTarget();
+
+        if (!(attacker instanceof Monster monster)) return;
+        if (!(newTarget instanceof Player player)) return;
+        if (!player.hasEffect(FIMobEffects.ODOROUS.get())) return;
+
+        event.setNewTarget(null);
+        monster.setTarget(null);
     }
     // Farmhand Enchant logic
     @SubscribeEvent
