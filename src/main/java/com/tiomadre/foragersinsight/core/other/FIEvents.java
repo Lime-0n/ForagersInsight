@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerXpEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -53,6 +54,34 @@ public class FIEvents {
         event.setNewTarget(null);
         monster.setTarget(null);
     }
+    // wash off stank
+    private static final String ODOROUS_WATER_TICKS = ForagersInsight.MOD_ID + ":OdorousWaterTicks";
+
+    @SubscribeEvent
+    public static void onLivingTick(LivingEvent.LivingTickEvent event) {
+        LivingEntity entity = event.getEntity();
+
+        if (entity.level().isClientSide()) return;
+
+        var data = entity.getPersistentData();
+
+        if (entity.hasEffect(FIMobEffects.ODOROUS.get())) {
+            if (entity.isEyeInFluid(net.minecraft.tags.FluidTags.WATER)) {
+                int waterTicks = data.getInt(ODOROUS_WATER_TICKS) + 1;
+                if (waterTicks >= 60) {
+                    entity.removeEffect(FIMobEffects.ODOROUS.get());
+                    data.remove(ODOROUS_WATER_TICKS);
+                } else {
+                    data.putInt(ODOROUS_WATER_TICKS, waterTicks);
+                }
+            } else {
+                data.remove(ODOROUS_WATER_TICKS);
+            }
+        } else {
+            data.remove(ODOROUS_WATER_TICKS);
+        }
+    }
+
     // Farmhand Enchant logic
     @SubscribeEvent
     public static void onBlockBreak(BlockEvent.BreakEvent event) {
