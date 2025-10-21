@@ -147,7 +147,7 @@
   "foragersinsight.diffuser.coniferous.description": "An invigorating coniferous scent fills the air, giving Resistance to those near this Diffuser.",
   "foragersinsight.diffuser.floral.description": "A blossoming floral scent fills the air, giving Bloom to those near this Diffuser.",
   "foragersinsight.diffuser.foul.description": "A stinky aroma fills the air, giving Odorous to those near this Diffuser.",
-  "gui.foragersinsight.diffuser.extinguish": "❌",
+  "gui.foragersinsight.diffuser.extinguish": "Empty Diffuser",
 
   "itemGroup.foragersinsight": "Forager's Insight"
 }

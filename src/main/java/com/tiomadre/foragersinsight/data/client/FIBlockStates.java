@@ -178,9 +178,9 @@ public class FIBlockStates extends FIBlockStatesHelper {
     public void crateBlock(RegistryObject<? extends Block> block) {
         String cropName = name(block.get());
         this.simpleBlock(block.get(),
-                models().cubeBottomTop(cropName, modTexture(cropName + "_crate_side"),
+                models().cubeBottomTop(cropName, modTexture(cropName + "_side"),
                         modTexture("crate_bottom"),
-                        modTexture(cropName + "_crate_top")));
+                        modTexture(cropName + "_top")));
 
 
         this.blockItem(block.get());

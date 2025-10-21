@@ -5,6 +5,7 @@ import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIMenuTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -36,6 +37,7 @@ public class DiffuserMenu extends AbstractContainerMenu {
     private static final int INV_START_X = 8;
     private static final int INV_START_Y = 87;
     private static final int HOTBAR_Y = INV_START_Y + PLAYER_INVENTORY_ROWS * SLOT_SIZE + 4;
+    private static final int ARROW_PROGRESS_PIXELS = 22;
 
 
     private final Container diffuserContainer;
@@ -159,8 +161,7 @@ public class DiffuserMenu extends AbstractContainerMenu {
         if (total <= 0) {
             return 0;
         }
-        int max = 24;
-        return Math.min(max, (int) ((long) progress * max / total));
+        return Mth.clamp((int) ((long) progress * ARROW_PROGRESS_PIXELS / total), 0, ARROW_PROGRESS_PIXELS);
     }
 
     public Optional<DiffuserScent> getActiveScent() {

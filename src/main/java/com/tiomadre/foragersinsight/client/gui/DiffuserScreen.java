@@ -20,16 +20,16 @@ public class DiffuserScreen extends AbstractContainerScreen<DiffuserMenu> {
     private static final ResourceLocation TEXTURE =
             new ResourceLocation("foragersinsight", "textures/gui/diffuser.png");
 
-    private static final int ARROW_U = 179;
-    private static final int ARROW_V = 18;
-    private static final int ARROW_HEIGHT = 6;
-    private static final int ARROW_WIDTH = 10;
-    private static final int ARROW_X = 129;
-    private static final int ARROW_Y = 20;
+    private static final int ARROW_U = 177;
+    private static final int ARROW_V = 0;
+    private static final int ARROW_HEIGHT = 16;
+    private static final int ARROW_WIDTH = 22;
+    private static final int ARROW_X = 125;
+    private static final int ARROW_Y = 33;
 
     private static final int EXTINGUISH_BUTTON_SIZE = 12;
-    private static final int EXTINGUISH_BUTTON_X = 129;
-    private static final int EXTINGUISH_BUTTON_Y = 58;
+    private static final int EXTINGUISH_BUTTON_X = 126;
+    private static final int EXTINGUISH_BUTTON_Y = 55;
 
     private static final int ICON_SIZE = 16;
     private Button extinguishButton;
