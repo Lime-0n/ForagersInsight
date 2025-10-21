@@ -22,7 +22,7 @@ public class FICompostable {
 
      // Storage
         registerCompostables(1.0f,
-                BLACK_ACORN_SACK, DANDELION_ROOT_SACK, POPPY_SEEDS_SACK,
+                APPLE_CRATE,BLACK_ACORN_SACK, DANDELION_ROOT_SACK, POPPY_SEEDS_SACK,
                 ROSE_HIP_SACK, ROSELLE_CALYX_SACK, SPRUCE_TIPS_SACK);
 
      // Decorative

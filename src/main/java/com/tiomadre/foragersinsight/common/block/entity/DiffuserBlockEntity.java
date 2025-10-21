@@ -282,6 +282,32 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         }
         this.setChanged();
     }
+    public void extinguish() {
+        boolean wasLit = this.isLit();
+        boolean hadActiveScent = this.activeScent != null;
+
+        this.litTime = 0;
+        this.litDuration = 0;
+        this.craftProgress = 0;
+        this.effectTickCounter = 0;
+
+        if (this.activeScent != null) {
+            clearActiveScent();
+        }
+
+        if (this.level != null) {
+            BlockState state = this.getBlockState();
+            boolean blockLit = state.getValue(DiffuserBlock.LIT);
+            if (blockLit != this.isLit()) {
+                this.level.setBlock(this.worldPosition, state.setValue(DiffuserBlock.LIT, false), Block.UPDATE_ALL);
+            } else if (wasLit || hadActiveScent) {
+                this.level.sendBlockUpdated(this.worldPosition, state, state, Block.UPDATE_ALL);
+            }
+        }
+
+        this.setChanged();
+    }
+
 
     @Override
     public boolean stillValid(@NotNull Player pPlayer) {

@@ -114,6 +114,7 @@ public class FILoot extends LootTableProvider {
                 //Storage
             this.dropSelf(ACORN_CARROT_CAKE.get());
             this.dropSelf(ROSE_HIP_SACK.get());
+            this.dropSelf(APPLE_CRATE.get());
             this.dropSelf(BLACK_ACORN_SACK.get());
             this.dropSelf(SPRUCE_TIPS_SACK.get());
             this.dropSelf(ROSELLE_CALYX_SACK.get());

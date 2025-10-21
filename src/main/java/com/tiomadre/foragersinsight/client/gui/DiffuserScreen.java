@@ -9,6 +9,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.world.inventory.Slot;
 import org.jetbrains.annotations.NotNull;
 
@@ -23,6 +24,7 @@ public class DiffuserScreen extends AbstractContainerScreen<DiffuserMenu> {
     private static final int ARROW_H = 17;
 
     private static final int ICON_SIZE = 16;
+    private Button extinguishButton;
 
     public DiffuserScreen(DiffuserMenu menu, Inventory inv, Component title) {
         super(menu, inv, title);
@@ -34,6 +36,43 @@ public class DiffuserScreen extends AbstractContainerScreen<DiffuserMenu> {
         this.inventoryLabelX = 8;
         this.inventoryLabelY = this.imageHeight - 96 + 2;
     }
+    @Override
+    protected void init() {
+        super.init();
+        int buttonWidth = 70;
+        int buttonHeight = 20;
+        int buttonX = this.leftPos + this.imageWidth - buttonWidth - 9;
+        int buttonY = this.topPos + 58;
+
+        this.extinguishButton = Button.builder(Component.translatable("gui.foragersinsight.diffuser.extinguish"),
+                        this::onExtinguishPressed)
+                .bounds(buttonX, buttonY, buttonWidth, buttonHeight)
+                .build();
+        this.addRenderableWidget(this.extinguishButton);
+        updateButtonState();
+    }
+    private void updateButtonState() {
+        if (this.extinguishButton != null) {
+            this.extinguishButton.active = this.menu.getActiveScent().isPresent();
+        }
+    }
+
+    private void onExtinguishPressed(Button button) {
+        if (this.minecraft == null || this.minecraft.gameMode == null) {
+            return;
+        }
+        if (this.menu.getActiveScent().isEmpty()) {
+            return;
+        }
+        this.minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, DiffuserMenu.BUTTON_EXTINGUISH);
+    }
+
+    @Override
+    protected void containerTick() {
+        super.containerTick();
+        updateButtonState();
+    }
+
 
     @Override
     protected void renderBg(@NotNull GuiGraphics gui, float partialTicks, int mouseX, int mouseY) {

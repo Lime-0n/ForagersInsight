@@ -46,7 +46,7 @@ public class FITags {
     }
 
     public static class BlockTag {
-
+        public static final TagKey<Block> STORAGE_BLOCK_APPLE = storageTag("apple");
         public static final TagKey<Block> STORAGE_BLOCK_ROSE_HIP = storageTag("rose_hip");
         public static final TagKey<Block> STORAGE_BLOCK_SPRUCE_TIPS = storageTag("spruce_tips");
         public static final TagKey<Block> STORAGE_BLOCK_DANDELION_ROOT = storageTag("dandelion_root");

@@ -25,12 +25,15 @@ public class FITabs {
                         output.accept(FIBlocks.BOUNTIFUL_OAK_LEAVES.get());
                         output.accept(FIBlocks.BOUNTIFUL_SPRUCE_SAPLING.get());
                         output.accept(FIBlocks.BOUNTIFUL_SPRUCE_LEAVES.get());
+                            //Crop Storage
+                        output.accept(FIBlocks.APPLE_CRATE.get());
                         output.accept(FIBlocks.BLACK_ACORN_SACK.get());
                         output.accept(FIBlocks.DANDELION_ROOT_SACK.get());
                         output.accept(FIBlocks.POPPY_SEEDS_SACK.get());
                         output.accept(FIBlocks.ROSE_HIP_SACK.get());
                         output.accept(FIBlocks.ROSELLE_CALYX_SACK.get());
                         output.accept(FIBlocks.SPRUCE_TIPS_SACK.get());
+                            //Foliage Mats
                         output.accept(FIBlocks.DENSE_ROSE_PETAL_MAT.get());
                         output.accept(FIBlocks.DENSE_ROSELLE_PETAL_MAT.get());
                         output.accept(FIBlocks.DENSE_SPRUCE_TIP_MAT.get());
@@ -39,6 +42,7 @@ public class FITabs {
                         output.accept(FIBlocks.SCATTERED_ROSELLE_PETAL_MAT.get());
                         output.accept(FIBlocks.SCATTERED_SPRUCE_TIP_MAT.get());
                         output.accept(FIBlocks.SCATTERED_STRAW_MAT.get());
+                            //Wildflowers
                         output.accept(FIBlocks.ROSELLE_BUSH.get());
                         output.accept(FIBlocks.STOUT_BEACH_ROSE_BUSH.get());
                         output.accept(FIBlocks.TALL_BEACH_ROSE_BUSH.get());

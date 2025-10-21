@@ -28,7 +28,8 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.age5Crop(DANDELION_BUSH, FIItems.DANDELION_ROOT);
         this.age5Crop(POPPY_BUSH, FIItems.POPPY_SEEDS);
 
-        //Sacks
+        //Crates and Sacks
+        this.crateBlock(APPLE_CRATE, modTexture("apple_crate").toString());
         this.sackBlock(BLACK_ACORN_SACK);
         this.sackBlock(ROSE_HIP_SACK);
         this.sackBlock(ROSELLE_CALYX_SACK);

@@ -13,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
+import com.tiomadre.foragersinsight.common.diffuser.DiffuserScent;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -25,6 +26,7 @@ public class DiffuserMenu extends AbstractContainerMenu {
     private static final int PLAYER_INVENTORY_COLUMNS = 9;
     private static final int DATA_PROGRESS = 2;
     private static final int DATA_TOTAL = 3;
+    public static final int BUTTON_EXTINGUISH = 0;
 
     private static final int SLOT_SIZE = 18;
     private static final int SLOT_SPACING = SLOT_SIZE;
@@ -34,6 +36,7 @@ public class DiffuserMenu extends AbstractContainerMenu {
     private static final int INV_START_X = 8;
     private static final int INV_START_Y = 87;
     private static final int HOTBAR_Y = INV_START_Y + PLAYER_INVENTORY_ROWS * SLOT_SIZE + 4;
+
 
     private final Container diffuserContainer;
     private final DiffuserBlockEntity diffuser;
@@ -160,13 +163,26 @@ public class DiffuserMenu extends AbstractContainerMenu {
         return Math.min(max, (int) ((long) progress * max / total));
     }
 
-    public <diffuserScent> Optional<diffuserScent> getActiveScent() {
-        return (Optional<diffuserScent>) this.diffuser.getActiveScent();
+    public Optional<DiffuserScent> getActiveScent() {
+        return this.diffuser.getActiveScent();
     }
 
     @Override
     public boolean stillValid(@NotNull Player player) {
         return stillValid(this.access, player, FIBlocks.DIFFUSER.get());
+    }
+    @Override
+    public boolean clickMenuButton(@NotNull Player player, int id) {
+        if (id == BUTTON_EXTINGUISH) {
+            this.access.execute((level, pos) -> {
+                BlockEntity blockEntity = level.getBlockEntity(pos);
+                if (blockEntity instanceof DiffuserBlockEntity diffuser) {
+                    diffuser.extinguish();
+                }
+            });
+            return true;
+        }
+        return super.clickMenuButton(player, id);
     }
 
     @Override

@@ -286,7 +286,16 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .requires(ForgeTags.MILK).requires(ForgeTags.MILK).requires(ForgeTags.MILK)
                 .unlockedBy("has_black_acorn", has(BLACK_ACORN.get())).save(consumer);
         //Other
-        // Alternate Item Frame
+        //Alternate Recipes using Rabbit Hide
+        //Book
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BOOK)
+                .requires(PAPER)
+                .requires(PAPER)
+                .requires(PAPER)
+                .requires(RABBIT_HIDE)
+                .unlockedBy("has_rabbit_hide", has(RABBIT_HIDE))
+                .save(consumer, ForagersInsight.rl("book_from_rabbit_hide"));
+        // Item Frame
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ITEM_FRAME)
                 .pattern("SSS")
                 .pattern("SHS")
@@ -295,14 +304,9 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .define('H', RABBIT_HIDE)
                 .unlockedBy("has_rabbit_hide", has(RABBIT_HIDE))
                 .save(consumer, ForagersInsight.rl("item_frame_from_rabbit_hide"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BOOK)
-                .requires(PAPER)
-                .requires(PAPER)
-                .requires(PAPER)
-                .requires(RABBIT_HIDE)
-                .unlockedBy("has_rabbit_hide", has(RABBIT_HIDE))
-                .save(consumer, ForagersInsight.rl("book_from_rabbit_hide"));
+
         //Storage
+        this.storageRecipes(consumer, RecipeCategory.FOOD, APPLE, RecipeCategory.DECORATIONS, APPLE_CRATE.get());
         this.storageRecipes(consumer, RecipeCategory.FOOD, ROSE_HIP.get(), RecipeCategory.DECORATIONS, ROSE_HIP_SACK.get());
         this.storageRecipes(consumer, RecipeCategory.FOOD, POPPY_SEEDS.get(), RecipeCategory.DECORATIONS, POPPY_SEEDS_SACK.get());
         this.storageRecipes(consumer, RecipeCategory.FOOD, DANDELION_ROOT.get(), RecipeCategory.DECORATIONS, DANDELION_ROOT_SACK.get());
