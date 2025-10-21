@@ -5,6 +5,7 @@ import com.tiomadre.foragersinsight.common.block.entity.DiffuserBlockEntity;
 import com.tiomadre.foragersinsight.common.diffuser.DiffuserScent;
 import com.tiomadre.foragersinsight.common.gui.DiffuserMenu;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -19,9 +20,16 @@ public class DiffuserScreen extends AbstractContainerScreen<DiffuserMenu> {
     private static final ResourceLocation TEXTURE =
             new ResourceLocation("foragersinsight", "textures/gui/diffuser.png");
 
-    private static final int ARROW_U = 176;
-    private static final int ARROW_V = 14;
-    private static final int ARROW_H = 17;
+    private static final int ARROW_U = 179;
+    private static final int ARROW_V = 18;
+    private static final int ARROW_HEIGHT = 6;
+    private static final int ARROW_WIDTH = 10;
+    private static final int ARROW_X = 129;
+    private static final int ARROW_Y = 20;
+
+    private static final int EXTINGUISH_BUTTON_SIZE = 12;
+    private static final int EXTINGUISH_BUTTON_X = 129;
+    private static final int EXTINGUISH_BUTTON_Y = 58;
 
     private static final int ICON_SIZE = 16;
     private Button extinguishButton;
@@ -39,15 +47,15 @@ public class DiffuserScreen extends AbstractContainerScreen<DiffuserMenu> {
     @Override
     protected void init() {
         super.init();
-        int buttonWidth = 70;
-        int buttonHeight = 20;
-        int buttonX = this.leftPos + this.imageWidth - buttonWidth - 9;
-        int buttonY = this.topPos + 58;
+        int buttonX = this.leftPos + EXTINGUISH_BUTTON_X;
+        int buttonY = this.topPos + EXTINGUISH_BUTTON_Y;
 
-        this.extinguishButton = Button.builder(Component.translatable("gui.foragersinsight.diffuser.extinguish"),
-                        this::onExtinguishPressed)
-                .bounds(buttonX, buttonY, buttonWidth, buttonHeight)
+        this.extinguishButton = Button.builder(Component.empty(), this::onExtinguishPressed)
+                .bounds(buttonX, buttonY, EXTINGUISH_BUTTON_SIZE, EXTINGUISH_BUTTON_SIZE)
                 .build();
+        this.extinguishButton.setAlpha(0.0F);
+        this.extinguishButton.setTooltip(Tooltip.create(
+                Component.translatable("gui.foragersinsight.diffuser.extinguish")));
         this.addRenderableWidget(this.extinguishButton);
         updateButtonState();
     }
@@ -81,16 +89,12 @@ public class DiffuserScreen extends AbstractContainerScreen<DiffuserMenu> {
         int top = (this.height - this.imageHeight) / 2;
 
         gui.blit(TEXTURE, left, top, 0, 0, this.imageWidth, this.imageHeight);
-
-        int arrowX = left + 97;
-        int arrowY = top + 34;
-        int progress = this.menu.getCraftProgress();
-
+    int progress = Math.min(this.menu.getCraftProgress(), ARROW_WIDTH);
         if (progress > 0) {
             gui.blit(TEXTURE,
-                    arrowX, arrowY,
+                    left + ARROW_X, top + ARROW_Y,
                     ARROW_U, ARROW_V,
-                    progress, ARROW_H);
+                    progress, ARROW_HEIGHT);
         }
 
         renderScentIcon(gui, left, top);

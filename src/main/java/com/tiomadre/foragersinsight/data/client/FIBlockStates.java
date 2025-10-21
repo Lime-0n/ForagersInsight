@@ -29,7 +29,7 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.age5Crop(POPPY_BUSH, FIItems.POPPY_SEEDS);
 
         //Crates and Sacks
-        this.crateBlock(APPLE_CRATE, modTexture("apple_crate").toString());
+        this.crateBlock(APPLE_CRATE);
         this.sackBlock(BLACK_ACORN_SACK);
         this.sackBlock(ROSE_HIP_SACK);
         this.sackBlock(ROSELLE_CALYX_SACK);
@@ -175,9 +175,10 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.blockItem(block.get());
     }
 
-    public void crateBlock(RegistryObject<? extends Block> block, String cropName) {
+    public void crateBlock(RegistryObject<? extends Block> block) {
+        String cropName = name(block.get());
         this.simpleBlock(block.get(),
-                models().cubeBottomTop(name(block.get()), modTexture(cropName + "_crate_side"),
+                models().cubeBottomTop(cropName, modTexture(cropName + "_crate_side"),
                         modTexture("crate_bottom"),
                         modTexture(cropName + "_crate_top")));
 
@@ -290,7 +291,7 @@ public class FIBlockStates extends FIBlockStatesHelper {
                         .with(TapperBlock.FACING, direction)
                         .modelForState()
                         .modelFile(model)
-                        .rotationY((int) direction.getOpposite().toYRot())
+                        .rotationY((int) direction.toYRot())
                         .addModel();
             }
         }
