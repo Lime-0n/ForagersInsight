@@ -147,7 +147,11 @@
   "foragersinsight.diffuser.coniferous.description": "An invigorating coniferous scent fills the air, giving Resistance to those near this Diffuser.",
   "foragersinsight.diffuser.floral.description": "A blossoming floral scent fills the air, giving Bloom to those near this Diffuser.",
   "foragersinsight.diffuser.foul.description": "A stinky aroma fills the air, giving Odorous to those near this Diffuser.",
-  "gui.foragersinsight.diffuser.extinguish": "Empty Diffuser",
+  "gui.foragersinsight.diffuser.extinguish": "Stop Scent",
+  "gui.foragersinsight.diffuser.tooltip.radius": "Radius: %s blocks",
+  "gui.foragersinsight.diffuser.tooltip.duration": "Duration: %s seconds",
+  "gui.foragersinsight.diffuser.tooltip.enhanced_radius": " Honeycomb (+20% radius)",
+  "gui.foragersinsight.diffuser.tooltip.enhanced_duration": " Birch Sap (+20% duration)",
 
   "itemGroup.foragersinsight": "Forager's Insight"
 }

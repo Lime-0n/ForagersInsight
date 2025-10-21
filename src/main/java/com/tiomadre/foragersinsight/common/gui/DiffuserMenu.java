@@ -2,6 +2,7 @@ package com.tiomadre.foragersinsight.common.gui;
 
 import com.tiomadre.foragersinsight.common.block.entity.DiffuserBlockEntity;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
+import com.tiomadre.foragersinsight.core.registry.FIItems;
 import com.tiomadre.foragersinsight.core.registry.FIMenuTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -11,6 +12,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
@@ -21,8 +23,9 @@ import java.util.Optional;
 
 public class DiffuserMenu extends AbstractContainerMenu {
     private static final int INPUT_SLOT_COUNT = DiffuserBlockEntity.INPUT_SLOT_COUNT;
+    private static final int ENHANCEMENT_SLOT_INDEX = DiffuserBlockEntity.ENHANCEMENT_SLOT_INDEX;
     private static final int RESULT_SLOT_INDEX = DiffuserBlockEntity.RESULT_SLOT_INDEX;
-    private static final int DIFFUSER_SLOT_COUNT = INPUT_SLOT_COUNT + 1;
+    private static final int DIFFUSER_SLOT_COUNT = RESULT_SLOT_INDEX + 1;
     private static final int PLAYER_INVENTORY_ROWS = 3;
     private static final int PLAYER_INVENTORY_COLUMNS = 9;
     private static final int DATA_PROGRESS = 2;
@@ -96,6 +99,22 @@ public class DiffuserMenu extends AbstractContainerMenu {
                 }
             });
         }
+        int enhancementX = SLOT_START_X + SLOT_SPACING;
+        int enhancementY = SLOT_Y - SLOT_SPACING;
+        this.addSlot(new Slot(this.diffuserContainer, ENHANCEMENT_SLOT_INDEX, enhancementX, enhancementY) {
+            @Override
+            public boolean mayPlace(@NotNull ItemStack stack) {
+                if (DiffuserMenu.this.diffuser.hasActiveScent()) {
+                    return false;
+                }
+                return stack.is(Items.HONEYCOMB) || stack.is(FIItems.BIRCH_SAP_BOTTLE.get());
+            }
+
+            @Override
+            public int getMaxStackSize() {
+                return 1;
+            }
+        });
 
         this.addSlot(new Slot(this.diffuserContainer, RESULT_SLOT_INDEX, RESULT_SLOT_X, SLOT_Y) {
             @Override
@@ -141,7 +160,11 @@ public class DiffuserMenu extends AbstractContainerMenu {
                 return ItemStack.EMPTY;
             }
         } else {
-            if (!this.moveItemStackTo(sourceStack, 0, INPUT_SLOT_COUNT, false)) {
+            if (sourceStack.is(Items.HONEYCOMB) || sourceStack.is(FIItems.BIRCH_SAP_BOTTLE.get())) {
+                if (!this.moveItemStackTo(sourceStack, ENHANCEMENT_SLOT_INDEX, ENHANCEMENT_SLOT_INDEX + 1, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (!this.moveItemStackTo(sourceStack, 0, INPUT_SLOT_COUNT, false)) {
                 return ItemStack.EMPTY;
             }
         }
@@ -167,6 +190,23 @@ public class DiffuserMenu extends AbstractContainerMenu {
     public Optional<DiffuserScent> getActiveScent() {
         return this.diffuser.getActiveScent();
     }
+
+    public boolean isLit() {
+        return this.dataAccess.get(0) > 0;
+    }
+
+    public double getEffectiveRadius() {
+        return this.diffuser.getEffectiveRadius();
+    }
+
+    public int getEffectiveDuration() {
+        return this.diffuser.getEffectiveDuration();
+    }
+
+    public DiffuserBlockEntity.Enhancement getActiveEnhancement() {
+        return this.diffuser.getActiveEnhancement();
+    }
+
 
     @Override
     public boolean stillValid(@NotNull Player player) {
