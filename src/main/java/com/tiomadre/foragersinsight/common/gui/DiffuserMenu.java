@@ -34,11 +34,14 @@ public class DiffuserMenu extends AbstractContainerMenu {
 
     private static final int SLOT_SIZE = 18;
     private static final int SLOT_SPACING = SLOT_SIZE;
-    private static final int SLOT_Y = 37;
-    private static final int SLOT_START_X = 34;
+    private static final int INPUT_SLOT_Y = 41;
+    private static final int INPUT_SLOT_START_X = 34;
+    private static final int ENHANCEMENT_SLOT_X = INPUT_SLOT_START_X + SLOT_SPACING;
+    private static final int ENHANCEMENT_SLOT_Y = 21;
     private static final int RESULT_SLOT_X = 126;
+    private static final int RESULT_SLOT_Y = 37;
     private static final int INV_START_X = 8;
-    private static final int INV_START_Y = 87;
+    private static final int INV_START_Y = 89;
     private static final int HOTBAR_Y = INV_START_Y + PLAYER_INVENTORY_ROWS * SLOT_SIZE + 4;
     private static final int ARROW_PROGRESS_PIXELS = 22;
 
@@ -84,8 +87,8 @@ public class DiffuserMenu extends AbstractContainerMenu {
     }
     private void addDiffuserSlots() {
         for (int slot = 0; slot < INPUT_SLOT_COUNT; slot++) {
-            int x = SLOT_START_X + slot * SLOT_SPACING;
-            this.addSlot(new Slot(this.diffuserContainer, slot, x, SLOT_Y) {
+            int x = INPUT_SLOT_START_X + slot * SLOT_SPACING;
+            this.addSlot(new Slot(this.diffuserContainer, slot, x, INPUT_SLOT_Y) {
                 @Override
                 public boolean mayPlace(@NotNull ItemStack stack) {
                     if (DiffuserMenu.this.diffuser.hasActiveScent()) {
@@ -99,9 +102,7 @@ public class DiffuserMenu extends AbstractContainerMenu {
                 }
             });
         }
-        int enhancementX = SLOT_START_X + SLOT_SPACING;
-        int enhancementY = SLOT_Y - SLOT_SPACING;
-        this.addSlot(new Slot(this.diffuserContainer, ENHANCEMENT_SLOT_INDEX, enhancementX, enhancementY) {
+        this.addSlot(new Slot(this.diffuserContainer, ENHANCEMENT_SLOT_INDEX, ENHANCEMENT_SLOT_X, ENHANCEMENT_SLOT_Y) {
             @Override
             public boolean mayPlace(@NotNull ItemStack stack) {
                 if (DiffuserMenu.this.diffuser.hasActiveScent()) {
@@ -116,7 +117,7 @@ public class DiffuserMenu extends AbstractContainerMenu {
             }
         });
 
-        this.addSlot(new Slot(this.diffuserContainer, RESULT_SLOT_INDEX, RESULT_SLOT_X, SLOT_Y) {
+        this.addSlot(new Slot(this.diffuserContainer, RESULT_SLOT_INDEX, RESULT_SLOT_X, RESULT_SLOT_Y) {
             @Override
             public boolean mayPlace(@NotNull ItemStack stack) {
                 return false;
@@ -198,9 +199,8 @@ public class DiffuserMenu extends AbstractContainerMenu {
     public double getEffectiveRadius() {
         return this.diffuser.getEffectiveRadius();
     }
-
-    public int getEffectiveDuration() {
-        return this.diffuser.getEffectiveDuration();
+    public int getRemainingDuration() {
+        return this.diffuser.getRemainingDuration();
     }
 
     public DiffuserBlockEntity.Enhancement getActiveEnhancement() {

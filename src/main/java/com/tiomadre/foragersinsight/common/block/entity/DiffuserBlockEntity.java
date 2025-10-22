@@ -443,8 +443,8 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         return this.activeScent.radius() * this.activeEnhancement.radiusMultiplier();
     }
 
-    public int getEffectiveDuration() {
-        return this.craftTimeTotal;
+    public int getRemainingDuration() {
+        return this.litTime;
     }
 
     private Enhancement consumeEnhancement() {

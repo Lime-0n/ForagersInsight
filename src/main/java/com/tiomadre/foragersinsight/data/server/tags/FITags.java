@@ -11,10 +11,24 @@ import net.minecraft.world.level.block.Block;
 
 public class FITags {
     public static class ItemTag {
-        public static final TagKey<net.minecraft.world.item.Item> ICE = TagUtil.itemTag("forge", "ice");
-        public static final TagKey<net.minecraft.world.item.Item> SEEDS = TagUtil.itemTag("forge", "seeds");
-        public static final TagKey<net.minecraft.world.item.Item> NUTS = TagUtil.itemTag("forge", "nuts");
-        public static final TagKey<net.minecraft.world.item.Item> NUTS_ACORN = TagUtil.itemTag("forge", "nuts/acorn");
+        public static final TagKey<Item> ICE = TagUtil.itemTag("forge", "ice");
+        public static final TagKey<Item> SEEDS = TagUtil.itemTag("forge", "seeds");
+        public static final TagKey<Item> NUTS = TagUtil.itemTag("forge", "nuts");
+        public static final TagKey<Item> NUTS_ACORN = TagUtil.itemTag("forge", "nuts/acorn");
+        public static final TagKey<Item> CROPS = TagUtil.itemTag("forge", "crops");
+        public static final TagKey<Item> RAW_MEATS = TagUtil.itemTag("forge", "raw_meats");
+        public static final TagKey<Item> COOKED_MEATS = TagUtil.itemTag("forge", "cooked_meats");
+        public static final TagKey<Item> RAW_FISHES = TagUtil.itemTag("forge", "raw_fishes");
+        public static final TagKey<Item> COOKED_FISHES = TagUtil.itemTag("forge", "cooked_fishes");
+        public static final TagKey<Item> FRUITS = TagUtil.itemTag("forge", "fruits");
+        public static final TagKey<Item> VEGETABLES = TagUtil.itemTag("forge", "vegetables");
+        public static final TagKey<Item> FEATHERS = TagUtil.itemTag("forge", "feathers");
+        public static final TagKey<Item> LEATHER = TagUtil.itemTag("forge", "leather");
+        public static final TagKey<Item> EGGS = TagUtil.itemTag("forge", "eggs");
+        public static final TagKey<Item> FLOUR = TagUtil.itemTag("forge", "flour");
+        public static final TagKey<Item> STRAW = TagUtil.itemTag("forge", "straw");
+        public static final TagKey<Item> TREE_BARK = TagUtil.itemTag("forge", "tree_bark");
+        public static final TagKey<Item> SUGAR = TagUtil.itemTag("forge", "sugar");
         //Mallet
         public static final TagKey<net.minecraft.world.item.Item> MALLETS = TagUtil.itemTag("forge", "tools/mallets");
         //Milk
@@ -33,6 +47,7 @@ public class FITags {
                 new ResourceLocation(ForagersInsight.MOD_ID, "aromatics"));
         //Handbasket
         public static final TagKey<Item> HANDBASKET_ALLOWED = TagKey.create(Registries.ITEM, new ResourceLocation("foragersinsight","handbasket_allowed"));
+        public static final TagKey<Item> HANDBASKET_SPECIALTY = TagKey.create(Registries.ITEM, new ResourceLocation(ForagersInsight.MOD_ID, "handbasket/specialty"));
 
         public static final TagKey<Item> STORAGE_BLOCK_ROSE_HIP = storageTag("rose_hip");
         public static final TagKey<Item> STORAGE_BLOCK_SPRUCE_TIPS = storageTag("spruce_tips");

@@ -166,22 +166,22 @@ public class DiffuserScreen extends AbstractContainerScreen<DiffuserMenu> {
         }
 
         double radius = this.menu.getEffectiveRadius();
-        int durationSeconds = (int) Math.round(this.menu.getEffectiveDuration() / 20.0D);
+        int durationSeconds = (int) Math.round(Math.max(this.menu.getRemainingDuration(), 0) / 20.0D);
         List<Component> tooltip = new ArrayList<>(3);
         tooltip.add(Component.translatable(
                 "gui.foragersinsight.diffuser.tooltip.radius",
                 String.format(Locale.ROOT, "%.1f", radius)
-        ).withStyle(ChatFormatting.GRAY));
+        ).withStyle(ChatFormatting.WHITE));
         tooltip.add(Component.translatable(
                 "gui.foragersinsight.diffuser.tooltip.duration",
                 durationSeconds
-        ).withStyle(ChatFormatting.GRAY));
+        ).withStyle(ChatFormatting.WHITE));
 
         DiffuserBlockEntity.Enhancement enhancement = this.menu.getActiveEnhancement();
         if (enhancement == DiffuserBlockEntity.Enhancement.RADIUS) {
-            tooltip.add(Component.translatable("gui.foragersinsight.diffuser.tooltip.enhanced_radius").withStyle(ChatFormatting.GOLD));
+            tooltip.add(Component.translatable("gui.foragersinsight.diffuser.tooltip.enhanced_radius").withStyle(style -> style.withColor(DiffuserScent.RADIUS_ACCENT_COLOR)));
         } else if (enhancement == DiffuserBlockEntity.Enhancement.DURATION) {
-            tooltip.add(Component.translatable("gui.foragersinsight.diffuser.tooltip.enhanced_duration").withStyle(ChatFormatting.GOLD));
+            tooltip.add(Component.translatable("gui.foragersinsight.diffuser.tooltip.enhanced_duration").withStyle(style -> style.withColor(DiffuserScent.DURATION_ACCENT_COLOR)));
         }
 
         gui.renderComponentTooltip(this.font, tooltip, mouseX, mouseY);

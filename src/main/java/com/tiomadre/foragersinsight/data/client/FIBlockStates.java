@@ -286,6 +286,12 @@ public class FIBlockStates extends FIBlockStatesHelper {
         for (int fill = 0; fill < fillModels.length; fill++) {
             ModelFile model = fillModels[fill];
             for (Direction direction : Direction.Plane.HORIZONTAL) {
+                int rotationY = switch (direction) {
+                    case EAST -> 90;
+                    case SOUTH -> 180;
+                    case WEST -> 270;
+                    default -> 0;
+                };
                 builder.partialState()
                         .with(TapperBlock.FILL, fill)
                         .with(TapperBlock.FACING, direction)

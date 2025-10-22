@@ -5,6 +5,7 @@ import com.tiomadre.foragersinsight.core.registry.FIItems;
 import com.tiomadre.foragersinsight.core.registry.FIMobEffects;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -21,9 +22,12 @@ import java.util.function.Supplier;
 @SuppressWarnings("ALL")
 public final class DiffuserScent {
     public static final int STANDARD_DURATION = 12000;
+    public static final TextColor RADIUS_ACCENT_COLOR = TextColor.fromRgb(0xfabf29);
+    public static final TextColor DURATION_ACCENT_COLOR = TextColor.fromRgb(0xc2daaf);
 
     private static final List<DiffuserScent> ALL = new ArrayList<>();
     private static final Map<ResourceLocation, DiffuserScent> BY_ID = new ConcurrentHashMap<>();
+
 
     public static final Supplier<DiffuserScent> ROSEY = Suppliers.memoize(() ->
             new DiffuserScent(
@@ -145,7 +149,8 @@ public final class DiffuserScent {
 
     public List<Component> tooltip() {
         List<Component> tooltip = new ArrayList<>(2);
-        tooltip.add(this.displayName().copy().withStyle(ChatFormatting.GOLD));
+        tooltip.add(this.displayName().copy().withStyle(style -> style.withColor(RADIUS_ACCENT_COLOR).withUnderlined(true)));
+        tooltip.add(this.displayName().copy().withStyle(style -> style.withColor(DURATION_ACCENT_COLOR).withUnderlined(true)));
         tooltip.add(this.description());
         return tooltip;
     }
