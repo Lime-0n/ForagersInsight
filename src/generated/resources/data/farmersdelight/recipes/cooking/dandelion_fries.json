@@ -5,6 +5,9 @@
   "ingredients": [
     {
       "item": "foragersinsight:dandelion_root"
+    },
+    {
+      "item": "foragersinsight:dandelion_root"
     }
   ],
   "recipe_book_tab": "meals",

@@ -75,7 +75,7 @@ public class FIItemTags extends ItemTagsProvider {
         this.tag(FEATHERS).add(Items.FEATHER);
         this.tag(SUGAR).add(Items.SUGAR);
 
-        this.tag(HANDBASKET_SPECIALTY)
+        this.tag(HANDBASKET_OTHER)
                 .add(Items.INK_SAC, Items.GLOW_INK_SAC, Items.RABBIT_FOOT, Items.KELP, Items.DRIED_KELP, Items.BAMBOO, Items.CACTUS, Items.VINE, Items.MOSS_BLOCK,
                         Items.AZALEA, Items.FLOWERING_AZALEA, Items.HONEYCOMB, Items.HONEY_BOTTLE)
                 .add(FIItems.ROSE_PETALS.get(), FIItems.ROSELLE_PETALS.get(), FIItems.COCOA_POWDER.get(), FIItems.POPPY_SEED_PASTE.get(),
@@ -112,7 +112,7 @@ public class FIItemTags extends ItemTagsProvider {
                 .addOptionalTag(new ResourceLocation("forge", "honey_bottle"))
                 .addOptionalTag(new ResourceLocation("minecraft", "flowers"))
                 .addOptionalTag(new ResourceLocation("minecraft", "saplings"))
-                .addTag(HANDBASKET_SPECIALTY);
+                .addTag(HANDBASKET_OTHER);
         // Mallet
         this.tag(FITags.ItemTag.MALLETS).add(FIItems.FLINT_MALLET.get(),FIItems.IRON_MALLET.get(),
         FIItems.GOLD_MALLET.get(),FIItems.DIAMOND_MALLET.get(),FIItems.NETHERITE_MALLET.get());
@@ -121,10 +121,8 @@ public class FIItemTags extends ItemTagsProvider {
     }
     protected void registerForgeTags() {
         tag(STORAGE_BLOCK_ROSE_HIP).add(FIBlocks.ROSE_HIP_SACK.get().asItem());
-
         tag(STORAGE_BLOCK_POPPY_SEEDS).add(FIBlocks.POPPY_SEEDS_SACK.get().asItem());
         tag(STORAGE_BLOCK_DANDELION_ROOT).add(FIBlocks.DANDELION_ROOT_SACK.get().asItem());
-
         tag(STORAGE_BLOCK_SPRUCE_TIPS).add(FIBlocks.SPRUCE_TIPS_SACK.get().asItem());
         tag(STORAGE_BLOCK_BLACK_ACORNS).add(FIBlocks.BLACK_ACORN_SACK.get().asItem());
     }

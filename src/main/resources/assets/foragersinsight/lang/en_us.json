@@ -7,6 +7,7 @@
   "item.foragersinsight.roselle_calyx": "Roselle Calyx",
   "item.foragersinsight.spruce_tips": "Spruce Tips",
 
+  "item.foragersinsight.apple_dippers": "Apple Dippers",
   "item.foragersinsight.acorn_cookie": "Acorn Cookie",
   "item.foragersinsight.acorn_noodles": "Acorn Noodles",
   "item.foragersinsight.black_forest_muffin": "Black Forest Muffin",
@@ -96,6 +97,7 @@
   "block.foragersinsight.bountiful_spruce_tips": "Bountiful Spruce Tips",
   "block.foragersinsight.sappy_birch_log": "Sappy Birch Log",
 
+  "block.foragersinsight.apple_crate": "Crate of Apples",
   "block.foragersinsight.dandelion_root_sack": "Sack of Dandelion Roots",
   "block.foragersinsight.black_acorn_sack": "Sack of Black Acorns",
   "block.foragersinsight.poppy_seeds_sack": "Sack of Poppy Seeds",
@@ -137,8 +139,6 @@
   "foragersinsight.tool_interaction.shears.baby_chicken": "Baby chickens cannot be sheared.",
   "foragersinsight.tool_interaction.mallet.anvil_no_repairs": "This anvil is fully repaired.",
 
-  "foragersinsight.diffuser.scent": "%s",
-  "foragersinsight.diffuser.no_scent": "The diffuser is not currently exuding a scent.",
   "foragersinsight.diffuser.rosey":"The diffuser is exuding a Rosey scent!",
   "foragersinsight.diffuser.coniferous":"The diffuser is exuding a Coniferous scent!",
   "foragersinsight.diffuser.floral":"The diffuser is exuding a Floral scent!",
@@ -150,8 +150,8 @@
   "gui.foragersinsight.diffuser.extinguish": "Stop Scent",
   "gui.foragersinsight.diffuser.tooltip.radius": "Radius: %s blocks",
   "gui.foragersinsight.diffuser.tooltip.duration": "Duration: %s seconds",
-  "gui.foragersinsight.diffuser.tooltip.enhanced_radius": " Honeycomb (+20% radius)",
-  "gui.foragersinsight.diffuser.tooltip.enhanced_duration": " Birch Sap (+20% duration)",
+  "gui.foragersinsight.diffuser.tooltip.enhanced_radius": " + Honeycomb (+20% radius)",
+  "gui.foragersinsight.diffuser.tooltip.enhanced_duration": " + Birch Sap (+20% duration)",
 
   "itemGroup.foragersinsight": "Forager's Insight"
 }

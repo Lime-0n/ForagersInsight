@@ -50,30 +50,9 @@ public class TapperBlock extends HorizontalDirectionalBlock {
             Block.box(4.5, 11, 5, 4.5, 15, 6),
             Block.box(4.5, 15, 5, 11.5, 15, 6)
     ).reduce(Shapes.empty(), Shapes::or);
-    private static final VoxelShape EAST_SHAPE = Stream.of(
-            Block.box(10, 12, 7.5, 16, 15, 8.5),
-            Block.box(5, 13, 7.5, 10, 15, 8.5),
-            Block.box(6, 2, 3.5, 15, 11, 12.5),
-            Block.box(10, 11, 11.5, 11, 15, 11.5),
-            Block.box(10, 11, 4.5, 11, 15, 4.5),
-            Block.box(10, 15, 4.5, 11, 15, 11.5)
-    ).reduce(Shapes.empty(), Shapes::or);
-    private static final VoxelShape SOUTH_SHAPE = Stream.of(
-            Block.box(7.5, 12, 10, 8.5, 15, 16),
-            Block.box(7.5, 13, 5, 8.5, 15, 10),
-            Block.box(3.5, 2, 6, 12.5, 11, 15),
-            Block.box(4.5, 11, 10, 4.5, 15, 11),
-            Block.box(11.5, 11, 10, 11.5, 15, 11),
-            Block.box(4.5, 15, 10, 11.5, 15, 11)
-    ).reduce(Shapes.empty(), Shapes::or);
-    private static final VoxelShape WEST_SHAPE = Stream.of(
-            Block.box(0, 12, 7.5, 6, 15, 8.5),
-            Block.box(6, 13, 7.5, 11, 15, 8.5),
-            Block.box(1, 2, 3.5, 10, 11, 12.5),
-            Block.box(5, 11, 4.5, 6, 15, 4.5),
-            Block.box(5, 11, 11.5, 6, 15, 11.5),
-            Block.box(5, 15, 4.5, 6, 15, 11.5)
-    ).reduce(Shapes.empty(), Shapes::or);
+     private static final VoxelShape EAST_SHAPE = rotateShape(Direction.EAST);
+    private static final VoxelShape SOUTH_SHAPE = rotateShape(Direction.SOUTH);
+    private static final VoxelShape WEST_SHAPE = rotateShape(Direction.WEST);
 
     public TapperBlock(Properties props) {
         super(props);
@@ -101,6 +80,18 @@ public class TapperBlock extends HorizontalDirectionalBlock {
             case WEST -> WEST_SHAPE;
             default -> NORTH_SHAPE;
         };
+    }
+    private static VoxelShape rotateShape(Direction to) {
+        if (Direction.NORTH == to) return TapperBlock.NORTH_SHAPE;
+        VoxelShape[] buffer = new VoxelShape[]{TapperBlock.NORTH_SHAPE, Shapes.empty()};
+        int rotations = (to.get2DDataValue() - Direction.NORTH.get2DDataValue() + 4) % 4;
+        for (int i = 0; i < rotations; i++) {
+            buffer[0].forAllBoxes((minX, minY, minZ, maxX, maxY, maxZ) ->
+                    buffer[1] = Shapes.or(buffer[1], Shapes.box(1 - maxZ, minY, minX, 1 - minZ, maxY, maxX)));
+            buffer[0] = buffer[1];
+            buffer[1] = Shapes.empty();
+        }
+        return buffer[0];
     }
     @Override
     public @Nullable BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {

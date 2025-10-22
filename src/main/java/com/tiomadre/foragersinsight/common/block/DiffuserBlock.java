@@ -40,7 +40,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import com.tiomadre.foragersinsight.common.utility.TextUtils;
 import net.minecraftforge.network.NetworkHooks;
 
 public class DiffuserBlock extends BaseEntityBlock {
@@ -71,21 +70,6 @@ public class DiffuserBlock extends BaseEntityBlock {
         boolean flintAndSteel = held.is(Items.FLINT_AND_STEEL);
         BlockEntity entity = level.getBlockEntity(pos);
         if (!(entity instanceof DiffuserBlockEntity diffuser)) {
-            return InteractionResult.sidedSuccess(level.isClientSide);
-        }
-
-        if (player.isShiftKeyDown()) {
-            if (!level.isClientSide) {
-          if (diffuser.isLit()) {
-                    diffuser.getActiveScent().ifPresentOrElse(
-                            scent -> player.displayClientMessage(
-                                    TextUtils.getTranslation("diffuser.scent", scent.displayName(), scent.description()), true),
-                            () -> player.displayClientMessage(TextUtils.getTranslation("diffuser.no_scent"), true)
-                    );
-                } else {
-                    player.displayClientMessage(TextUtils.getTranslation("diffuser.no_scent"), true);
-                }
-            }
             return InteractionResult.sidedSuccess(level.isClientSide);
         }
 

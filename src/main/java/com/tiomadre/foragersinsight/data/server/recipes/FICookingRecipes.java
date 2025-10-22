@@ -226,6 +226,7 @@ public class FICookingRecipes {
                 .build(consumer);
         CookingPotRecipeBuilder.cookingPotRecipe(DANDELION_FRIES.get(), 1, FAST_COOKING, SMALL_EXP)
                 .addIngredient(DANDELION_ROOT.get())
+                .addIngredient(DANDELION_ROOT.get())
                 .unlockedByAnyIngredient(DANDELION_ROOT.get())
                 .setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
                 .build(consumer);
@@ -268,7 +269,7 @@ public class FICookingRecipes {
         //Apple Cider
         net.minecraftforge.common.crafting.ConditionalRecipe.builder()
                 .addCondition(new net.minecraftforge.common.crafting.conditions.ModLoadedCondition("farmersdelight"))
-                .addRecipe(r -> CookingPotRecipeBuilder.cookingPotRecipe(ModItems.HOT_COCOA.get(), 1,NORMAL_COOKING,MEDIUM_EXP)
+                .addRecipe(r -> CookingPotRecipeBuilder.cookingPotRecipe(ModItems.APPLE_CIDER.get(), 1,NORMAL_COOKING,MEDIUM_EXP)
                         .addIngredient(FITags.ItemTag.APPLE)
                         .addIngredient(FITags.ItemTag.APPLE)
                         .addIngredient(Items.SUGAR)

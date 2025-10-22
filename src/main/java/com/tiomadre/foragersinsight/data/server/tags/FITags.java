@@ -47,7 +47,7 @@ public class FITags {
                 new ResourceLocation(ForagersInsight.MOD_ID, "aromatics"));
         //Handbasket
         public static final TagKey<Item> HANDBASKET_ALLOWED = TagKey.create(Registries.ITEM, new ResourceLocation("foragersinsight","handbasket_allowed"));
-        public static final TagKey<Item> HANDBASKET_SPECIALTY = TagKey.create(Registries.ITEM, new ResourceLocation(ForagersInsight.MOD_ID, "handbasket/specialty"));
+        public static final TagKey<Item> HANDBASKET_OTHER = TagKey.create(Registries.ITEM, new ResourceLocation(ForagersInsight.MOD_ID, "handbasket/other"));
 
         public static final TagKey<Item> STORAGE_BLOCK_ROSE_HIP = storageTag("rose_hip");
         public static final TagKey<Item> STORAGE_BLOCK_SPRUCE_TIPS = storageTag("spruce_tips");

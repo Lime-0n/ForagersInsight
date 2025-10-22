@@ -149,8 +149,8 @@ public final class DiffuserScent {
 
     public List<Component> tooltip() {
         List<Component> tooltip = new ArrayList<>(2);
-        tooltip.add(this.displayName().copy().withStyle(style -> style.withColor(RADIUS_ACCENT_COLOR).withUnderlined(true)));
-        tooltip.add(this.displayName().copy().withStyle(style -> style.withColor(DURATION_ACCENT_COLOR).withUnderlined(true)));
+        tooltip.add(this.displayName().copy().withStyle(style -> style.withColor(ChatFormatting.WHITE).withUnderlined(true)));
+
         tooltip.add(this.description());
         return tooltip;
     }

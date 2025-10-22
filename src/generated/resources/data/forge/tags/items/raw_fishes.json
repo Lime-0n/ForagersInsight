@@ -1,0 +1,14 @@
+{
+  "values": [
+    "minecraft:cod",
+    "minecraft:salmon",
+    {
+      "id": "farmersdelight:cod_slice",
+      "required": false
+    },
+    {
+      "id": "farmersdelight:salmon_slice",
+      "required": false
+    }
+  ]
+}
