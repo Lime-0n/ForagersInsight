@@ -5,42 +5,50 @@ import com.tiomadre.foragersinsight.common.diffuser.DiffuserScent;
 import com.tiomadre.foragersinsight.core.registry.FIBlockEntityTypes;
 import com.tiomadre.foragersinsight.core.registry.FIParticleTypes;
 import net.minecraft.core.BlockPos;
-
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import net.minecraftforge.network.NetworkHooks;
+
+import java.util.List;
 
 public class DiffuserBlock extends BaseEntityBlock {
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
@@ -87,6 +95,16 @@ public class DiffuserBlock extends BaseEntityBlock {
         }
         return InteractionResult.sidedSuccess(level.isClientSide);
     }
+
+    @Override
+    public void setPlacedBy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state,
+                            @Nullable LivingEntity placer, @NotNull ItemStack stack) {
+        super.setPlacedBy(level, pos, state, placer, stack);
+        if (level.getBlockEntity(pos) instanceof DiffuserBlockEntity diffuser) {
+            int respirationLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.RESPIRATION, stack);
+            diffuser.setRespirationLevel(respirationLevel);
+        }
+    }
     @Override
     public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos,
                                         @NotNull CollisionContext context) {
@@ -112,27 +130,6 @@ public class DiffuserBlock extends BaseEntityBlock {
 
         return super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
     }
-
-    @Override
-    public @NotNull VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter level,
-                                                 @NotNull BlockPos pos, @NotNull CollisionContext context) {
-        return SHAPE;
-    }
-
-    @Override
-    public @NotNull VoxelShape getBlockSupportShape(@NotNull BlockState state, @NotNull BlockGetter level,
-                                                    @NotNull BlockPos pos) {
-        return Shapes.empty();
-    }
-
-
-    @Override
-    public @NotNull VoxelShape getOcclusionShape(@NotNull BlockState state, @NotNull BlockGetter level,
-                                                 @NotNull BlockPos pos) {
-        return Shapes.empty();
-    }
-
-    @Override
     public @NotNull RenderShape getRenderShape(@NotNull BlockState state) {
         return RenderShape.MODEL;
     }
@@ -159,6 +156,23 @@ public class DiffuserBlock extends BaseEntityBlock {
     }
 
     @Override
+    public @NotNull List<ItemStack> getDrops(@NotNull BlockState state, @NotNull LootParams.Builder builder) {
+        List<ItemStack> drops = super.getDrops(state, builder);
+        BlockEntity blockEntity = builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
+        if (blockEntity instanceof DiffuserBlockEntity diffuser) {
+            int respirationLevel = diffuser.getRespirationLevel();
+            if (respirationLevel > 0) {
+                for (ItemStack drop : drops) {
+                    if (drop.is(this.asItem())) {
+                        drop.enchant(Enchantments.RESPIRATION, respirationLevel);
+                    }
+                }
+            }
+        }
+        return drops;
+    }
+
+    @Override
     public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
         if (!state.getValue(LIT)) {
             return;
@@ -170,8 +184,15 @@ public class DiffuserBlock extends BaseEntityBlock {
         double offsetX = (random.nextDouble() - 0.5D) * 0.1D;
         double offsetZ = (random.nextDouble() - 0.5D) * 0.1D;
 
-        if (random.nextInt(4) == 0) {
+        boolean submerged = isSubmergedInWater(level, pos);
+
+        if (!submerged && random.nextInt(4) == 0) {
             level.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, x, y, z, offsetX * 0.6D, 0.07D, offsetZ * 0.6D);
+        } else if (submerged && random.nextInt(4) == 0) {
+            double bubbleX = x + (random.nextDouble() - 0.5D) * 0.3D;
+            double bubbleY = y + random.nextDouble() * 0.2D;
+            double bubbleZ = z + (random.nextDouble() - 0.5D) * 0.3D;
+            level.addParticle(ParticleTypes.BUBBLE, bubbleX, bubbleY, bubbleZ, 0.0D, 0.05D + random.nextDouble() * 0.02D, 0.0D);
         }
         if (random.nextInt(5) == 0) {
             BlockEntity entity = level.getBlockEntity(pos);
@@ -216,5 +237,14 @@ public class DiffuserBlock extends BaseEntityBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(LIT);
+    }
+
+    private boolean isSubmergedInWater(Level level, BlockPos pos) {
+        FluidState currentState = level.getFluidState(pos);
+        if (currentState.is(FluidTags.WATER)) {
+            return true;
+        }
+        FluidState aboveState = level.getFluidState(pos.above());
+        return aboveState.is(FluidTags.WATER);
     }
 }

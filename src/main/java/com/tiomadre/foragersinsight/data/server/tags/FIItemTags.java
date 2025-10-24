@@ -72,17 +72,16 @@ public class FIItemTags extends ItemTagsProvider {
         this.tag(TREE_BARK).add(ModItems.TREE_BARK.get());
         this.tag(EGGS).add(Items.EGG);
         this.tag(LEATHER).add(Items.LEATHER, Items.RABBIT_HIDE);
-        this.tag(FEATHERS).add(Items.FEATHER);
-        this.tag(SUGAR).add(Items.SUGAR);
 
         this.tag(HANDBASKET_OTHER)
-                .add(Items.INK_SAC, Items.GLOW_INK_SAC, Items.RABBIT_FOOT, Items.KELP, Items.DRIED_KELP, Items.BAMBOO, Items.CACTUS, Items.VINE, Items.MOSS_BLOCK,
-                        Items.AZALEA, Items.FLOWERING_AZALEA, Items.HONEYCOMB, Items.HONEY_BOTTLE)
-                .add(FIItems.ROSE_PETALS.get(), FIItems.ROSELLE_PETALS.get(), FIItems.COCOA_POWDER.get(), FIItems.POPPY_SEED_PASTE.get(),
-                        FIItems.BIRCH_SAP_BOTTLE.get(), FIItems.BIRCH_SYRUP_BOTTLE.get(), FIItems.ROSELLE_BUSH_ITEM.get())
+                .add(Items.INK_SAC, Items.GLOW_INK_SAC, Items.RABBIT_FOOT, Items.SUGAR,Items.SUGAR_CANE, Items.FEATHER, Items.KELP, Items.DRIED_KELP, Items.BAMBOO, Items.CACTUS, Items.VINE, Items.MOSS_BLOCK,
+                        Items.AZALEA, Items.FLOWERING_AZALEA, Items.HONEYCOMB)
+                .add(FIItems.ROSE_PETALS.get(), FIItems.ROSELLE_PETALS.get(),
+                        FIItems.BIRCH_SAP_BOTTLE.get(), FIItems.BIRCH_SYRUP_BOTTLE.get(), FIItems.ROSELLE_BUSH_ITEM.get(),FIItems.STOUT_BEACH_ROSE_BUSH_ITEM.get()
+                ,FIItems.TALL_BEACH_ROSE_BUSH_ITEM.get())
                 .add(ModItems.WILD_CABBAGES.get(), ModItems.WILD_BEETROOTS.get(), ModItems.WILD_POTATOES.get(), ModItems.WILD_TOMATOES.get(),
-                        ModItems.WILD_CARROTS.get(), ModItems.RICE_PANICLE.get(), ModItems.PUMPKIN_SLICE.get(), ModItems.CABBAGE_LEAF.get(),
-                        ModItems.MILK_BOTTLE.get());
+                ModItems.WILD_CARROTS.get(), ModItems.RICE_PANICLE.get(), ModItems.PUMPKIN_SLICE.get(), ModItems.CABBAGE_LEAF.get(),
+                ModItems.MILK_BOTTLE.get());
 
         this.tag(ItemTags.SAPLINGS)
                 .add(FIBlocks.BOUNTIFUL_DARK_OAK_SAPLING.get().asItem(), FIBlocks.BOUNTIFUL_OAK_SAPLING.get().asItem(),
@@ -118,6 +117,9 @@ public class FIItemTags extends ItemTagsProvider {
         FIItems.GOLD_MALLET.get(),FIItems.DIAMOND_MALLET.get(),FIItems.NETHERITE_MALLET.get());
         //Shears
         //this.tag(Tags.Items.TOOLS_SHEAR).add(FIItems.FLINT_SHEARS.get()); reenable when using newer FD version that uses tag
+
+
+        registerForgeTags();
     }
     protected void registerForgeTags() {
         tag(STORAGE_BLOCK_ROSE_HIP).add(FIBlocks.ROSE_HIP_SACK.get().asItem());
@@ -126,4 +128,6 @@ public class FIItemTags extends ItemTagsProvider {
         tag(STORAGE_BLOCK_SPRUCE_TIPS).add(FIBlocks.SPRUCE_TIPS_SACK.get().asItem());
         tag(STORAGE_BLOCK_BLACK_ACORNS).add(FIBlocks.BLACK_ACORN_SACK.get().asItem());
     }
+
+
 }

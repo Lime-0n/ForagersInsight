@@ -75,10 +75,10 @@ public class TapperBlock extends HorizontalDirectionalBlock {
     public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter world,
                                         @NotNull BlockPos pos, @NotNull CollisionContext ctx) {
         return switch (state.getValue(FACING)) {
-            case EAST -> EAST_SHAPE;
-            case SOUTH -> SOUTH_SHAPE;
-            case WEST -> WEST_SHAPE;
-            default -> NORTH_SHAPE;
+            case EAST -> WEST_SHAPE;
+            case SOUTH -> NORTH_SHAPE;
+            case WEST -> EAST_SHAPE;
+            default -> SOUTH_SHAPE;
         };
     }
     private static VoxelShape rotateShape(Direction to) {
@@ -149,12 +149,10 @@ public class TapperBlock extends HorizontalDirectionalBlock {
             double x = pos.getX() + 0.5D;
             double y = pos.getY() + 0.8D;
             double z = pos.getZ() + 0.5D;
-            switch (facing) {
-                case NORTH -> z -= 0.125D;
-                case SOUTH -> z += 0.125D;
-                case WEST  -> x -= 0.125D;
-                case EAST  -> x += 0.125D;
-            }
+            double inwardOffset = 0.25D;
+            x -= facing.getStepX() * inwardOffset;
+            z -= facing.getStepZ() * inwardOffset;
+
             level.addParticle(FIParticleTypes.DRIPPING_SAP.get(), x, y, z, 0.0D, -0.005D, 0.0D);
             level.playLocalSound(x, y, z, SoundEvents.BEEHIVE_DRIP, SoundSource.BLOCKS, 0.6F, 0.0001F, false);
         }

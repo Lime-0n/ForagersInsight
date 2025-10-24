@@ -8,16 +8,16 @@ import com.tiomadre.foragersinsight.data.server.tags.FITags;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
-import net.minecraft.world.Containers;
-import net.minecraft.world.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.Containers;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
@@ -25,6 +25,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
@@ -54,6 +55,7 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
     private DiffuserScent activeScent;
     private int effectTickCounter;
     private Enhancement activeEnhancement = Enhancement.NONE;
+    private int respirationLevel;
 
     private final ContainerData dataAccess = new ContainerData() {
         @Override
@@ -378,6 +380,7 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         if (tag.contains("ActiveEnhancement", CompoundTag.TAG_STRING)) {
             this.activeEnhancement = Enhancement.byName(tag.getString("ActiveEnhancement"));
         }
+        this.respirationLevel = Mth.clamp(tag.getInt("RespirationLevel"), 0, 3);
     }
 
     @Override
@@ -393,6 +396,7 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
             tag.putInt("ActiveScentId", this.activeScent.networkId());
         }
         tag.putString("ActiveEnhancement", this.activeEnhancement.getSerializedName());
+        tag.putInt("RespirationLevel", this.respirationLevel);
     }
 
     public boolean hasActiveScent() {
@@ -417,20 +421,55 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         if (this.level == null || this.activeScent == null) {
             return;
         }
-
-        Optional<MobEffectInstance> optionalEffect = this.activeScent.createEffectInstance();
-        if (optionalEffect.isEmpty()) {
-            return;
-        }
-
-        MobEffectInstance template = optionalEffect.get();
         AABB area = new AABB(this.worldPosition).inflate(this.getEffectiveRadius());
         List<LivingEntity> entities = this.level.getEntitiesOfClass(LivingEntity.class, area);
-        for (LivingEntity entity : entities) {
-            MobEffectInstance instance = new MobEffectInstance(template.getEffect(), template.getDuration(),
-                    template.getAmplifier(), template.isAmbient(), template.isVisible(), template.showIcon());
-            entity.addEffect(instance);
+
+        this.activeScent.createEffectInstance().ifPresent(template -> {
+            for (LivingEntity entity : entities) {
+                MobEffectInstance instance = new MobEffectInstance(template.getEffect(), template.getDuration(),
+                        template.getAmplifier(), template.isAmbient(), template.isVisible(), template.showIcon());
+                entity.addEffect(instance);
+            }
+        });
+
+        if (shouldRestoreBreath()) {
+            restoreBreath(entities);
         }
+    }
+
+    private void restoreBreath(List<LivingEntity> entities) {
+        for (LivingEntity entity : entities) {
+            if (needsBreath(entity)) {
+                entity.setAirSupply(entity.getMaxAirSupply());
+            }
+        }
+    }
+
+    private boolean needsBreath(LivingEntity entity) {
+        return entity.getAirSupply() < entity.getMaxAirSupply() && entity.isEyeInFluid(FluidTags.WATER);
+    }
+
+    private boolean shouldRestoreBreath() {
+        return this.respirationLevel > 0 && isSubmergedInWater();
+    }
+
+    private boolean isSubmergedInWater() {
+        if (this.level == null) {
+            return false;
+        }
+        return this.level.getFluidState(this.worldPosition).is(FluidTags.WATER)
+                || this.level.getFluidState(this.worldPosition.above()).is(FluidTags.WATER);
+    }
+
+    public void setRespirationLevel(int level) {
+        int clamped = Mth.clamp(level, 0, 3);
+        if (this.respirationLevel != clamped) {
+            this.respirationLevel = clamped;
+            this.setChanged();
+        }
+    }
+    public int getRespirationLevel() {
+        return this.respirationLevel;
     }
     public Enhancement getActiveEnhancement() {
         return this.activeEnhancement;
