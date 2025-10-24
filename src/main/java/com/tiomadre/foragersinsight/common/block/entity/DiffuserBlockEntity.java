@@ -450,7 +450,7 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
     }
 
     private boolean shouldRestoreBreath() {
-        return this.respirationLevel > 0 && isSubmergedInWater();
+        return isSubmergedInWater();
     }
 
     private boolean isSubmergedInWater() {
@@ -459,17 +459,6 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         }
         return this.level.getFluidState(this.worldPosition).is(FluidTags.WATER)
                 || this.level.getFluidState(this.worldPosition.above()).is(FluidTags.WATER);
-    }
-
-    public void setRespirationLevel(int level) {
-        int clamped = Mth.clamp(level, 0, 3);
-        if (this.respirationLevel != clamped) {
-            this.respirationLevel = clamped;
-            this.setChanged();
-        }
-    }
-    public int getRespirationLevel() {
-        return this.respirationLevel;
     }
     public Enhancement getActiveEnhancement() {
         return this.activeEnhancement;

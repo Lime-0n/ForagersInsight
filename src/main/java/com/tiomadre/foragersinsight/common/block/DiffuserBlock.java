@@ -20,8 +20,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -38,8 +36,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -48,7 +44,6 @@ import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 
 public class DiffuserBlock extends BaseEntityBlock {
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
@@ -100,10 +95,6 @@ public class DiffuserBlock extends BaseEntityBlock {
     public void setPlacedBy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state,
                             @Nullable LivingEntity placer, @NotNull ItemStack stack) {
         super.setPlacedBy(level, pos, state, placer, stack);
-        if (level.getBlockEntity(pos) instanceof DiffuserBlockEntity diffuser) {
-            int respirationLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.RESPIRATION, stack);
-            diffuser.setRespirationLevel(respirationLevel);
-        }
     }
     @Override
     public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos,
@@ -153,23 +144,6 @@ public class DiffuserBlock extends BaseEntityBlock {
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state,
                                                                   @NotNull BlockEntityType<T> type) {
         return level.isClientSide ? null : createTickerHelper(type, FIBlockEntityTypes.DIFFUSER.get(), DiffuserBlockEntity::serverTick);
-    }
-
-    @Override
-    public @NotNull List<ItemStack> getDrops(@NotNull BlockState state, @NotNull LootParams.Builder builder) {
-        List<ItemStack> drops = super.getDrops(state, builder);
-        BlockEntity blockEntity = builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
-        if (blockEntity instanceof DiffuserBlockEntity diffuser) {
-            int respirationLevel = diffuser.getRespirationLevel();
-            if (respirationLevel > 0) {
-                for (ItemStack drop : drops) {
-                    if (drop.is(this.asItem())) {
-                        drop.enchant(Enchantments.RESPIRATION, respirationLevel);
-                    }
-                }
-            }
-        }
-        return drops;
     }
 
     @Override
