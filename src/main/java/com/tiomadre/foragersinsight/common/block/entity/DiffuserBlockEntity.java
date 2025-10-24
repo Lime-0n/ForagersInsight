@@ -440,10 +440,18 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
     private void restoreBreath(List<LivingEntity> entities) {
         for (LivingEntity entity : entities) {
             if (needsBreath(entity)) {
-                entity.setAirSupply(entity.getMaxAirSupply());
+                slowlyRestoreBreath(entity);
             }
         }
     }
+
+    private void slowlyRestoreBreath(LivingEntity entity) {
+        int maxAir = entity.getMaxAirSupply();
+        int currentAir = entity.getAirSupply();
+        int restoreAmount = Math.max(1, maxAir / 10);
+        entity.setAirSupply(Math.min(currentAir + restoreAmount, maxAir));
+    }
+
 
     private boolean needsBreath(LivingEntity entity) {
         return entity.getAirSupply() < entity.getMaxAirSupply() && entity.isEyeInFluid(FluidTags.WATER);
