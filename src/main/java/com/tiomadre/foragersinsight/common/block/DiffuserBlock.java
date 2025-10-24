@@ -180,8 +180,8 @@ public class DiffuserBlock extends BaseEntityBlock implements SimpleWaterloggedB
                 level.playLocalSound(x, y, z, SoundEvents.BUBBLE_COLUMN_UPWARDS_AMBIENT, SoundSource.BLOCKS,
                         0.4F, 0.6F, false);
             } else {
-                level.playLocalSound(x, y, z, SoundEvents.BREWING_STAND_BREW, SoundSource.BLOCKS,
-                        0.4F, 0.6F, false);
+                level.playLocalSound(x, y, z, SoundEvents.CAMPFIRE_CRACKLE, SoundSource.BLOCKS,
+                        0.4F, 0.4F, false);
             }
         }
         if (random.nextInt(5) == 0) {
