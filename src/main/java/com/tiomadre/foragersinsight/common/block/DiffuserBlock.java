@@ -194,6 +194,15 @@ public class DiffuserBlock extends BaseEntityBlock {
             double bubbleZ = z + (random.nextDouble() - 0.5D) * 0.3D;
             level.addParticle(ParticleTypes.BUBBLE, bubbleX, bubbleY, bubbleZ, 0.0D, 0.05D + random.nextDouble() * 0.02D, 0.0D);
         }
+        if (random.nextInt(10) == 0) {
+            if (submerged) {
+                level.playLocalSound(x, y, z, SoundEvents.BUBBLE_COLUMN_UPWARDS_AMBIENT, SoundSource.BLOCKS,
+                        0.4F, 0.6F, false);
+            } else {
+                level.playLocalSound(x, y, z, SoundEvents.BREWING_STAND_BREW, SoundSource.BLOCKS,
+                        0.4F, 0.6F, false);
+            }
+        }
         if (random.nextInt(5) == 0) {
             BlockEntity entity = level.getBlockEntity(pos);
             if (entity instanceof DiffuserBlockEntity diffuser) {

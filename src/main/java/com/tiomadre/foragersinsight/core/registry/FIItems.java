@@ -166,7 +166,7 @@ public class FIItems {
 //Workstations & Tools
 //Diffuser
 public static final RegistryObject<Item> DIFFUSER = HELPER.createItem("diffuser", () ->
-        new DiffuserItem(FIBlocks.DIFFUSER.get(), basicItem()));
+        new DiffuserItem(FIBlocks.DIFFUSER.get(), basicItem().stacksTo(1)));
     //Handbasket
     public static final RegistryObject<Item> HANDBASKET = HELPER.createItem("handbasket", () ->
         new HandbasketItem(new Item.Properties().stacksTo(1)));
