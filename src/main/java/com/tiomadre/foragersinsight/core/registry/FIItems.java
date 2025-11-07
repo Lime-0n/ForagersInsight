@@ -164,9 +164,9 @@ public class FIItems {
             new BlockItem(FIBlocks.TALL_BEACH_ROSE_BUSH.get(),basicItem()));
 
 //Workstations & Tools
-    //Diffuser
-    public static final RegistryObject<Item> DIFFUSER = HELPER.createItem("diffuser", () ->
-        new BlockItem(FIBlocks.DIFFUSER.get(), basicItem()));
+//Diffuser
+public static final RegistryObject<Item> DIFFUSER = HELPER.createItem("diffuser", () ->
+        new BlockItem(FIBlocks.DIFFUSER.get(), basicItem().stacksTo(1)));
     //Handbasket
     public static final RegistryObject<Item> HANDBASKET = HELPER.createItem("handbasket", () ->
         new HandbasketItem(new Item.Properties().stacksTo(1)));

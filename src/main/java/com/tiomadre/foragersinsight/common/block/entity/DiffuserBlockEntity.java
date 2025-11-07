@@ -5,6 +5,7 @@ import com.tiomadre.foragersinsight.common.diffuser.DiffuserScent;
 import com.tiomadre.foragersinsight.common.gui.DiffuserMenu;
 import com.tiomadre.foragersinsight.core.registry.FIBlockEntityTypes;
 import com.tiomadre.foragersinsight.data.server.tags.FITags;
+import com.tiomadre.foragersinsight.core.registry.FIItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
@@ -13,8 +14,10 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.Containers;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
@@ -22,6 +25,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
@@ -35,8 +39,9 @@ import java.util.Optional;
 
 public class DiffuserBlockEntity extends BaseContainerBlockEntity {
     public static final int INPUT_SLOT_COUNT = 3;
-    public static final int RESULT_SLOT_INDEX = INPUT_SLOT_COUNT;
-    private static final int SLOT_COUNT = INPUT_SLOT_COUNT + 1;
+    public static final int ENHANCEMENT_SLOT_INDEX = INPUT_SLOT_COUNT;
+    public static final int RESULT_SLOT_INDEX = ENHANCEMENT_SLOT_INDEX + 1;
+    private static final int SLOT_COUNT = RESULT_SLOT_INDEX + 1;
     private static final int DATA_COUNT = 4;
 
     private static final int DEFAULT_DIFFUSION_TIME = DiffuserScent.STANDARD_DURATION;
@@ -49,6 +54,8 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
     private int craftTimeTotal = DEFAULT_DIFFUSION_TIME;
     private DiffuserScent activeScent;
     private int effectTickCounter;
+    private Enhancement activeEnhancement = Enhancement.NONE;
+    private int respirationLevel;
 
     private final ContainerData dataAccess = new ContainerData() {
         @Override
@@ -123,8 +130,10 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
 
     private void startCycle(DiffuserScent scent) {
         this.activeScent = scent;
-          this.litDuration = DEFAULT_DIFFUSION_TIME;
-        this.craftTimeTotal = DEFAULT_DIFFUSION_TIME;
+        this.activeEnhancement = consumeEnhancement();
+        int enhancedDuration = (int) Math.round(DEFAULT_DIFFUSION_TIME * this.activeEnhancement.durationMultiplier());
+        this.litDuration = enhancedDuration;
+        this.craftTimeTotal = enhancedDuration;
         this.litTime = this.litDuration;
         this.craftProgress = 0;
         this.effectTickCounter = 0;
@@ -164,6 +173,7 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
     private void clearActiveScent() {
         this.activeScent = null;
         this.effectTickCounter = 0;
+        this.activeEnhancement = Enhancement.NONE;
     }
 
     public Optional<DiffuserScent> getActiveScent() {
@@ -272,7 +282,9 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         }
 
         this.items.set(pSlot, pStack);
-        if (pStack.getCount() > this.getMaxStackSize()) {
+        if ((pSlot < INPUT_SLOT_COUNT || pSlot == ENHANCEMENT_SLOT_INDEX) && pStack.getCount() > 1) {
+            pStack.setCount(1);
+        } else if (pStack.getCount() > this.getMaxStackSize()) {
             pStack.setCount(this.getMaxStackSize());
         }
         if (this.activeScent != null && !this.isLit()) {
@@ -280,6 +292,32 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         }
         this.setChanged();
     }
+    public void extinguish() {
+        boolean wasLit = this.isLit();
+        boolean hadActiveScent = this.activeScent != null;
+
+        this.litTime = 0;
+        this.litDuration = 0;
+        this.craftProgress = 0;
+        this.effectTickCounter = 0;
+
+        if (this.activeScent != null) {
+            clearActiveScent();
+        }
+
+        if (this.level != null) {
+            BlockState state = this.getBlockState();
+            boolean blockLit = state.getValue(DiffuserBlock.LIT);
+            if (blockLit != this.isLit()) {
+                this.level.setBlock(this.worldPosition, state.setValue(DiffuserBlock.LIT, false), Block.UPDATE_ALL);
+            } else if (wasLit || hadActiveScent) {
+                this.level.sendBlockUpdated(this.worldPosition, state, state, Block.UPDATE_ALL);
+            }
+        }
+
+        this.setChanged();
+    }
+
 
     @Override
     public boolean stillValid(@NotNull Player pPlayer) {
@@ -295,10 +333,15 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
                 this.worldPosition.getZ() + 0.5D
         ) <= 64.0D;
     }
-
     @Override
     public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
-        return slot < INPUT_SLOT_COUNT && stack.is(FITags.ItemTag.AROMATICS) && !this.hasActiveScent();
+        if (slot < INPUT_SLOT_COUNT) {
+            return stack.is(FITags.ItemTag.AROMATICS) && !this.hasActiveScent();
+        }
+        if (slot == ENHANCEMENT_SLOT_INDEX) {
+            return isEnhancementItem(stack) && !this.hasActiveScent();
+        }
+        return false;
     }
     @Override
     public void clearContent() {
@@ -311,18 +354,33 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         super.load(tag);
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, this.items);
+        for (int slot = 0; slot < INPUT_SLOT_COUNT; slot++) {
+            ItemStack stack = this.items.get(slot);
+            if (!stack.isEmpty() && stack.getCount() > 1) {
+                stack.setCount(1);
+            }
+            ItemStack enhancement = this.items.get(ENHANCEMENT_SLOT_INDEX);
+            if (!enhancement.isEmpty() && enhancement.getCount() > 1) {
+                enhancement.setCount(1);
+            }
+        }
         this.litTime = tag.getInt("LitTime");
         this.litDuration = tag.getInt("LitDuration");
         this.craftProgress = tag.getInt("CraftProgress");
         this.craftTimeTotal = Math.max(DEFAULT_DIFFUSION_TIME, tag.getInt("CraftTimeTotal"));
         this.effectTickCounter = 0;
         this.activeScent = null;
+        this.activeEnhancement = Enhancement.NONE;
         if (tag.contains("ActiveScent", CompoundTag.TAG_STRING)) {
             DiffuserScent.byId(new ResourceLocation(tag.getString("ActiveScent")))
                     .ifPresent(scent -> this.activeScent = scent);
         } else if (tag.contains("ActiveScentId", CompoundTag.TAG_INT)) {
             DiffuserScent.byNetworkId(tag.getInt("ActiveScentId")).ifPresent(scent -> this.activeScent = scent);
         }
+        if (tag.contains("ActiveEnhancement", CompoundTag.TAG_STRING)) {
+            this.activeEnhancement = Enhancement.byName(tag.getString("ActiveEnhancement"));
+        }
+        this.respirationLevel = Mth.clamp(tag.getInt("RespirationLevel"), 0, 3);
     }
 
     @Override
@@ -337,6 +395,8 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
             tag.putString("ActiveScent", this.activeScent.id().toString());
             tag.putInt("ActiveScentId", this.activeScent.networkId());
         }
+        tag.putString("ActiveEnhancement", this.activeEnhancement.getSerializedName());
+        tag.putInt("RespirationLevel", this.respirationLevel);
     }
 
     public boolean hasActiveScent() {
@@ -361,19 +421,144 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         if (this.level == null || this.activeScent == null) {
             return;
         }
+        AABB area = new AABB(this.worldPosition).inflate(this.getEffectiveRadius());
+        List<LivingEntity> entities = this.level.getEntitiesOfClass(LivingEntity.class, area);
 
-        Optional<MobEffectInstance> optionalEffect = this.activeScent.createEffectInstance();
-        if (optionalEffect.isEmpty()) {
-            return;
+        this.activeScent.createEffectInstance().ifPresent(template -> {
+            for (LivingEntity entity : entities) {
+                MobEffectInstance instance = new MobEffectInstance(template.getEffect(), template.getDuration(),
+                        template.getAmplifier(), template.isAmbient(), template.isVisible(), template.showIcon());
+                entity.addEffect(instance);
+            }
+        });
+
+        if (shouldRestoreBreath()) {
+            restoreBreath(entities);
+        }
+    }
+
+    private void restoreBreath(List<LivingEntity> entities) {
+        for (LivingEntity entity : entities) {
+            if (needsBreath(entity)) {
+                slowlyRestoreBreath(entity);
+            }
+        }
+    }
+
+    private void slowlyRestoreBreath(LivingEntity entity) {
+        int maxAir = entity.getMaxAirSupply();
+        int currentAir = entity.getAirSupply();
+        int restoreAmount = Math.max(1, maxAir / 10);
+        entity.setAirSupply(Math.min(currentAir + restoreAmount, maxAir));
+    }
+
+
+    private boolean needsBreath(LivingEntity entity) {
+        return entity.getAirSupply() < entity.getMaxAirSupply() && entity.isEyeInFluid(FluidTags.WATER);
+    }
+
+    private boolean shouldRestoreBreath() {
+        return isSubmergedInWater();
+    }
+
+    private boolean isSubmergedInWater() {
+        if (this.level == null) {
+            return false;
+        }
+        return this.level.getFluidState(this.worldPosition).is(FluidTags.WATER)
+                || this.level.getFluidState(this.worldPosition.above()).is(FluidTags.WATER);
+    }
+    public Enhancement getActiveEnhancement() {
+        return this.activeEnhancement;
+    }
+
+    public double getEffectiveRadius() {
+        if (this.activeScent == null) {
+            return 0.0D;
+        }
+        return this.activeScent.radius() * this.activeEnhancement.radiusMultiplier();
+    }
+
+    public int getRemainingDuration() {
+        return this.litTime;
+    }
+
+    private Enhancement consumeEnhancement() {
+        ItemStack stack = this.items.get(ENHANCEMENT_SLOT_INDEX);
+        if (stack.isEmpty()) {
+            return Enhancement.NONE;
         }
 
-        MobEffectInstance template = optionalEffect.get();
-        AABB area = new AABB(this.worldPosition).inflate(this.activeScent.radius());
-        List<LivingEntity> entities = this.level.getEntitiesOfClass(LivingEntity.class, area);
-        for (LivingEntity entity : entities) {
-            MobEffectInstance instance = new MobEffectInstance(template.getEffect(), template.getDuration(),
-                    template.getAmplifier(), template.isAmbient(), template.isVisible(), template.showIcon());
-            entity.addEffect(instance);
+        Enhancement enhancement = Enhancement.fromStack(stack);
+        if (enhancement == Enhancement.NONE) {
+            return Enhancement.NONE;
+        }
+
+        stack.shrink(1);
+        if (stack.isEmpty()) {
+            this.items.set(ENHANCEMENT_SLOT_INDEX, ItemStack.EMPTY);
+        }
+
+        if (enhancement == Enhancement.DURATION && this.level != null && !this.level.isClientSide) {
+            ItemStack emptyBottle = new ItemStack(Items.GLASS_BOTTLE);
+            Containers.dropItemStack(this.level,
+                    this.worldPosition.getX() + 0.5D,
+                    this.worldPosition.getY() + 1.0D,
+                    this.worldPosition.getZ() + 0.5D,
+                    emptyBottle);
+        }
+
+        return enhancement;
+    }
+
+    private static boolean isEnhancementItem(ItemStack stack) {
+        return Enhancement.fromStack(stack) != Enhancement.NONE;
+    }
+
+    public enum Enhancement {
+        NONE(1.0D, 1.0D, "none"),
+        RADIUS(1.2D, 1.0D, "honeycomb"),
+        DURATION(1.0D, 1.2D, "birch_sap_bottle");
+
+        private final double radiusMultiplier;
+        private final double durationMultiplier;
+        private final String serializedName;
+
+        Enhancement(double radiusMultiplier, double durationMultiplier, String serializedName) {
+            this.radiusMultiplier = radiusMultiplier;
+            this.durationMultiplier = durationMultiplier;
+            this.serializedName = serializedName;
+        }
+
+        public double radiusMultiplier() {
+            return this.radiusMultiplier;
+        }
+
+        public double durationMultiplier() {
+            return this.durationMultiplier;
+        }
+
+        public String getSerializedName() {
+            return this.serializedName;
+        }
+
+        public static Enhancement fromStack(ItemStack stack) {
+            if (stack.is(Items.HONEYCOMB)) {
+                return RADIUS;
+            }
+            if (stack.is(FIItems.BIRCH_SAP_BOTTLE.get())) {
+                return DURATION;
+            }
+            return NONE;
+        }
+
+        public static Enhancement byName(String name) {
+            for (Enhancement enhancement : values()) {
+                if (enhancement.serializedName.equals(name)) {
+                    return enhancement;
+                }
+            }
+            return NONE;
         }
     }
 }

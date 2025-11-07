@@ -5,6 +5,7 @@ import com.tiomadre.foragersinsight.core.registry.FIItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.data.event.GatherDataEvent;
 import org.jetbrains.annotations.NotNull;
@@ -33,54 +34,100 @@ public class FIItemTags extends ItemTagsProvider {
         this.tag(ACORN).add(FIItems.BLACK_ACORN.get(), FIItems.ACORN_MEAL.get());
         this.tag(WHEAT).add(FIItems.WHEAT_FLOUR.get(), Items.WHEAT);
         this.tag(COCOA).add(Items.COCOA_BEANS, FIItems.COCOA_POWDER.get());
-        this.tag(ROOTS).add(Items.CARROT,Items.BEETROOT, FIItems.DANDELION_ROOT.get());
-        this.tag(MUSHROOM).add(Items.RED_MUSHROOM,Items.BROWN_MUSHROOM);
-        //Handbasket
-        this.tag(HANDBASKET_ALLOWED)
-                //Animal Drops, Meat, Meat Cuts
-                .add(Items.COOKED_RABBIT, Items.RABBIT, Items.CHICKEN, Items.PORKCHOP, Items.BEEF, Items.MUTTON, Items.COD, Items.SALMON, Items.COOKED_BEEF
-                ,Items.COOKED_COD,Items.COOKED_PORKCHOP,Items.COOKED_CHICKEN,Items.COOKED_SALMON,Items.COOKED_MUTTON,ModItems.COD_SLICE.get(),ModItems.COOKED_COD_SLICE.get(),ModItems.SALMON_SLICE.get(),ModItems.CHICKEN_CUTS.get()
-                ,ModItems.MINCED_BEEF.get(),ModItems.BACON.get(),ModItems.MUTTON_CHOPS.get(),ModItems.COOKED_SALMON_SLICE.get(),ModItems.COOKED_BACON.get(),ModItems.COOKED_MUTTON_CHOPS.get()
-                ,ModItems.HAM.get(),ModItems.BEEF_PATTY.get(),Items.INK_SAC,Items.GLOW_INK_SAC,FIItems.RAW_RABBIT_LEG.get(),FIItems.COOKED_RABBIT_LEG.get(),Items.EGG,Items.LEATHER,Items.RABBIT_FOOT,Items.RABBIT_HIDE,Items.FEATHER)
-                //Crops
-                .add(Items.WHEAT,Items.SWEET_BERRIES, Items.BEETROOT, Items.POTATO, Items.CARROT, Items.PUMPKIN, Items.MELON_SLICE, Items.APPLE,Items.KELP,Items.BAMBOO,
-                 Items.COCOA_BEANS,Items.PUMPKIN,Items.MELON,Items.SUGAR_CANE,Items.GLOW_BERRIES,Items.CACTUS, Items.RED_MUSHROOM,Items.BROWN_MUSHROOM
-                ,Items.NETHER_WART, FIItems.ROSE_HIP.get(),FIItems.ROSELLE_CALYX.get(),FIItems.BLACK_ACORN.get(),FIItems.DANDELION_ROOT.get(),FIItems.POPPY_SEEDS.get(),FIItems.SPRUCE_TIPS.get()
-                ,ModItems.ONION.get(),ModItems.CABBAGE.get(),ModItems.TOMATO.get(),ModItems.RICE.get())
-                    //Crop Cuts and Crushed
-                     .add(ModItems.STRAW.get(),ModItems.PUMPKIN_SLICE.get(),ModItems.CABBAGE_LEAF.get(),ModItems.RICE_PANICLE.get(),FIItems.ROSE_PETALS.get(),FIItems.ROSELLE_PETALS.get()
-                     ,FIItems.APPLE_SLICE.get(),FIItems.ACORN_MEAL.get(),FIItems.COCOA_POWDER.get(),FIItems.WHEAT_FLOUR.get(),FIItems.POPPY_SEED_PASTE.get(),FIItems.CRUSHED_ICE.get()
-                     ,ModItems.CABBAGE_LEAF.get())
-                //Seeds
-                .add(Items.WHEAT_SEEDS,Items.PUMPKIN_SEEDS,Items.MELON_SEEDS,Items.BEETROOT_SEEDS,Items.TORCHFLOWER_SEEDS,Items.PITCHER_POD,ModItems.TOMATO_SEEDS.get(),
-                ModItems.CABBAGE_SEEDS.get()        )
-                //Flower,Plants and Vines
-                .add(Items.POPPY,Items.DANDELION,Items.BLUE_ORCHID,Items.ALLIUM,Items.AZURE_BLUET,Items.RED_TULIP,Items.ORANGE_TULIP,
-                Items.WHITE_TULIP,Items.PINK_TULIP,Items.OXEYE_DAISY,Items.CORNFLOWER,Items.LILY_OF_THE_VALLEY,Items.WITHER_ROSE,Items.SUNFLOWER,Items.LILAC
-                ,Items.ROSE_BUSH,Items.PEONY,Items.TORCHFLOWER,Items.PITCHER_PLANT,Items.VINE,Items.MOSS_BLOCK,ModItems.WILD_CABBAGES.get(),ModItems.WILD_BEETROOTS.get(),
-                 ModItems.WILD_POTATOES.get(),ModItems.WILD_TOMATOES.get(),ModItems.WILD_CARROTS.get(),ModItems.WILD_POTATOES.get(),FIItems.ROSELLE_BUSH_ITEM.get())
-                //Saplings
-                .add(Items.OAK_SAPLING,Items.SPRUCE_SAPLING,Items.BIRCH_SAPLING,Items.JUNGLE_SAPLING,Items.ACACIA_SAPLING,Items.DARK_OAK_SAPLING
-                ,Items.AZALEA,Items.FLOWERING_AZALEA, FIBlocks.BOUNTIFUL_DARK_OAK_SAPLING.get().asItem(), FIBlocks.BOUNTIFUL_OAK_SAPLING.get().asItem(),
-                FIBlocks.BOUNTIFUL_SPRUCE_SAPLING.get().asItem())
-                //Other
-                .add(ModItems.TREE_BARK.get(),Items.HONEYCOMB,Items.SUGAR,Items.HONEY_BOTTLE,ModItems.MILK_BOTTLE.get(),FIItems.SEED_MILK_BOTTLE.get(),Items.DRIED_KELP
-                ,FIItems.BIRCH_SAP_BOTTLE.get(),FIItems.BIRCH_SYRUP_BOTTLE.get())
+        this.tag(ROOTS).add(Items.CARROT, Items.BEETROOT, FIItems.DANDELION_ROOT.get());
+        this.tag(MUSHROOM).add(Items.RED_MUSHROOM, Items.BROWN_MUSHROOM);
+        this.tag(CROPS)
+                .addTag(APPLE)
+                .addTag(POPPY_SEEDS)
+                .addTag(ACORN)
+                .addTag(WHEAT)
+                .addTag(COCOA)
+                .addTag(ROOTS)
+                .addTag(MUSHROOM);
 
-                ;
+        // Handbasket support tags
+        this.tag(RAW_MEATS).add(Items.RABBIT, Items.CHICKEN, Items.PORKCHOP, Items.BEEF, Items.MUTTON, FIItems.RAW_RABBIT_LEG.get())
+                .addOptional(new ResourceLocation("farmersdelight", "chicken_cuts"))
+                .addOptional(new ResourceLocation("farmersdelight", "minced_beef"))
+                .addOptional(new ResourceLocation("farmersdelight", "bacon"))
+                .addOptional(new ResourceLocation("farmersdelight", "mutton_chops"));
+        this.tag(COOKED_MEATS).add(Items.COOKED_RABBIT, Items.COOKED_CHICKEN, Items.COOKED_PORKCHOP, Items.COOKED_BEEF,
+                        Items.COOKED_MUTTON, FIItems.COOKED_RABBIT_LEG.get())
+                .addOptional(new ResourceLocation("farmersdelight", "cooked_bacon"))
+                .addOptional(new ResourceLocation("farmersdelight", "cooked_mutton_chops"))
+                .addOptional(new ResourceLocation("farmersdelight", "ham"))
+                .addOptional(new ResourceLocation("farmersdelight", "beef_patty"));
+        this.tag(RAW_FISHES).add(Items.COD, Items.SALMON)
+                .addOptional(new ResourceLocation("farmersdelight", "cod_slice"))
+                .addOptional(new ResourceLocation("farmersdelight", "salmon_slice"));
+        this.tag(COOKED_FISHES).add(Items.COOKED_COD, Items.COOKED_SALMON)
+                .addOptional(new ResourceLocation("farmersdelight", "cooked_cod_slice"))
+                .addOptional(new ResourceLocation("farmersdelight", "cooked_salmon_slice"));
+        this.tag(FRUITS).add(FIItems.ROSE_HIP.get(), FIItems.ROSELLE_CALYX.get(), FIItems.APPLE_SLICE.get())
+                .addTag(APPLE);
+        this.tag(VEGETABLES).add(FIItems.SPRUCE_TIPS.get())
+                .addTag(ROOTS);
+        this.tag(FLOUR).add(FIItems.ACORN_MEAL.get(), FIItems.WHEAT_FLOUR.get());
+        this.tag(STRAW).add(ModItems.STRAW.get());
+        this.tag(TREE_BARK).add(ModItems.TREE_BARK.get());
+        this.tag(EGGS).add(Items.EGG);
+        this.tag(LEATHER).add(Items.LEATHER, Items.RABBIT_HIDE);
+
+        this.tag(HANDBASKET_OTHER)
+                .add(Items.INK_SAC, Items.GLOW_INK_SAC, Items.RABBIT_FOOT, Items.SUGAR,Items.SUGAR_CANE, Items.FEATHER, Items.KELP, Items.DRIED_KELP, Items.BAMBOO, Items.CACTUS, Items.VINE, Items.MOSS_BLOCK,
+                        Items.AZALEA, Items.FLOWERING_AZALEA, Items.HONEYCOMB)
+                .add(FIItems.ROSE_PETALS.get(), FIItems.ROSELLE_PETALS.get(),
+                        FIItems.BIRCH_SAP_BOTTLE.get(), FIItems.BIRCH_SYRUP_BOTTLE.get(), FIItems.ROSELLE_BUSH_ITEM.get(),FIItems.STOUT_BEACH_ROSE_BUSH_ITEM.get()
+                ,FIItems.TALL_BEACH_ROSE_BUSH_ITEM.get())
+                .add(ModItems.WILD_CABBAGES.get(), ModItems.WILD_BEETROOTS.get(), ModItems.WILD_POTATOES.get(), ModItems.WILD_TOMATOES.get(),
+                ModItems.WILD_CARROTS.get(), ModItems.RICE_PANICLE.get(), ModItems.PUMPKIN_SLICE.get(), ModItems.CABBAGE_LEAF.get(),
+                ModItems.MILK_BOTTLE.get());
+
+        this.tag(ItemTags.SAPLINGS)
+                .add(FIBlocks.BOUNTIFUL_DARK_OAK_SAPLING.get().asItem(), FIBlocks.BOUNTIFUL_OAK_SAPLING.get().asItem(),
+                        FIBlocks.BOUNTIFUL_SPRUCE_SAPLING.get().asItem());
+
+        this.tag(HANDBASKET_ALLOWED)
+                .addOptionalTag(new ResourceLocation("forge", "raw_meats"))
+                .addOptionalTag(new ResourceLocation("forge", "cooked_meats"))
+                .addOptionalTag(new ResourceLocation("forge", "raw_fishes"))
+                .addOptionalTag(new ResourceLocation("forge", "cooked_fishes"))
+                .addOptionalTag(new ResourceLocation("forge", "eggs"))
+                .addOptionalTag(new ResourceLocation("forge", "leather"))
+                .addOptionalTag(new ResourceLocation("forge", "feathers"))
+                .addOptionalTag(new ResourceLocation("forge", "nuts"))
+                .addOptionalTag(new ResourceLocation("forge", "seeds"))
+                .addOptionalTag(new ResourceLocation("forge", "crops"))
+                .addOptionalTag(new ResourceLocation("forge", "fruits"))
+                .addOptionalTag(new ResourceLocation("forge", "vegetables"))
+                .addOptionalTag(new ResourceLocation("forge", "crops/mushroom"))
+                .addOptionalTag(new ResourceLocation("forge", "flour"))
+                .addOptionalTag(new ResourceLocation("forge", "straw"))
+                .addOptionalTag(new ResourceLocation("forge", "tree_bark"))
+                .addOptionalTag(new ResourceLocation("forge", "ice"))
+                .addOptionalTag(new ResourceLocation("forge", "sugar"))
+                .addOptionalTag(new ResourceLocation("forge", "milk/milk"))
+                .addOptionalTag(new ResourceLocation("forge", "milk/milk_bottle"))
+                .addOptionalTag(new ResourceLocation("forge", "honey_bottle"))
+                .addOptionalTag(new ResourceLocation("minecraft", "flowers"))
+                .addOptionalTag(new ResourceLocation("minecraft", "saplings"))
+                .addTag(HANDBASKET_OTHER);
         // Mallet
         this.tag(FITags.ItemTag.MALLETS).add(FIItems.FLINT_MALLET.get(),FIItems.IRON_MALLET.get(),
         FIItems.GOLD_MALLET.get(),FIItems.DIAMOND_MALLET.get(),FIItems.NETHERITE_MALLET.get());
         //Shears
         //this.tag(Tags.Items.TOOLS_SHEAR).add(FIItems.FLINT_SHEARS.get()); reenable when using newer FD version that uses tag
+
+
+        registerForgeTags();
     }
     protected void registerForgeTags() {
         tag(STORAGE_BLOCK_ROSE_HIP).add(FIBlocks.ROSE_HIP_SACK.get().asItem());
-
         tag(STORAGE_BLOCK_POPPY_SEEDS).add(FIBlocks.POPPY_SEEDS_SACK.get().asItem());
         tag(STORAGE_BLOCK_DANDELION_ROOT).add(FIBlocks.DANDELION_ROOT_SACK.get().asItem());
-
         tag(STORAGE_BLOCK_SPRUCE_TIPS).add(FIBlocks.SPRUCE_TIPS_SACK.get().asItem());
         tag(STORAGE_BLOCK_BLACK_ACORNS).add(FIBlocks.BLACK_ACORN_SACK.get().asItem());
     }
+
+
 }

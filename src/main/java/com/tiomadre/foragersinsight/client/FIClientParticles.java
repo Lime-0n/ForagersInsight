@@ -17,5 +17,6 @@ public class FIClientParticles {
         event.registerSpriteSet(FIParticleTypes.CONIFEROUS_SCENT.get(), DiffuserScentParticleProvider::new);
         event.registerSpriteSet(FIParticleTypes.ROSE_SCENT.get(), DiffuserScentParticleProvider::new);
         event.registerSpriteSet(FIParticleTypes.FLORAL_SCENT.get(), DiffuserScentParticleProvider::new);
+        event.registerSpriteSet(FIParticleTypes.FOUL_SCENT.get(), DiffuserScentParticleProvider::new);
     }
 }

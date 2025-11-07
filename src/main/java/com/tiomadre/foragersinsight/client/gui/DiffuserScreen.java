@@ -4,32 +4,45 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.tiomadre.foragersinsight.common.block.entity.DiffuserBlockEntity;
 import com.tiomadre.foragersinsight.common.diffuser.DiffuserScent;
 import com.tiomadre.foragersinsight.common.gui.DiffuserMenu;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.world.inventory.Slot;
 import org.jetbrains.annotations.NotNull;
 
+
 import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class DiffuserScreen extends AbstractContainerScreen<DiffuserMenu> {
-    private static final ResourceLocation TEXTURE =
+    private static final ResourceLocation UNLIT_TEXTURE =
             new ResourceLocation("foragersinsight", "textures/gui/diffuser.png");
+    private static final ResourceLocation LIT_TEXTURE =
+            new ResourceLocation("foragersinsight", "textures/gui/diffuser_lit.png");
 
+    private static final int ARROW_U = 177;
+    private static final int ARROW_V = 0;
+    private static final int ARROW_HEIGHT = 16;
+    private static final int ARROW_WIDTH = 22;
+    private static final int ARROW_X = 125;
+    private static final int ARROW_Y = 33;
 
-    private static final int FLAME_U = 176;
-    private static final int FLAME_V = 0;
-    private static final int FLAME_W = 14;
-    private static final int FLAME_H = 14;
+    private static final int EXTINGUISH_BUTTON_SIZE = 6;
+    private static final int EXTINGUISH_BUTTON_X = 131;
+    private static final int EXTINGUISH_BUTTON_Y = 61;
 
-    private static final int ARROW_U = 176;
-    private static final int ARROW_V = 14;
-    private static final int ARROW_W = 24;
-    private static final int ARROW_H = 17;
+    private static final int SCENT_CLOUD_Y = 24;
+    private static final int SCENT_CLOUD_SIZE = 16;
 
     private static final int ICON_SIZE = 16;
+    private Button extinguishButton;
 
     public DiffuserScreen(DiffuserMenu menu, Inventory inv, Component title) {
         super(menu, inv, title);
@@ -41,35 +54,58 @@ public class DiffuserScreen extends AbstractContainerScreen<DiffuserMenu> {
         this.inventoryLabelX = 8;
         this.inventoryLabelY = this.imageHeight - 96 + 2;
     }
+    @Override
+    protected void init() {
+        super.init();
+        int buttonX = this.leftPos + EXTINGUISH_BUTTON_X;
+        int buttonY = this.topPos + EXTINGUISH_BUTTON_Y;
+
+        this.extinguishButton = Button.builder(Component.empty(), this::onExtinguishPressed)
+                .bounds(buttonX, buttonY, EXTINGUISH_BUTTON_SIZE, EXTINGUISH_BUTTON_SIZE)
+                .build();
+        this.extinguishButton.setAlpha(0.0F);
+        this.extinguishButton.setTooltip(Tooltip.create(
+                Component.translatable("gui.foragersinsight.diffuser.extinguish")));
+        this.addRenderableWidget(this.extinguishButton);
+        updateButtonState();
+    }
+    private void updateButtonState() {
+        if (this.extinguishButton != null) {
+            this.extinguishButton.active = this.menu.getActiveScent().isPresent();
+        }
+    }
+
+    private void onExtinguishPressed(Button button) {
+        if (this.minecraft == null || this.minecraft.gameMode == null) {
+            return;
+        }
+        if (this.menu.getActiveScent().isEmpty()) {
+            return;
+        }
+        this.minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, DiffuserMenu.BUTTON_EXTINGUISH);
+    }
+
+    @Override
+    protected void containerTick() {
+        super.containerTick();
+        updateButtonState();
+    }
+
 
     @Override
     protected void renderBg(@NotNull GuiGraphics gui, float partialTicks, int mouseX, int mouseY) {
-        RenderSystem.setShaderTexture(0, TEXTURE);
+        ResourceLocation background = this.menu.isLit() ? LIT_TEXTURE : UNLIT_TEXTURE;
+        RenderSystem.setShaderTexture(0, background);
         int left = (this.width - this.imageWidth) / 2;
         int top = (this.height - this.imageHeight) / 2;
 
-        gui.blit(TEXTURE, left, top, 0, 0, this.imageWidth, this.imageHeight);
-
-        int flameX = left + 57;
-        int flameY = top + 36;
-
-        if (this.menu.isLit()) {
-            int lit = this.menu.getLitProgress();
-            gui.blit(TEXTURE,
-                    flameX, flameY + (FLAME_H - lit),
-                    FLAME_U, FLAME_V + (FLAME_H - lit),
-                    FLAME_W, lit);
-        }
-
-        int arrowX = left + 97;
-        int arrowY = top + 34;
-        int progress = this.menu.getCraftProgress();
-
+        gui.blit(background, left, top, 0, 0, this.imageWidth, this.imageHeight);
+        int progress = Math.min(this.menu.getCraftProgress(), ARROW_WIDTH);
         if (progress > 0) {
-            gui.blit(TEXTURE,
-                    arrowX, arrowY,
+            gui.blit(background,
+                    left + ARROW_X, top + ARROW_Y,
                     ARROW_U, ARROW_V,
-                    progress, ARROW_H);
+                    progress, ARROW_HEIGHT);
         }
 
         renderScentIcon(gui, left, top);
@@ -81,6 +117,7 @@ public class DiffuserScreen extends AbstractContainerScreen<DiffuserMenu> {
         super.render(gui, mouseX, mouseY, partialTicks);
         this.renderTooltip(gui, mouseX, mouseY);
         this.renderScentTooltip(gui, mouseX, mouseY);
+        this.renderScentCloudTooltip(gui, mouseX, mouseY);
     }
 
     private void renderScentIcon(GuiGraphics gui, int left, int top) {
@@ -107,5 +144,46 @@ public class DiffuserScreen extends AbstractContainerScreen<DiffuserMenu> {
         if (mouseX >= iconX && mouseX < iconX + ICON_SIZE && mouseY >= iconY && mouseY < iconY + ICON_SIZE) {
             gui.renderComponentTooltip(this.font, scent.get().tooltip(), mouseX, mouseY);
         }
+    }
+
+    private void renderScentCloudTooltip(GuiGraphics gui, int mouseX, int mouseY) {
+        if (!this.menu.isLit()) {
+            return;
+        }
+
+        Optional<DiffuserScent> scent = this.menu.getActiveScent();
+        if (scent.isEmpty()) {
+            return;
+        }
+
+        Slot slot = this.menu.getSlot(DiffuserBlockEntity.RESULT_SLOT_INDEX);
+        int left = (this.width - this.imageWidth) / 2;
+        int top = (this.height - this.imageHeight) / 2;
+        int infoX = left + slot.x;
+        int infoY = top + slot.y - SCENT_CLOUD_Y;
+        if (mouseX < infoX || mouseX >= infoX + SCENT_CLOUD_SIZE || mouseY < infoY || mouseY >= infoY + SCENT_CLOUD_SIZE) {
+            return;
+        }
+
+        double radius = this.menu.getEffectiveRadius();
+        int durationSeconds = (int) Math.round(Math.max(this.menu.getRemainingDuration(), 0) / 20.0D);
+        List<Component> tooltip = new ArrayList<>(3);
+        tooltip.add(Component.translatable(
+                "gui.foragersinsight.diffuser.tooltip.radius",
+                String.format(Locale.ROOT, "%.1f", radius)
+        ).withStyle(ChatFormatting.WHITE));
+        tooltip.add(Component.translatable(
+                "gui.foragersinsight.diffuser.tooltip.duration",
+                durationSeconds
+        ).withStyle(ChatFormatting.WHITE));
+
+        DiffuserBlockEntity.Enhancement enhancement = this.menu.getActiveEnhancement();
+        if (enhancement == DiffuserBlockEntity.Enhancement.RADIUS) {
+            tooltip.add(Component.translatable("gui.foragersinsight.diffuser.tooltip.enhanced_radius").withStyle(style -> style.withColor(DiffuserScent.RADIUS_ACCENT_COLOR)));
+        } else if (enhancement == DiffuserBlockEntity.Enhancement.DURATION) {
+            tooltip.add(Component.translatable("gui.foragersinsight.diffuser.tooltip.enhanced_duration").withStyle(style -> style.withColor(DiffuserScent.DURATION_ACCENT_COLOR)));
+        }
+
+        gui.renderComponentTooltip(this.font, tooltip, mouseX, mouseY);
     }
 }

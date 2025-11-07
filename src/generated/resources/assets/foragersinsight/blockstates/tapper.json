@@ -2,78 +2,78 @@
   "variants": {
     "facing=east,fill=0": {
       "model": "foragersinsight:block/tapper",
-      "y": 90
+      "y": 270
     },
     "facing=east,fill=1": {
       "model": "foragersinsight:block/tapper_stage1",
-      "y": 90
+      "y": 270
     },
     "facing=east,fill=2": {
       "model": "foragersinsight:block/tapper_stage2",
-      "y": 90
+      "y": 270
     },
     "facing=east,fill=3": {
       "model": "foragersinsight:block/tapper_stage3",
-      "y": 90
+      "y": 270
     },
     "facing=east,fill=4": {
       "model": "foragersinsight:block/tapper_stage4",
-      "y": 90
+      "y": 270
     },
     "facing=north,fill=0": {
-      "model": "foragersinsight:block/tapper"
-    },
-    "facing=north,fill=1": {
-      "model": "foragersinsight:block/tapper_stage1"
-    },
-    "facing=north,fill=2": {
-      "model": "foragersinsight:block/tapper_stage2"
-    },
-    "facing=north,fill=3": {
-      "model": "foragersinsight:block/tapper_stage3"
-    },
-    "facing=north,fill=4": {
-      "model": "foragersinsight:block/tapper_stage4"
-    },
-    "facing=south,fill=0": {
       "model": "foragersinsight:block/tapper",
       "y": 180
     },
-    "facing=south,fill=1": {
+    "facing=north,fill=1": {
       "model": "foragersinsight:block/tapper_stage1",
       "y": 180
     },
-    "facing=south,fill=2": {
+    "facing=north,fill=2": {
       "model": "foragersinsight:block/tapper_stage2",
       "y": 180
     },
-    "facing=south,fill=3": {
+    "facing=north,fill=3": {
       "model": "foragersinsight:block/tapper_stage3",
       "y": 180
     },
-    "facing=south,fill=4": {
+    "facing=north,fill=4": {
       "model": "foragersinsight:block/tapper_stage4",
       "y": 180
+    },
+    "facing=south,fill=0": {
+      "model": "foragersinsight:block/tapper"
+    },
+    "facing=south,fill=1": {
+      "model": "foragersinsight:block/tapper_stage1"
+    },
+    "facing=south,fill=2": {
+      "model": "foragersinsight:block/tapper_stage2"
+    },
+    "facing=south,fill=3": {
+      "model": "foragersinsight:block/tapper_stage3"
+    },
+    "facing=south,fill=4": {
+      "model": "foragersinsight:block/tapper_stage4"
     },
     "facing=west,fill=0": {
       "model": "foragersinsight:block/tapper",
-      "y": 270
+      "y": 90
     },
     "facing=west,fill=1": {
       "model": "foragersinsight:block/tapper_stage1",
-      "y": 270
+      "y": 90
     },
     "facing=west,fill=2": {
       "model": "foragersinsight:block/tapper_stage2",
-      "y": 270
+      "y": 90
     },
     "facing=west,fill=3": {
       "model": "foragersinsight:block/tapper_stage3",
-      "y": 270
+      "y": 90
     },
     "facing=west,fill=4": {
       "model": "foragersinsight:block/tapper_stage4",
-      "y": 270
+      "y": 90
     }
   }
 }

@@ -1,9 +1,6 @@
 package com.tiomadre.foragersinsight.data.client;
 
-import com.tiomadre.foragersinsight.common.block.BountifulLeavesBlock;
-import com.tiomadre.foragersinsight.common.block.RoseCropBlock;
-import com.tiomadre.foragersinsight.common.block.SpruceTipBlock;
-import com.tiomadre.foragersinsight.common.block.TapperBlock;
+import com.tiomadre.foragersinsight.common.block.*;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import net.minecraft.core.Direction;
@@ -22,13 +19,17 @@ public class FIBlockStates extends FIBlockStatesHelper {
     }
     @Override
     protected void registerStatesAndModels() {
+        //Cakes and Feasts
+        this.sliceableCake();
+
         //Flower Crops
         this.RoseCrop(ROSE_CROP);
         this.RoselleCrop(ROSELLE_CROP);
         this.age5Crop(DANDELION_BUSH, FIItems.DANDELION_ROOT);
         this.age5Crop(POPPY_BUSH, FIItems.POPPY_SEEDS);
 
-        //Sacks
+        //Crates and Sacks
+        this.crateBlock(APPLE_CRATE);
         this.sackBlock(BLACK_ACORN_SACK);
         this.sackBlock(ROSE_HIP_SACK);
         this.sackBlock(ROSELLE_CALYX_SACK);
@@ -174,11 +175,12 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.blockItem(block.get());
     }
 
-    public void crateBlock(RegistryObject<? extends Block> block, String cropName) {
+    public void crateBlock(RegistryObject<? extends Block> block) {
+        String cropName = name(block.get());
         this.simpleBlock(block.get(),
-                models().cubeBottomTop(name(block.get()), modTexture(cropName + "_crate_side"),
+                models().cubeBottomTop(cropName, modTexture(cropName + "_side"),
                         modTexture("crate_bottom"),
-                        modTexture(cropName + "_crate_top")));
+                        modTexture(cropName + "_top")));
 
 
         this.blockItem(block.get());
@@ -284,16 +286,43 @@ public class FIBlockStates extends FIBlockStatesHelper {
         for (int fill = 0; fill < fillModels.length; fill++) {
             ModelFile model = fillModels[fill];
             for (Direction direction : Direction.Plane.HORIZONTAL) {
+                int rotationY = switch (direction) {
+                    case EAST -> 90;
+                    case SOUTH -> 180;
+                    case WEST -> 270;
+                    default -> 0;
+                };
                 builder.partialState()
                         .with(TapperBlock.FILL, fill)
                         .with(TapperBlock.FACING, direction)
                         .modelForState()
                         .modelFile(model)
-                        .rotationY((int) direction.getOpposite().toYRot())
+                        .rotationY((int) direction.toYRot())
                         .addModel();
             }
         }
     }
+
+    private void sliceableCake() {
+        SliceableCakeBlock cake = (SliceableCakeBlock) ACORN_CARROT_CAKE.get();
+        String name = name(cake);
+
+        VariantBlockStateBuilder builder = this.getVariantBuilder(cake);
+        for (int bites = 0; bites < cake.getMaxBites(); bites++) {
+            String parent = bites == 0 ? "block/cake" : "block/cake_slice" + bites;
+            ModelFile model = this.models().withExistingParent(bites == 0 ? name : name + "_slice" + bites, mcLoc(parent))
+                    .texture("particle", modTexture(name + "_side"))
+                    .texture("bottom", modTexture(name + "_bottom"))
+                    .texture("top", modTexture(name + "_top"))
+                    .texture("side", modTexture(name + "_side"))
+                    .texture("inner", modTexture(name + "_inner"));
+
+            builder.partialState().with(SliceableCakeBlock.BITES, bites)
+                    .modelForState().modelFile(model)
+                    .addModel();
+        }
+    }
+
 
     private ModelFile tapperModel(String name, String bucketTop, String bucketSide, String tapTexture) {
         BlockModelBuilder builder = this.models().getBuilder(name)

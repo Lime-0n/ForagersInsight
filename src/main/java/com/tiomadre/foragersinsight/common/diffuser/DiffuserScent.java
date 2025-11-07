@@ -5,6 +5,7 @@ import com.tiomadre.foragersinsight.core.registry.FIItems;
 import com.tiomadre.foragersinsight.core.registry.FIMobEffects;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -21,9 +22,12 @@ import java.util.function.Supplier;
 @SuppressWarnings("ALL")
 public final class DiffuserScent {
     public static final int STANDARD_DURATION = 12000;
+    public static final TextColor RADIUS_ACCENT_COLOR = TextColor.fromRgb(0xfabf29);
+    public static final TextColor DURATION_ACCENT_COLOR = TextColor.fromRgb(0xc2daaf);
 
     private static final List<DiffuserScent> ALL = new ArrayList<>();
     private static final Map<ResourceLocation, DiffuserScent> BY_ID = new ConcurrentHashMap<>();
+
 
     public static final Supplier<DiffuserScent> ROSEY = Suppliers.memoize(() ->
             new DiffuserScent(
@@ -33,7 +37,7 @@ public final class DiffuserScent {
                     "foragersinsight.diffuser.rosey",
                     "foragersinsight.diffuser.rosey.description",
                     8.0,
-                    (Supplier<MobEffectInstance>) () -> new MobEffectInstance(MobEffects.REGENERATION, 100, 0),
+                    (Supplier<MobEffectInstance>) () -> new MobEffectInstance(MobEffects.REGENERATION, 200, 0),
                     0));
 
     public static final Supplier<DiffuserScent> CONIFEROUS = Suppliers.memoize(() ->
@@ -44,7 +48,7 @@ public final class DiffuserScent {
                     "foragersinsight.diffuser.coniferous",
                     "foragersinsight.diffuser.coniferous.description",
                     8.0,
-                    () -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 100, 0),
+                    () -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 500, 0),
                     1));
 
     public static final Supplier<DiffuserScent> FLORAL = Suppliers.memoize(() ->
@@ -57,7 +61,7 @@ public final class DiffuserScent {
                     "foragersinsight.diffuser.floral",
                     "foragersinsight.diffuser.floral.description",
                     8.0,
-                    () -> new MobEffectInstance(FIMobEffects.BLOOM.get(), 100, 0),
+                    () -> new MobEffectInstance(FIMobEffects.BLOOM.get(), 1200, 0),
                     0));
     public static final Supplier<DiffuserScent> FOUL = Suppliers.memoize(() ->
             new DiffuserScent(
@@ -67,7 +71,7 @@ public final class DiffuserScent {
                     "foragersinsight.diffuser.foul",
                     "foragersinsight.diffuser.foul.description",
                     8.0,
-                    () -> new MobEffectInstance(FIMobEffects.ODOROUS.get(), 100, 0),
+                    () -> new MobEffectInstance(FIMobEffects.ODOROUS.get(), 1200, 0),
                     3));
 
     public static void bootstrap() {
@@ -145,7 +149,8 @@ public final class DiffuserScent {
 
     public List<Component> tooltip() {
         List<Component> tooltip = new ArrayList<>(2);
-        tooltip.add(this.displayName().copy().withStyle(ChatFormatting.GOLD));
+        tooltip.add(this.displayName().copy().withStyle(style -> style.withColor(ChatFormatting.WHITE).withUnderlined(true)));
+
         tooltip.add(this.description());
         return tooltip;
     }
