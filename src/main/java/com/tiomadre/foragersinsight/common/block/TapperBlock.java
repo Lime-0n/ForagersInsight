@@ -16,7 +16,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -185,15 +184,5 @@ public class TapperBlock extends HorizontalDirectionalBlock {
     public void onRemove(@NotNull BlockState oldState, @NotNull Level level, @NotNull BlockPos pos,
                          @NotNull BlockState newState, boolean isMoving) {
         super.onRemove(oldState, level, pos, newState, isMoving);
-    }
-
-    @Override
-    public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos,
-                              @NotNull BlockState state, @Nullable BlockEntity blockEntity,
-                              @NotNull ItemStack tool) {
-        if (!level.isClientSide && state.getValue(HAS_TAPPER)) {
-            popResource(level, pos, new ItemStack(FIItems.TAPPER.get()));
-        }
-        super.playerDestroy(level, player, pos, state, blockEntity, tool);
     }
 }
