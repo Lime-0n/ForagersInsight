@@ -125,9 +125,6 @@ public class TapperBlock extends HorizontalDirectionalBlock {
                                            @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
         Direction attachDir = state.getValue(FACING).getOpposite();
         if (direction == attachDir && !canSurvive(state, level, currentPos)) {
-            if (state.getValue(HAS_TAPPER) && level instanceof Level lvl && !lvl.isClientSide) {
-                popResource(lvl, currentPos, new ItemStack(FIItems.TAPPER.get()));
-            }
             return Blocks.AIR.defaultBlockState();
         }
         return super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
