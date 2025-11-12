@@ -70,9 +70,8 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
 
         //Salads
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, KELP_AND_BEET_SALAD.get())
-                .requires(KELP).requires(KELP).requires(BEETROOT).requires(BEETROOT)
+                .requires(KELP).requires(KELP).requires(BEETROOT).requires(BEETROOT).requires(BOWL)
                 .unlockedBy("has_kelp", has(KELP)).save(consumer);
-
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, MEADOW_MEDLEY.get())
                 .requires(FITags.ItemTag.APPLE).requires(FITags.ItemTag.POPPY_SEEDS).requires(FITags.ItemTag.POPPY_SEEDS)
                 .requires(DANDELION).requires(DANDELION)
@@ -116,30 +115,36 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .unlockedBy("has_roselle_bush", has(TALL_BEACH_ROSE_BUSH_ITEM.get()))
                 .save(consumer, ForagersInsight.rl("red_dye_from_tall_beach_rose_bush"));
         //Seed Milk
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, SEED_MILK_BOTTLE.get())
+            //Bucket of Seed Milk -> Bottles
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, SEED_MILK_BOTTLE.get(),4)
                 .requires(SEED_MILK_BUCKET.get()).requires(GLASS_BOTTLE).requires(GLASS_BOTTLE)
                 .requires(GLASS_BOTTLE).requires(GLASS_BOTTLE)
                 .unlockedBy("has_seed_milk_bucket", has(SEED_MILK_BUCKET.get())).save(consumer);
+            //Bottles of Seed Milk -> Bucket
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, SEED_MILK_BUCKET.get())
                 .requires(BUCKET).requires(SEED_MILK_BOTTLE.get()).requires(SEED_MILK_BOTTLE.get())
                 .requires(SEED_MILK_BOTTLE.get()).requires(SEED_MILK_BOTTLE.get())
                 .unlockedBy("has_seed_milk_bottle", has(SEED_MILK_BOTTLE.get())).save(consumer);
         //Sap and Syrup
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, BIRCH_SYRUP_BOTTLE.get())
+            // Bucket of Syrup -> Bottles
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, BIRCH_SYRUP_BOTTLE.get(),4)
                 .requires(BIRCH_SYRUP_BUCKET.get()).requires(GLASS_BOTTLE).requires(GLASS_BOTTLE)
                 .requires(GLASS_BOTTLE).requires(GLASS_BOTTLE)
                 .unlockedBy("has_birch_syrup_bucket", has(BIRCH_SYRUP_BUCKET.get()))
                 .save(consumer, ForagersInsight.rl("birch_syrup_bottle_from_bucket"));
+            //Bottles of Syrup -> Bucket
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, BIRCH_SYRUP_BUCKET.get())
                 .requires(BUCKET).requires(BIRCH_SYRUP_BOTTLE.get()).requires(BIRCH_SYRUP_BOTTLE.get())
                 .requires(BIRCH_SYRUP_BOTTLE.get()).requires(BIRCH_SYRUP_BOTTLE.get())
                 .unlockedBy("has_birch_syrup_bottle", has(BIRCH_SYRUP_BOTTLE.get()))
                 .save(consumer, ForagersInsight.rl("birch_syrup_bucket_from_bottles"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BIRCH_SAP_BOTTLE.get())
+            //Bucket of Sap -> Bottles
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BIRCH_SAP_BOTTLE.get(),4)
                 .requires(BIRCH_SAP_BUCKET.get()).requires(GLASS_BOTTLE).requires(GLASS_BOTTLE)
                 .requires(GLASS_BOTTLE).requires(GLASS_BOTTLE)
                 .unlockedBy("has_birch_sap_bucket", has(BIRCH_SAP_BUCKET.get()))
                 .save(consumer, ForagersInsight.rl("birch_sap_bottle_from_bucket"));
+            //Bottles of Sap -> Bucket
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BIRCH_SAP_BUCKET.get())
                 .requires(BUCKET).requires(BIRCH_SAP_BOTTLE.get()).requires(BIRCH_SAP_BOTTLE.get())
                 .requires(BIRCH_SAP_BOTTLE.get()).requires(BIRCH_SAP_BOTTLE.get())

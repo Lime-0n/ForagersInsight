@@ -14,6 +14,6 @@
   ],
   "new": "foragersinsight:roselle_calyx",
   "replace": "foragersinsight:roselle_bush",
-  "chance": 0.5,
+  "chance": 0.65,
   "destroy_on_fail": true
 }
