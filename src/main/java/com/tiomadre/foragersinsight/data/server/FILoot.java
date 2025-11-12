@@ -173,7 +173,7 @@ public class FILoot extends LootTableProvider {
                     .withPool(LootPool.lootPool().add(LootItem.lootTableItem(seed))
                             .when(stateCond(registryBlock, ageProperty, maxAge)))
                     .withPool(LootPool.lootPool().add(LootItem.lootTableItem(originalFlower)
-                                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))
+                                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
                             .when(stateCond(registryBlock, ageProperty, maxAge)).when(HAS_KNIFE))
                     .withPool(LootPool.lootPool().add(LootItem.lootTableItem(seed)
                             .when(stateCond(registryBlock, ageProperty, maxAge)).apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.5714285f, 3))))));
