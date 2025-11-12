@@ -84,7 +84,7 @@ public class FICookingRecipes {
                 .setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
                 .build(consumer);
         CookingPotRecipeBuilder.cookingPotRecipe(POPPY_SEED_BAGEL.get(), 2, NORMAL_COOKING, MEDIUM_EXP)
-                .addIngredient(ModItems.WHEAT_DOUGH.get())
+                .addIngredient(FITags.ItemTag.DOUGH)
                 .addIngredient(FITags.ItemTag.POPPY_SEEDS)
                 .addIngredient(FITags.ItemTag.POPPY_SEEDS)
                 .addIngredient(FITags.ItemTag.POPPY_SEEDS)
