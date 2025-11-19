@@ -1,5 +1,6 @@
 package com.tiomadre.foragersinsight.common.worldgen;
 
+import com.tiomadre.foragersinsight.common.block.BountifulLeavesBlock;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.common.worldgen.trees.decorator.SappyBirchLogDecorator;
@@ -137,9 +138,14 @@ public class FIConfiguredFeatures {
     }
 
     private static WeightedStateProvider bountifulLeafStateProvider(Block leaf, Supplier<Block> bountifulLeaf) {
+        BlockState bountifulState = bountifulLeaf.get().defaultBlockState();
+        if (bountifulState.hasProperty(BountifulLeavesBlock.AGE)) {
+            bountifulState = bountifulState.setValue(BountifulLeavesBlock.AGE, BountifulLeavesBlock.MAX_AGE - 1);
+        }
+
         return new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                 .add(leaf.defaultBlockState(), 2)
-                .add(bountifulLeaf.get().defaultBlockState(), 1));
+                .add(bountifulState, 1));
     }
 
 }
