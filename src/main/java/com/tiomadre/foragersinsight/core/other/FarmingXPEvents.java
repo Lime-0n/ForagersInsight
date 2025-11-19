@@ -223,19 +223,25 @@ public class FarmingXPEvents {
     }
 
     private static Optional<IntegerProperty> getAgeProp(BlockState state) {
-        return state.getProperties().stream()
-                .filter(p -> p instanceof IntegerProperty && p.getName().equals("age"))
-                .map(p -> (IntegerProperty) p)
-                .findFirst();
+        for (Property<?> property : state.getProperties()) {
+            if (property instanceof IntegerProperty integerProperty && "age".equals(property.getName())) {
+                return Optional.of(integerProperty);
+            }
+        }
+        return Optional.empty();
     }
 
     private static boolean isMature(BlockState state, IntegerProperty age) {
         int cur = state.getValue(age);
-        int max = age.getPossibleValues()
-                .stream()
-                .mapToInt(i -> i)
-                .max()
-                .orElse(cur);
+        int max = Integer.MIN_VALUE;
+        for (int candidate : age.getPossibleValues()) {
+            if (candidate > max) {
+                max = candidate;
+            }
+        }
+        if (max == Integer.MIN_VALUE) {
+            max = cur;
+        }
         return cur >= max;
     }
 
