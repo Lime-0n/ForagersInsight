@@ -162,6 +162,9 @@ public class FIItems {
             new BlockItem(FIBlocks.STOUT_BEACH_ROSE_BUSH.get(),basicItem()));
     public static final RegistryObject<Item> TALL_BEACH_ROSE_BUSH_ITEM = HELPER.createItem("tall_beach_rose_bush", () ->
             new BlockItem(FIBlocks.TALL_BEACH_ROSE_BUSH.get(),basicItem()));
+    //Foraged
+    public static final RegistryObject<Item> BLEWIT_MUSHROOM = HELPER.createItem("blewit_mushroom",  () ->
+            new Item(new Item.Properties().food(FIFoods.MID_SAT_MORSELS)));
 
 //Workstations & Tools
 //Diffuser
