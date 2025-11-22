@@ -4,8 +4,9 @@ import com.tiomadre.foragersinsight.common.block.BountifulLeavesBlock;
 import com.tiomadre.foragersinsight.common.block.SpruceTipBlock;
 import com.tiomadre.foragersinsight.common.block.TapperBlock;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
-import com.tiomadre.foragersinsight.data.server.tags.FITags;
+import com.tiomadre.foragersinsight.core.registry.FIConfig;
 import com.tiomadre.foragersinsight.core.registry.FIMobEffects;
+import com.tiomadre.foragersinsight.data.server.tags.FITags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
@@ -38,10 +39,11 @@ import java.util.*;
 
 @Mod.EventBusSubscriber(modid = ForagersInsight.MOD_ID)
 public class FarmingXPEvents {
+
     private static final Map<ResourceKey<Level>, Map<BlockPos, PendingForage>> PENDING_FORAGING_DROPS = new HashMap<>();
     private static final int FORAGING_DROP_TIMEOUT_TICKS = 20;
 
-//Experience event for Farming and Foraging
+
     @SubscribeEvent
     public static void onKnifeHarvest(BlockEvent.BreakEvent event) {
         if (!(event.getPlayer() instanceof ServerPlayer player)) return;
@@ -51,11 +53,12 @@ public class FarmingXPEvents {
         if (!(tool.getItem() instanceof KnifeItem)) return;
 
         BlockState state = event.getState();
+
         if (state.is(FITags.BlockTag.FORAGING)) {
             trackPotentialForageDrop(level, event.getPos(), state, player);
         }
     }
-    //Forage
+
     @SubscribeEvent
     public static void onForageDrop(EntityJoinLevelEvent event) {
         if (!(event.getLevel() instanceof ServerLevel level)) return;
@@ -66,9 +69,10 @@ public class FarmingXPEvents {
         if (pending.player.level() != level) return;
         if (item.getItem().isEmpty()) return;
 
-        awardRandomXP(level, pending.player, 0, 2, true); // 0–1 XP
+        awardUnifiedXP(level, pending.player, 0, 2, XPSource.FORAGING, true);
     }
 
+    // Crop Harvest XP
     @SubscribeEvent
     public static void onCropHarvest(BlockEvent.BreakEvent event) {
         if (!(event.getPlayer() instanceof ServerPlayer player)) return;
@@ -78,10 +82,10 @@ public class FarmingXPEvents {
         BlockState state = event.getState();
         Block block = state.getBlock();
 
-        //Gourds attached to Stems
+        // Gourds attached to stems
         if (block instanceof StemGrownBlock) {
             boolean connectedToStem = isConnectedToStem(level, pos);
-            awardRandomXP(level, player, connectedToStem ? 1 : 0, 2);
+            awardUnifiedXP(level, player, connectedToStem ? 1 : 0, 2, XPSource.CROP, false);
             return;
         }
 
@@ -89,10 +93,10 @@ public class FarmingXPEvents {
         if (ageProp.isPresent() && isMature(state, ageProp.get())) {
 
             if (!isIntactDoublePlant(level, pos, state)) return;
-            awardRandomXP(level, player, 1, 3); // 1–2
+            awardUnifiedXP(level, player, 1, 3, XPSource.CROP, false); // 1–2
         }
     }
-
+    // Right-Click Harvests
     @SubscribeEvent
     public static void onRightClickHarvest(PlayerInteractEvent.RightClickBlock event) {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
@@ -107,7 +111,8 @@ public class FarmingXPEvents {
         if (block instanceof BeehiveBlock &&
                 state.getValue(BeehiveBlock.HONEY_LEVEL) >= 5 &&
                 ((held.getItem() instanceof ShearsItem) || held.is(Items.GLASS_BOTTLE))) {
-            awardRandomXP(level, player, 2, 4); // 2–3
+
+            awardUnifiedXP(level, player, 2, 4, XPSource.BEEHIVE, false);
             return;
         }
 
@@ -116,7 +121,8 @@ public class FarmingXPEvents {
                 state.getValue(TapperBlock.HAS_TAPPER) &&
                 state.getValue(TapperBlock.FILL) == 4 &&
                 held.is(Items.BUCKET)) {
-            awardRandomXP(level, player, 1, 3); // 1–2
+
+            awardUnifiedXP(level, player, 1, 3, XPSource.TAPPER, false);
             return;
         }
 
@@ -125,33 +131,38 @@ public class FarmingXPEvents {
             int before = state.getValue(MushroomColonyBlock.COLONY_AGE);
             if (before > 0) {
                 defer(level, () -> {
-                    BlockState afterState = level.getBlockState(pos);
-                    if (!(afterState.getBlock() instanceof MushroomColonyBlock)) return;
-                    int after = afterState.getValue(MushroomColonyBlock.COLONY_AGE);
-                    if (after < before) awardRandomXP(level, player, 0, 2, true); // 0–1
-                });
-                return;
-            }
-        }
-
-        // Tomato
-        if (block instanceof TomatoVineBlock vine) {
-            int current = state.getValue(TomatoVineBlock.VINE_AGE);
-            if (current >= vine.getMaxAge() && (held.isEmpty() || held.getItem() instanceof ShearsItem)) {
-                defer(level, () -> {
                     BlockState after = level.getBlockState(pos);
-                    if (!(after.getBlock() instanceof TomatoVineBlock)) return;
-                    if (after.getValue(TomatoVineBlock.VINE_AGE) < current) {
-                        awardRandomXP(level, player, 1, 3); // 1–2
+                    if (!(after.getBlock() instanceof MushroomColonyBlock)) return;
+                    int afterAge = after.getValue(MushroomColonyBlock.COLONY_AGE);
+                    if (afterAge < before) {
+                        awardUnifiedXP(level, player, 0, 2, XPSource.FORAGING, true);
                     }
                 });
                 return;
             }
         }
 
-        // Right Click Harvests
-        if (block instanceof BonemealableBlock && !(block instanceof CropBlock) &&
-                !(block instanceof StemBlock) && !(block instanceof AttachedStemBlock)) {
+        // Tomato Vine
+        if (block instanceof TomatoVineBlock vine) {
+            int current = state.getValue(TomatoVineBlock.VINE_AGE);
+            if (current >= vine.getMaxAge() && (held.isEmpty() || held.getItem() instanceof ShearsItem)) {
+
+                defer(level, () -> {
+                    BlockState after = level.getBlockState(pos);
+                    if (!(after.getBlock() instanceof TomatoVineBlock)) return;
+                    if (after.getValue(TomatoVineBlock.VINE_AGE) < current) {
+                        awardUnifiedXP(level, player, 1, 3, XPSource.CROP, false);
+                    }
+                });
+                return;
+            }
+        }
+
+        // Generic right-click harvests
+        if (block instanceof BonemealableBlock &&
+                !(block instanceof CropBlock) &&
+                !(block instanceof StemBlock) &&
+                !(block instanceof AttachedStemBlock)) {
 
             Optional<IntegerProperty> ageProp = getAgeProp(state);
             if (ageProp.isEmpty()) return;
@@ -167,15 +178,22 @@ public class FarmingXPEvents {
                                 (updated.hasProperty(age) && updated.getValue(age) < current);
 
                 if (harvested) {
-                    // Bountiful Tree
-                    boolean leavesOrTips = state.getBlock() instanceof BountifulLeavesBlock ||
-                            state.getBlock() instanceof SpruceTipBlock;
-                    awardRandomXP(level, player, leavesOrTips ? 0 : 1, 2 + (leavesOrTips ? 0 : 1), true); // leaves: 0–1, else: 1–2
+                    boolean leavesOrTips =
+                            state.getBlock() instanceof BountifulLeavesBlock ||
+                                    state.getBlock() instanceof SpruceTipBlock;
+
+                    awardUnifiedXP(level, player,
+                            leavesOrTips ? 0 : 1,
+                            leavesOrTips ? 2 : 3,
+                            XPSource.FORAGING,
+                            true
+                    );
                 }
             });
         }
     }
-    //Shearing Chickens and Sheep
+
+    // Shearing Animals
     @SubscribeEvent
     public static void onAnimalShear(PlayerInteractEvent.EntityInteract event) {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
@@ -185,46 +203,49 @@ public class FarmingXPEvents {
         ItemStack tool = player.getItemInHand(event.getHand());
         if (!(tool.getItem() instanceof ShearsItem)) return;
 
+        // Sheep
         if (event.getTarget() instanceof Sheep sheep) {
             if (!sheep.isBaby() && !sheep.isSheared()) {
-                awardRandomXP((ServerLevel) lvl, player, 1, 3);
+                awardUnifiedXP((ServerLevel) lvl, player, 1, 3, XPSource.ANIMAL_SHEAR, false);
             }
             return;
         }
 
+        // Chickens (Feather Shearing)
         if (event.getTarget() instanceof Chicken chicken) {
             if (!chicken.isBaby()) {
                 long now = lvl.getGameTime();
                 long last = chicken.getPersistentData().getLong("ShearFeatherTime");
                 if (now - last >= 2400L) {
-                    awardRandomXP((ServerLevel) lvl, player, 1, 3);
+                    awardUnifiedXP((ServerLevel) lvl, player, 1, 3, XPSource.ANIMAL_SHEAR, false);
                 }
             }
         }
     }
 
-    private static void awardRandomXP(ServerLevel level, ServerPlayer player, int minInclusive, int maxExclusive) {
-        awardRandomXP(level, player, minInclusive, maxExclusive, false);
-    }
+    private static void awardUnifiedXP(ServerLevel level, ServerPlayer player, int min, int max, XPSource src, boolean isForaging) {
 
-    private static void awardRandomXP(ServerLevel level, ServerPlayer player, int minInclusive, int maxExclusive, boolean isForaging) {
-        int delta = Math.max(0, maxExclusive - minInclusive);
-        int val = (delta == 0) ? minInclusive : (minInclusive + player.getRandom().nextInt(delta));
+        if (!src.isEnabled()) return;
+
+        int delta = Math.max(0, max - min);
+        int val = (delta == 0) ? min : (min + player.getRandom().nextInt(delta));
 
         if (isForaging && player.hasEffect(FIMobEffects.BLOOM.get())) {
             val = Math.max(val, 1);
         }
 
-        awardXPIfPositive(level, player, val);
-    }
+        double mult = FIConfig.COMMON.xpGlobalMultiplier.get();
+        val = (int) Math.floor(val * mult);
 
-    private static void awardXPIfPositive(ServerLevel level, ServerPlayer player, int xp) {
-        if (xp > 0) ExperienceOrb.award(level, player.position(), xp);
+        if (val > 0) {
+            ExperienceOrb.award(level, player.position(), val);
+        }
     }
 
     private static Optional<IntegerProperty> getAgeProp(BlockState state) {
         for (Property<?> property : state.getProperties()) {
-            if (property instanceof IntegerProperty integerProperty && "age".equals(property.getName())) {
+            if (property instanceof IntegerProperty integerProperty &&
+                    "age".equals(property.getName())) {
                 return Optional.of(integerProperty);
             }
         }
@@ -235,13 +256,9 @@ public class FarmingXPEvents {
         int cur = state.getValue(age);
         int max = Integer.MIN_VALUE;
         for (int candidate : age.getPossibleValues()) {
-            if (candidate > max) {
-                max = candidate;
-            }
+            if (candidate > max) max = candidate;
         }
-        if (max == Integer.MIN_VALUE) {
-            max = cur;
-        }
+        if (max == Integer.MIN_VALUE) max = cur;
         return cur >= max;
     }
 
@@ -252,7 +269,9 @@ public class FarmingXPEvents {
             return level.getBlockState(counterpart).is(state.getBlock());
         }
         for (Property<?> prop : state.getProperties()) {
-            if ("half".equals(prop.getName()) && prop instanceof net.minecraft.world.level.block.state.properties.EnumProperty<?> ep) {
+            if ("half".equals(prop.getName()) &&
+                    prop instanceof net.minecraft.world.level.block.state.properties.EnumProperty<?> ep) {
+
                 Comparable<?> val = state.getValue(ep);
                 if (val instanceof DoubleBlockHalf half) {
                     BlockPos counterpart = (half == DoubleBlockHalf.UPPER) ? pos.below() : pos.above();
@@ -269,7 +288,7 @@ public class FarmingXPEvents {
 
     private static void trackPotentialForageDrop(ServerLevel level, BlockPos pos, BlockState state, ServerPlayer player) {
         ResourceKey<Level> dim = level.dimension();
-        Map<BlockPos, PendingForage> map = PENDING_FORAGING_DROPS.computeIfAbsent(dim, d -> new HashMap<>());
+        Map<BlockPos, PendingForage> map = PENDING_FORAGING_DROPS.computeIfAbsent(dim, k -> new HashMap<>());
         long now = level.getGameTime();
         cleanupExpiredEntries(map, now);
 
@@ -329,5 +348,22 @@ public class FarmingXPEvents {
         boolean isExpired(long now) {
             return now > expiryTick || !player.isAlive();
         }
+    }
+}
+  enum XPSource {
+    CROP(FIConfig.COMMON.enableCropHarvestXP),
+    FORAGING(FIConfig.COMMON.enableForagingXP),
+    ANIMAL_SHEAR(FIConfig.COMMON.enableAnimalShearXP),
+    TAPPER(FIConfig.COMMON.enableTapperXP),
+    BEEHIVE(FIConfig.COMMON.enableBeehiveXP);
+
+    private final java.util.function.Supplier<Boolean> enabled;
+
+    XPSource(java.util.function.Supplier<Boolean> enabled) {
+        this.enabled = enabled;
+    }
+
+    public boolean isEnabled() {
+        return enabled.get();
     }
 }

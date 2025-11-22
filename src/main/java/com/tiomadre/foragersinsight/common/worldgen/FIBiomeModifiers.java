@@ -18,6 +18,7 @@ public class FIBiomeModifiers {
     public static final ResourceKey<BiomeModifier> ADD_SAPPY_BIRCH_TREES = registerKey("add_sappy_birch_trees");
     public static final ResourceKey<BiomeModifier> ADD_ROSELLE_BUSHES = registerKey("add_roselle_bushes");
     public static final ResourceKey<BiomeModifier> ADD_BEACH_ROSES = registerKey("add_beach_roses");
+    public static final ResourceKey<BiomeModifier> ADD_SUSPICIOUS_LEAF_LITTER = registerKey("add_suspicious_leaf_litter");
 
     public static void bootstap(BootstapContext<BiomeModifier> context) {
         var placedFeatures = context.lookup(Registries.PLACED_FEATURE);
@@ -55,6 +56,11 @@ public class FIBiomeModifiers {
         context.register(ADD_BEACH_ROSES, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
                 biomes.getOrThrow(FITags.BiomeTag.HAS_BEACH_ROSES),
                 HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.BEACH_ROSE_PATCH_PLACED_KEY)),
+                GenerationStep.Decoration.VEGETAL_DECORATION)
+        );
+        context.register(ADD_SUSPICIOUS_LEAF_LITTER, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(FITags.BiomeTag.HAS_FOREST_LITTER),
+                HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION)
         );
     }

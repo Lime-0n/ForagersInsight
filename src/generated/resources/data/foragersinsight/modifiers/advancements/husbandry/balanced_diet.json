@@ -464,6 +464,16 @@
             },
             "trigger": "minecraft:consume_item"
           },
+          "foragersinsight:50": {
+            "conditions": {
+              "item": {
+                "items": [
+                  "foragersinsight:blewit_mushroom"
+                ]
+              }
+            },
+            "trigger": "minecraft:consume_item"
+          },
           "foragersinsight:6": {
             "conditions": {
               "item": {

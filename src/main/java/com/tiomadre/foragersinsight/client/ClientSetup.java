@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.client;
 
 import com.tiomadre.foragersinsight.core.ForagersInsight;
+import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIMenuTypes;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import com.tiomadre.foragersinsight.client.gui.DiffuserScreen;
@@ -8,12 +9,15 @@ import com.tiomadre.foragersinsight.client.gui.HandbasketScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.FoliageColor;
+import net.minecraft.client.renderer.BiomeColors;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 
 @Mod.EventBusSubscriber(
         modid = ForagersInsight.MOD_ID,
@@ -51,5 +55,24 @@ public class ClientSetup {
                                     .orElse(0.0F)
             );
         });
+    }
+
+    @SubscribeEvent
+    public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
+        event.register(
+                (state, level, pos, tintIndex) ->
+                        level != null && pos != null
+                                ? BiomeColors.getAverageFoliageColor(level, pos)
+                                : FoliageColor.getDefaultColor(),
+                FIBlocks.SUSPICIOUS_LEAF_LITTER.get()
+        );
+    }
+
+    @SubscribeEvent
+    public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
+        event.register(
+                (stack, tintIndex) -> FoliageColor.getDefaultColor(),
+                FIBlocks.SUSPICIOUS_LEAF_LITTER.get()
+        );
     }
 }

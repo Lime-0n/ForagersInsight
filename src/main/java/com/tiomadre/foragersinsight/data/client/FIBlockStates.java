@@ -4,6 +4,7 @@ import com.tiomadre.foragersinsight.common.block.*;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
@@ -48,7 +49,7 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.blockItem(SAPPY_BIRCH_LOG.get());
         this.crossCutout(BOUNTIFUL_SPRUCE_SAPLING);
 
-        //Foliage Mats
+        //Foliage Mats + Suspicious Litter
         this.matBlock(SCATTERED_ROSE_PETAL_MAT, "scattered_rose_petals");
         this.matBlock(SCATTERED_ROSELLE_PETAL_MAT, "scattered_roselle_petals");
         this.matBlock(SCATTERED_SPRUCE_TIP_MAT, "scattered_spruce_tips");
@@ -57,6 +58,7 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.matBlock(DENSE_ROSE_PETAL_MAT, "dense_rose_petals");
         this.matBlock(DENSE_ROSELLE_PETAL_MAT, "dense_roselle_petals");
         this.matBlock(DENSE_STRAW_MAT, "dense_straw");
+        this.suspiciousLitter();
 
         //Diffuser n Tapper
         this.diffuserBlock();
@@ -140,6 +142,33 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.simpleBlock(diffuser, model);
         this.blockItem(diffuser);
     }
+    private void suspiciousLitter() {
+        Block forestLitter = SUSPICIOUS_LEAF_LITTER.get();
+        ModelFile oak = litterModel("suspicious_leaf_litter_oak", mcLoc("block/oak_leaves"));
+        ModelFile birch = litterModel("suspicious_leaf_litter_birch", mcLoc("block/birch_leaves"));
+        ModelFile spruce = litterModel("suspicious_leaf_litter_spruce", mcLoc("block/spruce_leaves"));
+        ModelFile darkOak = litterModel("suspicious_leaf_litter_dark_oak", mcLoc("block/dark_oak_leaves"));
+
+        this.getVariantBuilder(forestLitter).forAllStates(state -> {
+            SuspiciousLitterBlock.FoliageType foliage = state.getValue(SuspiciousLitterBlock.FOLIAGE);
+            ModelFile model = switch (foliage) {
+                case BIRCH -> birch;
+                case SPRUCE -> spruce;
+                case DARK_OAK -> darkOak;
+                default -> oak;
+            };
+            return ConfiguredModel.builder().modelFile(model).build();
+        });
+
+        this.itemModels().withExistingParent(name(forestLitter), modLoc("block/suspicious_leaf_litter_oak"));
+    }
+
+    private ModelFile litterModel(String name, ResourceLocation texture) {
+        return this.models().withExistingParent(name, mcLoc("block/carpet"))
+                .texture("wool", texture)
+                .renderType("cutout");
+    }
+
 
     public void crossCutout(RegistryObject<? extends Block> cross) {
         this.simpleBlock(cross.get(), this.models().cross(name(cross.get()), this.blockTexture(cross.get()))

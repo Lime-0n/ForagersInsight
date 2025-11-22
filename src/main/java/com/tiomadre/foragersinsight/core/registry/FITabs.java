@@ -55,6 +55,7 @@ public class FITabs {
             FIBlocks.SCATTERED_ROSELLE_PETAL_MAT,
             FIBlocks.SCATTERED_SPRUCE_TIP_MAT,
             FIBlocks.SCATTERED_STRAW_MAT,
+            FIBlocks.SUSPICIOUS_LEAF_LITTER,
             FIBlocks.ROSELLE_BUSH,
             FIBlocks.STOUT_BEACH_ROSE_BUSH,
             FIBlocks.TALL_BEACH_ROSE_BUSH

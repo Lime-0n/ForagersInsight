@@ -52,6 +52,7 @@ public class FIConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> SAPPY_BIRCH_TREE_KEY = registerKey("sappy_birch_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ROSELLE_BUSH_PATCH_KEY = registerKey("patch_roselle_bush");
     public static final ResourceKey<ConfiguredFeature<?, ?>> BEACH_ROSE_PATCH_KEY = registerKey("patch_beach_rose");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SUSPICIOUS_LEAF_LITTER_PATCH_KEY = registerKey("suspicious_leaf_litter_patch_placed");
 
     public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, ForagersInsight.rl(name));
@@ -127,6 +128,15 @@ public class FIConfiguredFeatures {
                         BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.SAND))));
         register(context, BEACH_ROSE_PATCH_KEY, Feature.RANDOM_PATCH,
                 new RandomPatchConfiguration(48, 5, 2, beachRosePatch));
+
+        Holder<PlacedFeature> leafLitterPatch = PlacementUtils.inlinePlaced(
+                Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(FIBlocks.SUSPICIOUS_LEAF_LITTER.get())),
+                BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
+                        BlockPredicate.replaceable(),
+                        BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.DIRT))));
+        register(context, SUSPICIOUS_LEAF_LITTER_PATCH_KEY, Feature.RANDOM_PATCH,
+                new RandomPatchConfiguration(48, 5, 2, leafLitterPatch));
+
     }
 
 

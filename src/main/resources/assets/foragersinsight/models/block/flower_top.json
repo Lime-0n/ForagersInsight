@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/sunflower_top",
-  "textures": {
-    "plant": "#plant",
-    "back": "#back",
-    "stem": "#stem"
-  }
-}

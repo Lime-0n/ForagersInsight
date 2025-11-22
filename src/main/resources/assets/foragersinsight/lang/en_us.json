@@ -6,6 +6,7 @@
   "item.foragersinsight.rose_hip": "Rose Hips",
   "item.foragersinsight.roselle_calyx": "Roselle Calyx",
   "item.foragersinsight.spruce_tips": "Spruce Tips",
+  "item.foragersinsight.blewit_mushroom": "Blewit Mushroom",
 
   "item.foragersinsight.apple_dippers": "Apple Dippers",
   "item.foragersinsight.acorn_cookie": "Acorn Cookie",
@@ -96,6 +97,8 @@
   "block.foragersinsight.bountiful_spruce_sapling": "Bountiful Spruce Sapling",
   "block.foragersinsight.bountiful_spruce_tips": "Bountiful Spruce Tips",
   "block.foragersinsight.sappy_birch_log": "Sappy Birch Log",
+  "block.foragersinsight.forest_litter": "Suspicious Leaf Litter",
+
 
   "block.foragersinsight.apple_crate": "Crate of Apples",
   "block.foragersinsight.dandelion_root_sack": "Sack of Dandelion Roots",
