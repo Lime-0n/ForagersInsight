@@ -1,5 +1,6 @@
 package com.tiomadre.foragersinsight.client;
 
+import com.tiomadre.foragersinsight.common.block.SuspiciousLitterBlock;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIMenuTypes;
@@ -60,10 +61,19 @@ public class ClientSetup {
     @SubscribeEvent
     public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
         event.register(
-                (state, level, pos, tintIndex) ->
-                        level != null && pos != null
+                (state, level, pos, tintIndex) -> {
+                    if (state == null) {
+                        return FoliageColor.getDefaultColor();
+                    }
+
+                    return switch (state.getValue(SuspiciousLitterBlock.FOLIAGE)) {
+                        case SPRUCE -> FoliageColor.getEvergreenColor();
+                        case BIRCH -> FoliageColor.getBirchColor();
+                        default -> level != null && pos != null
                                 ? BiomeColors.getAverageFoliageColor(level, pos)
-                                : FoliageColor.getDefaultColor(),
+                                : FoliageColor.getDefaultColor();
+                    };
+                },
                 FIBlocks.SUSPICIOUS_LEAF_LITTER.get()
         );
     }
@@ -71,7 +81,22 @@ public class ClientSetup {
     @SubscribeEvent
     public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
         event.register(
-                (stack, tintIndex) -> FoliageColor.getDefaultColor(),
+                (stack, tintIndex) -> {
+                    SuspiciousLitterBlock.FoliageType foliageType = SuspiciousLitterBlock.FoliageType.OAK;
+                    if (stack.hasTag() && stack.getTag().contains("BlockStateTag") && stack.getTag().getCompound("BlockStateTag").contains("foliage")) {
+                        String foliageName = stack.getTag().getCompound("BlockStateTag").getString("foliage");
+                        try {
+                            foliageType = SuspiciousLitterBlock.FoliageType.valueOf(foliageName.toUpperCase());
+                        } catch (IllegalArgumentException ignored) {
+                        }
+                    }
+
+                    return switch (foliageType) {
+                        case SPRUCE -> FoliageColor.getEvergreenColor();
+                        case BIRCH -> FoliageColor.getBirchColor();
+                        default -> FoliageColor.getDefaultColor();
+                    };
+                },
                 FIBlocks.SUSPICIOUS_LEAF_LITTER.get()
         );
     }

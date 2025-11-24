@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/carpet",
+  "parent": "foragersinsight:block/suspicious_leaf_litter",
   "render_type": "minecraft:cutout",
   "textures": {
     "wool": "minecraft:block/birch_leaves"

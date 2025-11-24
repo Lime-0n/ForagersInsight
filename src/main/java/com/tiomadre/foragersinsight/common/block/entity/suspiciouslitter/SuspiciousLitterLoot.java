@@ -33,6 +33,9 @@ public final class SuspiciousLitterLoot {
     }
 
     public static void dropLoot(ServerLevel level, BlockPos pos, BlockState state, RandomSource random) {
+        if (!state.hasProperty(SuspiciousLitterBlock.FOLIAGE)) {
+            return;
+        }
         SuspiciousLitterBlock.FoliageType type = state.getValue(SuspiciousLitterBlock.FOLIAGE);
         SimpleWeightedRandomList<Drop> drops = DROP_TABLE.getOrDefault(type, DROP_TABLE.get(SuspiciousLitterBlock.FoliageType.OAK));
         drops.getRandom(random)

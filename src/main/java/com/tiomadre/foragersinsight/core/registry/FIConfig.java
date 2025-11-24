@@ -44,7 +44,7 @@ public class FIConfig {
                     .define("Flavor Text", false);
             builder.pop();
 
-            // Farming & Foraging XP
+            // Farming + Foraging Multiplier
             builder.push("Farming & Foraging XP");
 
             this.xpGlobalMultiplier = builder

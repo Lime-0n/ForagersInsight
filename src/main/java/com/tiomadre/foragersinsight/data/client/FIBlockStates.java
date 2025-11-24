@@ -164,7 +164,7 @@ public class FIBlockStates extends FIBlockStatesHelper {
     }
 
     private ModelFile litterModel(String name, ResourceLocation texture) {
-        return this.models().withExistingParent(name, mcLoc("block/carpet"))
+        return this.models().withExistingParent(name, modLoc("block/suspicious_leaf_litter"))
                 .texture("wool", texture)
                 .renderType("cutout");
     }
