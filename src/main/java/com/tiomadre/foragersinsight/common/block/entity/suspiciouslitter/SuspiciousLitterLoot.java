@@ -20,7 +20,9 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public final class SuspiciousLitterLoot {
-    private static final Map<SuspiciousLitterBlock.FoliageType, SimpleWeightedRandomList<Drop>> DROP_TABLE = new EnumMap<>(SuspiciousLitterBlock.FoliageType.class);
+
+    private static final Map<SuspiciousLitterBlock.FoliageType, SimpleWeightedRandomList<Drop>> DROP_TABLE =
+            new EnumMap<>(SuspiciousLitterBlock.FoliageType.class);
 
     static {
         DROP_TABLE.put(SuspiciousLitterBlock.FoliageType.OAK, buildDrops(SuspiciousLitterBlock.FoliageType.OAK));
@@ -36,53 +38,63 @@ public final class SuspiciousLitterLoot {
         if (!state.hasProperty(SuspiciousLitterBlock.FOLIAGE)) {
             return;
         }
+
         SuspiciousLitterBlock.FoliageType type = state.getValue(SuspiciousLitterBlock.FOLIAGE);
-        SimpleWeightedRandomList<Drop> drops = DROP_TABLE.getOrDefault(type, DROP_TABLE.get(SuspiciousLitterBlock.FoliageType.OAK));
+        SimpleWeightedRandomList<Drop> drops =
+                DROP_TABLE.getOrDefault(type, DROP_TABLE.get(SuspiciousLitterBlock.FoliageType.OAK));
+
         drops.getRandom(random)
                 .map(wrapper -> wrapper.getData().create(random))
                 .ifPresent(item -> Block.popResource(level, pos, item));
     }
+
     // higher weight = more common; lower weight = more rare
     private static SimpleWeightedRandomList<Drop> buildDrops(SuspiciousLitterBlock.FoliageType type) {
         SimpleWeightedRandomList.Builder<Drop> builder = SimpleWeightedRandomList.builder();
+
         switch (type) {
             // Forest
             case OAK -> {
-                builder.add(drop((Supplier<? extends ItemLike>) Items.APPLE), 7);
-                builder.add(drop((Supplier<? extends ItemLike>) Items.OAK_SAPLING), 6);
+                builder.add(drop(() -> Items.APPLE), 7);
+                builder.add(drop(() -> Items.OAK_SAPLING), 6);
                 builder.add(drop(FIBlocks.BOUNTIFUL_OAK_SAPLING), 5);
                 builder.add(drop(FIItems.ROSE_HIP), 6);
             }
-            //Birch Forest
+
+            // Birch Forest
             case BIRCH -> {
-                builder.add(drop((Supplier<? extends ItemLike>) Items.BIRCH_SAPLING), 6);
+                builder.add(drop(() -> Items.BIRCH_SAPLING), 6);
                 builder.add(drop(FIItems.ROSE_HIP), 6);
             }
-            //Taiga
+
+            // Taiga
             case SPRUCE -> {
                 builder.add(drop(FIItems.SPRUCE_TIPS), 7);
-                builder.add(drop((Supplier<? extends ItemLike>) Items.SPRUCE_SAPLING), 6);
+                builder.add(drop(() -> Items.SPRUCE_SAPLING), 6);
                 builder.add(drop(FIBlocks.BOUNTIFUL_SPRUCE_SAPLING), 5);
-                builder.add(drop((Supplier<? extends ItemLike>) Items.SWEET_BERRIES), 6);
+                builder.add(drop(() -> Items.SWEET_BERRIES), 6);
             }
-            //Dark Forest
+
+            // Dark Forest
             case DARK_OAK -> {
                 builder.add(drop(FIItems.BLACK_ACORN), 7);
                 builder.add(drop(FIItems.ROSE_HIP), 6);
-                builder.add(drop((Supplier<? extends ItemLike>) Items.DARK_OAK_SAPLING), 6);
+                builder.add(drop(() -> Items.DARK_OAK_SAPLING), 6);
                 builder.add(drop(FIBlocks.BOUNTIFUL_DARK_OAK_SAPLING), 5);
             }
         }
+
         // Can be found across all biomes
-        builder.add(drop((Supplier<? extends ItemLike>) Items.STICK), 8);
-        builder.add(drop((Supplier<? extends ItemLike>) ModItems.TREE_BARK.get()), 7);
+        builder.add(drop(() -> Items.STICK), 8);
+        builder.add(drop(ModItems.TREE_BARK), 7);
         builder.add(drop(FIItems.DANDELION_ROOT), 6);
         builder.add(drop(FIItems.POPPY_SEEDS), 6);
-        builder.add(drop((Supplier<? extends ItemLike>) Items.RED_MUSHROOM), 5);
-        builder.add(drop((Supplier<? extends ItemLike>) Items.BROWN_MUSHROOM), 5);
+        builder.add(drop(() -> Items.RED_MUSHROOM), 5);
+        builder.add(drop(() -> Items.BROWN_MUSHROOM), 5);
         builder.add(drop(ModBlocks.RED_MUSHROOM_COLONY), 3);
         builder.add(drop(ModBlocks.BROWN_MUSHROOM_COLONY), 3);
         builder.add(drop(FIItems.BLEWIT_MUSHROOM), 1);
+
         return builder.build();
     }
 
@@ -92,7 +104,7 @@ public final class SuspiciousLitterLoot {
 
     private record Drop(Supplier<? extends ItemLike> item, int min, int max) {
         public ItemStack create(RandomSource random) {
-            int count = min >= max ? min : random.nextIntBetweenInclusive(min, max);
+            int count = (min >= max) ? min : random.nextIntBetweenInclusive(min, max);
             return new ItemStack(item.get(), count);
         }
     }
