@@ -1,6 +1,8 @@
 package com.tiomadre.foragersinsight.common.block.entity.suspiciouslitter;
 
+import com.tiomadre.foragersinsight.common.block.SuspiciousLitterBlock;
 import com.tiomadre.foragersinsight.core.registry.FIBlockEntityTypes;
+import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
@@ -34,6 +36,10 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
 
     public static void serverTick(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull SuspiciousLitterBlockEntity blockEntity) {
         if (!(level instanceof ServerLevel serverLevel)) {
+            return;
+        }
+        if (!state.is(FIBlocks.SUSPICIOUS_LEAF_LITTER.get()) || !state.hasProperty(SuspiciousLitterBlock.FOLIAGE)) {
+            level.removeBlockEntity(pos);
             return;
         }
         if (blockEntity.brusher == null) {
