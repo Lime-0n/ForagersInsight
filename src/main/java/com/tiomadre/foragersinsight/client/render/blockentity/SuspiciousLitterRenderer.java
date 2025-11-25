@@ -1,9 +1,7 @@
 package com.tiomadre.foragersinsight.client.render.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
 import com.tiomadre.foragersinsight.common.block.entity.suspiciouslitter.SuspiciousLitterBlockEntity;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -17,7 +15,7 @@ public class SuspiciousLitterRenderer implements BlockEntityRenderer<SuspiciousL
     private final ItemRenderer itemRenderer;
 
     public SuspiciousLitterRenderer(BlockEntityRendererProvider.Context context) {
-        this.itemRenderer = Minecraft.getInstance().getItemRenderer();
+        this.itemRenderer = context.getItemRenderer();
     }
 
     @Override
@@ -38,8 +36,7 @@ public class SuspiciousLitterRenderer implements BlockEntityRenderer<SuspiciousL
         }
 
         poseStack.pushPose();
-        poseStack.translate(0.5D, 0.1D + progress * 0.6D, 0.5D);
-        poseStack.mulPose(Axis.YP.rotationDegrees((blockEntity.getLevel().getGameTime() + partialTicks) % 360));
+        poseStack.translate(0.5D, 0.1875D + progress * 0.5D, 0.5D);
         poseStack.scale(0.8F, 0.8F, 0.8F);
 
         this.itemRenderer.renderStatic(itemStack, ItemDisplayContext.GROUND, packedLight, OverlayTexture.NO_OVERLAY,

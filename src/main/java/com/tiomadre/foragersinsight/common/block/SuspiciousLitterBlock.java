@@ -46,12 +46,12 @@ import java.util.List;
 public class SuspiciousLitterBlock extends CarpetBlock implements EntityBlock {
 
     public static final EnumProperty<FoliageType> FOLIAGE = EnumProperty.create("foliage", FoliageType.class);
-    private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 1, 16);
+    private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 3, 16);
 
     public SuspiciousLitterBlock() {
         super(BlockBehaviour.Properties.of()
-                .strength(0.1F)
-                .sound(SoundType.GRASS)
+                .sound(SoundType.AZALEA_LEAVES)
+                .sound(SoundType.ROOTED_DIRT)
                 .noOcclusion()
                 .mapColor(MapColor.PLANT)
                 .isValidSpawn((state, level, pos, entityType) -> false)

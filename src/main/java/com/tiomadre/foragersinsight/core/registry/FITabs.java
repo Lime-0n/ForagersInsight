@@ -63,6 +63,7 @@ public class FITabs {
 
     private static final List<RegistryObject<? extends ItemLike>> INGREDIENT_ENTRIES = List.of(
             FIItems.APPLE_SLICE,
+            FIItems.BLEWIT_MUSHROOM,
             FIItems.COOKED_RABBIT_LEG,
             FIItems.RAW_RABBIT_LEG,
             FIItems.ROSE_PETALS,
@@ -130,12 +131,12 @@ public class FITabs {
     private static final List<RegistryObject<? extends ItemLike>> TOOL_ENTRIES = List.of(
             FIItems.DIFFUSER,
             FIItems.HANDBASKET,
+            FIItems.FLINT_SHEARS,
             FIItems.FLINT_MALLET,
             FIItems.IRON_MALLET,
             FIItems.GOLD_MALLET,
             FIItems.DIAMOND_MALLET,
             FIItems.NETHERITE_MALLET,
-            FIItems.FLINT_SHEARS,
             FIItems.TAPPER
     );
 
