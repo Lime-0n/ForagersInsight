@@ -6,12 +6,12 @@ import com.tiomadre.foragersinsight.core.registry.FIItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.ItemLike;
+import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.util.random.SimpleWeightedRandomList;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.registry.ModItems;
 
@@ -34,20 +34,26 @@ public final class SuspiciousLitterLoot {
     private SuspiciousLitterLoot() {
     }
 
-    public static void dropLoot(ServerLevel level, BlockPos pos, BlockState state, RandomSource random) {
+    public static ItemStack chooseLoot(BlockState state, RandomSource random) {
         if (!state.hasProperty(SuspiciousLitterBlock.FOLIAGE)) {
-            return;
+            return ItemStack.EMPTY;
         }
 
         SuspiciousLitterBlock.FoliageType type = state.getValue(SuspiciousLitterBlock.FOLIAGE);
         SimpleWeightedRandomList<Drop> drops =
                 DROP_TABLE.getOrDefault(type, DROP_TABLE.get(SuspiciousLitterBlock.FoliageType.OAK));
 
-        drops.getRandom(random)
+        return drops.getRandom(random)
                 .map(wrapper -> wrapper.getData().create(random))
-                .ifPresent(item -> Block.popResource(level, pos, item));
+                .orElse(ItemStack.EMPTY);
     }
 
+    public static void dropLoot(ServerLevel level, BlockPos pos, BlockState state, ItemStack itemStack) {
+        ItemStack stack = itemStack.isEmpty() ? chooseLoot(state, level.random) : itemStack;
+        if (!stack.isEmpty()) {
+            Block.popResource(level, pos, stack.copy());
+        }
+    }
     // higher weight = more common; lower weight = more rare
     private static SimpleWeightedRandomList<Drop> buildDrops(SuspiciousLitterBlock.FoliageType type) {
         SimpleWeightedRandomList.Builder<Drop> builder = SimpleWeightedRandomList.builder();

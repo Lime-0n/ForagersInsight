@@ -144,10 +144,10 @@ public class FIBlockStates extends FIBlockStatesHelper {
     }
     private void suspiciousLitter() {
         Block forestLitter = SUSPICIOUS_LEAF_LITTER.get();
-        ModelFile oak = litterModel("suspicious_leaf_litter_oak", mcLoc("block/oak_leaves"));
-        ModelFile birch = litterModel("suspicious_leaf_litter_birch", mcLoc("block/birch_leaves"));
-        ModelFile spruce = litterModel("suspicious_leaf_litter_spruce", mcLoc("block/spruce_leaves"));
-        ModelFile darkOak = litterModel("suspicious_leaf_litter_dark_oak", mcLoc("block/dark_oak_leaves"));
+        ModelFile oak = litterModel("suspicious_leaf_litter_oak", mcLoc("block/oak_leaves"), mcLoc("block/oak_log"));
+        ModelFile birch = litterModel("suspicious_leaf_litter_birch", mcLoc("block/birch_leaves"), mcLoc("block/birch_log"));
+        ModelFile spruce = litterModel("suspicious_leaf_litter_spruce", mcLoc("block/spruce_leaves"), mcLoc("block/spruce_log"));
+        ModelFile darkOak = litterModel("suspicious_leaf_litter_dark_oak", mcLoc("block/dark_oak_leaves"), mcLoc("block/dark_oak_log"));
 
         this.getVariantBuilder(forestLitter).forAllStates(state -> {
             SuspiciousLitterBlock.FoliageType foliage = state.getValue(SuspiciousLitterBlock.FOLIAGE);
@@ -163,9 +163,10 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.itemModels().withExistingParent(name(forestLitter), modLoc("block/suspicious_leaf_litter_oak"));
     }
 
-    private ModelFile litterModel(String name, ResourceLocation texture) {
+    private ModelFile litterModel(String name, ResourceLocation leavesTexture, ResourceLocation logTexture) {
         return this.models().withExistingParent(name, modLoc("block/suspicious_leaf_litter"))
-                .texture("wool", texture)
+                .texture("leaves", leavesTexture)
+                .texture("log", logTexture)
                 .renderType("cutout");
     }
 

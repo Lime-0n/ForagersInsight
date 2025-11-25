@@ -2,6 +2,7 @@
   "parent": "foragersinsight:block/suspicious_leaf_litter",
   "render_type": "minecraft:cutout",
   "textures": {
-    "wool": "minecraft:block/dark_oak_leaves"
+    "leaves": "minecraft:block/dark_oak_leaves",
+    "log": "minecraft:block/dark_oak_log"
   }
 }

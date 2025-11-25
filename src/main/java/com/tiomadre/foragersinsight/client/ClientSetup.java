@@ -1,13 +1,16 @@
 package com.tiomadre.foragersinsight.client;
 
+import com.tiomadre.foragersinsight.client.render.blockentity.SuspiciousLitterRenderer;
 import com.tiomadre.foragersinsight.common.block.SuspiciousLitterBlock;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
+import com.tiomadre.foragersinsight.core.registry.FIBlockEntityTypes;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIMenuTypes;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import com.tiomadre.foragersinsight.client.gui.DiffuserScreen;
 import com.tiomadre.foragersinsight.client.gui.HandbasketScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.FoliageColor;
@@ -54,6 +57,11 @@ public class ClientSetup {
                                         return 1.0F;
                                     })
                                     .orElse(0.0F)
+            );
+
+            BlockEntityRenderers.register(
+                    FIBlockEntityTypes.SUSPICIOUS_LEAF_LITTER.get(),
+                    SuspiciousLitterRenderer::new
             );
         });
     }
