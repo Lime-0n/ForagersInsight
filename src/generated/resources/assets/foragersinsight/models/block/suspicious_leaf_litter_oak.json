@@ -1,8 +1,8 @@
 {
   "parent": "foragersinsight:block/suspicious_leaf_litter",
-  "render_type": "minecraft:cutout",
   "textures": {
-    "leaves": "minecraft:block/oak_leaves",
-    "log": "minecraft:block/oak_log"
+    "1": "minecraft:block/oak_log",
+    "2": "foragersinsight:block/suspicious_litter",
+    "particle": "foragersinsight:block/suspicious_litter"
   }
 }

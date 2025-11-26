@@ -46,7 +46,7 @@ import java.util.List;
 public class SuspiciousLitterBlock extends CarpetBlock implements EntityBlock {
 
     public static final EnumProperty<FoliageType> FOLIAGE = EnumProperty.create("foliage", FoliageType.class);
-    private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 3, 16);
+    private static final VoxelShape SHAPE = Block.box(1, 0, 1, 15, 7, 16);
 
     public SuspiciousLitterBlock() {
         super(BlockBehaviour.Properties.of()
@@ -88,11 +88,11 @@ public class SuspiciousLitterBlock extends CarpetBlock implements EntityBlock {
                                   @NotNull BlockPos pos, @NotNull PathComputationType type) {
         return false;
     }
+
     @Override
     public @NotNull List<ItemStack> getDrops(@NotNull BlockState state, @NotNull LootParams.Builder builder) {
         return Collections.emptyList();
     }
-
 
     @Override
     public @NotNull InteractionResult use(@NotNull BlockState state, @NotNull Level level,

@@ -2,6 +2,7 @@ package com.tiomadre.foragersinsight.client;
 
 import com.tiomadre.foragersinsight.client.particle.DiffuserScentParticleProvider;
 import com.tiomadre.foragersinsight.client.particle.SapDripParticleProvider;
+import com.tiomadre.foragersinsight.client.particle.SuspiciousLitterParticleProvider;
 import com.tiomadre.foragersinsight.core.registry.FIParticleTypes;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import net.minecraftforge.api.distmarker.Dist;
@@ -18,5 +19,7 @@ public class FIClientParticles {
         event.registerSpriteSet(FIParticleTypes.ROSE_SCENT.get(), DiffuserScentParticleProvider::new);
         event.registerSpriteSet(FIParticleTypes.FLORAL_SCENT.get(), DiffuserScentParticleProvider::new);
         event.registerSpriteSet(FIParticleTypes.FOUL_SCENT.get(), DiffuserScentParticleProvider::new);
+        event.registerSpriteSet(FIParticleTypes.SUSPICIOUS_LEAVES.get(), SuspiciousLitterParticleProvider::new);
+        event.registerSpriteSet(FIParticleTypes.SUSPICIOUS_NEEDLES.get(), SuspiciousLitterParticleProvider::new);
     }
 }

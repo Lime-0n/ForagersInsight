@@ -144,10 +144,14 @@ public class FIBlockStates extends FIBlockStatesHelper {
     }
     private void suspiciousLitter() {
         Block forestLitter = SUSPICIOUS_LEAF_LITTER.get();
-        ModelFile oak = litterModel("suspicious_leaf_litter_oak", mcLoc("block/oak_leaves"), mcLoc("block/oak_log"));
-        ModelFile birch = litterModel("suspicious_leaf_litter_birch", mcLoc("block/birch_leaves"), mcLoc("block/birch_log"));
-        ModelFile spruce = litterModel("suspicious_leaf_litter_spruce", mcLoc("block/spruce_leaves"), mcLoc("block/spruce_log"));
-        ModelFile darkOak = litterModel("suspicious_leaf_litter_dark_oak", mcLoc("block/dark_oak_leaves"), mcLoc("block/dark_oak_log"));
+        ModelFile oak = litterModel("suspicious_leaf_litter_oak", mcLoc("block/oak_log"),
+                modTexture("suspicious_litter"));
+        ModelFile birch = litterModel("suspicious_leaf_litter_birch", mcLoc("block/birch_log"),
+                modTexture("suspicious_litter"));
+        ModelFile spruce = litterModel("suspicious_leaf_litter_spruce", mcLoc("block/spruce_log"),
+                modTexture("suspicious_litter_spruce"));
+        ModelFile darkOak = litterModel("suspicious_leaf_litter_dark_oak", mcLoc("block/dark_oak_log"),
+                modTexture("suspicious_litter"));
 
         this.getVariantBuilder(forestLitter).forAllStates(state -> {
             SuspiciousLitterBlock.FoliageType foliage = state.getValue(SuspiciousLitterBlock.FOLIAGE);
@@ -163,11 +167,11 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.itemModels().withExistingParent(name(forestLitter), modLoc("block/suspicious_leaf_litter_oak"));
     }
 
-    private ModelFile litterModel(String name, ResourceLocation leavesTexture, ResourceLocation logTexture) {
+    private ModelFile litterModel(String name, ResourceLocation logTexture, ResourceLocation litterTexture) {
         return this.models().withExistingParent(name, modLoc("block/suspicious_leaf_litter"))
-                .texture("leaves", leavesTexture)
-                .texture("log", logTexture)
-                .renderType("cutout");
+                .texture("1", logTexture)
+                .texture("2", litterTexture)
+                .texture("particle", litterTexture);
     }
 
 

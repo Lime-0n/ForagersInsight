@@ -3,7 +3,9 @@ package com.tiomadre.foragersinsight.common.block.entity.suspiciouslitter;
 import com.tiomadre.foragersinsight.common.block.SuspiciousLitterBlock;
 import com.tiomadre.foragersinsight.core.registry.FIBlockEntityTypes;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
+import com.tiomadre.foragersinsight.core.registry.FIParticleTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
@@ -73,6 +75,7 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
 
         blockEntity.resolveRevealedItem(serverLevel, state);
         blockEntity.brushTicks++;
+        blockEntity.spawnBreakParticles(serverLevel, state);
         blockEntity.sync();
         if (blockEntity.brushTicks >= BRUSH_DURATION_TICKS) {
             ItemStack drop = blockEntity.revealedItem.isEmpty()
@@ -100,6 +103,19 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
             this.revealedItem = SuspiciousLitterLoot.chooseLoot(state, level.random);
             sync();
         }
+    }
+    private void spawnBreakParticles(ServerLevel level, BlockState state) {
+        if (this.brushTicks % 4 != 0) {
+            return;
+        }
+        SimpleParticleType particle = state.getValue(SuspiciousLitterBlock.FOLIAGE) == SuspiciousLitterBlock.FoliageType.SPRUCE
+                ? FIParticleTypes.SUSPICIOUS_NEEDLES.get()
+                : FIParticleTypes.SUSPICIOUS_LEAVES.get();
+
+        double x = this.worldPosition.getX() + 0.5D;
+        double y = this.worldPosition.getY() + 0.35D;
+        double z = this.worldPosition.getZ() + 0.5D;
+        level.sendParticles(particle, x, y, z, 4, 0.2D, 0.08D, 0.2D, 0.01D);
     }
 
     private void sync() {
