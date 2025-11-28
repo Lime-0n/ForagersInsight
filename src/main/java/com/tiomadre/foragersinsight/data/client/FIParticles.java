@@ -29,7 +29,9 @@ public class FIParticles implements DataProvider {
                 saveParticle(output, FIParticleTypes.ROSE_SCENT.getId()),
                 saveParticle(output, FIParticleTypes.CONIFEROUS_SCENT.getId()),
                 saveParticle(output, FIParticleTypes.FLORAL_SCENT.getId()),
-                saveParticle(output, FIParticleTypes.FOUL_SCENT.getId())
+                saveParticle(output, FIParticleTypes.FOUL_SCENT.getId()),
+                saveParticle(output, FIParticleTypes.SUSPICIOUS_LEAVES.getId()),
+                saveParticle(output, FIParticleTypes.SUSPICIOUS_NEEDLES.getId())
         );
     }
 

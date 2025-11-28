@@ -36,7 +36,7 @@ public class SuspiciousLitterRenderer implements BlockEntityRenderer<SuspiciousL
         }
 
         poseStack.pushPose();
-        poseStack.translate(0.5D, 0.25D + progress * 0.5D, 0.5D);
+        poseStack.translate(0.5D, 0.1D + progress * 0.35D, 0.5D);
         poseStack.scale(0.8F, 0.8F, 0.8F);
 
         this.itemRenderer.renderStatic(itemStack, ItemDisplayContext.GROUND, packedLight, OverlayTexture.NO_OVERLAY,
