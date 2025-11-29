@@ -9,6 +9,8 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BrushItem;
 import net.minecraft.world.item.ItemStack;
@@ -17,6 +19,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -72,12 +76,18 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
         if (!isBrushing(player)) {
             return;
         }
+        if (!blockEntity.isTargetingThisBlock(player)) {
+            blockEntity.brusher = null;
+            return;
+        }
 
         blockEntity.resolveRevealedItem(serverLevel, state);
         blockEntity.brushTicks++;
         blockEntity.spawnBreakParticles(serverLevel, state);
         blockEntity.sync();
         if (blockEntity.brushTicks >= BRUSH_DURATION_TICKS) {
+            serverLevel.playSound(null, pos, SoundEvents.CHERRY_LEAVES_BREAK, SoundSource.BLOCKS, 1.0F, 0.5F);
+            serverLevel.playSound(null, pos, SoundEvents.ROOTED_DIRT_BREAK, SoundSource.BLOCKS, 0.75F, 2.0F);
             ItemStack drop = blockEntity.revealedItem.isEmpty()
                     ? SuspiciousLitterLoot.chooseLoot(state, serverLevel.random)
                     : blockEntity.revealedItem;
@@ -90,6 +100,15 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
     private static boolean isBrushing(@Nullable Player player) {
         return player != null && player.isUsingItem() && player.getUseItem().getItem() instanceof BrushItem;
     }
+    private boolean isTargetingThisBlock(@NotNull Player player) {
+        double reach = Math.sqrt(MAX_DISTANCE_SQR);
+        HitResult hitResult = player.pick(reach, 0.0F, false);
+        if (hitResult instanceof BlockHitResult blockHitResult) {
+            return blockHitResult.getBlockPos().equals(this.worldPosition);
+        }
+        return false;
+    }
+
 
     private void resetProgress() {
         this.brusher = null;
