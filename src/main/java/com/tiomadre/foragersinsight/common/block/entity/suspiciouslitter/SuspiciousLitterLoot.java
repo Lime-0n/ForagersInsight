@@ -1,7 +1,6 @@
 package com.tiomadre.foragersinsight.common.block.entity.suspiciouslitter;
 
 import com.tiomadre.foragersinsight.common.block.SuspiciousLitterBlock;
-import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -12,17 +11,19 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.registry.ModItems;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
-import java.util.function.Supplier;
 import java.util.OptionalInt;
+import java.util.function.Supplier;
 
 public final class SuspiciousLitterLoot {
 
-    private static final Map<SuspiciousLitterBlock.FoliageType, SimpleWeightedRandomList<Drop>> DROP_TABLE =
+    private static final Map<SuspiciousLitterBlock.FoliageType, List<WeightedDrop>> DROP_TABLE =
             new EnumMap<>(SuspiciousLitterBlock.FoliageType.class);
     private static final Map<SuspiciousLitterBlock.FoliageType, Map<ItemLike, Integer>> DROP_WEIGHTS =
             new EnumMap<>(SuspiciousLitterBlock.FoliageType.class);
@@ -38,15 +39,21 @@ public final class SuspiciousLitterLoot {
     }
 
     public static ItemStack chooseLoot(BlockState state, RandomSource random) {
+        return chooseLoot(state, random, 0);
+    }
+
+    public static ItemStack chooseLoot(BlockState state, RandomSource random, int luckOfTheTreesLevel) {
         if (!state.hasProperty(SuspiciousLitterBlock.FOLIAGE)) {
             return ItemStack.EMPTY;
         }
 
         SuspiciousLitterBlock.FoliageType type = state.getValue(SuspiciousLitterBlock.FOLIAGE);
-        SimpleWeightedRandomList<Drop> drops =
+        List<WeightedDrop> drops =
                 DROP_TABLE.getOrDefault(type, DROP_TABLE.get(SuspiciousLitterBlock.FoliageType.OAK));
 
-        return drops.getRandom(random)
+        SimpleWeightedRandomList<Drop> weightedDrops = buildWeightedList(drops, luckOfTheTreesLevel);
+
+        return weightedDrops.getRandom(random)
                 .map(wrapper -> wrapper.getData().create(random))
                 .orElse(ItemStack.EMPTY);
     }
@@ -75,61 +82,99 @@ public final class SuspiciousLitterLoot {
             Block.popResource(level, pos, stack.copy());
         }
     }
-    // higher weight = more common; lower weight = more rare
-    private static SimpleWeightedRandomList<Drop> buildDrops(SuspiciousLitterBlock.FoliageType type) {
-        SimpleWeightedRandomList.Builder<Drop> builder = SimpleWeightedRandomList.builder();
-        Map<ItemLike, Integer> weights = new java.util.HashMap<>();
 
-        java.util.function.BiConsumer<Supplier<? extends ItemLike>, Integer> add = (item, weight) -> {
-            builder.add(drop(item), weight);
-            weights.put(item.get().asItem(), weight);
-        };
+    private static void addDrop(List<WeightedDrop> drops,
+                                Map<ItemLike, Integer> weights,
+                                Supplier<? extends ItemLike> item,
+                                int weight) {
+        drops.add(new WeightedDrop(drop(item), weight));
+        weights.put(item.get().asItem(), weight);
+    }
+
+    private static SimpleWeightedRandomList<Drop> buildWeightedList(List<WeightedDrop> drops, int luckLevel) {
+        SimpleWeightedRandomList.Builder<Drop> builder = SimpleWeightedRandomList.builder();
+        int medianWeight = calculateMedianWeight(drops);
+
+        for (WeightedDrop drop : drops) {
+            int adjustedWeight = adjustWeight(drop.weight(), luckLevel, medianWeight);
+            if (adjustedWeight > 0) {
+                builder.add(drop.drop(), adjustedWeight);
+            }
+        }
+
+        return builder.build();
+    }
+
+    private static int adjustWeight(int baseWeight, int luckLevel, int medianWeight) {
+        if (luckLevel <= 0) {
+            return baseWeight;
+        }
+        if (baseWeight < medianWeight) {
+            return baseWeight + luckLevel;
+        }
+        if (baseWeight > medianWeight) {
+            return Math.max(1, baseWeight - luckLevel);
+        }
+        return baseWeight;
+    }
+
+    private static int calculateMedianWeight(List<WeightedDrop> drops) {
+        if (drops.isEmpty()) {
+            return 1;
+        }
+        List<Integer> weights = new ArrayList<>();
+        for (WeightedDrop drop : drops) {
+            weights.add(drop.weight());
+        }
+        Collections.sort(weights);
+        int middle = weights.size() / 2;
+        return weights.get(middle);
+    }
+
+    // higher weight = more common; lower weight = more rare
+    private static List<WeightedDrop> buildDrops(SuspiciousLitterBlock.FoliageType type) {
+        List<WeightedDrop> drops = new ArrayList<>();
+        Map<ItemLike, Integer> weights = new java.util.HashMap<>();
 
         switch (type) {
             // Forest
             case OAK -> {
-                add.accept(() -> Items.APPLE, 7);
-                add.accept(() -> Items.OAK_SAPLING, 6);
-                add.accept(FIBlocks.BOUNTIFUL_OAK_SAPLING, 5);
-                add.accept(FIItems.ROSE_HIP, 6);
+                addDrop(drops, weights, () -> Items.OAK_LEAVES, 8);
+                addDrop(drops, weights, () -> Items.APPLE, 7);
+                addDrop(drops, weights, FIItems.ROSE_HIP, 6);
             }
 
             // Birch Forest
             case BIRCH -> {
-                add.accept(() -> Items.BIRCH_SAPLING, 6);
-                add.accept(FIItems.ROSE_HIP, 6);
+                addDrop(drops, weights, () -> Items.BIRCH_LEAVES, 8);
+                addDrop(drops, weights, FIItems.ROSE_HIP, 6);
             }
 
             // Taiga
             case SPRUCE -> {
-                add.accept(FIItems.SPRUCE_TIPS, 7);
-                add.accept(() -> Items.SPRUCE_SAPLING, 6);
-                add.accept(FIBlocks.BOUNTIFUL_SPRUCE_SAPLING, 5);
-                add.accept(() -> Items.SWEET_BERRIES, 6);
+                addDrop(drops, weights, () -> Items.SPRUCE_LEAVES, 8);
+                addDrop(drops, weights, FIItems.SPRUCE_TIPS, 7);
+                addDrop(drops, weights, () -> Items.SWEET_BERRIES, 6);
             }
 
             // Dark Forest
             case DARK_OAK -> {
-                add.accept(FIItems.BLACK_ACORN, 7);
-                add.accept(FIItems.ROSE_HIP, 6);
-                add.accept(() -> Items.DARK_OAK_SAPLING, 6);
-                add.accept(FIBlocks.BOUNTIFUL_DARK_OAK_SAPLING, 5);
+                addDrop(drops, weights, () -> Items.DARK_OAK_LEAVES, 8);
+                addDrop(drops, weights, FIItems.BLACK_ACORN, 7);
+                addDrop(drops, weights, FIItems.ROSE_HIP, 6);
             }
         }
 
         // Can be found across all biomes
-        add.accept(() -> Items.STICK, 8);
-        add.accept(ModItems.TREE_BARK, 7);
-        add.accept(FIItems.DANDELION_ROOT, 6);
-        add.accept(FIItems.POPPY_SEEDS, 6);
-        add.accept(() -> Items.RED_MUSHROOM, 5);
-        add.accept(() -> Items.BROWN_MUSHROOM, 5);
-        add.accept(ModBlocks.RED_MUSHROOM_COLONY, 3);
-        add.accept(ModBlocks.BROWN_MUSHROOM_COLONY, 3);
-        add.accept(FIItems.BLEWIT_MUSHROOM, 2);
+        addDrop(drops, weights, ModItems.TREE_BARK, 7);
+        addDrop(drops, weights, FIItems.DANDELION_ROOT, 6);
+        addDrop(drops, weights, FIItems.POPPY_SEEDS, 6);
+        addDrop(drops, weights, () -> Items.RED_MUSHROOM, 5);
+        addDrop(drops, weights, () -> Items.BROWN_MUSHROOM, 5);
+        addDrop(drops, weights, FIItems.BLEWIT_MUSHROOM, 2);
 
         DROP_WEIGHTS.put(type, weights);
-        return builder.build();
+        return drops;
     }
 
     private static Drop drop(Supplier<? extends ItemLike> item) {
@@ -141,5 +186,8 @@ public final class SuspiciousLitterLoot {
             int count = (min >= max) ? min : random.nextIntBetweenInclusive(min, max);
             return new ItemStack(item.get(), count);
         }
+    }
+
+    private record WeightedDrop(Drop drop, int weight) {
     }
 }

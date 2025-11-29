@@ -52,7 +52,6 @@ public class FIPlacedFeatures {
         register(context, ROSELLE_PATCH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.ROSELLE_BUSH_PATCH_KEY),
                 List.of(RarityFilter.onAverageOnceEvery(65), InSquarePlacement.spread(), HeightmapPlacement
                         .onHeightmap(Heightmap.Types.MOTION_BLOCKING), BiomeFilter.biome(), BiomeTagFilter.biomeIsInTag(BiomeTags.IS_OVERWORLD)));
-
         register(context, BEACH_ROSE_PATCH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.BEACH_ROSE_PATCH_KEY),
                 List.of(RarityFilter.onAverageOnceEvery(70), InSquarePlacement.spread(), HeightmapPlacement
                         .onHeightmap(Heightmap.Types.MOTION_BLOCKING), BiomeFilter.biome(), BiomeTagFilter.biomeIsInTag(FITags.BiomeTag.HAS_BEACH_ROSES)));

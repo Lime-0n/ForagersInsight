@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.common.block.entity.suspiciouslitter;
 
 import com.tiomadre.foragersinsight.common.block.SuspiciousLitterBlock;
+import com.tiomadre.foragersinsight.core.registry.FIEnchantments;
 import com.tiomadre.foragersinsight.core.registry.FIBlockEntityTypes;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIParticleTypes;
@@ -14,6 +15,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BrushItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -33,10 +35,12 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
     private static final String NBT_BRUSHER = "Brusher";
     private static final String NBT_BRUSH_TICKS = "BrushTicks";
     private static final String NBT_REVEALED_ITEM = "RevealedItem";
+    private static final String NBT_LUCK_OF_THE_TREES = "LuckOfTheTrees";
 
     private UUID brusher;
     private int brushTicks;
     private ItemStack revealedItem = ItemStack.EMPTY;
+    private int luckOfTheTreesLevel;
 
     public SuspiciousLitterBlockEntity(BlockPos pos, BlockState state) {
         super(FIBlockEntityTypes.SUSPICIOUS_LEAF_LITTER.get(), pos, state);
@@ -44,6 +48,8 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
 
     public void startBrushing(Player player) {
         this.brusher = player.getUUID();
+        this.luckOfTheTreesLevel = EnchantmentHelper.getItemEnchantmentLevel(
+                FIEnchantments.LUCK_OF_THE_TREES.get(), player.getUseItem());
         if (this.level instanceof ServerLevel serverLevel) {
             resolveRevealedItem(serverLevel, getBlockState());
             sync();
@@ -65,11 +71,13 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
         Player player = serverLevel.getPlayerByUUID(blockEntity.brusher);
         if (player == null) {
             blockEntity.brusher = null;
+            blockEntity.luckOfTheTreesLevel = 0;
             return;
         }
 
         if (Vec3.atCenterOf(pos).distanceToSqr(player.position()) > MAX_DISTANCE_SQR) {
             blockEntity.brusher = null;
+            blockEntity.luckOfTheTreesLevel = 0;
             return;
         }
 
@@ -78,6 +86,7 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
         }
         if (!blockEntity.isTargetingThisBlock(player)) {
             blockEntity.brusher = null;
+            blockEntity.luckOfTheTreesLevel = 0;
             return;
         }
 
@@ -114,12 +123,13 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
         this.brusher = null;
         this.brushTicks = 0;
         this.revealedItem = ItemStack.EMPTY;
+        this.luckOfTheTreesLevel = 0;
         sync();
     }
 
     private void resolveRevealedItem(ServerLevel level, BlockState state) {
         if (this.revealedItem.isEmpty()) {
-            this.revealedItem = SuspiciousLitterLoot.chooseLoot(state, level.random);
+            this.revealedItem = SuspiciousLitterLoot.chooseLoot(state, level.random, this.luckOfTheTreesLevel);
             sync();
         }
     }
@@ -159,6 +169,7 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
             tag.putUUID(NBT_BRUSHER, this.brusher);
         }
         tag.putInt(NBT_BRUSH_TICKS, this.brushTicks);
+        tag.putInt(NBT_LUCK_OF_THE_TREES, this.luckOfTheTreesLevel);
         if (!this.revealedItem.isEmpty()) {
             tag.put(NBT_REVEALED_ITEM, this.revealedItem.save(new CompoundTag()));
         }
@@ -169,10 +180,12 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
         super.load(tag);
         this.brusher = tag.hasUUID(NBT_BRUSHER) ? tag.getUUID(NBT_BRUSHER) : null;
         this.brushTicks = tag.getInt(NBT_BRUSH_TICKS);
+        this.luckOfTheTreesLevel = tag.getInt(NBT_LUCK_OF_THE_TREES);
         if (tag.contains(NBT_REVEALED_ITEM)) {
             this.revealedItem = ItemStack.of(tag.getCompound(NBT_REVEALED_ITEM));
         } else {
             this.revealedItem = ItemStack.EMPTY;
+            this.luckOfTheTreesLevel = 0;
         }
     }
 
