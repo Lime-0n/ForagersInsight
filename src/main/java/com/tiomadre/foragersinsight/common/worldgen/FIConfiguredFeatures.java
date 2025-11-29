@@ -128,14 +128,14 @@ public class FIConfiguredFeatures {
                         BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.SAND))));
         register(context, BEACH_ROSE_PATCH_KEY, Feature.RANDOM_PATCH,
                 new RandomPatchConfiguration(48, 5, 2, beachRosePatch));
-
+        //Suspicious Litter
         Holder<PlacedFeature> leafLitterPatch = PlacementUtils.inlinePlaced(
                 Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(FIBlocks.SUSPICIOUS_LEAF_LITTER.get())),
                 BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
                         BlockPredicate.replaceable(),
                         BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.DIRT))));
         register(context, SUSPICIOUS_LEAF_LITTER_PATCH_KEY, Feature.RANDOM_PATCH,
-                new RandomPatchConfiguration(48, 5, 2, leafLitterPatch));
+                new RandomPatchConfiguration(35, 5, 2, leafLitterPatch));
 
     }
 
@@ -154,7 +154,7 @@ public class FIConfiguredFeatures {
         }
 
         return new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-                .add(leaf.defaultBlockState(), 2)
+                .add(leaf.defaultBlockState(), 3)
                 .add(bountifulState, 1));
     }
 
