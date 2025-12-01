@@ -7,7 +7,7 @@
   "item.foragersinsight.roselle_calyx": "Чашечка розеллы",
   "item.foragersinsight.spruce_tips": "Еловые почки",
 
-  "item.foragersinsight.apple_dippers": "Apple Dippers",
+  "item.foragersinsight.apple_dippers": "Яблочные дольки в соусе",
   "item.foragersinsight.acorn_cookie": "Желудевое печенье",
   "item.foragersinsight.acorn_noodles": "Желудевая лапша",
   "item.foragersinsight.black_forest_muffin": "Маффин «Черный Лес»",
@@ -31,7 +31,7 @@
   "item.foragersinsight.seaside_sizzler": "Морское жаркое",
   "item.foragersinsight.steamy_kelp_rice": "Горячий рис с водорослями",
   "item.foragersinsight.sweet_roasted_rabbit_leg": "Сладкая жареная кроличья нога",
-  "item.foragersinsight.syrup_toast_stacks": "Стопки тостов с сиропом",
+  "item.foragersinsight.syrup_toast_stacks": "Башенки тостов с сиропом",
   "item.foragersinsight.woodland_pasta": "Лесная паста",
   "item.foragersinsight.hearty_spruce_pilaf": "Сытный еловый плов",
   "item.foragersinsight.tart_wheat_pilaf": "Терпкий плов из пшеничных зёрен",
@@ -55,7 +55,7 @@
   "item.foragersinsight.cocoa_powder": "Какао-порошок",
   "item.foragersinsight.crushed_ice": "Дроблёный лёд",
   "item.foragersinsight.poppy_seed_paste":"Паста из маковых семян",
-  "item.foragersinsight.wheat_flour": "Мука из пшеницы",
+  "item.foragersinsight.wheat_flour": "Пшеничная мука",
 
   "item.foragersinsight.cooked_rabbit_leg": "Жареная кроличья нога",
   "item.foragersinsight.raw_rabbit_leg": "Сырая кроличья нога",
@@ -70,7 +70,7 @@
   "item.foragersinsight.birch_sap_bottle": "Бутылка берёзового сока",
   "item.foragersinsight.birch_sap_bucket": "Ведро берёзового сока",
 
-    "item.foragersinsight.diffuser": "Диффузор",
+  "item.foragersinsight.diffuser": "Диффузор",
   "block.foragersinsight.diffuser": "Диффузор",
   "container.foragersinsight.diffuser": "Диффузор",
   "container.foragersinsight.handbasket": "Корзина",
@@ -85,7 +85,7 @@
   "item.foragersinsight.tapper": "Подсочник",
 
   "block.foragersinsight.roselle_bush": "Куст розеллы",
-  "block.foragersinsight.stout_beach_rose_bush": "Куст плотной береговой розы",
+  "block.foragersinsight.stout_beach_rose_bush": "Густой куст береговой розы",
   "block.foragersinsight.tall_beach_rose_bush": "Высокий куст береговой розы",
 
   "block.foragersinsight.bountiful_dark_oak_leaves": "Обильная листва тёмного дуба",
@@ -116,19 +116,19 @@
 
   "foragersinsight.flavortext.dandelion_root_tea": "Целебный настой из корней одуванчика.",
   "foragersinsight.flavortext.forest_elixir": "Сладкий хвойный напиток из сиропа и еловых почек.",
-  "foragersinsight.flavortext.roselle_juice": "Терпкий настой, напоминающий кислые фрукты.",
   "foragersinsight.flavortext.rose_cordial": "Целебный чай из цветочных лепестков роз.",
-  "foragersinsight.flavortext.roselle_juice": "Терпкий настой напоминающий сок кислых фруктов.",
+  "foragersinsight.flavortext.roselle_juice": "Терпкий настой, напоминающий сок кислых фруктов.",
   "foragersinsight.flavortext.seed_milk_bucket": "Ведро молока сделанное из разных видов семян.",
 
   "effect.foragersinsight.bloom": "Расцвет",
   "effect.foragersinsight.chilled": "Охлаждённый",
   "effect.foragersinsight.medicinal": "Целебный",
-  "effect.foragersinsight.odorous": "Пахучий",
+  "effect.foragersinsight.odorous": "Вонючий",
 
-  "effect.foragersinsight.bloom.desc": "Ты получаешь на 20% и тратишь на 20% меньше опыта.",
+  "effect.foragersinsight.bloom.desc": "Ты получаешь на 20% больше и тратишь на 20% меньше опыта.",
   "effect.foragersinsight.chilled.desc": "Замораживает продолжительность полезных эффектов.",
   "effect.foragersinsight.medicinal.desc": "Удаляет и предотвращает применение яда и ссыхания. Игрок также восстанавливает здоровье за каждый удалённый эффект.",
+  "effect.foragersinsight.odorous.desc": "Вы неприятно пахнете, и ближайшие мобы стараются держаться подальше..",
 
   "enchantment.foragersinsight.farmhand": "Фермер",
   "enchantment.foragersinsight.concussive": "Сотрясающий",
@@ -146,8 +146,8 @@
   "foragersinsight.diffuser.rosey.description": "Приятный аромат роз наполнил воздух, давая Регенерацию всем кто находится рядом с диффузором.",
   "foragersinsight.diffuser.coniferous.description": "Бодрящий аромат хвои наполнил воздух, давая Сопротивление всем кто находится рядом с диффузором.",
   "foragersinsight.diffuser.floral.description": "Цветущий аромат цветов наполнил воздух, давая Расцвет всем кто находится рядом с диффузором.",
-  "foragersinsight.diffuser.foul.description": "Неприятный аромат наполнил воздух, давая Пахучесть всем кто находится рядом с диффузором.",
-  "gui.foragersinsight.diffuser.extinguish": "Пагасить аромат",
+  "foragersinsight.diffuser.foul.description": "Неприятный аромат наполнил воздух, давая Вонючесть всем кто находится рядом с диффузором.",
+  "gui.foragersinsight.diffuser.extinguish": "Погасить аромат",
   "gui.foragersinsight.diffuser.tooltip.radius": "Радиус: %s блоков",
   "gui.foragersinsight.diffuser.tooltip.duration": "Длительность: %s секунд",
   "gui.foragersinsight.diffuser.tooltip.enhanced_radius": " + Пчелиные соты (+20% к радиусу)",
