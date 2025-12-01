@@ -79,7 +79,7 @@ public class FarmingXPEvents {
         int min = 1;
         int max = 3;
 
-        OptionalInt weight = SuspiciousLitterLoot.getDropWeight(state, drop);
+        OptionalInt weight = SuspiciousLitterLoot.getBaseDropWeight(state, drop);
         if (weight.isPresent()) {
             int rareBoost = Math.max(0, 5 - weight.getAsInt());
             min += rareBoost;
