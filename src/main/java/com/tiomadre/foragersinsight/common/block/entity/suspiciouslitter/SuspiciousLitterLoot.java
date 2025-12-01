@@ -181,6 +181,27 @@ public final class SuspiciousLitterLoot {
         return new Drop(item, 1, 1);
     }
 
+    public static OptionalInt getBaseDropWeight(BlockState state, ItemStack stack) {
+        if (stack.isEmpty() || !state.hasProperty(SuspiciousLitterBlock.FOLIAGE)) {
+            return OptionalInt.empty();
+        }
+
+        SuspiciousLitterBlock.FoliageType type = state.getValue(SuspiciousLitterBlock.FOLIAGE);
+        List<WeightedDrop> drops = DROP_TABLE.getOrDefault(type, DROP_TABLE.get(SuspiciousLitterBlock.FoliageType.OAK));
+        if (drops == null) {
+            return OptionalInt.empty();
+        }
+
+        ItemLike targetItem = stack.getItem();
+        for (WeightedDrop drop : drops) {
+            if (drop.drop().item().get().asItem() == targetItem) {
+                return OptionalInt.of(drop.weight());
+            }
+        }
+
+        return OptionalInt.empty();
+    }
+
     private record Drop(Supplier<? extends ItemLike> item, int min, int max) {
         public ItemStack create(RandomSource random) {
             int count = (min >= max) ? min : random.nextIntBetweenInclusive(min, max);
