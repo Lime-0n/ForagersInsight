@@ -3,7 +3,6 @@ package com.tiomadre.foragersinsight.core.other;
 import com.tiomadre.foragersinsight.common.block.BountifulLeavesBlock;
 import com.tiomadre.foragersinsight.common.block.SpruceTipBlock;
 import com.tiomadre.foragersinsight.common.block.TapperBlock;
-import com.tiomadre.foragersinsight.common.block.entity.suspiciouslitter.SuspiciousLitterBlockEntity;
 import com.tiomadre.foragersinsight.common.block.entity.suspiciouslitter.SuspiciousLitterLoot;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
@@ -19,7 +18,6 @@ import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.item.BrushItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ShearsItem;
@@ -75,6 +73,22 @@ public class FarmingXPEvents {
 
         awardUnifiedXP(level, pending.player, 0, 2, XPSource.FORAGING, true);
     }
+    public static void awardSuspiciousLitterXP(ServerLevel level, ServerPlayer player, BlockState state, ItemStack drop) {
+        if (!state.is(FIBlocks.SUSPICIOUS_LEAF_LITTER.get())) return;
+
+        int min = 1;
+        int max = 3;
+
+        OptionalInt weight = SuspiciousLitterLoot.getDropWeight(state, drop);
+        if (weight.isPresent()) {
+            int rareBoost = Math.max(0, 5 - weight.getAsInt());
+            min += rareBoost;
+            max += rareBoost;
+        }
+
+        awardUnifiedXP(level, player, min, max, XPSource.FORAGING, true);
+    }
+
 
     // Crop Harvest XP
     @SubscribeEvent
@@ -285,34 +299,6 @@ public class FarmingXPEvents {
         }
         return true;
         //Brushing Suspicious Leaf Litter, 1-3 depending on rarity of loot
-    }
-    @SubscribeEvent
-    public static void onBrushSuspiciousLitter(PlayerInteractEvent.RightClickBlock event) {
-        if (!(event.getEntity() instanceof ServerPlayer player)) return;
-        if (!(event.getLevel() instanceof ServerLevel level)) return;
-
-        ItemStack held = event.getItemStack();
-        if (!(held.getItem() instanceof BrushItem)) return;
-
-        BlockState state = level.getBlockState(event.getPos());
-        if (!state.is(FIBlocks.SUSPICIOUS_LEAF_LITTER.get())) return;
-
-        int min = 1;
-        int max = 3;
-
-        if (level.getBlockEntity(event.getPos()) instanceof SuspiciousLitterBlockEntity blockEntity) {
-            ItemStack revealed = blockEntity.getRevealedItem();
-            if (!revealed.isEmpty()) {
-                OptionalInt weight = SuspiciousLitterLoot.getDropWeight(state, revealed);
-                if (weight.isPresent()) {
-                    int rareBoost = Math.max(0, 5 - weight.getAsInt());
-                    min += rareBoost;
-                    max += rareBoost;
-                }
-            }
-        }
-
-        awardUnifiedXP(level, player, min, max, XPSource.FORAGING, true);
     }
 
     private static void defer(ServerLevel level, Runnable r) {

@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.common.block.entity.suspiciouslitter;
 
 import com.tiomadre.foragersinsight.common.block.SuspiciousLitterBlock;
+import com.tiomadre.foragersinsight.core.other.FarmingXPEvents;
 import com.tiomadre.foragersinsight.core.registry.FIEnchantments;
 import com.tiomadre.foragersinsight.core.registry.FIBlockEntityTypes;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
@@ -10,6 +11,7 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
@@ -101,6 +103,9 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
                     ? SuspiciousLitterLoot.chooseLoot(state, serverLevel.random)
                     : blockEntity.revealedItem;
             SuspiciousLitterLoot.dropLoot(serverLevel, pos, state, drop);
+            if (player instanceof ServerPlayer serverPlayer) {
+                FarmingXPEvents.awardSuspiciousLitterXP(serverLevel, serverPlayer, state, drop);
+            }
             serverLevel.setBlock(pos, Block.pushEntitiesUp(state, Blocks.AIR.defaultBlockState(), serverLevel, pos), Block.UPDATE_ALL);
             blockEntity.resetProgress();
         }
