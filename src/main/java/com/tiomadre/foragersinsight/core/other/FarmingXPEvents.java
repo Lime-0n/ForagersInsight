@@ -5,6 +5,7 @@ import com.tiomadre.foragersinsight.common.block.SpruceTipBlock;
 import com.tiomadre.foragersinsight.common.block.TapperBlock;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.data.server.tags.FITags;
+import com.tiomadre.foragersinsight.core.registry.FIMobEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
@@ -65,7 +66,7 @@ public class FarmingXPEvents {
         if (pending.player.level() != level) return;
         if (item.getItem().isEmpty()) return;
 
-        awardRandomXP(level, pending.player, 0, 2); // 0–1 XP
+        awardRandomXP(level, pending.player, 0, 2, true); // 0–1 XP
     }
 
     @SubscribeEvent
@@ -127,7 +128,7 @@ public class FarmingXPEvents {
                     BlockState afterState = level.getBlockState(pos);
                     if (!(afterState.getBlock() instanceof MushroomColonyBlock)) return;
                     int after = afterState.getValue(MushroomColonyBlock.COLONY_AGE);
-                    if (after < before) awardRandomXP(level, player, 0, 2); // 0–1
+                    if (after < before) awardRandomXP(level, player, 0, 2, true); // 0–1
                 });
                 return;
             }
@@ -169,7 +170,7 @@ public class FarmingXPEvents {
                     // Bountiful Tree
                     boolean leavesOrTips = state.getBlock() instanceof BountifulLeavesBlock ||
                             state.getBlock() instanceof SpruceTipBlock;
-                    awardRandomXP(level, player, leavesOrTips ? 0 : 1, 2 + (leavesOrTips ? 0 : 1)); // leaves: 0–1, else: 1–2
+                    awardRandomXP(level, player, leavesOrTips ? 0 : 1, 2 + (leavesOrTips ? 0 : 1), true); // leaves: 0–1, else: 1–2
                 }
             });
         }
@@ -203,8 +204,17 @@ public class FarmingXPEvents {
     }
 
     private static void awardRandomXP(ServerLevel level, ServerPlayer player, int minInclusive, int maxExclusive) {
+        awardRandomXP(level, player, minInclusive, maxExclusive, false);
+    }
+
+    private static void awardRandomXP(ServerLevel level, ServerPlayer player, int minInclusive, int maxExclusive, boolean isForaging) {
         int delta = Math.max(0, maxExclusive - minInclusive);
         int val = (delta == 0) ? minInclusive : (minInclusive + player.getRandom().nextInt(delta));
+
+        if (isForaging && player.hasEffect(FIMobEffects.BLOOM.get())) {
+            val = Math.max(val, 1);
+        }
+
         awardXPIfPositive(level, player, val);
     }
 
@@ -213,19 +223,25 @@ public class FarmingXPEvents {
     }
 
     private static Optional<IntegerProperty> getAgeProp(BlockState state) {
-        return state.getProperties().stream()
-                .filter(p -> p instanceof IntegerProperty && p.getName().equals("age"))
-                .map(p -> (IntegerProperty) p)
-                .findFirst();
+        for (Property<?> property : state.getProperties()) {
+            if (property instanceof IntegerProperty integerProperty && "age".equals(property.getName())) {
+                return Optional.of(integerProperty);
+            }
+        }
+        return Optional.empty();
     }
 
     private static boolean isMature(BlockState state, IntegerProperty age) {
         int cur = state.getValue(age);
-        int max = age.getPossibleValues()
-                .stream()
-                .mapToInt(i -> i)
-                .max()
-                .orElse(cur);
+        int max = Integer.MIN_VALUE;
+        for (int candidate : age.getPossibleValues()) {
+            if (candidate > max) {
+                max = candidate;
+            }
+        }
+        if (max == Integer.MIN_VALUE) {
+            max = cur;
+        }
         return cur >= max;
     }
 

@@ -28,7 +28,7 @@ public class BountifulSpruceLeavesBlock extends LeavesBlock implements Bonemeala
         if (rand.nextInt(8) == 0) {
             BlockPos below = pos.below();
             if (level.isEmptyBlock(below)) {
-                level.setBlock(below, FIBlocks.BOUNTIFUL_SPRUCE_TIPS.get().defaultBlockState(), Block.UPDATE_CLIENTS);
+                level.setBlock(below, tippedState(), Block.UPDATE_CLIENTS);
             }
         }
     }
@@ -47,6 +47,11 @@ public class BountifulSpruceLeavesBlock extends LeavesBlock implements Bonemeala
     @Override
     public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
         BlockPos below = pos.below();
-        level.setBlock(below, FIBlocks.BOUNTIFUL_SPRUCE_TIPS.get().defaultBlockState(), Block.UPDATE_CLIENTS);
+        level.setBlock(below, tippedState(), Block.UPDATE_CLIENTS);
+    }
+
+    private BlockState tippedState() {
+        return FIBlocks.BOUNTIFUL_SPRUCE_TIPS.get().defaultBlockState()
+                .setValue(SpruceTipBlock.AGE, SpruceTipBlock.MAX_AGE - 1);
     }
 }

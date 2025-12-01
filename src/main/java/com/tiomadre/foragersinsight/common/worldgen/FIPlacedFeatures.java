@@ -41,21 +41,21 @@ public class FIPlacedFeatures {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
         //Trees
         register(context, APPLE_TREE_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.APPLE_TREE_KEY),
-                VegetationPlacements.treePlacement(PlacementUtils.countExtra(0, 0.2f, 1), Blocks.OAK_SAPLING));
+                VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.2f, 1), Blocks.OAK_SAPLING));
         register(context, ACORN_DARK_OAK_TREE_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.ACORN_TREE_KEY),
-                VegetationPlacements.treePlacement(PlacementUtils.countExtra(0, 0.2f, 1), Blocks.DARK_OAK_SAPLING));
+                VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.2f, 1), Blocks.DARK_OAK_SAPLING));
         register(context, SPRUCE_TIP_TREE_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.SPRUCE_TIP_TREE_KEY),
-                VegetationPlacements.treePlacement(PlacementUtils.countExtra(0, 0.2f, 1), Blocks.SPRUCE_SAPLING));
+                VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.2f, 1), Blocks.SPRUCE_SAPLING));
         register(context, SAPPY_BIRCH_TREE_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.SAPPY_BIRCH_TREE_KEY),
-                VegetationPlacements.treePlacement(PlacementUtils.countExtra(0, 0.2f, 1), Blocks.BIRCH_SAPLING));
+                VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.2f, 1), Blocks.BIRCH_SAPLING));
         //Wild Flower
         register(context, ROSELLE_PATCH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.ROSELLE_BUSH_PATCH_KEY), List.of(
-                RarityFilter.onAverageOnceEvery(80), InSquarePlacement.spread(), HeightmapPlacement
+                RarityFilter.onAverageOnceEvery(65), InSquarePlacement.spread(), HeightmapPlacement
                         .onHeightmap(Heightmap.Types.MOTION_BLOCKING), BiomeFilter.biome(), BiomeTagFilter.biomeIsInTag(BiomeTags.IS_OVERWORLD)));
 
         register(context, BEACH_ROSE_PATCH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.BEACH_ROSE_PATCH_KEY),
                 List.of(
-                        RarityFilter.onAverageOnceEvery(80), InSquarePlacement.spread(), HeightmapPlacement
+                        RarityFilter.onAverageOnceEvery(70), InSquarePlacement.spread(), HeightmapPlacement
                                 .onHeightmap(Heightmap.Types.MOTION_BLOCKING), BiomeFilter.biome(), BiomeTagFilter.biomeIsInTag(FITags.BiomeTag.HAS_BEACH_ROSES)));
     }
 

@@ -21,13 +21,16 @@ public class FIItemTags extends ItemTagsProvider {
         //Aromatic
         this.tag(AROMATICS).add(FIItems.ROSE_PETALS.get(), FIItems.ROSELLE_PETALS.get(), FIItems.SPRUCE_TIPS.get());
         //Other
+        this.tag(FITags.ItemTag.DOUGH).add(ModItems.WHEAT_DOUGH.get(), FIItems.ACORN_DOUGH.get());
         this.tag(FITags.ItemTag.ICE).add(Items.ICE, FIItems.CRUSHED_ICE.get())
-                .addOptional(new ResourceLocation("neapolitan", "ice_cubes"));
+        .addOptional(new ResourceLocation("neapolitan", "ice_cubes"));
         this.tag(NUTS).add(FIItems.BLACK_ACORN.get());
         this.tag(NUTS_ACORN).add(FIItems.BLACK_ACORN.get());
         this.tag(SEEDS).add(FIItems.POPPY_SEEDS.get());
         this.tag(MILK_BUCKET).add(FIItems.SEED_MILK_BUCKET.get());
         this.tag(MILK_BOTTLE).add(FIItems.SEED_MILK_BOTTLE.get());
+        this.tag(ItemTags.SAPLINGS).add(FIBlocks.BOUNTIFUL_DARK_OAK_SAPLING.get().asItem(), FIBlocks.BOUNTIFUL_OAK_SAPLING.get().asItem(), FIBlocks.BOUNTIFUL_SPRUCE_SAPLING.get().asItem());
+        this.tag(WOLF_PREY).add(FIItems.RAW_RABBIT_LEG.get());
         //Crops
         this.tag(APPLE).add(FIItems.APPLE_SLICE.get(),Items.APPLE);
         this.tag(POPPY_SEEDS).add(FIItems.POPPY_SEEDS.get(), FIItems.POPPY_SEED_PASTE.get());
@@ -36,14 +39,7 @@ public class FIItemTags extends ItemTagsProvider {
         this.tag(COCOA).add(Items.COCOA_BEANS, FIItems.COCOA_POWDER.get());
         this.tag(ROOTS).add(Items.CARROT, Items.BEETROOT, FIItems.DANDELION_ROOT.get());
         this.tag(MUSHROOM).add(Items.RED_MUSHROOM, Items.BROWN_MUSHROOM);
-        this.tag(CROPS)
-                .addTag(APPLE)
-                .addTag(POPPY_SEEDS)
-                .addTag(ACORN)
-                .addTag(WHEAT)
-                .addTag(COCOA)
-                .addTag(ROOTS)
-                .addTag(MUSHROOM);
+        this.tag(CROPS).addTag(APPLE).addTag(POPPY_SEEDS).addTag(ACORN).addTag(WHEAT).addTag(COCOA).addTag(ROOTS).addTag(MUSHROOM);
 
         // Handbasket support tags
         this.tag(RAW_MEATS).add(Items.RABBIT, Items.CHICKEN, Items.PORKCHOP, Items.BEEF, Items.MUTTON, FIItems.RAW_RABBIT_LEG.get())
@@ -74,19 +70,14 @@ public class FIItemTags extends ItemTagsProvider {
         this.tag(LEATHER).add(Items.LEATHER, Items.RABBIT_HIDE);
 
         this.tag(HANDBASKET_OTHER)
-                .add(Items.INK_SAC, Items.GLOW_INK_SAC, Items.RABBIT_FOOT, Items.SUGAR,Items.SUGAR_CANE, Items.FEATHER, Items.KELP, Items.DRIED_KELP, Items.BAMBOO, Items.CACTUS, Items.VINE, Items.MOSS_BLOCK,
-                        Items.AZALEA, Items.FLOWERING_AZALEA, Items.HONEYCOMB)
-                .add(FIItems.ROSE_PETALS.get(), FIItems.ROSELLE_PETALS.get(),
-                        FIItems.BIRCH_SAP_BOTTLE.get(), FIItems.BIRCH_SYRUP_BOTTLE.get(), FIItems.ROSELLE_BUSH_ITEM.get(),FIItems.STOUT_BEACH_ROSE_BUSH_ITEM.get()
-                ,FIItems.TALL_BEACH_ROSE_BUSH_ITEM.get())
-                .add(ModItems.WILD_CABBAGES.get(), ModItems.WILD_BEETROOTS.get(), ModItems.WILD_POTATOES.get(), ModItems.WILD_TOMATOES.get(),
-                ModItems.WILD_CARROTS.get(), ModItems.RICE_PANICLE.get(), ModItems.PUMPKIN_SLICE.get(), ModItems.CABBAGE_LEAF.get(),
-                ModItems.MILK_BOTTLE.get());
+        .add(Items.INK_SAC, Items.GLOW_INK_SAC, Items.RABBIT_FOOT, Items.SUGAR,Items.SUGAR_CANE, Items.FEATHER, Items.KELP, Items.DRIED_KELP, Items.BAMBOO,
+         Items.CACTUS, Items.VINE, Items.MOSS_BLOCK, Items.AZALEA, Items.FLOWERING_AZALEA, Items.HONEYCOMB)
+        .add(FIItems.ROSE_PETALS.get(), FIItems.ROSELLE_PETALS.get(), FIItems.BIRCH_SAP_BOTTLE.get(), FIItems.BIRCH_SYRUP_BOTTLE.get(), FIItems.ROSELLE_BUSH_ITEM.get(),
+         FIItems.STOUT_BEACH_ROSE_BUSH_ITEM.get(),FIItems.TALL_BEACH_ROSE_BUSH_ITEM.get())
+        .add(ModItems.WILD_CABBAGES.get(), ModItems.WILD_BEETROOTS.get(), ModItems.WILD_POTATOES.get(), ModItems.WILD_TOMATOES.get(), ModItems.WILD_CARROTS.get(),
+        ModItems.RICE_PANICLE.get(), ModItems.PUMPKIN_SLICE.get(), ModItems.CABBAGE_LEAF.get(), ModItems.MILK_BOTTLE.get());
 
-        this.tag(ItemTags.SAPLINGS)
-                .add(FIBlocks.BOUNTIFUL_DARK_OAK_SAPLING.get().asItem(), FIBlocks.BOUNTIFUL_OAK_SAPLING.get().asItem(),
-                        FIBlocks.BOUNTIFUL_SPRUCE_SAPLING.get().asItem());
-
+     //Handbasket
         this.tag(HANDBASKET_ALLOWED)
                 .addOptionalTag(new ResourceLocation("forge", "raw_meats"))
                 .addOptionalTag(new ResourceLocation("forge", "cooked_meats"))

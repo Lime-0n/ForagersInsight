@@ -14,6 +14,6 @@
   ],
   "new": "foragersinsight:dandelion_root",
   "replace": "minecraft:dandelion",
-  "chance": 0.25,
+  "chance": 0.5,
   "destroy_on_fail": true
 }

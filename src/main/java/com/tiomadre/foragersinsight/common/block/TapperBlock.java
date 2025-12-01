@@ -178,11 +178,8 @@ public class TapperBlock extends HorizontalDirectionalBlock {
     }
 
     @Override
-    public void onRemove(BlockState oldState, @NotNull Level level, @NotNull BlockPos pos,
-                         BlockState newState, boolean isMoving) {
-        if (oldState.getBlock() != newState.getBlock() && oldState.getValue(HAS_TAPPER)) {
-            popResource(level, pos, new ItemStack(FIItems.TAPPER.get()));
-        }
+    public void onRemove(@NotNull BlockState oldState, @NotNull Level level, @NotNull BlockPos pos,
+                         @NotNull BlockState newState, boolean isMoving) {
         super.onRemove(oldState, level, pos, newState, isMoving);
     }
 }

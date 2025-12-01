@@ -114,6 +114,10 @@ public class DiffuserBlock extends BaseEntityBlock implements SimpleWaterloggedB
     public @NotNull BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction,
                                            @NotNull BlockState neighborState, @NotNull LevelAccessor level,
                                            @NotNull BlockPos currentPos, @NotNull BlockPos neighborPos) {
+        if (direction == Direction.DOWN && !canSurvive(state, level, currentPos)) {
+            return Blocks.AIR.defaultBlockState();
+        }
+
         if (state.getValue(WATERLOGGED)) {
             level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }

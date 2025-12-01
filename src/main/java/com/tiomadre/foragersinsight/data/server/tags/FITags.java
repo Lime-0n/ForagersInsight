@@ -22,13 +22,14 @@ public class FITags {
         public static final TagKey<Item> COOKED_FISHES = TagUtil.itemTag("forge", "cooked_fishes");
         public static final TagKey<Item> FRUITS = TagUtil.itemTag("forge", "fruits");
         public static final TagKey<Item> VEGETABLES = TagUtil.itemTag("forge", "vegetables");
-        public static final TagKey<Item> FEATHERS = TagUtil.itemTag("forge", "feathers");
         public static final TagKey<Item> LEATHER = TagUtil.itemTag("forge", "leather");
         public static final TagKey<Item> EGGS = TagUtil.itemTag("forge", "eggs");
         public static final TagKey<Item> FLOUR = TagUtil.itemTag("forge", "flour");
         public static final TagKey<Item> STRAW = TagUtil.itemTag("forge", "straw");
         public static final TagKey<Item> TREE_BARK = TagUtil.itemTag("forge", "tree_bark");
-        public static final TagKey<Item> SUGAR = TagUtil.itemTag("forge", "sugar");
+        public static final TagKey<Item> DOUGH = TagUtil.itemTag("forge", "dough");
+        public static final TagKey<Item> WOLF_PREY = TagUtil.itemTag("forge", "wolf_prey");
+
         //Mallet
         public static final TagKey<net.minecraft.world.item.Item> MALLETS = TagUtil.itemTag("forge", "tools/mallets");
         //Milk

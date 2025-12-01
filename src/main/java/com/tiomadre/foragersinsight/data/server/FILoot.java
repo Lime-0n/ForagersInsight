@@ -1,6 +1,8 @@
 package com.tiomadre.foragersinsight.data.server;
 
 import com.tiomadre.foragersinsight.common.block.BountifulLeavesBlock;
+import com.tiomadre.foragersinsight.common.block.DandelionBushBlock;
+import com.tiomadre.foragersinsight.common.block.PoppyBushBlock;
 import com.tiomadre.foragersinsight.common.block.RoseCropBlock;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
@@ -24,6 +26,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -89,7 +92,7 @@ public class FILoot extends LootTableProvider {
                 LootTable.lootTable()
                         .withPool(LootPool.lootPool().when(isUpperOrLower(ROSE_CROP))
                                 .add(LootItem.lootTableItem(FIItems.ROSE_HIP.get())
-                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))
+                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
                                 .when(stateCond(ROSE_CROP, RoseCropBlock.AGE, RoseCropBlock.MAX_AGE)))
                         .withPool(LootPool.lootPool().add(LootItem.lootTableItem(ROSE_PETALS.get())
                                 .when(HAS_KNIFE)
@@ -99,16 +102,16 @@ public class FILoot extends LootTableProvider {
                     LootTable.lootTable()
                             .withPool(LootPool.lootPool().when(isUpperOrLower(ROSELLE_CROP))
                                     .add(LootItem.lootTableItem(ROSELLE_CALYX.get())
-                                            .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2)))
+                                            .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1)))
                                             .apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.5714285f, 3)))
                                     .when(stateCond(ROSELLE_CROP, RoseCropBlock.AGE, RoseCropBlock.MAX_AGE)))
                             .withPool(LootPool.lootPool().add(LootItem.lootTableItem(ROSELLE_PETALS.get())
                                     .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2)))
                                     .when(HAS_KNIFE)))));
             //Dandelion
-            this.createFlowerBushDrops(DANDELION_BUSH, DANDELION_ROOT, Items.YELLOW_DYE);
+            this.createFlowerBushDrops(DANDELION_BUSH, DANDELION_ROOT, Items.YELLOW_DYE, DandelionBushBlock.AGE, DandelionBushBlock.MAX_AGE);
             //Poppy
-            this.createFlowerBushDrops(POPPY_BUSH, POPPY_SEEDS, Items.RED_DYE);
+            this.createFlowerBushDrops(POPPY_BUSH, POPPY_SEEDS, Items.RED_DYE, PoppyBushBlock.AGE, PoppyBushBlock.MAX_AGE);
 
             //BLOCK LOOT STUFF
                 //Storage
@@ -162,18 +165,18 @@ public class FILoot extends LootTableProvider {
 
         }
 
-        private void createFlowerBushDrops(RegistryObject<? extends Block> registryBlock, RegistryObject<Item> registrySeed, Item originalFlower) {
+        private void createFlowerBushDrops(RegistryObject<? extends Block> registryBlock, RegistryObject<Item> registrySeed, Item originalFlower, IntegerProperty ageProperty, int maxAge) {
             Block bush = registryBlock.get();
             Item seed = registrySeed.get();
             this.add(bush, this.applyExplosionDecay(seed, LootTable.lootTable()
                     .withPool(LootPool.lootPool().add(LootItem.lootTableItem(seed)))
                     .withPool(LootPool.lootPool().add(LootItem.lootTableItem(seed))
-                            .when(stateCond(registryBlock, CropBlock.AGE, CropBlock.MAX_AGE)))
+                            .when(stateCond(registryBlock, ageProperty, maxAge)))
                     .withPool(LootPool.lootPool().add(LootItem.lootTableItem(originalFlower)
-                                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))
-                            .when(stateCond(registryBlock, CropBlock.AGE, CropBlock.MAX_AGE)).when(HAS_KNIFE))
+                                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
+                            .when(stateCond(registryBlock, ageProperty, maxAge)).when(HAS_KNIFE))
                     .withPool(LootPool.lootPool().add(LootItem.lootTableItem(seed)
-                            .when(stateCond(registryBlock, CropBlock.AGE, CropBlock.MAX_AGE)).apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.5714285f, 3))))));
+                            .when(stateCond(registryBlock, ageProperty, maxAge)).apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.5714285f, 3))))));
         }
 
         private LootTable.Builder createBountifulLeavesDrops(RegistryObject<? extends Block> leafBlock, ItemLike sapling) {

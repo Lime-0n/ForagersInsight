@@ -190,8 +190,15 @@ public final class DiffuserScent {
             }
             if (!matched) return false;
         }
-
-        return totalItems == this.totalItemCount && Arrays.stream(remaining).allMatch(r -> r == 0);
+        if (totalItems != this.totalItemCount) {
+            return false;
+        }
+        for (int r : remaining) {
+            if (r != 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static final class IngredientCount {
