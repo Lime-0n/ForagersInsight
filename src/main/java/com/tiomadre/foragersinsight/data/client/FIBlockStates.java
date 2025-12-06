@@ -87,20 +87,15 @@ public class FIBlockStates extends FIBlockStatesHelper {
     }
     private void birchPolypore() {
         Block polypore = BIRCH_POLYPORE.get();
-        VariantBlockStateBuilder builder = this.getVariantBuilder(polypore);
-
+        ModelFile[] stages = new ModelFile[BirchPolyporeBlock.MAX_AGE + 1];
         for (int age = 0; age <= BirchPolyporeBlock.MAX_AGE; age++) {
-            ModelFile model = this.models().getExistingFile(modLoc("block/%s_stage%d".formatted(name(polypore), age)));
-            for (Direction direction : Direction.Plane.HORIZONTAL) {
-                builder.partialState()
-                        .with(BirchPolyporeBlock.AGE, age)
-                        .with(BirchPolyporeBlock.FACING, direction)
-                        .modelForState()
-                        .modelFile(model)
-                        .rotationY((int) direction.toYRot())
-                        .addModel();
-            }
+            stages[age] = this.models().getExistingFile(modLoc("block/%s_stage%d".formatted(name(polypore), age)));
         }
+
+        this.getVariantBuilder(polypore).forAllStates(state -> ConfiguredModel.builder()
+                .modelFile(stages[state.getValue(BirchPolyporeBlock.AGE)])
+                .rotationY((int) state.getValue(BirchPolyporeBlock.FACING).toYRot())
+                .build());
 
         this.itemModels().withExistingParent(name(polypore), modLoc("block/%s_stage4".formatted(name(polypore))));
     }
