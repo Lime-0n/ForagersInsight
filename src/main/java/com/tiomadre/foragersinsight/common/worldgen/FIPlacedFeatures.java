@@ -32,6 +32,7 @@ public class FIPlacedFeatures {
     public static final ResourceKey<PlacedFeature> ROSELLE_PATCH_PLACED_KEY = registerKey("roselle_patch_placed");
     public static final ResourceKey<PlacedFeature> BEACH_ROSE_PATCH_PLACED_KEY = registerKey("beach_rose_patch_placed");
     public static final ResourceKey<PlacedFeature> SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY = registerKey("suspicious_leaf_litter_patch_placed");
+    public static final ResourceKey<PlacedFeature> BIRCH_POLYPORE_PLACED_KEY = registerKey("birch_polypore_placed");
 
     public static ResourceKey<PlacedFeature> registerKey(String name) {
         return ResourceKey.create(Registries.PLACED_FEATURE, ForagersInsight.rl(name));
@@ -58,7 +59,11 @@ public class FIPlacedFeatures {
         //Forest Litter
         register(context, SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.SUSPICIOUS_LEAF_LITTER_PATCH_KEY),
                 List.of(RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(), HeightmapPlacement
-                                .onHeightmap(Heightmap.Types.MOTION_BLOCKING), BiomeFilter.biome(), BiomeTagFilter.biomeIsInTag(FITags.BiomeTag.HAS_FOREST_LITTER)));
+                        .onHeightmap(Heightmap.Types.MOTION_BLOCKING), BiomeFilter.biome(), BiomeTagFilter.biomeIsInTag(FITags.BiomeTag.HAS_FOREST_LITTER)));
+        //Birch Polypore
+        register(context, BIRCH_POLYPORE_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.BIRCH_POLYPORE_KEY),
+                List.of(RarityFilter.onAverageOnceEvery(48), InSquarePlacement.spread(), HeightmapPlacement
+                        .onHeightmap(Heightmap.Types.MOTION_BLOCKING), BiomeFilter.biome(), BiomeTagFilter.biomeIsInTag(BiomeTags.IS_OVERWORLD)));
     }
 
     private static void register(BootstapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> configuration,

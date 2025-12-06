@@ -21,5 +21,6 @@ public class FIClientParticles {
         event.registerSpriteSet(FIParticleTypes.FOUL_SCENT.get(), DiffuserScentParticleProvider::new);
         event.registerSpriteSet(FIParticleTypes.SUSPICIOUS_LEAVES.get(), SuspiciousLitterParticleProvider::new);
         event.registerSpriteSet(FIParticleTypes.SUSPICIOUS_NEEDLES.get(), SuspiciousLitterParticleProvider::new);
+        event.registerSpriteSet(FIParticleTypes.SUSPICIOUS_FLOWER.get(), SuspiciousLitterParticleProvider::new);
     }
 }

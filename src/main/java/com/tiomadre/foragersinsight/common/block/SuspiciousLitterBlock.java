@@ -168,6 +168,7 @@ public class SuspiciousLitterBlock extends CarpetBlock implements EntityBlock {
 
     public enum FoliageType implements StringRepresentable {
         OAK(Biomes.FOREST),
+        FLOWER(Biomes.FLOWER_FOREST),
         BIRCH(Biomes.BIRCH_FOREST),
         SPRUCE(Biomes.TAIGA),
         DARK_OAK(Biomes.DARK_FOREST);

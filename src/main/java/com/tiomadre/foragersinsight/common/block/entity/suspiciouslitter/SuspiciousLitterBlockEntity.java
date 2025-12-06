@@ -142,9 +142,12 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
         if (this.brushTicks % 4 != 0) {
             return;
         }
-        SimpleParticleType particle = state.getValue(SuspiciousLitterBlock.FOLIAGE) == SuspiciousLitterBlock.FoliageType.SPRUCE
-                ? FIParticleTypes.SUSPICIOUS_NEEDLES.get()
-                : FIParticleTypes.SUSPICIOUS_LEAVES.get();
+        SuspiciousLitterBlock.FoliageType foliageType = state.getValue(SuspiciousLitterBlock.FOLIAGE);
+        SimpleParticleType particle = switch (foliageType) {
+            case SPRUCE -> FIParticleTypes.SUSPICIOUS_NEEDLES.get();
+            case FLOWER -> FIParticleTypes.SUSPICIOUS_FLOWER.get();
+            default -> FIParticleTypes.SUSPICIOUS_LEAVES.get();
+        };
 
         double x = this.worldPosition.getX() + 0.5D;
         double y = this.worldPosition.getY() + 0.35D;

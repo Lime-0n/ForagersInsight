@@ -40,10 +40,10 @@ public class FICompostable {
                 DENSE_ROSE_PETAL_MAT, DENSE_ROSELLE_PETAL_MAT,
                 DENSE_SPRUCE_TIP_MAT, DENSE_STRAW_MAT);
 
-     // Crops
+// Crops
         registerCompostables(0.3f,
                 APPLE_SLICE, BLACK_ACORN, DANDELION_ROOT, SPRUCE_TIPS, POPPY_SEEDS,
-                ROSE_HIP, ROSELLE_CALYX);
+                ROSE_HIP, ROSELLE_CALYX, BIRCH_POLYPORE);
      // Food
         registerCompostables(0.85f,
                 ACORN_COOKIE, ROSE_COOKIE, CANDIED_CALYCES, APPLE_DIPPERS, KELP_WRAP,

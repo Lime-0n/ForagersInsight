@@ -63,6 +63,7 @@ public class FITabs {
 
     private static final List<RegistryObject<? extends ItemLike>> INGREDIENT_ENTRIES = List.of(
             FIItems.APPLE_SLICE,
+            FIBlocks.BIRCH_POLYPORE,
             FIItems.BLEWIT_MUSHROOM,
             FIItems.COOKED_RABBIT_LEG,
             FIItems.RAW_RABBIT_LEG,

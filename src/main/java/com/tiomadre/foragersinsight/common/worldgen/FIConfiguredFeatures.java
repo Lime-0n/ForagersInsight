@@ -1,10 +1,12 @@
 package com.tiomadre.foragersinsight.common.worldgen;
 
 import com.tiomadre.foragersinsight.common.block.BountifulLeavesBlock;
+import com.tiomadre.foragersinsight.common.worldgen.trees.decorator.BirchPolyporeTreeDecorator;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.common.worldgen.trees.decorator.SappyBirchLogDecorator;
 import com.tiomadre.foragersinsight.common.worldgen.trees.foliage.SpruceTipTreeFoliagePlacer;
+import com.tiomadre.foragersinsight.core.registry.FIFeatures;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
@@ -21,10 +23,7 @@ import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.featuresize.ThreeLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
@@ -53,6 +52,7 @@ public class FIConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ROSELLE_BUSH_PATCH_KEY = registerKey("patch_roselle_bush");
     public static final ResourceKey<ConfiguredFeature<?, ?>> BEACH_ROSE_PATCH_KEY = registerKey("patch_beach_rose");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SUSPICIOUS_LEAF_LITTER_PATCH_KEY = registerKey("suspicious_leaf_litter_patch_placed");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> BIRCH_POLYPORE_KEY = registerKey("birch_polypore");
 
     public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, ForagersInsight.rl(name));
@@ -97,7 +97,9 @@ public class FIConfiguredFeatures {
                 BlockStateProvider.simple(Blocks.BIRCH_LEAVES),
                 new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 3),
                 new TwoLayersFeatureSize(1, 0, 2)
-        ).decorators(List.of(new SappyBirchLogDecorator(0.5F))).build());
+        ).decorators(List.of(new SappyBirchLogDecorator(0.5F), new BirchPolyporeTreeDecorator(1.0F))).build());
+        register(context, BIRCH_POLYPORE_KEY, FIFeatures.BIRCH_POLYPORE.get(), NoneFeatureConfiguration.INSTANCE);
+
             //Wild Flowers
         WeightedStateProvider rosellePatchProvider = new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                 .add(Blocks.GRASS.defaultBlockState(), 6)

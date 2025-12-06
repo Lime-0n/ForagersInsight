@@ -19,6 +19,7 @@ public class FIBiomeModifiers {
     public static final ResourceKey<BiomeModifier> ADD_ROSELLE_BUSHES = registerKey("add_roselle_bushes");
     public static final ResourceKey<BiomeModifier> ADD_BEACH_ROSES = registerKey("add_beach_roses");
     public static final ResourceKey<BiomeModifier> ADD_SUSPICIOUS_LEAF_LITTER = registerKey("add_suspicious_leaf_litter");
+    public static final ResourceKey<BiomeModifier> ADD_BIRCH_POLYPORE = registerKey("add_birch_polypore");
 
     public static void bootstap(BootstapContext<BiomeModifier> context) {
         var placedFeatures = context.lookup(Registries.PLACED_FEATURE);
@@ -61,6 +62,11 @@ public class FIBiomeModifiers {
         context.register(ADD_SUSPICIOUS_LEAF_LITTER, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
                 biomes.getOrThrow(FITags.BiomeTag.HAS_FOREST_LITTER),
                 HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY)),
+                GenerationStep.Decoration.VEGETAL_DECORATION)
+        );
+        context.register(ADD_BIRCH_POLYPORE, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(net.minecraft.tags.BiomeTags.IS_OVERWORLD),
+                HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.BIRCH_POLYPORE_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION)
         );
     }

@@ -7,10 +7,13 @@ import com.tiomadre.foragersinsight.common.worldgen.trees.grower.BountifulSpruce
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.teamabnormals.blueprint.common.block.LogBlock;
 import com.teamabnormals.blueprint.core.util.registry.BlockSubRegistryHelper;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
@@ -51,6 +54,9 @@ public class FIBlocks {
             new SpruceTipBlock(copy(Blocks.SWEET_BERRY_BUSH).noCollission()));
     public static final RegistryObject<Block> SAPPY_BIRCH_LOG = HELPER.createFuelBlock("sappy_birch_log", () ->
             new LogBlock(() -> Blocks.STRIPPED_BIRCH_LOG, copy(Blocks.BIRCH_LOG)), 300);
+    public static final RegistryObject<Block> BIRCH_POLYPORE = HELPER.createBlock("birch_polypore", () ->
+            new BirchPolyporeBlock(copy(Blocks.BROWN_MUSHROOM).noOcclusion()) {@Override
+            public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {return false;}});
         //Syrup Tap
     public static final RegistryObject<Block> TAPPER = HELPER.createBlockNoItem("tapper", () ->
             new TapperBlock(copy(Blocks.IRON_BLOCK).noOcclusion()));

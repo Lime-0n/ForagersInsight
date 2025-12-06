@@ -28,6 +28,8 @@ public final class FIParticleTypes {
             PARTICLES.register("suspicious_leaves", () -> new SimpleParticleType(false));
     public static final RegistryObject<SimpleParticleType> SUSPICIOUS_NEEDLES =
             PARTICLES.register("suspicious_needles", () -> new SimpleParticleType(false));
+    public static final RegistryObject<SimpleParticleType> SUSPICIOUS_FLOWER =
+            PARTICLES.register("suspicious_flower", () -> new SimpleParticleType(false));
     private FIParticleTypes() {}
 
     public static void register(IEventBus bus) {

@@ -33,6 +33,7 @@ public final class SuspiciousLitterLoot {
         DROP_TABLE.put(SuspiciousLitterBlock.FoliageType.BIRCH, buildDrops(SuspiciousLitterBlock.FoliageType.BIRCH));
         DROP_TABLE.put(SuspiciousLitterBlock.FoliageType.SPRUCE, buildDrops(SuspiciousLitterBlock.FoliageType.SPRUCE));
         DROP_TABLE.put(SuspiciousLitterBlock.FoliageType.DARK_OAK, buildDrops(SuspiciousLitterBlock.FoliageType.DARK_OAK));
+        DROP_TABLE.put(SuspiciousLitterBlock.FoliageType.FLOWER, buildDrops(SuspiciousLitterBlock.FoliageType.FLOWER));
     }
 
     private SuspiciousLitterLoot() {
@@ -144,10 +145,18 @@ public final class SuspiciousLitterLoot {
                 addDrop(drops, weights, FIItems.ROSE_HIP, 6);
             }
 
+            // Flower Forest
+            case FLOWER -> {
+                addDrop(drops, weights, () -> Items.OAK_LEAVES, 8);
+                addDrop(drops, weights, FIItems.ROSE_HIP, 6);
+                addDrop(drops, weights, () -> Items.HONEYCOMB, 5);
+            }
+
             // Birch Forest
             case BIRCH -> {
                 addDrop(drops, weights, () -> Items.BIRCH_LEAVES, 8);
                 addDrop(drops, weights, FIItems.ROSE_HIP, 6);
+
             }
 
             // Taiga

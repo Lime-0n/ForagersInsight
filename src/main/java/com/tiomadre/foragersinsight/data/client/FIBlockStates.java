@@ -59,6 +59,7 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.matBlock(DENSE_ROSELLE_PETAL_MAT, "dense_roselle_petals");
         this.matBlock(DENSE_STRAW_MAT, "dense_straw");
         this.suspiciousLitter();
+        this.birchPolypore();
 
         //Diffuser n Tapper
         this.diffuserBlock();
@@ -83,6 +84,25 @@ public class FIBlockStates extends FIBlockStatesHelper {
                     .addModel();
         }
         this.itemModels().basicItem(seeds.get());
+    }
+    private void birchPolypore() {
+        Block polypore = BIRCH_POLYPORE.get();
+        VariantBlockStateBuilder builder = this.getVariantBuilder(polypore);
+
+        for (int age = 0; age <= BirchPolyporeBlock.MAX_AGE; age++) {
+            ModelFile model = this.models().getExistingFile(modLoc("block/%s_stage%d".formatted(name(polypore), age)));
+            for (Direction direction : Direction.Plane.HORIZONTAL) {
+                builder.partialState()
+                        .with(BirchPolyporeBlock.AGE, age)
+                        .with(BirchPolyporeBlock.FACING, direction)
+                        .modelForState()
+                        .modelFile(model)
+                        .rotationY((int) direction.toYRot())
+                        .addModel();
+            }
+        }
+
+        this.itemModels().withExistingParent(name(polypore), modLoc("block/%s_stage4".formatted(name(polypore))));
     }
     private void diffuserBlock() {
         Block diffuser = DIFFUSER.get();
@@ -144,19 +164,22 @@ public class FIBlockStates extends FIBlockStatesHelper {
     }
     private void suspiciousLitter() {
         Block forestLitter = SUSPICIOUS_LEAF_LITTER.get();
-        ModelFile oak = litterModel("suspicious_leaf_litter_oak", mcLoc("block/oak_log"),
+        ModelFile oak = litterModel("suspicious_leaf_litter_oak",
                 modTexture("suspicious_litter"));
-        ModelFile birch = litterModel("suspicious_leaf_litter_birch", mcLoc("block/birch_log"),
+        ModelFile birch = litterModel("suspicious_leaf_litter_birch",
                 modTexture("suspicious_litter"));
-        ModelFile spruce = litterModel("suspicious_leaf_litter_spruce", mcLoc("block/spruce_log"),
+        ModelFile flower = litterModel("suspicious_leaf_litter_flower",
+                modTexture("suspicious_litter_flower"));
+        ModelFile spruce = litterModel("suspicious_leaf_litter_spruce",
                 modTexture("suspicious_litter_spruce"));
-        ModelFile darkOak = litterModel("suspicious_leaf_litter_dark_oak", mcLoc("block/dark_oak_log"),
+        ModelFile darkOak = litterModel("suspicious_leaf_litter_dark_oak",
                 modTexture("suspicious_litter"));
 
         this.getVariantBuilder(forestLitter).forAllStates(state -> {
             SuspiciousLitterBlock.FoliageType foliage = state.getValue(SuspiciousLitterBlock.FOLIAGE);
             ModelFile model = switch (foliage) {
                 case BIRCH -> birch;
+                case FLOWER -> flower;
                 case SPRUCE -> spruce;
                 case DARK_OAK -> darkOak;
                 default -> oak;
@@ -167,12 +190,12 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.itemModels().withExistingParent(name(forestLitter), modLoc("block/suspicious_leaf_litter_oak"));
     }
 
-    private ModelFile litterModel(String name, ResourceLocation logTexture, ResourceLocation litterTexture) {
+    private ModelFile litterModel(String name, ResourceLocation litterTexture) {
         return this.models().withExistingParent(name, modLoc("block/suspicious_leaf_litter"))
-                .texture("1", logTexture)
                 .texture("2", litterTexture)
                 .texture("particle", litterTexture);
     }
+
 
 
     public void crossCutout(RegistryObject<? extends Block> cross) {

@@ -5,6 +5,10 @@
       {
         "type": "foragersinsight:sappy_birch_log_decorator",
         "probability": 0.5
+      },
+      {
+        "type": "foragersinsight:birch_polypore_decorator",
+        "probability": 1.0
       }
     ],
     "dirt_provider": {
