@@ -1,7 +1,6 @@
 {
   "parent": "foragersinsight:block/suspicious_leaf_litter",
   "textures": {
-    "1": "minecraft:block/oak_log",
     "2": "foragersinsight:block/suspicious_litter",
     "particle": "foragersinsight:block/suspicious_litter"
   }

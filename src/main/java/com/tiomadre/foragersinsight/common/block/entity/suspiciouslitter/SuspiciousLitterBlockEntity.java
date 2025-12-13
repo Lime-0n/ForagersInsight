@@ -150,7 +150,7 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
         };
 
         double x = this.worldPosition.getX() + 0.5D;
-        double y = this.worldPosition.getY() + 0.35D;
+        double y = this.worldPosition.getY() + 0.8D;
         double z = this.worldPosition.getZ() + 0.5D;
         level.sendParticles(particle, x, y, z, 4, 0.2D, 0.08D, 0.2D, 0.01D);
     }
