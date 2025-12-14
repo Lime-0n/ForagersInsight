@@ -135,9 +135,9 @@
 
   "farmersdelight.tooltip.seed_milk_bottle": "清除1个效果",
 
-  "farmersdelight.tool_interaction.shears.chicken": "请再等待 %s 秒后再剪这只鸡",
-  "farmersdelight.tool_interaction.shears.baby_chicken": "你不能剪鸡雏",
-  "farmersdelight.tool_interaction.mallet.anvil_no_repairs": "这个铁砧已经完全修好了",
+  "foragersinsight.tool_interaction.shears.chicken": "请再等待 %s 秒后再剪这只鸡",
+  "foragersinsight.tool_interaction.shears.baby_chicken": "你不能剪鸡雏",
+  "foragersinsight.tool_interaction.mallet.anvil_no_repairs": "这个铁砧已经完全修好了",
 
   "foragersinsight.diffuser.rosey":"熏香正在释放玫瑰香味",
   "foragersinsight.diffuser.coniferous":"熏香正在释放针叶香味",
