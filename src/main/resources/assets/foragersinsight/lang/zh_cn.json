@@ -98,7 +98,7 @@
   "block.foragersinsight.sappy_birch_log": "多汁白桦原木",
 
   "block.foragersinsight.apple_crate": "箱装苹果",
-  "block.foragersinsight.dandelion_roots_crate": "箱装蒲公英根",
+  "block.foragersinsight.dandelion_roots_sack": "袋装蒲公英根",
   "block.foragersinsight.black_acorn_sack": "袋装黑橡子",
   "block.foragersinsight.poppy_seeds_sack": "袋装虞美人籽",
   "block.foragersinsight.rose_hip_sack": "袋装玫瑰果",
@@ -135,9 +135,9 @@
 
   "farmersdelight.tooltip.seed_milk_bottle": "清除1个效果",
 
-  "farmersdelight.tool_interaction.shears.chicken": "请再等待 %s 秒后再剪这只鸡",
-  "farmersdelight.tool_interaction.shears.baby_chicken": "你不能剪鸡雏",
-  "farmersdelight.tool_interaction.mallet.anvil_no_repairs": "这个铁砧已经完全修好了",
+  "foragersinsight.tool_interaction.shears.chicken": "请再等待 %s 秒后再剪这只鸡",
+  "foragersinsight.tool_interaction.shears.baby_chicken": "你不能剪鸡雏",
+  "foragersinsight.tool_interaction.mallet.anvil_no_repairs": "这个铁砧已经完全修好了",
 
   "foragersinsight.diffuser.rosey":"熏香正在释放玫瑰香味",
   "foragersinsight.diffuser.coniferous":"熏香正在释放针叶香味",
