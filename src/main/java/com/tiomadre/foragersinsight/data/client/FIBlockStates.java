@@ -59,7 +59,6 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.matBlock(DENSE_ROSELLE_PETAL_MAT, "dense_roselle_petals");
         this.matBlock(DENSE_STRAW_MAT, "dense_straw");
         this.suspiciousLitter();
-        this.birchPolypore();
 
         //Diffuser n Tapper
         this.diffuserBlock();
@@ -84,86 +83,6 @@ public class FIBlockStates extends FIBlockStatesHelper {
                     .addModel();
         }
         this.itemModels().basicItem(seeds.get());
-    }
-    private void birchPolypore() {
-        Block polypore = BIRCH_POLYPORE.get();
-        ModelFile[] stages = new ModelFile[]{
-                birchPolyporeStage("%s_stage0".formatted(name(polypore)), "0", "birch_polypore", stage0Elements()),
-                birchPolyporeStage("%s_stage1".formatted(name(polypore)), "0", "birch_polypore", stage1Elements()),
-                birchPolyporeStage("%s_stage2".formatted(name(polypore)), "0", "birch_polypore", stage2Elements()),
-                birchPolyporeStage("%s_stage3".formatted(name(polypore)), "0", "birch_polypore", stage3Elements()),
-                birchPolyporeStage("%s_stage4".formatted(name(polypore)), "1", "birch_polypore_mature", stage4Elements())
-        };
-
-        this.getVariantBuilder(polypore).forAllStates(state -> ConfiguredModel.builder()
-                .modelFile(stages[state.getValue(BirchPolyporeBlock.AGE)])
-                .rotationY((int) state.getValue(BirchPolyporeBlock.FACING).toYRot())
-                .build());
-
-        this.itemModels().withExistingParent(name(polypore),
-                modLoc("block/%s_stage4".formatted(name(polypore))));
-    }
-    private BlockModelBuilder birchPolyporeStage(String name, String suffix, String texture, ElementBuilder... elements) {
-        BlockModelBuilder builder = this.models().getBuilder(name)
-                .parent(this.models().getExistingFile(mcLoc("block/block")))
-                .texture("0", modTexture(texture))
-                .texture("particle", modTexture(texture));
-
-        for (ElementBuilder e : elements) {
-            builder.element()
-                    .from(e.from[0], e.from[1], e.from[2])
-                    .to(e.to[0], e.to[1], e.to[2])
-                    .shade(true)
-                    .face(Direction.NORTH).texture("#0").end()
-                    .face(Direction.SOUTH).texture("#0").end()
-                    .face(Direction.EAST).texture("#0").end()
-                    .face(Direction.WEST).texture("#0").end()
-                    .face(Direction.UP).texture("#0").end()
-                    .face(Direction.DOWN).texture("#0").end()
-                    .end();
-        }
-
-        return builder;
-    }
-
-    private static class ElementBuilder {
-        public final float[] from;
-        public final float[] to;
-
-        public ElementBuilder(float fx, float fy, float fz, float tx, float ty, float tz) {
-            this.from = new float[]{fx, fy, fz};
-            this.to = new float[]{tx, ty, tz};
-        }
-    }
-
-    private ElementBuilder[] stage0Elements() {
-        return new ElementBuilder[]{
-                new ElementBuilder(5f, 5f, 12f, 11f, 12f, 16f)
-        };
-    }
-
-    private ElementBuilder[] stage1Elements() {
-        return new ElementBuilder[]{
-                new ElementBuilder(4f, 4f, 10f, 12f, 13f, 16f)
-        };
-    }
-
-    private ElementBuilder[] stage2Elements() {
-        return new ElementBuilder[]{
-                new ElementBuilder(3f, 4f, 10f, 13f, 13f, 16f)
-        };
-    }
-
-    private ElementBuilder[] stage3Elements() {
-        return new ElementBuilder[]{
-                new ElementBuilder(2f, 4f, 9f, 14f, 13f, 16f)
-        };
-    }
-
-    private ElementBuilder[] stage4Elements() {
-        return new ElementBuilder[]{
-                new ElementBuilder(1f, 4f, 8f, 15f, 13f, 16f)
-        };
     }
 
     private void diffuserBlock() {

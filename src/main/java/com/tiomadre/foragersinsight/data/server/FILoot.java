@@ -164,7 +164,6 @@ public class FILoot extends LootTableProvider {
 
                 //Other
             this.add(SUSPICIOUS_LEAF_LITTER.get(), LootTable.lootTable());
-            this.dropSelf(BIRCH_POLYPORE.get());
 
         }
 

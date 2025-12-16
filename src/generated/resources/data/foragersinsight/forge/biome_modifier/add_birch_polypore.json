@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#minecraft:is_overworld",
-  "features": "foragersinsight:birch_polypore_placed",
-  "step": "vegetal_decoration"
-}

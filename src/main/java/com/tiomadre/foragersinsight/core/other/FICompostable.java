@@ -43,7 +43,7 @@ public class FICompostable {
 // Crops
         registerCompostables(0.3f,
                 APPLE_SLICE, BLACK_ACORN, DANDELION_ROOT, SPRUCE_TIPS, POPPY_SEEDS,
-                ROSE_HIP, ROSELLE_CALYX, BIRCH_POLYPORE);
+                ROSE_HIP, ROSELLE_CALYX);
      // Food
         registerCompostables(0.85f,
                 ACORN_COOKIE, ROSE_COOKIE, CANDIED_CALYCES, APPLE_DIPPERS, KELP_WRAP,
