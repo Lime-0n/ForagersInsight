@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.common.worldgen;
 
 import com.tiomadre.foragersinsight.common.block.BountifulLeavesBlock;
+import com.tiomadre.foragersinsight.common.block.SuspiciousLitterBlock;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.common.worldgen.trees.foliage.SpruceTipTreeFoliagePlacer;
@@ -46,7 +47,11 @@ public class FIConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> SAPPY_BIRCH_TREE_KEY = registerKey("sappy_birch_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ROSELLE_BUSH_PATCH_KEY = registerKey("patch_roselle_bush");
     public static final ResourceKey<ConfiguredFeature<?, ?>> BEACH_ROSE_PATCH_KEY = registerKey("patch_beach_rose");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SUSPICIOUS_LEAF_LITTER_PATCH_KEY = registerKey("suspicious_leaf_litter_patch_placed");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> OAK_SUSPICIOUS_LEAF_LITTER_PATCH_KEY = registerKey("oak_suspicious_leaf_litter_patch");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> BIRCH_SUSPICIOUS_LEAF_LITTER_PATCH_KEY = registerKey("birch_suspicious_leaf_litter_patch");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SPRUCE_SUSPICIOUS_LEAF_LITTER_PATCH_KEY = registerKey("spruce_suspicious_leaf_litter_patch");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> DARK_OAK_SUSPICIOUS_LEAF_LITTER_PATCH_KEY = registerKey("dark_oak_suspicious_leaf_litter_patch");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FLOWER_SUSPICIOUS_LEAF_LITTER_PATCH_KEY = registerKey("flower_suspicious_leaf_litter_patch");
 
     public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, ForagersInsight.rl(name));
@@ -124,16 +129,18 @@ public class FIConfiguredFeatures {
         register(context, BEACH_ROSE_PATCH_KEY, Feature.RANDOM_PATCH,
                 new RandomPatchConfiguration(48, 5, 2, beachRosePatch));
         //Suspicious Litter
-        Holder<PlacedFeature> leafLitterPatch = PlacementUtils.inlinePlaced(
-                Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(FIBlocks.SUSPICIOUS_LEAF_LITTER.get())),
-                BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
-                        BlockPredicate.replaceable(),
-                        BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.DIRT))));
-        register(context, SUSPICIOUS_LEAF_LITTER_PATCH_KEY, Feature.RANDOM_PATCH,
-                new RandomPatchConfiguration(35, 5, 2, leafLitterPatch));
+        register(context, OAK_SUSPICIOUS_LEAF_LITTER_PATCH_KEY, Feature.RANDOM_PATCH,
+                suspiciousLitterPatchConfiguration(SuspiciousLitterBlock.FoliageType.OAK));
+        register(context, BIRCH_SUSPICIOUS_LEAF_LITTER_PATCH_KEY, Feature.RANDOM_PATCH,
+                suspiciousLitterPatchConfiguration(SuspiciousLitterBlock.FoliageType.BIRCH));
+        register(context, SPRUCE_SUSPICIOUS_LEAF_LITTER_PATCH_KEY, Feature.RANDOM_PATCH,
+                suspiciousLitterPatchConfiguration(SuspiciousLitterBlock.FoliageType.SPRUCE));
+        register(context, DARK_OAK_SUSPICIOUS_LEAF_LITTER_PATCH_KEY, Feature.RANDOM_PATCH,
+                suspiciousLitterPatchConfiguration(SuspiciousLitterBlock.FoliageType.DARK_OAK));
+        register(context, FLOWER_SUSPICIOUS_LEAF_LITTER_PATCH_KEY, Feature.RANDOM_PATCH,
+                suspiciousLitterPatchConfiguration(SuspiciousLitterBlock.FoliageType.FLOWER));
 
     }
-
 
     private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstapContext<ConfiguredFeature<?, ?>> context,
                                                                                           ResourceKey<ConfiguredFeature<?, ?>> key,
@@ -152,5 +159,16 @@ public class FIConfiguredFeatures {
                 .add(leaf.defaultBlockState(), 3)
                 .add(bountifulState, 1));
     }
+    private static RandomPatchConfiguration suspiciousLitterPatchConfiguration(SuspiciousLitterBlock.FoliageType foliageType) {
+        BlockState state = FIBlocks.SUSPICIOUS_LEAF_LITTER.get().defaultBlockState().setValue(SuspiciousLitterBlock.FOLIAGE, foliageType);
+        Holder<PlacedFeature> placedFeature = PlacementUtils.inlinePlaced(
+                Feature.SIMPLE_BLOCK,
+                new SimpleBlockConfiguration(BlockStateProvider.simple(state)),
+                BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
+                        BlockPredicate.replaceable(),
+                        BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.DIRT))));
+        return new RandomPatchConfiguration(35, 5, 2, placedFeature);
+    }
+
 
 }

@@ -1,5 +1,5 @@
 {
-  "feature": "foragersinsight:suspicious_leaf_litter_patch_placed",
+  "feature": "foragersinsight:flower_suspicious_leaf_litter_patch",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
@@ -17,7 +17,7 @@
     },
     {
       "type": "farmersdelight:biome_tag",
-      "tag": "foragersinsight:has_feature/forest_litter"
+      "tag": "foragersinsight:has_feature/flower_forest_litter"
     }
   ]
 }
