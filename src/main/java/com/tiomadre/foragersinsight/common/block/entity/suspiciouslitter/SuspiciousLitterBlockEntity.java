@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -77,7 +78,7 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
             return;
         }
 
-        if (Vec3.atCenterOf(pos).distanceToSqr(player.position()) > MAX_DISTANCE_SQR) {
+        if (Vec3.atCenterOf(pos).distanceToSqr(player.position()) > getReachDistanceSqr(player)) {
             blockEntity.brusher = null;
             blockEntity.luckOfTheTreesLevel = 0;
             return;
@@ -207,5 +208,13 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
     @Override
     public ClientboundBlockEntityDataPacket getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    private static double getReachDistanceSqr(Player player) {
+        double reachDistance = player.getAttributeValue(ForgeMod.BLOCK_REACH.get());
+        if (reachDistance <= 0.0D) {
+            reachDistance = 5.0D;
+        }
+        return Math.max(MAX_DISTANCE_SQR, reachDistance * reachDistance);
     }
 }

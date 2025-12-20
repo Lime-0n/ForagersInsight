@@ -36,6 +36,7 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -46,7 +47,10 @@ import java.util.List;
 public class SuspiciousLitterBlock extends CarpetBlock implements EntityBlock {
 
     public static final EnumProperty<FoliageType> FOLIAGE = EnumProperty.create("foliage", FoliageType.class);
-    private static final VoxelShape SHAPE = Block.box(1, 0, 1, 15, 7, 16);
+    private static final VoxelShape SHAPE = Shapes.or(
+            Block.box(0, 0, 0, 16, 6, 16),
+            Block.box(3, 6, 3, 13, 10, 13)
+    );
 
     public SuspiciousLitterBlock() {
         super(BlockBehaviour.Properties.of()
@@ -80,6 +84,11 @@ public class SuspiciousLitterBlock extends CarpetBlock implements EntityBlock {
     @Override
     public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos,
                                         @NotNull CollisionContext context) {
+        return SHAPE;
+    }
+    @Override
+    public @NotNull VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter level,
+                                                 @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return SHAPE;
     }
 

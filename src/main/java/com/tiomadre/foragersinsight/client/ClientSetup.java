@@ -10,6 +10,8 @@ import com.tiomadre.foragersinsight.core.registry.FIItems;
 import com.tiomadre.foragersinsight.client.gui.DiffuserScreen;
 import com.tiomadre.foragersinsight.client.gui.HandbasketScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
@@ -57,6 +59,11 @@ public class ClientSetup {
                                         return 1.0F;
                                     })
                                     .orElse(0.0F)
+            );
+
+            ItemBlockRenderTypes.setRenderLayer(
+                    FIBlocks.SUSPICIOUS_LEAF_LITTER.get(),
+                    RenderType.cutout()
             );
 
             BlockEntityRenderers.register(

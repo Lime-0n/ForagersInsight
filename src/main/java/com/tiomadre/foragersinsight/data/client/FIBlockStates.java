@@ -146,15 +146,15 @@ public class FIBlockStates extends FIBlockStatesHelper {
     private void suspiciousLitter() {
         Block forestLitter = SUSPICIOUS_LEAF_LITTER.get();
         ModelFile oak = litterModel("suspicious_leaf_litter_oak",
-                modTexture("suspicious_litter"));
+                mcLoc("block/oak_leaves"));
         ModelFile birch = litterModel("suspicious_leaf_litter_birch",
-                modTexture("suspicious_litter"));
+                mcLoc("block/birch_leaves"));
         ModelFile flower = litterModel("suspicious_leaf_litter_flower",
-                modTexture("suspicious_litter_flower"));
+                mcLoc("block/oak_leaves"));
         ModelFile spruce = litterModel("suspicious_leaf_litter_spruce",
-                modTexture("suspicious_litter_spruce"));
+                mcLoc("block/spruce_leaves"));
         ModelFile darkOak = litterModel("suspicious_leaf_litter_dark_oak",
-                modTexture("suspicious_litter"));
+                mcLoc("block/dark_oak_leaves"));
 
         this.getVariantBuilder(forestLitter).forAllStates(state -> {
             SuspiciousLitterBlock.FoliageType foliage = state.getValue(SuspiciousLitterBlock.FOLIAGE);
