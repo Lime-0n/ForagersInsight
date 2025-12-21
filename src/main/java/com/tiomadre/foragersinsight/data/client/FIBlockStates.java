@@ -12,6 +12,8 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.registries.RegistryObject;
+import vectorwing.farmersdelight.common.block.MushroomColonyBlock;
+
 import static com.tiomadre.foragersinsight.core.registry.FIBlocks.*;
 
 public class FIBlockStates extends FIBlockStatesHelper {
@@ -37,6 +39,10 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.sackBlock(SPRUCE_TIPS_SACK);
         this.sackBlock(POPPY_SEEDS_SACK);
         this.sackBlock(DANDELION_ROOT_SACK);
+        this.halfcrateBlock((SlabBlock) BLEWIT_MUSHROOM_CRATE.get(),
+                modTexture("blewit_crate_side"),
+                modTexture("crate_bottom"),
+                modTexture("blewit_crate_top"));
 
         //Saplings and Tree Crops
         this.crossCutout(BOUNTIFUL_OAK_SAPLING);
@@ -69,7 +75,21 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.doubleCrossCutout(ROSELLE_BUSH);
         this.doubleCrossCutout(TALL_BEACH_ROSE_BUSH);
 
+        //Mushroom Stuff
+        this.crossCutout(BLEWIT_MUSHROOM);
+        this.mushroomColony(BLEWIT_MUSHROOM_COLONY);
+
+
     }
+    public void halfcrateBlock(SlabBlock block, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
+        ModelFile slab = models().slab(name(block), side, bottom, top);
+        ModelFile slabTop = models().slabTop(name(block) + "_top", side, bottom, top);
+        ModelFile slabDouble = models().cubeBottomTop(name(block) + "_double", side, bottom, top);
+
+        this.slabBlock(block, slab, slabTop, slabDouble);
+        this.blockItem(block);
+    }
+
     private void age5Crop(RegistryObject<Block> crop, RegistryObject<Item> seeds) {
         CropBlock cropBlock = (CropBlock) crop.get();
         VariantBlockStateBuilder builder = this.getVariantBuilder(cropBlock);
@@ -359,6 +379,22 @@ public class FIBlockStates extends FIBlockStatesHelper {
                     .modelForState().modelFile(model)
                     .addModel();
         }
+    }
+    private void mushroomColony(RegistryObject<Block> colony) {
+        Block block = colony.get();
+        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
+        IntegerProperty age = MushroomColonyBlock.COLONY_AGE;
+        String name = name(block);
+
+        for (int i = 0; i <= MushroomColonyBlock.COLONY_AGE.getPossibleValues().size() - 1; i++) {
+            ModelFile stageModel = this.models().withExistingParent("%s_stage%d".formatted(name, i), mcLoc("block/cross"))
+                    .texture("cross", modTexture("%s_stage%d".formatted(name, i)))
+                    .renderType("cutout");
+            builder.partialState().with(age, i).modelForState().modelFile(stageModel).addModel();
+        }
+
+        this.itemModels().withExistingParent(name, modLoc("block/%s_stage3".formatted(name)))
+                .texture("layer0", modTexture("%s_stage3".formatted(name)));
     }
 
 

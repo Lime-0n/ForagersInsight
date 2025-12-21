@@ -5,6 +5,7 @@ import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import com.tiomadre.foragersinsight.data.server.tags.FITags;
 import static com.tiomadre.foragersinsight.core.registry.FIBlocks.*;
+import static com.tiomadre.foragersinsight.core.registry.FIBlocks.BLEWIT_MUSHROOM;
 import static com.tiomadre.foragersinsight.core.registry.FIItems.*;
 import static com.tiomadre.foragersinsight.core.registry.FIItems.ACORN_CARROT_CAKE_ITEM;
 
@@ -180,9 +181,6 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .save(consumer, ForagersInsight.rl("cooked_rabbit_leg_from_campfire_cooking"));
 
 
-
-
-
         //Tools
         //Flint Shears
         ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, FLINT_SHEARS.get())
@@ -322,6 +320,7 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
         this.storageRecipes(consumer, RecipeCategory.FOOD, BLACK_ACORN.get(), RecipeCategory.DECORATIONS, BLACK_ACORN_SACK.get());
         this.storageRecipes(consumer, RecipeCategory.FOOD, SPRUCE_TIPS.get(), RecipeCategory.DECORATIONS, SPRUCE_TIPS_SACK.get());
         this.storageRecipes(consumer, RecipeCategory.FOOD, ROSELLE_CALYX.get(), RecipeCategory.DECORATIONS, ROSELLE_CALYX_SACK.get());
+        this.storageRecipes(consumer, RecipeCategory.FOOD, BLEWIT_MUSHROOM.get(), RecipeCategory.DECORATIONS, FIBlocks.BLEWIT_MUSHROOM_CRATE.get());
 
         FICookingRecipes.buildRecipes(consumer);
         FICrushandCutRecipes.buildRecipes(consumer);

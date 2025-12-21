@@ -191,5 +191,8 @@ public static final RegistryObject<Item> DIFFUSER = HELPER.createItem("diffuser"
     public static final RegistryObject<Item> TAPPER = HELPER.createItem("tapper", () ->
             new TapperItem(
             new Item.Properties().stacksTo(1)));
+    //Other
+    public static final RegistryObject<Item> BLEWIT_MUSHROOM_CRATE = HELPER.createItem("blewit_mushroom_crate",  () ->
+            new BlockItem(FIBlocks.BLEWIT_MUSHROOM_CRATE.get(), basicItem()));
 
 }

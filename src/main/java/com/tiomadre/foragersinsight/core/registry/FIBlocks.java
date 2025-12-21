@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
+import vectorwing.farmersdelight.common.block.MushroomColonyBlock;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import static com.tiomadre.foragersinsight.core.registry.FIItems.*;
 import static net.minecraft.world.level.block.state.BlockBehaviour.Properties.copy;
@@ -34,6 +35,13 @@ public class FIBlocks {
             copy(Blocks.WHEAT), 3));
     public static final RegistryObject<Block> ROSELLE_CROP = HELPER.createBlockNoItem("roselle_crop", () -> new RoselleCropBlock(
             copy(Blocks.WHEAT), 3));
+
+    //Mushrooms
+    public static final RegistryObject<Block> BLEWIT_MUSHROOM = HELPER.createBlockNoItem("blewit_mushroom", () ->
+            new WildMushroomBlock(copy(Blocks.RED_MUSHROOM)));
+
+    public static final RegistryObject<Block> BLEWIT_MUSHROOM_COLONY = HELPER.createBlock("blewit_mushroom_colony", () ->
+            new MushroomColonyBlock(copy(Blocks.RED_MUSHROOM), FIItems.BLEWIT_MUSHROOM));
         //Trees
     public static final RegistryObject<Block> BOUNTIFUL_OAK_SAPLING = HELPER.createFuelBlock("bountiful_oak_sapling", () ->
             new SaplingBlock(new BountifulOakTreeGrower(), copy(Blocks.OAK_SAPLING)), 100);
@@ -93,4 +101,6 @@ public class FIBlocks {
             copy(ModBlocks.RICE_BAG.get())));
     public static final RegistryObject<Block> SPRUCE_TIPS_SACK = HELPER.createBlock("spruce_tips_sack", () -> new Block(
             copy(ModBlocks.RICE_BAG.get())));
+    public static final RegistryObject<Block> BLEWIT_MUSHROOM_CRATE = HELPER.createBlock("blewit_mushroom_crate", () ->
+            new SlabBlock(copy(Blocks.OAK_SLAB)));
 }

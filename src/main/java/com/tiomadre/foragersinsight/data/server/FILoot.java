@@ -31,6 +31,7 @@ import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.ValidationContext;
+import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
@@ -45,6 +46,7 @@ import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
+import vectorwing.farmersdelight.common.block.MushroomColonyBlock;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
 import java.util.Map;
@@ -55,6 +57,7 @@ import java.util.stream.Stream;
 
 import static com.tiomadre.foragersinsight.core.registry.FIBlocks.*;
 import static com.tiomadre.foragersinsight.core.registry.FIItems.*;
+import static com.tiomadre.foragersinsight.core.registry.FIItems.BLEWIT_MUSHROOM;
 
 public class FILoot extends LootTableProvider {
     protected static final LootItemCondition.Builder HAS_SILK_TOUCH = MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1))));
@@ -122,6 +125,7 @@ public class FILoot extends LootTableProvider {
             this.dropSelf(ROSELLE_CALYX_SACK.get());
             this.dropSelf(DANDELION_ROOT_SACK.get());
             this.dropSelf(POPPY_SEEDS_SACK.get());
+            this.add(FIBlocks.BLEWIT_MUSHROOM_CRATE.get(), this::createSlabItemTable);
                 //Wildflower + Plants
             this.add(FIBlocks.ROSELLE_BUSH.get(), block -> LootTable.lootTable().withPool(this.applyExplosionCondition(block, LootPool.lootPool()
                                             .setRolls(ConstantValue.exactly(1.0F))
@@ -164,6 +168,16 @@ public class FILoot extends LootTableProvider {
 
                 //Other
             this.add(SUSPICIOUS_LEAF_LITTER.get(), LootTable.lootTable());
+            this.dropSelf(Block.byItem(BLEWIT_MUSHROOM.get()));
+
+            this.add(BLEWIT_MUSHROOM_COLONY.get(), block -> LootTable.lootTable().withPool(this.applyExplosionCondition(block, LootPool.lootPool()
+            .add(LootItem.lootTableItem(BLEWIT_MUSHROOM_COLONY.get())).when(stateCond(BLEWIT_MUSHROOM_COLONY, MushroomColonyBlock.COLONY_AGE, 3)).when(HAS_SHEARS_OR_SILK_TOUCH)))
+            .withPool(this.applyExplosionCondition(block, LootPool.lootPool().add(AlternativesEntry.alternatives(
+                    LootItem.lootTableItem(BLEWIT_MUSHROOM.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2))).when(stateCond(BLEWIT_MUSHROOM_COLONY, MushroomColonyBlock.COLONY_AGE, 0)),
+                    LootItem.lootTableItem(BLEWIT_MUSHROOM.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(3))).when(stateCond(BLEWIT_MUSHROOM_COLONY, MushroomColonyBlock.COLONY_AGE, 1)),
+                    LootItem.lootTableItem(BLEWIT_MUSHROOM.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4))).when(stateCond(BLEWIT_MUSHROOM_COLONY, MushroomColonyBlock.COLONY_AGE, 2)),
+                    LootItem.lootTableItem(BLEWIT_MUSHROOM.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(5))).when(stateCond(BLEWIT_MUSHROOM_COLONY, MushroomColonyBlock.COLONY_AGE, 3))
+                            .when(HAS_NO_SHEARS_OR_SILK_TOUCH))))));
 
         }
 
