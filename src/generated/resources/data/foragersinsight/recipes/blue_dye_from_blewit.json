@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "foragersinsight:blewit_mushroom"
-    }
+    []
   ],
   "result": {
     "item": "minecraft:blue_dye"

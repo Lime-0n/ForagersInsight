@@ -168,8 +168,9 @@ public class FILoot extends LootTableProvider {
 
                 //Other
             this.add(SUSPICIOUS_LEAF_LITTER.get(), LootTable.lootTable());
-            this.dropSelf(Block.byItem(BLEWIT_MUSHROOM.get()));
-
+            this.add(FIBlocks.BLEWIT_MUSHROOM.get(), block -> LootTable.lootTable()
+                    .withPool(this.applyExplosionCondition(block, LootPool.lootPool()
+                            .add(LootItem.lootTableItem(FIItems.BLEWIT_MUSHROOM.get())))));
             this.add(BLEWIT_MUSHROOM_COLONY.get(), block -> LootTable.lootTable().withPool(this.applyExplosionCondition(block, LootPool.lootPool()
             .add(LootItem.lootTableItem(BLEWIT_MUSHROOM_COLONY.get())).when(stateCond(BLEWIT_MUSHROOM_COLONY, MushroomColonyBlock.COLONY_AGE, 3)).when(HAS_SHEARS_OR_SILK_TOUCH)))
             .withPool(this.applyExplosionCondition(block, LootPool.lootPool().add(AlternativesEntry.alternatives(

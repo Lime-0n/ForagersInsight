@@ -41,6 +41,7 @@ public class FITabs {
             FIBlocks.BOUNTIFUL_SPRUCE_SAPLING,
             FIBlocks.BOUNTIFUL_SPRUCE_LEAVES,
             FIBlocks.APPLE_CRATE,
+            FIBlocks.BLEWIT_MUSHROOM_CRATE,
             FIBlocks.BLACK_ACORN_SACK,
             FIBlocks.DANDELION_ROOT_SACK,
             FIBlocks.POPPY_SEEDS_SACK,
@@ -58,7 +59,9 @@ public class FITabs {
             FIBlocks.SUSPICIOUS_LEAF_LITTER,
             FIBlocks.ROSELLE_BUSH,
             FIBlocks.STOUT_BEACH_ROSE_BUSH,
-            FIBlocks.TALL_BEACH_ROSE_BUSH
+            FIBlocks.TALL_BEACH_ROSE_BUSH,
+            FIBlocks.BLEWIT_MUSHROOM,
+            FIBlocks.BLEWIT_MUSHROOM_COLONY
     );
 
     private static final List<RegistryObject<? extends ItemLike>> INGREDIENT_ENTRIES = List.of(

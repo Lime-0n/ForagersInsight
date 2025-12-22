@@ -164,7 +164,7 @@ public class FIItems {
             new BlockItem(FIBlocks.TALL_BEACH_ROSE_BUSH.get(),basicItem()));
     //Foraged
     public static final RegistryObject<Item> BLEWIT_MUSHROOM = HELPER.createItem("blewit_mushroom",  () ->
-            new Item(new Item.Properties().food(FIFoods.MID_SAT_MORSELS)));
+            new ItemNameBlockItem(FIBlocks.BLEWIT_MUSHROOM.get(), new Item.Properties().food(FIFoods.MID_SAT_MORSELS)));
 
 //Workstations & Tools
 //Diffuser

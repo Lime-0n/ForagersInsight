@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_blewit": {
+    "has_blewit_mushroom": {
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:air"
+              "foragersinsight:blewit_mushroom"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "foragersinsight:blue_dye_from_blewit"
+        "recipe": "foragersinsight:blewit_mushroom_crate"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_blewit",
+      "has_blewit_mushroom",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "foragersinsight:blue_dye_from_blewit"
+      "foragersinsight:blewit_mushroom_crate"
     ]
   },
   "sends_telemetry_event": false
