@@ -100,6 +100,8 @@ public class FarmingXPEvents {
         BlockState state = event.getState();
         Block block = state.getBlock();
 
+        if (block instanceof MushroomColonyBlock) return;
+
         // Gourds attached to stems
         if (block instanceof StemGrownBlock) {
             boolean connectedToStem = isConnectedToStem(level, pos);

@@ -40,9 +40,9 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.sackBlock(POPPY_SEEDS_SACK);
         this.sackBlock(DANDELION_ROOT_SACK);
         this.halfcrateBlock((SlabBlock) BLEWIT_MUSHROOM_CRATE.get(),
-                modTexture("blewit_crate_side"),
-                modTexture("crate_bottom"),
-                modTexture("blewit_crate_top"));
+                modTexture("blewit_mushroom_crate_side"),
+                modTexture("blewit_mushroom_crate_bottom"),
+                modTexture("blewit_mushroom_crate_top"));
 
         //Saplings and Tree Crops
         this.crossCutout(BOUNTIFUL_OAK_SAPLING);

@@ -9,8 +9,10 @@ import com.teamabnormals.blueprint.common.block.LogBlock;
 import com.teamabnormals.blueprint.core.util.registry.BlockSubRegistryHelper;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.common.block.MushroomColonyBlock;
@@ -41,7 +43,9 @@ public class FIBlocks {
             new WildMushroomBlock(copy(Blocks.RED_MUSHROOM)));
 
     public static final RegistryObject<Block> BLEWIT_MUSHROOM_COLONY = HELPER.createBlock("blewit_mushroom_colony", () ->
-            new MushroomColonyBlock(copy(Blocks.RED_MUSHROOM), FIItems.BLEWIT_MUSHROOM));
+            new MushroomColonyBlock(copy(Blocks.RED_MUSHROOM), FIItems.BLEWIT_MUSHROOM) {@Override
+            public BlockState getStateForPlacement(BlockPlaceContext context) {BlockState state = super.getStateForPlacement(context);
+                    if (state == null) {return null;}int maxAge = MushroomColonyBlock.COLONY_AGE.getPossibleValues().size() - 1;return state.setValue(MushroomColonyBlock.COLONY_AGE, maxAge);}});
         //Trees
     public static final RegistryObject<Block> BOUNTIFUL_OAK_SAPLING = HELPER.createFuelBlock("bountiful_oak_sapling", () ->
             new SaplingBlock(new BountifulOakTreeGrower(), copy(Blocks.OAK_SAPLING)), 100);
