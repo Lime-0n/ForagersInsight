@@ -393,8 +393,8 @@ public class FIBlockStates extends FIBlockStatesHelper {
             builder.partialState().with(age, i).modelForState().modelFile(stageModel).addModel();
         }
 
-        this.itemModels().withExistingParent(name, modLoc("block/%s_stage3".formatted(name)))
-                .texture("layer0", modTexture("%s_stage3".formatted(name)));
+        this.itemModels().withExistingParent(name, mcLoc("item/generated"))
+                .texture("layer0", itemTexture(block));
     }
 
 

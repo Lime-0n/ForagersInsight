@@ -1,6 +1,6 @@
 {
-  "parent": "foragersinsight:block/blewit_mushroom_colony_stage3",
+  "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "foragersinsight:block/blewit_mushroom_colony_stage3"
+    "layer0": "foragersinsight:item/blewit_mushroom_colony"
   }
 }
