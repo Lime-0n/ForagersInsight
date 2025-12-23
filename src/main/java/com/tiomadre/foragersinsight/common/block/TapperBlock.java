@@ -149,7 +149,20 @@ public class TapperBlock extends HorizontalDirectionalBlock implements EntityBlo
     @Override
     public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level,
                            @NotNull BlockPos pos, @NotNull RandomSource random) {
-        level.setBlock(pos, state.setValue(FILL, state.getValue(FILL) + 1), Block.UPDATE_CLIENTS);
+        int fill = state.getValue(FILL);
+        int increment = 1;
+
+        if (state.getValue(ENCHANTED)) {
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if (blockEntity instanceof TapperBlockEntity tapper && tapper.getFireAspectLevel() >= 2) {
+                increment++;
+            }
+        }
+
+        int newFill = Math.min(4, fill + increment);
+        if (newFill != fill) {
+            level.setBlock(pos, state.setValue(FILL, newFill), Block.UPDATE_CLIENTS);
+        }
     }
     // drips
     @Override

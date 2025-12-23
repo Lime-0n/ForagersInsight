@@ -416,7 +416,7 @@
     }
   ],
   "textures": {
-    "12": "foragersinsight:block/sappy_knife_tap",
+    "12": "foragersinsight:block/syrup_knife_tap",
     "4": "foragersinsight:block/syrup_bucket_top_stage4",
     "7": "foragersinsight:block/syrup_bucket_bottom",
     "8": "foragersinsight:block/syrup_bucket_side_full",

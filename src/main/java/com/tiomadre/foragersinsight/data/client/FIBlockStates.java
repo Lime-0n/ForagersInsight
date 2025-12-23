@@ -342,10 +342,10 @@ public class FIBlockStates extends FIBlockStatesHelper {
 
         ModelFile[] syrupFillModels = new ModelFile[] {
                 tapperModel(name(tapper) + "_syrup", "syrup_bucket_top", "syrup_bucket_bottom", "syrup_bucket_side", "knife_tap"),
-                tapperModel(name(tapper) + "_syrup_stage1", "syrup_bucket_top_stage1", "syrup_bucket_bottom", "syrup_bucket_side", "sappy_knife_tap"),
-                tapperModel(name(tapper) + "_syrup_stage2", "syrup_bucket_top_stage2", "syrup_bucket_bottom", "syrup_bucket_side", "sappy_knife_tap"),
-                tapperModel(name(tapper) + "_syrup_stage3", "syrup_bucket_top_stage3", "syrup_bucket_bottom", "syrup_bucket_side", "sappy_knife_tap"),
-                tapperModel(name(tapper) + "_syrup_stage4", "syrup_bucket_top_stage4", "syrup_bucket_bottom", "syrup_bucket_side_full", "sappy_knife_tap")
+                tapperModel(name(tapper) + "_syrup_stage1", "syrup_bucket_top_stage1", "syrup_bucket_bottom", "syrup_bucket_side", "syrup_knife_tap"),
+                tapperModel(name(tapper) + "_syrup_stage2", "syrup_bucket_top_stage2", "syrup_bucket_bottom", "syrup_bucket_side", "syrup_knife_tap"),
+                tapperModel(name(tapper) + "_syrup_stage3", "syrup_bucket_top_stage3", "syrup_bucket_bottom", "syrup_bucket_side", "syrup_knife_tap"),
+                tapperModel(name(tapper) + "_syrup_stage4", "syrup_bucket_top_stage4", "syrup_bucket_bottom", "syrup_bucket_side_full", "syrup_knife_tap")
         };
 
         VariantBlockStateBuilder builder = this.getVariantBuilder(tapper);

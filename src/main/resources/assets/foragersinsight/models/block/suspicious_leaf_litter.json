@@ -1,33 +1,32 @@
 {
   "parent": "minecraft:block/thin_block",
   "textures": {
-    "2": "#litter",
-    "particle": "#litter"
+    "particle": "#2"
   },
   "elements": [
     {
-      "from": [3, 6, 3],
-      "to": [13, 10, 13],
-      "rotation": {"angle": 0, "axis": "y", "origin": [3, 6, 3]},
+      "from": [0, 0, 0],
+      "to": [16, 10, 16],
       "faces": {
-        "north": {"uv": [0, 0, 10, 4], "texture": "#2", "tintindex": 0},
-        "east": {"uv": [0, 0, 10, 4], "texture": "#2", "tintindex": 0},
-        "south": {"uv": [0, 0, 10, 4], "texture": "#2", "tintindex": 0},
-        "west": {"uv": [0, 0, 10, 4], "texture": "#2", "tintindex": 0},
-        "up": {"uv": [0, 0, 10, 10], "texture": "#2", "tintindex": 0},
-        "down": {"uv": [0, 0, 10, 10], "texture": "#2", "tintindex": 0}
+        "north": {"uv": [0, 0, 16, 10], "texture": "#2", "tintindex": 0},
+        "east": {"uv": [0, 0, 16, 10], "texture": "#2", "tintindex": 0},
+        "south": {"uv": [0, 0, 16, 10], "texture": "#2", "tintindex": 0},
+        "west": {"uv": [0, 0, 16, 10], "texture": "#2", "tintindex": 0},
+        "up": {"uv": [0, 0, 16, 16], "texture": "#2", "tintindex": 0},
+        "down": {"uv": [0, 0, 16, 16], "texture": "#2", "tintindex": 0}
       }
     },
     {
-      "from": [0, 0, 0],
-      "to": [16, 6, 16],
+      "from": [1, 1, 1],
+      "to": [15, 9, 15],
+      "rotation": {"angle": 0, "axis": "y", "origin": [1, 1, 1]},
       "faces": {
-        "north": {"uv": [0, 6, 16, 12], "texture": "#2", "tintindex": 0},
-        "east": {"uv": [0, 0, 16, 6], "texture": "#2", "tintindex": 0},
-        "south": {"uv": [0, 6, 16, 12], "texture": "#2", "tintindex": 0},
-        "west": {"uv": [0, 0, 16, 6], "texture": "#2", "tintindex": 0},
-        "up": {"uv": [0, 0, 16, 16], "texture": "#2", "tintindex": 0},
-        "down": {"uv": [0, 0, 16, 16], "texture": "#2", "tintindex": 0}
+        "north": {"uv": [0, 8, 14, 0], "texture": "#2", "tintindex": 0},
+        "east": {"uv": [0, 8, 14, 0], "texture": "#2", "tintindex": 0},
+        "south": {"uv": [0, 8, 14, 0], "texture": "#2", "tintindex": 0},
+        "west": {"uv": [0, 8, 14, 0], "texture": "#2", "tintindex": 0},
+        "up": {"uv": [0, 0, 14, 14], "rotation": 90, "texture": "#2", "tintindex": 0},
+        "down": {"uv": [0, 0, 14, 14], "rotation": 90, "texture": "#2", "tintindex": 0}
       }
     }
   ]
