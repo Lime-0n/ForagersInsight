@@ -26,6 +26,7 @@ public class FIParticles implements DataProvider {
     public @NotNull CompletableFuture<?> run(@NotNull CachedOutput output) {
         return CompletableFuture.allOf(
                 saveParticle(output, FIParticleTypes.DRIPPING_SAP.getId()),
+                saveParticle(output, FIParticleTypes.DRIPPING_SYRUP.getId()),
                 saveParticle(output, FIParticleTypes.ROSE_SCENT.getId()),
                 saveParticle(output, FIParticleTypes.CONIFEROUS_SCENT.getId()),
                 saveParticle(output, FIParticleTypes.FLORAL_SCENT.getId()),

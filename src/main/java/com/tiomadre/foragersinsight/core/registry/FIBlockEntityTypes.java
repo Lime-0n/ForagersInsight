@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.core.registry;
 
 import com.tiomadre.foragersinsight.common.block.entity.DiffuserBlockEntity;
+import com.tiomadre.foragersinsight.common.block.entity.TapperBlockEntity;
 import com.tiomadre.foragersinsight.common.block.entity.suspiciouslitter.SuspiciousLitterBlockEntity;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -19,6 +20,9 @@ public class FIBlockEntityTypes {
     public static final RegistryObject<BlockEntityType<SuspiciousLitterBlockEntity>> SUSPICIOUS_LEAF_LITTER =
             BLOCK_ENTITY_TYPES.register("suspicious_leaf_litter",
                     () -> BlockEntityType.Builder.of(SuspiciousLitterBlockEntity::new, FIBlocks.SUSPICIOUS_LEAF_LITTER.get()).build(null));
+    public static final RegistryObject<BlockEntityType<TapperBlockEntity>> TAPPER =
+            BLOCK_ENTITY_TYPES.register("tapper",
+                    () -> BlockEntityType.Builder.of(TapperBlockEntity::new, FIBlocks.TAPPER.get()).build(null));
     public static void register(IEventBus bus) {
         BLOCK_ENTITY_TYPES.register(bus);
     }

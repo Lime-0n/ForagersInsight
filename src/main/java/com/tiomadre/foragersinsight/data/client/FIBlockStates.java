@@ -332,17 +332,24 @@ public class FIBlockStates extends FIBlockStatesHelper {
     private void tapperBlock() {
         Block tapper = TAPPER.get();
 
-        ModelFile[] fillModels = new ModelFile[] {
-                tapperModel(name(tapper), "bucket_top_stage0", "bucket_side", "knife_tap"),
-                tapperModel(name(tapper) + "_stage1", "bucket_top_stage1", "bucket_side", "sappy_knife_tap"),
-                tapperModel(name(tapper) + "_stage2", "bucket_top_stage2", "bucket_side", "sappy_knife_tap"),
-                tapperModel(name(tapper) + "_stage3", "bucket_top_stage3", "bucket_side", "sappy_knife_tap"),
-                tapperModel(name(tapper) + "_stage4", "bucket_top_stage4", "bucket_side_full", "sappy_knife_tap")
+        ModelFile[] sapFillModels = new ModelFile[] {
+                tapperModel(name(tapper), "bucket_top_stage0", "bucket_bottom", "bucket_side", "knife_tap"),
+                tapperModel(name(tapper) + "_stage1", "bucket_top_stage1", "bucket_bottom", "bucket_side", "sappy_knife_tap"),
+                tapperModel(name(tapper) + "_stage2", "bucket_top_stage2", "bucket_bottom", "bucket_side", "sappy_knife_tap"),
+                tapperModel(name(tapper) + "_stage3", "bucket_top_stage3", "bucket_bottom", "bucket_side", "sappy_knife_tap"),
+                tapperModel(name(tapper) + "_stage4", "bucket_top_stage4", "bucket_bottom", "bucket_side_full", "sappy_knife_tap")
+        };
+
+        ModelFile[] syrupFillModels = new ModelFile[] {
+                tapperModel(name(tapper) + "_syrup", "syrup_bucket_top", "syrup_bucket_bottom", "syrup_bucket_side", "knife_tap"),
+                tapperModel(name(tapper) + "_syrup_stage1", "syrup_bucket_top_stage1", "syrup_bucket_bottom", "syrup_bucket_side", "sappy_knife_tap"),
+                tapperModel(name(tapper) + "_syrup_stage2", "syrup_bucket_top_stage2", "syrup_bucket_bottom", "syrup_bucket_side", "sappy_knife_tap"),
+                tapperModel(name(tapper) + "_syrup_stage3", "syrup_bucket_top_stage3", "syrup_bucket_bottom", "syrup_bucket_side", "sappy_knife_tap"),
+                tapperModel(name(tapper) + "_syrup_stage4", "syrup_bucket_top_stage4", "syrup_bucket_bottom", "syrup_bucket_side_full", "sappy_knife_tap")
         };
 
         VariantBlockStateBuilder builder = this.getVariantBuilder(tapper);
-        for (int fill = 0; fill < fillModels.length; fill++) {
-            ModelFile model = fillModels[fill];
+        for (int fill = 0; fill < sapFillModels.length; fill++) {
             for (Direction direction : Direction.Plane.HORIZONTAL) {
                 int rotationY = switch (direction) {
                     case EAST -> 90;
@@ -350,11 +357,23 @@ public class FIBlockStates extends FIBlockStatesHelper {
                     case WEST -> 270;
                     default -> 0;
                 };
+                ModelFile sapModel = sapFillModels[fill];
                 builder.partialState()
                         .with(TapperBlock.FILL, fill)
                         .with(TapperBlock.FACING, direction)
+                        .with(TapperBlock.ENCHANTED, false)
                         .modelForState()
-                        .modelFile(model)
+                        .modelFile(sapModel)
+                        .rotationY((int) direction.toYRot())
+                        .addModel();
+
+                ModelFile syrupModel = syrupFillModels[fill];
+                builder.partialState()
+                        .with(TapperBlock.FILL, fill)
+                        .with(TapperBlock.FACING, direction)
+                        .with(TapperBlock.ENCHANTED, true)
+                        .modelForState()
+                        .modelFile(syrupModel)
                         .rotationY((int) direction.toYRot())
                         .addModel();
             }
@@ -398,11 +417,11 @@ public class FIBlockStates extends FIBlockStatesHelper {
     }
 
 
-    private ModelFile tapperModel(String name, String bucketTop, String bucketSide, String tapTexture) {
+    private ModelFile tapperModel(String name, String bucketTop, String bucketBottom, String bucketSide, String tapTexture) {
         BlockModelBuilder builder = this.models().getBuilder(name)
                 .texture("particle", modTexture(bucketTop))
                 .texture("4", modTexture(bucketTop))
-                .texture("7", modTexture("bucket_bottom"))
+                .texture("7", modTexture(bucketBottom))
                 .texture("8", modTexture(bucketSide))
                 .texture("12", modTexture(tapTexture));
 

@@ -15,6 +15,7 @@ public class FIClientParticles {
     @SubscribeEvent
     public static void registerParticles(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(FIParticleTypes.DRIPPING_SAP.get(), SapDripParticleProvider::new);
+        event.registerSpriteSet(FIParticleTypes.DRIPPING_SYRUP.get(), SapDripParticleProvider::new);
         event.registerSpriteSet(FIParticleTypes.CONIFEROUS_SCENT.get(), DiffuserScentParticleProvider::new);
         event.registerSpriteSet(FIParticleTypes.ROSE_SCENT.get(), DiffuserScentParticleProvider::new);
         event.registerSpriteSet(FIParticleTypes.FLORAL_SCENT.get(), DiffuserScentParticleProvider::new);

@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.common.item;
 
 import com.tiomadre.foragersinsight.common.block.TapperBlock;
+import com.tiomadre.foragersinsight.core.registry.FIBlockEntityTypes;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -9,6 +10,9 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -19,6 +23,27 @@ import org.jetbrains.annotations.NotNull;
 public class TapperItem extends Item {
     public TapperItem(Properties props) {
         super(props);
+    }
+
+    @Override
+    public boolean isEnchantable(@NotNull ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    public int getEnchantmentValue() {
+        return 1;
+    }
+
+    @Override
+    public boolean canApplyAtEnchantingTable(@NotNull ItemStack stack, @NotNull Enchantment enchantment) {
+        return enchantment == Enchantments.FIRE_ASPECT;
+    }
+
+    @Override
+    public boolean isBookEnchantable(@NotNull ItemStack stack, @NotNull ItemStack book) {
+        var enchantments = EnchantmentHelper.getEnchantments(book);
+        return enchantments.size() == 1 && enchantments.containsKey(Enchantments.FIRE_ASPECT);
     }
 
     @Override
@@ -47,12 +72,17 @@ public class TapperItem extends Item {
         }
 
         if (!level.isClientSide) {
+            ItemStack stack = ctx.getItemInHand();
             // place the tapper block
             BlockState tapperState = FIBlocks.TAPPER.get().defaultBlockState()
                     .setValue(TapperBlock.FACING, face)
                     .setValue(TapperBlock.HAS_TAPPER, true)
-                    .setValue(TapperBlock.FILL, 0);
+                    .setValue(TapperBlock.FILL, 0)
+                    .setValue(TapperBlock.ENCHANTED, stack.getEnchantmentLevel(Enchantments.FIRE_ASPECT) > 0);
             level.setBlock(targetPos, tapperState, Block.UPDATE_ALL);
+
+            level.getBlockEntity(targetPos, FIBlockEntityTypes.TAPPER.get())
+                    .ifPresent(be -> be.setTapperStack(stack));
 
             //sound
             SoundType type = level.getBlockState(logPos).getSoundType();
@@ -60,7 +90,6 @@ public class TapperItem extends Item {
 
             Player player = ctx.getPlayer();
             if (player != null && !player.getAbilities().instabuild) {
-                ItemStack stack = ctx.getItemInHand();
                 stack.shrink(1);
             }
         }
