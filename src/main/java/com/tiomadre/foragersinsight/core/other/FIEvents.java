@@ -86,12 +86,7 @@ public class FIEvents {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
         if (!player.hasEffect(FIMobEffects.BLOOM.get())) return;
 
-        int amount = event.getAmount();
-        if (amount > 0) {
-            amount = Math.round(amount * 1.2f);
-        } else if (amount < 0) {
-            amount = Math.round(amount * 0.8f);
-        }
+        int amount = scaleAmount(event.getAmount(), 1.2f, 0.8f);
         event.setAmount(amount);
     }
 
@@ -100,12 +95,16 @@ public class FIEvents {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
         if (!player.hasEffect(FIMobEffects.BLOOM.get())) return;
 
-        int levels = event.getLevels();
-        if (levels > 0) {
-            levels = Math.round(levels * 1.2f);
-        } else if (levels < 0) {
-            levels = Math.round(levels * 0.8f);
-        }
+        int levels = scaleAmount(event.getLevels(), 1.2f, 0.8f);
         event.setLevels(levels);
+    }
+
+    private static int scaleAmount(int amount, float positiveMultiplier, float negativeMultiplier) {
+        if (amount > 0) {
+            return Math.round(amount * positiveMultiplier);
+        } else if (amount < 0) {
+            return Math.round(amount * negativeMultiplier);
+        }
+        return amount;
     }
 }
