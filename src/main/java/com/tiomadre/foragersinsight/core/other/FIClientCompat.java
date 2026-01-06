@@ -30,6 +30,9 @@ public class FIClientCompat {
         List<RegistryObject<Block>> spruceLeaves = new ArrayList<>();
         spruceLeaves.add(FIBlocks.BOUNTIFUL_SPRUCE_LEAVES);
 
+        List<RegistryObject<Block>> suspiciousLitter = new ArrayList<>();
+        suspiciousLitter.add(FIBlocks.SUSPICIOUS_LEAF_LITTER);
+
         DataUtil.registerBlockColor(blockColors, (state, world, pos, tintIndex) -> 0xFFFFFF, spruceLeaves);
         DataUtil.registerBlockItemColor(itemColors, (stack, tintIndex) -> 0xFFFFFF, spruceLeaves);
 
@@ -45,6 +48,20 @@ public class FIClientCompat {
                 itemColors,
                 (stack, tintIndex) -> FoliageColor.get(0.5D, 1.0D),
                 genericFoliage
+        );
+
+        DataUtil.registerBlockColor(
+                blockColors,
+                (state, world, pos, tintIndex) ->
+                        (world != null && pos != null)
+                                ? BiomeColors.getAverageFoliageColor(world, pos)
+                                : FoliageColor.getDefaultColor(),
+                suspiciousLitter
+        );
+        DataUtil.registerBlockItemColor(
+                itemColors,
+                (stack, tintIndex) -> FoliageColor.getDefaultColor(),
+                suspiciousLitter
         );
     }
 }

@@ -52,6 +52,6 @@ public class BountifulSpruceLeavesBlock extends LeavesBlock implements Bonemeala
 
     private BlockState tippedState() {
         return FIBlocks.BOUNTIFUL_SPRUCE_TIPS.get().defaultBlockState()
-                .setValue(SpruceTipBlock.AGE, SpruceTipBlock.MAX_AGE - 1);
+                .setValue(SpruceTipBlock.AGE, SpruceTipBlock.MAX_AGE);
     }
 }

@@ -164,7 +164,7 @@ public final class DiffuserScent {
         return this.radius;
     }
 
-    public boolean matches(List<ItemStack> stacks) {
+    public boolean matches(List<? extends ItemStack> stacks) {
         if (this.ingredients.isEmpty()) {
             return false;
         }
@@ -244,7 +244,7 @@ public final class DiffuserScent {
         }
     }
 
-    public static Optional<DiffuserScent> findMatch(List<ItemStack> stacks) {
+    public static Optional<DiffuserScent> findMatch(List<? extends ItemStack> stacks) {
         if (stacks == null || stacks.isEmpty()) {
             return Optional.empty();
         }

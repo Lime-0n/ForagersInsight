@@ -1,0 +1,17 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "foragersinsight:blewit_mushroom_colony"
+    }
+  ],
+  "result": [
+    {
+      "count": 5,
+      "item": "foragersinsight:blewit_mushroom"
+    }
+  ],
+  "tool": {
+    "tag": "forge:tools/knives"
+  }
+}

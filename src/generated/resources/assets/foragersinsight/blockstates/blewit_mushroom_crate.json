@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "foragersinsight:block/blewit_mushroom_crate"
+    },
+    "type=double": {
+      "model": "foragersinsight:block/blewit_mushroom_crate_double"
+    },
+    "type=top": {
+      "model": "foragersinsight:block/blewit_mushroom_crate_top"
+    }
+  }
+}

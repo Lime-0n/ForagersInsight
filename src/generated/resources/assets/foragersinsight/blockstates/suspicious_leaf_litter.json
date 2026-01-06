@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "foliage=birch": {
+      "model": "foragersinsight:block/suspicious_leaf_litter_birch"
+    },
+    "foliage=dark_oak": {
+      "model": "foragersinsight:block/suspicious_leaf_litter_dark_oak"
+    },
+    "foliage=flower": {
+      "model": "foragersinsight:block/suspicious_leaf_litter_flower"
+    },
+    "foliage=oak": {
+      "model": "foragersinsight:block/suspicious_leaf_litter_oak"
+    },
+    "foliage=spruce": {
+      "model": "foragersinsight:block/suspicious_leaf_litter_spruce"
+    }
+  }
+}

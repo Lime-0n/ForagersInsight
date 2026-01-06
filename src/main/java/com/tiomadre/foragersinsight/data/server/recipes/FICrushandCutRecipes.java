@@ -1,5 +1,6 @@
 package com.tiomadre.foragersinsight.data.server.recipes;
 
+import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import com.tiomadre.foragersinsight.data.server.tags.FITags;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -21,6 +22,7 @@ public class FICrushandCutRecipes {
         CuttingBoardRecipeBuilder.cuttingRecipe(of(FIItems.ROSELLE_BUSH_ITEM.get()), of(ForgeTags.TOOLS_KNIVES), FIItems.ROSELLE_CALYX.get(), 1).addResultWithChance(FIItems.ROSELLE_CALYX.get(),0.1f).addResultWithChance(FIItems.ROSELLE_PETALS.get(), 1f, 2).build(consumer);
         CuttingBoardRecipeBuilder.cuttingRecipe(of(Items.DANDELION), of(ForgeTags.TOOLS_KNIVES), FIItems.DANDELION_ROOT.get(), 1).addResultWithChance(FIItems.DANDELION_ROOT.get(),0.1f).addResultWithChance(Items.YELLOW_DYE,1f, 2).build(consumer);
         CuttingBoardRecipeBuilder.cuttingRecipe(of(Items.POPPY), of(ForgeTags.TOOLS_KNIVES), FIItems.POPPY_SEEDS.get(), 1).addResultWithChance(FIItems.POPPY_SEEDS.get(),0.1f).addResultWithChance(Items.RED_DYE,1f, 2).build(consumer);
+        CuttingBoardRecipeBuilder.cuttingRecipe(of(FIBlocks.BLEWIT_MUSHROOM_COLONY.get()), of(ForgeTags.TOOLS_KNIVES), FIItems.BLEWIT_MUSHROOM.get(), 5).build(consumer);
              //Meat Cuts
         CuttingBoardRecipeBuilder.cuttingRecipe(of(Items.RABBIT), of(ForgeTags.TOOLS_KNIVES), FIItems.RAW_RABBIT_LEG.get(), 2).addResultWithChance(Items.RABBIT_FOOT,0.3f).build(consumer);
         CuttingBoardRecipeBuilder.cuttingRecipe(of(Items.COOKED_RABBIT), of(ForgeTags.TOOLS_KNIVES), FIItems.COOKED_RABBIT_LEG.get(), 2).addResultWithChance(Items.RABBIT_FOOT,0.3f).build(consumer);

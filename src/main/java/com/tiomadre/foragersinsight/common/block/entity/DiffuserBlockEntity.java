@@ -33,7 +33,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -163,11 +162,7 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
     }
 
     private Optional<DiffuserScent> findMatchingScent() {
-        List<ItemStack> inputs = new ArrayList<>(INPUT_SLOT_COUNT);
-        for (int slot = 0; slot < INPUT_SLOT_COUNT; slot++) {
-            inputs.add(this.items.get(slot));
-        }
-        return DiffuserScent.findMatch(inputs);
+        return DiffuserScent.findMatch(this.items.subList(0, INPUT_SLOT_COUNT));
     }
 
     private void clearActiveScent() {
@@ -359,10 +354,11 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
             if (!stack.isEmpty() && stack.getCount() > 1) {
                 stack.setCount(1);
             }
-            ItemStack enhancement = this.items.get(ENHANCEMENT_SLOT_INDEX);
-            if (!enhancement.isEmpty() && enhancement.getCount() > 1) {
-                enhancement.setCount(1);
-            }
+        }
+        ItemStack enhancement = this.items.get(ENHANCEMENT_SLOT_INDEX);
+        if (!enhancement.isEmpty() && enhancement.getCount() > 1) {
+            enhancement.setCount(1);
+
         }
         this.litTime = tag.getInt("LitTime");
         this.litDuration = tag.getInt("LitDuration");

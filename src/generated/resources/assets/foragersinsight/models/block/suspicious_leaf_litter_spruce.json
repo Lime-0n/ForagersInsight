@@ -1,0 +1,7 @@
+{
+  "parent": "foragersinsight:block/suspicious_leaf_litter",
+  "textures": {
+    "2": "minecraft:block/spruce_leaves",
+    "particle": "minecraft:block/spruce_leaves"
+  }
+}

@@ -1,5 +1,6 @@
 package com.tiomadre.foragersinsight.common.block;
 
+import com.tiomadre.foragersinsight.common.block.entity.TapperBlockEntity;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import com.tiomadre.foragersinsight.core.registry.FIParticleTypes;
@@ -15,19 +16,22 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -37,10 +41,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.Stream;
 
-public class TapperBlock extends HorizontalDirectionalBlock {
+public class TapperBlock extends HorizontalDirectionalBlock implements EntityBlock {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty HAS_TAPPER = BooleanProperty.create("has_tapper");
     public static final IntegerProperty FILL = IntegerProperty.create("fill", 0, 4);
+    public static final BooleanProperty ENCHANTED = BooleanProperty.create("enchanted");
     // hit box
     private static final VoxelShape NORTH_SHAPE = Stream.of(
             Block.box(7.5, 12, 0, 8.5, 15, 6),
@@ -50,7 +55,7 @@ public class TapperBlock extends HorizontalDirectionalBlock {
             Block.box(4.5, 11, 5, 4.5, 15, 6),
             Block.box(4.5, 15, 5, 11.5, 15, 6)
     ).reduce(Shapes.empty(), Shapes::or);
-     private static final VoxelShape EAST_SHAPE = rotateShape(Direction.EAST);
+    private static final VoxelShape EAST_SHAPE = rotateShape(Direction.EAST);
     private static final VoxelShape SOUTH_SHAPE = rotateShape(Direction.SOUTH);
     private static final VoxelShape WEST_SHAPE = rotateShape(Direction.WEST);
 
@@ -59,16 +64,21 @@ public class TapperBlock extends HorizontalDirectionalBlock {
         registerDefaultState(getStateDefinition().any()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(HAS_TAPPER, false)
-                .setValue(FILL, 0));
+                .setValue(FILL, 0)
+                .setValue(ENCHANTED, false));
     }
     @Override
     public @NotNull ItemStack getCloneItemStack(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state) {
+        BlockEntity be = level.getBlockEntity(pos);
+        if (be instanceof TapperBlockEntity tapper) {
+            return tapper.getTapperStack();
+        }
         return new ItemStack(FIItems.TAPPER.get());
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, FILL, HAS_TAPPER);
+        builder.add(FACING, FILL, HAS_TAPPER, ENCHANTED);
     }
 
     @Override
@@ -109,7 +119,8 @@ public class TapperBlock extends HorizontalDirectionalBlock {
         return defaultBlockState()
                 .setValue(FACING, face)
                 .setValue(HAS_TAPPER, true)
-                .setValue(FILL, 0);
+                .setValue(FILL, 0)
+                .setValue(ENCHANTED, context.getItemInHand().getEnchantmentLevel(Enchantments.FIRE_ASPECT) > 0);
     }
 
     @Override
@@ -138,7 +149,20 @@ public class TapperBlock extends HorizontalDirectionalBlock {
     @Override
     public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level,
                            @NotNull BlockPos pos, @NotNull RandomSource random) {
-        level.setBlock(pos, state.setValue(FILL, state.getValue(FILL) + 1), Block.UPDATE_CLIENTS);
+        int fill = state.getValue(FILL);
+        int increment = 1;
+
+        if (state.getValue(ENCHANTED)) {
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if (blockEntity instanceof TapperBlockEntity tapper && tapper.getFireAspectLevel() >= 2) {
+                increment++;
+            }
+        }
+
+        int newFill = Math.min(4, fill + increment);
+        if (newFill != fill) {
+            level.setBlock(pos, state.setValue(FILL, newFill), Block.UPDATE_CLIENTS);
+        }
     }
     // drips
     @Override
@@ -153,7 +177,11 @@ public class TapperBlock extends HorizontalDirectionalBlock {
             x -= facing.getStepX() * inwardOffset;
             z -= facing.getStepZ() * inwardOffset;
 
-            level.addParticle(FIParticleTypes.DRIPPING_SAP.get(), x, y, z, 0.0D, -0.005D, 0.0D);
+            if (state.getValue(ENCHANTED)) {
+                level.addParticle(FIParticleTypes.DRIPPING_SYRUP.get(), x, y, z, 0.0D, -0.005D, 0.0D);
+            } else {
+                level.addParticle(FIParticleTypes.DRIPPING_SAP.get(), x, y, z, 0.0D, -0.005D, 0.0D);
+            }
             level.playLocalSound(x, y, z, SoundEvents.BEEHIVE_DRIP, SoundSource.BLOCKS, 0.6F, 0.0001F, false);
         }
     }
@@ -164,7 +192,7 @@ public class TapperBlock extends HorizontalDirectionalBlock {
         ItemStack held = player.getItemInHand(hand);
         if (state.getValue(HAS_TAPPER) && state.getValue(FILL) == 4 && held.is(Items.BUCKET)) {
             if (!level.isClientSide) {
-                ItemStack sap = new ItemStack(FIItems.BIRCH_SAP_BUCKET.get());
+                ItemStack sap = new ItemStack(state.getValue(ENCHANTED) ? FIItems.BIRCH_SYRUP_BUCKET.get() : FIItems.BIRCH_SAP_BUCKET.get());
                 if (!player.addItem(sap)) player.drop(sap, false);
                 level.setBlock(pos, state.setValue(FILL, 0).setValue(HAS_TAPPER, true), Block.UPDATE_ALL);
                 level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 0.9F, 0.9F);
@@ -181,5 +209,26 @@ public class TapperBlock extends HorizontalDirectionalBlock {
     public void onRemove(@NotNull BlockState oldState, @NotNull Level level, @NotNull BlockPos pos,
                          @NotNull BlockState newState, boolean isMoving) {
         super.onRemove(oldState, level, pos, newState, isMoving);
+    }
+
+    @Override
+    public @NotNull java.util.List<ItemStack> getDrops(@NotNull BlockState state, @NotNull LootParams.Builder params) {
+        BlockEntity be = params.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
+        if (be instanceof TapperBlockEntity tapper) {
+            return java.util.Collections.singletonList(tapper.getTapperStack());
+        }
+        return super.getDrops(state, params);
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+        return new TapperBlockEntity(pos, state);
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
+        return null;
     }
 }

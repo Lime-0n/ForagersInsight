@@ -10,7 +10,7 @@ import vectorwing.farmersdelight.common.item.KnifeItem;
 
 public class FarmhandEnchantment extends Enchantment {
     public FarmhandEnchantment() {
-        super(Rarity.UNCOMMON, FIEnchantCategories.Harvest_Exclusive, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
+        super(Rarity.UNCOMMON, FIEnchantCategories.HARVEST_EXCLUSIVE, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
     }
     @Override
     public int getMaxLevel() {
@@ -24,7 +24,6 @@ public class FarmhandEnchantment extends Enchantment {
         // any shears
         if (item instanceof ShearsItem) return true;
         // any knives
-        if (item instanceof KnifeItem) return true;
-        return false;
+        return item instanceof KnifeItem;
     }
 }

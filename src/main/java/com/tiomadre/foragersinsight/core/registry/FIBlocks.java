@@ -9,10 +9,13 @@ import com.teamabnormals.blueprint.common.block.LogBlock;
 import com.teamabnormals.blueprint.core.util.registry.BlockSubRegistryHelper;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
+import vectorwing.farmersdelight.common.block.MushroomColonyBlock;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import static com.tiomadre.foragersinsight.core.registry.FIItems.*;
 import static net.minecraft.world.level.block.state.BlockBehaviour.Properties.copy;
@@ -34,6 +37,15 @@ public class FIBlocks {
             copy(Blocks.WHEAT), 3));
     public static final RegistryObject<Block> ROSELLE_CROP = HELPER.createBlockNoItem("roselle_crop", () -> new RoselleCropBlock(
             copy(Blocks.WHEAT), 3));
+
+    //Mushrooms
+    public static final RegistryObject<Block> BLEWIT_MUSHROOM = HELPER.createBlockNoItem("blewit_mushroom", () ->
+            new WildMushroomBlock(copy(Blocks.RED_MUSHROOM)));
+
+    public static final RegistryObject<Block> BLEWIT_MUSHROOM_COLONY = HELPER.createBlock("blewit_mushroom_colony", () ->
+            new MushroomColonyBlock(copy(Blocks.RED_MUSHROOM), FIItems.BLEWIT_MUSHROOM) {@Override
+            public BlockState getStateForPlacement(BlockPlaceContext context) {BlockState state = super.getStateForPlacement(context);
+                    if (state == null) {return null;}int maxAge = MushroomColonyBlock.COLONY_AGE.getPossibleValues().size() - 1;return state.setValue(MushroomColonyBlock.COLONY_AGE, maxAge);}});
         //Trees
     public static final RegistryObject<Block> BOUNTIFUL_OAK_SAPLING = HELPER.createFuelBlock("bountiful_oak_sapling", () ->
             new SaplingBlock(new BountifulOakTreeGrower(), copy(Blocks.OAK_SAPLING)), 100);
@@ -51,6 +63,7 @@ public class FIBlocks {
             new SpruceTipBlock(copy(Blocks.SWEET_BERRY_BUSH).noCollission()));
     public static final RegistryObject<Block> SAPPY_BIRCH_LOG = HELPER.createFuelBlock("sappy_birch_log", () ->
             new LogBlock(() -> Blocks.STRIPPED_BIRCH_LOG, copy(Blocks.BIRCH_LOG)), 300);
+
         //Syrup Tap
     public static final RegistryObject<Block> TAPPER = HELPER.createBlockNoItem("tapper", () ->
             new TapperBlock(copy(Blocks.IRON_BLOCK).noOcclusion()));
@@ -74,6 +87,8 @@ public class FIBlocks {
             new SandyFlowerBlock(() -> MobEffects.REGENERATION, 5, copy(Blocks.ROSE_BUSH)));
     public static final RegistryObject<Block> TALL_BEACH_ROSE_BUSH = HELPER.createBlockNoItem("tall_beach_rose_bush", () ->
             new TallSandyFlowerBlock(copy(Blocks.ROSE_BUSH)));
+        //Other
+    public static final RegistryObject<Block> SUSPICIOUS_LEAF_LITTER = HELPER.createBlock("suspicious_leaf_litter", SuspiciousLitterBlock::new);
     //STORAGE
         //Crop Crates and Sacks
     public static final RegistryObject<Block> APPLE_CRATE = HELPER.createBlock("apple_crate", () ->
@@ -90,4 +105,6 @@ public class FIBlocks {
             copy(ModBlocks.RICE_BAG.get())));
     public static final RegistryObject<Block> SPRUCE_TIPS_SACK = HELPER.createBlock("spruce_tips_sack", () -> new Block(
             copy(ModBlocks.RICE_BAG.get())));
+    public static final RegistryObject<Block> BLEWIT_MUSHROOM_CRATE = HELPER.createBlock("blewit_mushroom_crate", () ->
+            new SlabBlock(copy(Blocks.OAK_SLAB)));
 }

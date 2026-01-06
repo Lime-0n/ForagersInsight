@@ -38,7 +38,7 @@ public class FIItemTags extends ItemTagsProvider {
         this.tag(WHEAT).add(FIItems.WHEAT_FLOUR.get(), Items.WHEAT);
         this.tag(COCOA).add(Items.COCOA_BEANS, FIItems.COCOA_POWDER.get());
         this.tag(ROOTS).add(Items.CARROT, Items.BEETROOT, FIItems.DANDELION_ROOT.get());
-        this.tag(MUSHROOM).add(Items.RED_MUSHROOM, Items.BROWN_MUSHROOM);
+        this.tag(MUSHROOM).add(Items.RED_MUSHROOM, Items.BROWN_MUSHROOM, FIItems.BLEWIT_MUSHROOM.get());
         this.tag(CROPS).addTag(APPLE).addTag(POPPY_SEEDS).addTag(ACORN).addTag(WHEAT).addTag(COCOA).addTag(ROOTS).addTag(MUSHROOM);
 
         // Handbasket support tags
@@ -118,6 +118,7 @@ public class FIItemTags extends ItemTagsProvider {
         tag(STORAGE_BLOCK_DANDELION_ROOT).add(FIBlocks.DANDELION_ROOT_SACK.get().asItem());
         tag(STORAGE_BLOCK_SPRUCE_TIPS).add(FIBlocks.SPRUCE_TIPS_SACK.get().asItem());
         tag(STORAGE_BLOCK_BLACK_ACORNS).add(FIBlocks.BLACK_ACORN_SACK.get().asItem());
+        tag(STORAGE_BLOCK_BLEWIT_MUSHROOM).add(FIBlocks.BLEWIT_MUSHROOM_CRATE.get().asItem());
     }
 
 

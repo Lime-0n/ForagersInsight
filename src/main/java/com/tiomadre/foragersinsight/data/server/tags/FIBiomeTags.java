@@ -19,6 +19,11 @@ public class FIBiomeTags extends BiomeTagsProvider {
         this.tag(FITags.BiomeTag.HAS_SAPPY_BIRCH_TREES).add(Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST,Biomes.FOREST);
         this.tag(FITags.BiomeTag.HAS_ROSELLE_BUSHES).add(Biomes.SAVANNA,Biomes.SAVANNA_PLATEAU,Biomes.WINDSWEPT_SAVANNA);
         this.tag(FITags.BiomeTag.HAS_BEACH_ROSES).add(Biomes.BEACH);
+        this.tag(FITags.BiomeTag.HAS_OAK_FOREST_LITTER).add(Biomes.FOREST);
+        this.tag(FITags.BiomeTag.HAS_BIRCH_FOREST_LITTER).add(Biomes.BIRCH_FOREST);
+        this.tag(FITags.BiomeTag.HAS_SPRUCE_FOREST_LITTER).add(Biomes.TAIGA);
+        this.tag(FITags.BiomeTag.HAS_DARK_OAK_FOREST_LITTER).add(Biomes.DARK_FOREST);
+        this.tag(FITags.BiomeTag.HAS_FLOWER_FOREST_LITTER).add(Biomes.FLOWER_FOREST);
 
     }
 }

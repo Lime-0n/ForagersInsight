@@ -54,6 +54,8 @@ public class FIItemModels extends BlueprintItemModelProvider {
                 //Ingredients
                 ACORN_DOUGH, BIRCH_SAP_BUCKET,BIRCH_SAP_BOTTLE, BIRCH_SYRUP_BUCKET,BIRCH_SYRUP_BOTTLE, SEED_MILK_BOTTLE,
                 SEED_MILK_BUCKET,
+                //Foraged
+                BLEWIT_MUSHROOM,
                 //Wildflowers + Plants
                 ROSELLE_BUSH_ITEM,STOUT_BEACH_ROSE_BUSH_ITEM,TALL_BEACH_ROSE_BUSH_ITEM,
                 //Tools and Workstations

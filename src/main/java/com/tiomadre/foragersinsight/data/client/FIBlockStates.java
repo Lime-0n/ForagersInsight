@@ -4,6 +4,7 @@ import com.tiomadre.foragersinsight.common.block.*;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
@@ -11,6 +12,8 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.registries.RegistryObject;
+import vectorwing.farmersdelight.common.block.MushroomColonyBlock;
+
 import static com.tiomadre.foragersinsight.core.registry.FIBlocks.*;
 
 public class FIBlockStates extends FIBlockStatesHelper {
@@ -36,6 +39,10 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.sackBlock(SPRUCE_TIPS_SACK);
         this.sackBlock(POPPY_SEEDS_SACK);
         this.sackBlock(DANDELION_ROOT_SACK);
+        this.halfcrateBlock((SlabBlock) BLEWIT_MUSHROOM_CRATE.get(),
+                modTexture("blewit_mushroom_crate_side"),
+                modTexture("blewit_mushroom_crate_bottom"),
+                modTexture("blewit_mushroom_crate_top"));
 
         //Saplings and Tree Crops
         this.crossCutout(BOUNTIFUL_OAK_SAPLING);
@@ -48,7 +55,7 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.blockItem(SAPPY_BIRCH_LOG.get());
         this.crossCutout(BOUNTIFUL_SPRUCE_SAPLING);
 
-        //Foliage Mats
+        //Foliage Mats + Suspicious Litter
         this.matBlock(SCATTERED_ROSE_PETAL_MAT, "scattered_rose_petals");
         this.matBlock(SCATTERED_ROSELLE_PETAL_MAT, "scattered_roselle_petals");
         this.matBlock(SCATTERED_SPRUCE_TIP_MAT, "scattered_spruce_tips");
@@ -57,6 +64,7 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.matBlock(DENSE_ROSE_PETAL_MAT, "dense_rose_petals");
         this.matBlock(DENSE_ROSELLE_PETAL_MAT, "dense_roselle_petals");
         this.matBlock(DENSE_STRAW_MAT, "dense_straw");
+        this.suspiciousLitter();
 
         //Diffuser n Tapper
         this.diffuserBlock();
@@ -67,7 +75,21 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.doubleCrossCutout(ROSELLE_BUSH);
         this.doubleCrossCutout(TALL_BEACH_ROSE_BUSH);
 
+        //Mushroom Stuff
+        this.crossCutout(BLEWIT_MUSHROOM);
+        this.mushroomColony(BLEWIT_MUSHROOM_COLONY);
+
+
     }
+    public void halfcrateBlock(SlabBlock block, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
+        ModelFile slab = models().slab(name(block), side, bottom, top);
+        ModelFile slabTop = models().slabTop(name(block) + "_top", side, bottom, top);
+        ModelFile slabDouble = models().cubeBottomTop(name(block) + "_double", side, bottom, top);
+
+        this.slabBlock(block, slab, slabTop, slabDouble);
+        this.blockItem(block);
+    }
+
     private void age5Crop(RegistryObject<Block> crop, RegistryObject<Item> seeds) {
         CropBlock cropBlock = (CropBlock) crop.get();
         VariantBlockStateBuilder builder = this.getVariantBuilder(cropBlock);
@@ -82,6 +104,7 @@ public class FIBlockStates extends FIBlockStatesHelper {
         }
         this.itemModels().basicItem(seeds.get());
     }
+
     private void diffuserBlock() {
         Block diffuser = DIFFUSER.get();
 
@@ -140,6 +163,41 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.simpleBlock(diffuser, model);
         this.blockItem(diffuser);
     }
+    private void suspiciousLitter() {
+        Block forestLitter = SUSPICIOUS_LEAF_LITTER.get();
+        ModelFile oak = litterModel("suspicious_leaf_litter_oak",
+                mcLoc("block/oak_leaves"));
+        ModelFile birch = litterModel("suspicious_leaf_litter_birch",
+                mcLoc("block/birch_leaves"));
+        ModelFile flower = litterModel("suspicious_leaf_litter_flower",
+                mcLoc("block/oak_leaves"));
+        ModelFile spruce = litterModel("suspicious_leaf_litter_spruce",
+                mcLoc("block/spruce_leaves"));
+        ModelFile darkOak = litterModel("suspicious_leaf_litter_dark_oak",
+                mcLoc("block/dark_oak_leaves"));
+
+        this.getVariantBuilder(forestLitter).forAllStates(state -> {
+            SuspiciousLitterBlock.FoliageType foliage = state.getValue(SuspiciousLitterBlock.FOLIAGE);
+            ModelFile model = switch (foliage) {
+                case BIRCH -> birch;
+                case FLOWER -> flower;
+                case SPRUCE -> spruce;
+                case DARK_OAK -> darkOak;
+                default -> oak;
+            };
+            return ConfiguredModel.builder().modelFile(model).build();
+        });
+
+        this.itemModels().withExistingParent(name(forestLitter), modLoc("block/suspicious_leaf_litter_oak"));
+    }
+
+    private ModelFile litterModel(String name, ResourceLocation litterTexture) {
+        return this.models().withExistingParent(name, modLoc("block/suspicious_leaf_litter"))
+                .texture("2", litterTexture)
+                .texture("particle", litterTexture);
+    }
+
+
 
     public void crossCutout(RegistryObject<? extends Block> cross) {
         this.simpleBlock(cross.get(), this.models().cross(name(cross.get()), this.blockTexture(cross.get()))
@@ -274,17 +332,24 @@ public class FIBlockStates extends FIBlockStatesHelper {
     private void tapperBlock() {
         Block tapper = TAPPER.get();
 
-        ModelFile[] fillModels = new ModelFile[] {
-                tapperModel(name(tapper), "bucket_top_stage0", "bucket_side", "knife_tap"),
-                tapperModel(name(tapper) + "_stage1", "bucket_top_stage1", "bucket_side", "sappy_knife_tap"),
-                tapperModel(name(tapper) + "_stage2", "bucket_top_stage2", "bucket_side", "sappy_knife_tap"),
-                tapperModel(name(tapper) + "_stage3", "bucket_top_stage3", "bucket_side", "sappy_knife_tap"),
-                tapperModel(name(tapper) + "_stage4", "bucket_top_stage4", "bucket_side_full", "sappy_knife_tap")
+        ModelFile[] sapFillModels = new ModelFile[] {
+                tapperModel(name(tapper), "bucket_top_stage0", "bucket_bottom", "bucket_side", "knife_tap"),
+                tapperModel(name(tapper) + "_stage1", "bucket_top_stage1", "bucket_bottom", "bucket_side", "sappy_knife_tap"),
+                tapperModel(name(tapper) + "_stage2", "bucket_top_stage2", "bucket_bottom", "bucket_side", "sappy_knife_tap"),
+                tapperModel(name(tapper) + "_stage3", "bucket_top_stage3", "bucket_bottom", "bucket_side", "sappy_knife_tap"),
+                tapperModel(name(tapper) + "_stage4", "bucket_top_stage4", "bucket_bottom", "bucket_side_full", "sappy_knife_tap")
+        };
+
+        ModelFile[] syrupFillModels = new ModelFile[] {
+                tapperModel(name(tapper) + "_syrup", "syrup_bucket_top", "syrup_bucket_bottom", "syrup_bucket_side", "knife_tap"),
+                tapperModel(name(tapper) + "_syrup_stage1", "syrup_bucket_top_stage1", "syrup_bucket_bottom", "syrup_bucket_side", "syrup_knife_tap"),
+                tapperModel(name(tapper) + "_syrup_stage2", "syrup_bucket_top_stage2", "syrup_bucket_bottom", "syrup_bucket_side", "syrup_knife_tap"),
+                tapperModel(name(tapper) + "_syrup_stage3", "syrup_bucket_top_stage3", "syrup_bucket_bottom", "syrup_bucket_side", "syrup_knife_tap"),
+                tapperModel(name(tapper) + "_syrup_stage4", "syrup_bucket_top_stage4", "syrup_bucket_bottom", "syrup_bucket_side_full", "syrup_knife_tap")
         };
 
         VariantBlockStateBuilder builder = this.getVariantBuilder(tapper);
-        for (int fill = 0; fill < fillModels.length; fill++) {
-            ModelFile model = fillModels[fill];
+        for (int fill = 0; fill < sapFillModels.length; fill++) {
             for (Direction direction : Direction.Plane.HORIZONTAL) {
                 int rotationY = switch (direction) {
                     case EAST -> 90;
@@ -292,11 +357,23 @@ public class FIBlockStates extends FIBlockStatesHelper {
                     case WEST -> 270;
                     default -> 0;
                 };
+                ModelFile sapModel = sapFillModels[fill];
                 builder.partialState()
                         .with(TapperBlock.FILL, fill)
                         .with(TapperBlock.FACING, direction)
+                        .with(TapperBlock.ENCHANTED, false)
                         .modelForState()
-                        .modelFile(model)
+                        .modelFile(sapModel)
+                        .rotationY((int) direction.toYRot())
+                        .addModel();
+
+                ModelFile syrupModel = syrupFillModels[fill];
+                builder.partialState()
+                        .with(TapperBlock.FILL, fill)
+                        .with(TapperBlock.FACING, direction)
+                        .with(TapperBlock.ENCHANTED, true)
+                        .modelForState()
+                        .modelFile(syrupModel)
                         .rotationY((int) direction.toYRot())
                         .addModel();
             }
@@ -322,13 +399,29 @@ public class FIBlockStates extends FIBlockStatesHelper {
                     .addModel();
         }
     }
+    private void mushroomColony(RegistryObject<Block> colony) {
+        Block block = colony.get();
+        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
+        IntegerProperty age = MushroomColonyBlock.COLONY_AGE;
+        String name = name(block);
+
+        for (int i = 0; i <= MushroomColonyBlock.COLONY_AGE.getPossibleValues().size() - 1; i++) {
+            ModelFile stageModel = this.models().withExistingParent("%s_stage%d".formatted(name, i), mcLoc("block/cross"))
+                    .texture("cross", modTexture("%s_stage%d".formatted(name, i)))
+                    .renderType("cutout");
+            builder.partialState().with(age, i).modelForState().modelFile(stageModel).addModel();
+        }
+
+        this.itemModels().withExistingParent(name, mcLoc("item/generated"))
+                .texture("layer0", itemTexture(block));
+    }
 
 
-    private ModelFile tapperModel(String name, String bucketTop, String bucketSide, String tapTexture) {
+    private ModelFile tapperModel(String name, String bucketTop, String bucketBottom, String bucketSide, String tapTexture) {
         BlockModelBuilder builder = this.models().getBuilder(name)
                 .texture("particle", modTexture(bucketTop))
                 .texture("4", modTexture(bucketTop))
-                .texture("7", modTexture("bucket_bottom"))
+                .texture("7", modTexture(bucketBottom))
                 .texture("8", modTexture(bucketSide))
                 .texture("12", modTexture(tapTexture));
 

@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.core.registry;
 import com.tiomadre.foragersinsight.common.enchantments.ConcussiveEnchantment;
 import com.tiomadre.foragersinsight.common.enchantments.FarmhandEnchantment;
+import com.tiomadre.foragersinsight.common.enchantments.LuckOfTheTreesEnchantment;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -16,6 +17,9 @@ public class FIEnchantments {
 
     public static final RegistryObject<Enchantment> CONCUSSIVE =
             ENCHANTMENTS.register("concussive", () -> new ConcussiveEnchantment(Enchantment.Rarity.UNCOMMON));
+
+    public static final RegistryObject<Enchantment> LUCK_OF_THE_TREES =
+            ENCHANTMENTS.register("luck_of_the_trees", LuckOfTheTreesEnchantment::new);
 
     public static void register() {
         ENCHANTMENTS.register(FMLJavaModLoadingContext.get().getModEventBus());

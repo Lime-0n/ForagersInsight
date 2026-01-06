@@ -55,6 +55,7 @@ public class FITags {
         public static final TagKey<Item> STORAGE_BLOCK_DANDELION_ROOT = storageTag("dandelion_root");
         public static final TagKey<Item> STORAGE_BLOCK_POPPY_SEEDS = storageTag("poppy_seeds");
         public static final TagKey<Item> STORAGE_BLOCK_BLACK_ACORNS = storageTag("black_acorns");
+        public static final TagKey<Item> STORAGE_BLOCK_BLEWIT_MUSHROOM = storageTag("blewit_mushroom");
 
         public static TagKey<Item> storageTag(String thing) {
             return TagUtil.itemTag("forge", "storage_blocks/" + thing);
@@ -68,6 +69,7 @@ public class FITags {
         public static final TagKey<Block> STORAGE_BLOCK_DANDELION_ROOT = storageTag("dandelion_root");
         public static final TagKey<Block> STORAGE_BLOCK_POPPY_SEEDS = storageTag("poppy_seeds");
         public static final TagKey<Block> STORAGE_BLOCK_BLACK_ACORNS = storageTag("black_acorns");
+        public static final TagKey<Block> STORAGE_BLOCK_BLEWIT_MUSHROOM = storageTag("blewit_mushroom");
 
         public static final TagKey<Block> FORAGING = blockTag("foraging");
 
@@ -87,6 +89,11 @@ public class FITags {
         public static final TagKey<Biome> HAS_SAPPY_BIRCH_TREES = hasFeature("sappy_birch_trees");
         public static final TagKey<Biome> HAS_ROSELLE_BUSHES = hasFeature("roselle_bushes");
         public static final TagKey<Biome> HAS_BEACH_ROSES = hasFeature("beach_roses");
+        public static final TagKey<Biome> HAS_OAK_FOREST_LITTER = hasFeature("oak_forest_litter");
+        public static final TagKey<Biome> HAS_BIRCH_FOREST_LITTER = hasFeature("birch_forest_litter");
+        public static final TagKey<Biome> HAS_SPRUCE_FOREST_LITTER = hasFeature("spruce_forest_litter");
+        public static final TagKey<Biome> HAS_DARK_OAK_FOREST_LITTER = hasFeature("dark_oak_forest_litter");
+        public static final TagKey<Biome> HAS_FLOWER_FOREST_LITTER = hasFeature("flower_forest_litter");
 
         private static TagKey<Biome> modTag(String namespace) {
             return TagUtil.biomeTag(ForagersInsight.MOD_ID, namespace);

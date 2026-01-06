@@ -41,6 +41,7 @@ public class FITabs {
             FIBlocks.BOUNTIFUL_SPRUCE_SAPLING,
             FIBlocks.BOUNTIFUL_SPRUCE_LEAVES,
             FIBlocks.APPLE_CRATE,
+            FIBlocks.BLEWIT_MUSHROOM_CRATE,
             FIBlocks.BLACK_ACORN_SACK,
             FIBlocks.DANDELION_ROOT_SACK,
             FIBlocks.POPPY_SEEDS_SACK,
@@ -55,13 +56,17 @@ public class FITabs {
             FIBlocks.SCATTERED_ROSELLE_PETAL_MAT,
             FIBlocks.SCATTERED_SPRUCE_TIP_MAT,
             FIBlocks.SCATTERED_STRAW_MAT,
+            FIBlocks.SUSPICIOUS_LEAF_LITTER,
             FIBlocks.ROSELLE_BUSH,
             FIBlocks.STOUT_BEACH_ROSE_BUSH,
-            FIBlocks.TALL_BEACH_ROSE_BUSH
+            FIBlocks.TALL_BEACH_ROSE_BUSH,
+            FIBlocks.BLEWIT_MUSHROOM,
+            FIBlocks.BLEWIT_MUSHROOM_COLONY
     );
 
     private static final List<RegistryObject<? extends ItemLike>> INGREDIENT_ENTRIES = List.of(
             FIItems.APPLE_SLICE,
+            FIItems.BLEWIT_MUSHROOM,
             FIItems.COOKED_RABBIT_LEG,
             FIItems.RAW_RABBIT_LEG,
             FIItems.ROSE_PETALS,
@@ -129,12 +134,12 @@ public class FITabs {
     private static final List<RegistryObject<? extends ItemLike>> TOOL_ENTRIES = List.of(
             FIItems.DIFFUSER,
             FIItems.HANDBASKET,
+            FIItems.FLINT_SHEARS,
             FIItems.FLINT_MALLET,
             FIItems.IRON_MALLET,
             FIItems.GOLD_MALLET,
             FIItems.DIAMOND_MALLET,
             FIItems.NETHERITE_MALLET,
-            FIItems.FLINT_SHEARS,
             FIItems.TAPPER
     );
 

@@ -5,6 +5,7 @@ import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import com.tiomadre.foragersinsight.data.server.tags.FITags;
 import static com.tiomadre.foragersinsight.core.registry.FIBlocks.*;
+import static com.tiomadre.foragersinsight.core.registry.FIBlocks.BLEWIT_MUSHROOM;
 import static com.tiomadre.foragersinsight.core.registry.FIItems.*;
 import static com.tiomadre.foragersinsight.core.registry.FIItems.ACORN_CARROT_CAKE_ITEM;
 
@@ -114,6 +115,10 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .requires(TALL_BEACH_ROSE_BUSH_ITEM.get())
                 .unlockedBy("has_roselle_bush", has(TALL_BEACH_ROSE_BUSH_ITEM.get()))
                 .save(consumer, ForagersInsight.rl("red_dye_from_tall_beach_rose_bush"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BLUE_DYE, 1)
+                .requires(BLEWIT_MUSHROOM.get())
+                .unlockedBy("has_blewit", has(BLEWIT_MUSHROOM.get()))
+                .save(consumer, ForagersInsight.rl("blue_dye_from_blewit"));
         //Seed Milk
             //Bucket of Seed Milk -> Bottles
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, SEED_MILK_BOTTLE.get(),4)
@@ -174,9 +179,6 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
         SimpleCookingRecipeBuilder.campfireCooking(Ingredient.of(RAW_RABBIT_LEG.get()), RecipeCategory.FOOD, COOKED_RABBIT_LEG.get(), 0.35F, 600)
                 .unlockedBy("has_raw_rabbit_leg", has(RAW_RABBIT_LEG.get()))
                 .save(consumer, ForagersInsight.rl("cooked_rabbit_leg_from_campfire_cooking"));
-
-
-
 
 
         //Tools
@@ -318,6 +320,7 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
         this.storageRecipes(consumer, RecipeCategory.FOOD, BLACK_ACORN.get(), RecipeCategory.DECORATIONS, BLACK_ACORN_SACK.get());
         this.storageRecipes(consumer, RecipeCategory.FOOD, SPRUCE_TIPS.get(), RecipeCategory.DECORATIONS, SPRUCE_TIPS_SACK.get());
         this.storageRecipes(consumer, RecipeCategory.FOOD, ROSELLE_CALYX.get(), RecipeCategory.DECORATIONS, ROSELLE_CALYX_SACK.get());
+        this.storageRecipes(consumer, RecipeCategory.FOOD, FIItems.BLEWIT_MUSHROOM.get(), RecipeCategory.DECORATIONS, FIBlocks.BLEWIT_MUSHROOM_CRATE.get());
 
         FICookingRecipes.buildRecipes(consumer);
         FICrushandCutRecipes.buildRecipes(consumer);
