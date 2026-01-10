@@ -1,20 +1,24 @@
 {
-  "parent": "minecraft:block/thin_block",
-  "textures": {
-    "particle": "#side"
-  },
-  "elements": [
-    {
-      "from": [0, 0, 4],
-      "to": [16, 8, 12],
-      "faces": {
-        "north": {"uv": [0, 8, 16, 16], "texture": "#side"},
-        "east": {"uv": [4, 4, 12, 12], "texture": "#end"},
-        "south": {"uv": [0, 8, 16, 16], "texture": "#side"},
-        "west": {"uv": [4, 4, 12, 12], "texture": "#end"},
-        "up": {"uv": [0, 0, 16, 8], "texture": "#side"},
-        "down": {"uv": [0, 0, 16, 8], "texture": "#side"}
-      }
-    }
-  ]
+	"format_version": "1.21.11",
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:block/thin_block",
+	"textures": {
+		"particle": "#side"
+	},
+	"elements": [
+		{
+			"from": [0, 8, 4],
+			"to": [8, 24, 12],
+			"rotation": {"x": 0, "y": 0, "z": -90, "origin": [0, 8, 4]},
+			"color": 7,
+			"faces": {
+				"north": {"uv": [4, 0, 12, 16], "texture": "#missing"},
+				"east": {"uv": [4, 0, 12, 16], "texture": "#missing"},
+				"south": {"uv": [4, 0, 12, 16], "texture": "#missing"},
+				"west": {"uv": [4, 0, 12, 16], "texture": "#missing"},
+				"up": {"uv": [4, 4, 12, 12], "texture": "#missing"},
+				"down": {"uv": [4, 4, 12, 12], "texture": "#missing"}
+			}
+		}
+	]
 }
