@@ -57,6 +57,9 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.bountifulLeaves(LILAC_LEAVES, Blocks.OAK_LEAVES);
         this.bountifulLeaves(BLOSSOMING_LILAC_LEAVES, Blocks.OAK_LEAVES);
         this.thinLogBlock(LILAC_LOG, modTexture("lilac_log"), modTexture("lilac_log_top"));
+            //Wood Stuff
+        this.simpleBlock(LILAC_PLANKS.get(), this.models().cubeAll(name(LILAC_PLANKS.get()), modTexture("lilac_planks")));
+        this.blockItem(LILAC_PLANKS.get());
 
 
         //Foliage Mats + Suspicious Litter
@@ -389,18 +392,18 @@ public class FIBlockStates extends FIBlockStatesHelper {
                 .texture("side", side)
                 .texture("end", end)
                 .texture("particle", side);
-        ModelFile horizontal = models().withExistingParent("%s_horizontal".formatted(name(block)), modLoc("block/thin_log"))
+        ModelFile horizontal = models().withExistingParent("%s_horizontal".formatted(name(block)), modLoc("block/thin_log_horizontal"))
                 .texture("side", side)
                 .texture("end", end)
                 .texture("particle", side);
 
         this.getVariantBuilder(block)
                 .partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.X)
-                .modelForState().modelFile(horizontal).rotationX(90).rotationY(90).addModel()
+                .modelForState().modelFile(horizontal).addModel()
                 .partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.Y)
                 .modelForState().modelFile(vertical).addModel()
                 .partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.Z)
-                .modelForState().modelFile(horizontal).rotationX(90).addModel();
+                .modelForState().modelFile(horizontal).rotationY(90).addModel();
 
         this.blockItem(block);
     }

@@ -1,0 +1,20 @@
+{
+  "parent": "minecraft:block/thin_block",
+  "textures": {
+    "particle": "#side"
+  },
+  "elements": [
+    {
+      "from": [0, 0, 4],
+      "to": [16, 8, 12],
+      "faces": {
+        "north": {"uv": [0, 8, 16, 16], "texture": "#side"},
+        "east": {"uv": [4, 4, 12, 12], "texture": "#end"},
+        "south": {"uv": [0, 8, 16, 16], "texture": "#side"},
+        "west": {"uv": [4, 4, 12, 12], "texture": "#end"},
+        "up": {"uv": [0, 0, 16, 8], "texture": "#side"},
+        "down": {"uv": [0, 0, 16, 8], "texture": "#side"}
+      }
+    }
+  ]
+}

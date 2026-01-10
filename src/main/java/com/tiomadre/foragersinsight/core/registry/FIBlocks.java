@@ -68,7 +68,10 @@ public class FIBlocks {
     public static final RegistryObject<Block> BLOSSOMING_LILAC_LEAVES = HELPER.createBlock("blossoming_lilac_leaves", () ->
             new LeavesBlock(copy(Blocks.OAK_LEAVES)));
     public static final RegistryObject<Block> LILAC_LOG = HELPER.createFuelBlock("lilac_log", () ->
-            new RotatedPillarBlock(copy(Blocks.OAK_LOG)), 300);
+            new ThinLogBlock(copy(Blocks.OAK_LOG).noOcclusion()), 300);
+        //Wood Stuff
+    public static final RegistryObject<Block> LILAC_PLANKS = HELPER.createBlock("lilac_planks", () ->
+                new Block(copy(Blocks.OAK_PLANKS)));
 
 
         //Syrup Tap

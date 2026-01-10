@@ -293,6 +293,11 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .requires(ForgeTags.MILK).requires(ForgeTags.MILK).requires(ForgeTags.MILK)
                 .unlockedBy("has_black_acorn", has(BLACK_ACORN.get())).save(consumer);
         //Other
+        //Wood Stuff
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, LILAC_PLANKS.get(), 2)
+                .requires(LILAC_LOG.get(), 1)
+                .unlockedBy("has_lilac_log", has(LILAC_LOG.get())).save(consumer);
+
         //Alternate Recipes using Rabbit Hide
         //Book
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BOOK)
