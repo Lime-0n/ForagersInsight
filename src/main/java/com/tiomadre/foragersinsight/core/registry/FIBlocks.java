@@ -63,6 +63,13 @@ public class FIBlocks {
             new SpruceTipBlock(copy(Blocks.SWEET_BERRY_BUSH).noCollission()));
     public static final RegistryObject<Block> SAPPY_BIRCH_LOG = HELPER.createFuelBlock("sappy_birch_log", () ->
             new LogBlock(() -> Blocks.STRIPPED_BIRCH_LOG, copy(Blocks.BIRCH_LOG)), 300);
+    public static final RegistryObject<Block> LILAC_LEAVES = HELPER.createBlock("lilac_leaves", () ->
+            new LeavesBlock(copy(Blocks.OAK_LEAVES)));
+    public static final RegistryObject<Block> BLOSSOMING_LILAC_LEAVES = HELPER.createBlock("blossoming_lilac_leaves", () ->
+            new LeavesBlock(copy(Blocks.OAK_LEAVES)));
+    public static final RegistryObject<Block> LILAC_LOG = HELPER.createFuelBlock("lilac_log", () ->
+            new RotatedPillarBlock(copy(Blocks.OAK_LOG)), 300);
+
 
         //Syrup Tap
     public static final RegistryObject<Block> TAPPER = HELPER.createBlockNoItem("tapper", () ->

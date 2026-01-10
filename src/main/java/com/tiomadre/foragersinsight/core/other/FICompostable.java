@@ -15,10 +15,10 @@ public class FICompostable {
     }
 
     private static void registerCompostable() {
-     // Leaves and Saplings
+        // Leaves and Saplings
         registerCompostables(0.3f,
                 BOUNTIFUL_OAK_LEAVES, BOUNTIFUL_OAK_SAPLING, BOUNTIFUL_DARK_OAK_LEAVES, BOUNTIFUL_DARK_OAK_SAPLING,
-                BOUNTIFUL_SPRUCE_LEAVES, BOUNTIFUL_SPRUCE_SAPLING);
+                BOUNTIFUL_SPRUCE_LEAVES, BOUNTIFUL_SPRUCE_SAPLING, LILAC_LEAVES, BLOSSOMING_LILAC_LEAVES);
 
      // Storage
         registerCompostables(1.0f,

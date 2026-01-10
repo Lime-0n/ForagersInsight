@@ -159,9 +159,12 @@ public class FILoot extends LootTableProvider {
             this.dropSelf(BOUNTIFUL_SPRUCE_SAPLING.get());
             this.add(BOUNTIFUL_SPRUCE_TIPS.get(), LootTable.lootTable().setParamSet(LootContextParamSets.BLOCK));
             this.add(FIBlocks.SAPPY_BIRCH_LOG.get(), block -> createSilkTouchDispatchTable(block, LootItem.lootTableItem(Blocks.BIRCH_LOG)));
+            this.dropSelf(LILAC_LOG.get());
             this.add(BOUNTIFUL_OAK_LEAVES.get(), this.createBountifulLeavesDrops(BOUNTIFUL_OAK_LEAVES, BOUNTIFUL_OAK_SAPLING.get()));
             this.add(BOUNTIFUL_DARK_OAK_LEAVES.get(), this.createBountifulLeavesDrops(BOUNTIFUL_DARK_OAK_LEAVES, BOUNTIFUL_DARK_OAK_SAPLING.get()));
             this.add(BOUNTIFUL_SPRUCE_LEAVES.get(), this.createSpruceLeavesDrops(BOUNTIFUL_SPRUCE_LEAVES.get(), BOUNTIFUL_SPRUCE_SAPLING.get()));
+            this.add(LILAC_LEAVES.get(), this.createLeafDrops(LILAC_LEAVES.get()));
+            this.add(BLOSSOMING_LILAC_LEAVES.get(), this.createLeafDrops(BLOSSOMING_LILAC_LEAVES.get()));
                 //Tools + Workstations
             this.add(FIBlocks.DIFFUSER.get(), block -> createSingleItemTable(FIItems.DIFFUSER.get()));
             this.add(FIBlocks.TAPPER.get(), block -> createSingleItemTable(FIItems.TAPPER.get()));
@@ -180,6 +183,18 @@ public class FILoot extends LootTableProvider {
                     LootItem.lootTableItem(BLEWIT_MUSHROOM.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(5))).when(stateCond(BLEWIT_MUSHROOM_COLONY, MushroomColonyBlock.COLONY_AGE, 3))
                             .when(HAS_NO_SHEARS_OR_SILK_TOUCH))))));
 
+        }
+        private LootTable.Builder createLeafDrops(Block leaves) {
+            return LootTable.lootTable()
+                    .withPool(LootPool.lootPool()
+                            .add(AlternativesEntry.alternatives(
+                                    LootItem.lootTableItem(leaves)
+                                            .when(HAS_SHEARS_OR_SILK_TOUCH))))
+                    .withPool(LootPool.lootPool()
+                            .when(HAS_NO_SHEARS_OR_SILK_TOUCH)
+                            .add(this.applyExplosionDecay(leaves, LootItem.lootTableItem(Items.STICK)
+                                            .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))
+                                    .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, NORMAL_LEAVES_STICK_CHANCES))));
         }
 
         private void createFlowerBushDrops(RegistryObject<? extends Block> registryBlock, RegistryObject<Item> registrySeed, Item originalFlower, IntegerProperty ageProperty, int maxAge) {

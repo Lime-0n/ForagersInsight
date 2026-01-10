@@ -27,6 +27,10 @@ public class FIClientCompat {
         genericFoliage.add(FIBlocks.BOUNTIFUL_OAK_LEAVES);
         genericFoliage.add(FIBlocks.BOUNTIFUL_DARK_OAK_LEAVES);
 
+        List<RegistryObject<Block>> lilacLeaves = new ArrayList<>();
+        lilacLeaves.add(FIBlocks.LILAC_LEAVES);
+        lilacLeaves.add(FIBlocks.BLOSSOMING_LILAC_LEAVES);
+
         List<RegistryObject<Block>> spruceLeaves = new ArrayList<>();
         spruceLeaves.add(FIBlocks.BOUNTIFUL_SPRUCE_LEAVES);
 
@@ -35,6 +39,9 @@ public class FIClientCompat {
 
         DataUtil.registerBlockColor(blockColors, (state, world, pos, tintIndex) -> 0xFFFFFF, spruceLeaves);
         DataUtil.registerBlockItemColor(itemColors, (stack, tintIndex) -> 0xFFFFFF, spruceLeaves);
+
+        DataUtil.registerBlockColor(blockColors, (state, world, pos, tintIndex) -> 0xFFFFFF, lilacLeaves);
+        DataUtil.registerBlockItemColor(itemColors, (stack, tintIndex) -> 0xFFFFFF, lilacLeaves);
 
         DataUtil.registerBlockColor(
                 blockColors,

@@ -44,7 +44,7 @@ public class FIBlockStates extends FIBlockStatesHelper {
                 modTexture("blewit_mushroom_crate_bottom"),
                 modTexture("blewit_mushroom_crate_top"));
 
-        //Saplings and Tree Crops
+        //Saplings and Tree Stuff
         this.crossCutout(BOUNTIFUL_OAK_SAPLING);
         this.bountifulLeaves(BOUNTIFUL_OAK_LEAVES, Blocks.OAK_LEAVES);
         this.crossCutout(BOUNTIFUL_DARK_OAK_SAPLING);
@@ -54,6 +54,10 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.axisBlock((RotatedPillarBlock) SAPPY_BIRCH_LOG.get(), modTexture("sappy_birch_log"), mcLoc("block/birch_log_top"));
         this.blockItem(SAPPY_BIRCH_LOG.get());
         this.crossCutout(BOUNTIFUL_SPRUCE_SAPLING);
+        this.bountifulLeaves(LILAC_LEAVES, Blocks.OAK_LEAVES);
+        this.bountifulLeaves(BLOSSOMING_LILAC_LEAVES, Blocks.OAK_LEAVES);
+        this.thinLogBlock(LILAC_LOG, modTexture("lilac_log"), modTexture("lilac_log_top"));
+
 
         //Foliage Mats + Suspicious Litter
         this.matBlock(SCATTERED_ROSE_PETAL_MAT, "scattered_rose_petals");
@@ -378,6 +382,27 @@ public class FIBlockStates extends FIBlockStatesHelper {
                         .addModel();
             }
         }
+    }
+    private void thinLogBlock(RegistryObject<? extends Block> log, ResourceLocation side, ResourceLocation end) {
+        RotatedPillarBlock block = (RotatedPillarBlock) log.get();
+        ModelFile vertical = models().withExistingParent(name(block), modLoc("block/thin_log"))
+                .texture("side", side)
+                .texture("end", end)
+                .texture("particle", side);
+        ModelFile horizontal = models().withExistingParent("%s_horizontal".formatted(name(block)), modLoc("block/thin_log"))
+                .texture("side", side)
+                .texture("end", end)
+                .texture("particle", side);
+
+        this.getVariantBuilder(block)
+                .partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.X)
+                .modelForState().modelFile(horizontal).rotationX(90).rotationY(90).addModel()
+                .partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.Y)
+                .modelForState().modelFile(vertical).addModel()
+                .partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.Z)
+                .modelForState().modelFile(horizontal).rotationX(90).addModel();
+
+        this.blockItem(block);
     }
 
     private void sliceableCake() {
