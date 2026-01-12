@@ -165,6 +165,7 @@ public class FILoot extends LootTableProvider {
             this.add(BOUNTIFUL_SPRUCE_LEAVES.get(), this.createSpruceLeavesDrops(BOUNTIFUL_SPRUCE_LEAVES.get(), BOUNTIFUL_SPRUCE_SAPLING.get()));
             this.add(LILAC_LEAVES.get(), this.createLeafDrops(LILAC_LEAVES.get()));
             this.add(BLOSSOMING_LILAC_LEAVES.get(), this.createLeafDrops(BLOSSOMING_LILAC_LEAVES.get()));
+            this.add(HANGING_LILAC_LEAVES.get(), LootTable.lootTable().setParamSet(LootContextParamSets.BLOCK));
                 //Wood Stuff
             this.dropSelf(LILAC_PLANKS.get());
                 //Tools + Workstations

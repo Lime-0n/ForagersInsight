@@ -66,7 +66,9 @@ public class FIBlocks {
     public static final RegistryObject<Block> LILAC_LEAVES = HELPER.createBlock("lilac_leaves", () ->
             new LeavesBlock(copy(Blocks.OAK_LEAVES)));
     public static final RegistryObject<Block> BLOSSOMING_LILAC_LEAVES = HELPER.createBlock("blossoming_lilac_leaves", () ->
-            new LeavesBlock(copy(Blocks.OAK_LEAVES)));
+            new BlossomingLilacLeavesBlock(copy(Blocks.OAK_LEAVES)));
+    public static final RegistryObject<Block> HANGING_LILAC_LEAVES = HELPER.createBlockNoItem("hanging_lilac_leaves", () ->
+            new HangingLilacLeavesBlock(copy(Blocks.SWEET_BERRY_BUSH).noCollission()));
     public static final RegistryObject<Block> LILAC_LOG = HELPER.createFuelBlock("lilac_log", () ->
             new ThinLogBlock(copy(Blocks.OAK_LOG).noOcclusion()), 300);
         //Wood Stuff

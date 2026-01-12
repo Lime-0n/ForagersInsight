@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cross",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "cross": "foragersinsight:block/hanging_lilac_leaves_stage3"
+  }
+}

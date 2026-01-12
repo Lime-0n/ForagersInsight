@@ -57,6 +57,7 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.bountifulLeaves(LILAC_LEAVES, Blocks.OAK_LEAVES);
         this.bountifulLeaves(BLOSSOMING_LILAC_LEAVES, Blocks.OAK_LEAVES);
         this.thinLogBlock(LILAC_LOG, modTexture("lilac_log"), modTexture("lilac_log_top"));
+        this.hangingLilacLeavesBlock();
             //Wood Stuff
         this.simpleBlock(LILAC_PLANKS.get(), this.models().cubeAll(name(LILAC_PLANKS.get()), modTexture("lilac_planks")));
         this.blockItem(LILAC_PLANKS.get());
@@ -111,6 +112,23 @@ public class FIBlockStates extends FIBlockStatesHelper {
         }
         this.itemModels().basicItem(seeds.get());
     }
+    private void hangingLilacLeavesBlock() {
+        Block leaves = HANGING_LILAC_LEAVES.get();
+        ResourceLocation[] textures = new ResourceLocation[]{
+                modTexture("hanging_lilac_leaves_stage_0"),
+                modTexture("hanging_lilac_leaves_stage_1"),
+                modTexture("hanging_lilac_leaves_stage2"),
+                modTexture("hanging_lilac_leaves_stage3")
+        };
+        this.getVariantBuilder(leaves).forAllStates(state -> {
+            int age = state.getValue(HangingLilacLeavesBlock.AGE);
+            ResourceLocation texture = textures[Math.min(age, textures.length - 1)];
+            return ConfiguredModel.builder()
+                    .modelFile(models().cross("%s_stage%d".formatted(name(leaves), age), texture).renderType("cutout"))
+                    .build();
+        });
+    }
+
 
     private void diffuserBlock() {
         Block diffuser = DIFFUSER.get();

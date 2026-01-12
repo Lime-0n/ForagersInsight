@@ -1,23 +1,20 @@
 {
-	"format_version": "1.21.11",
-	"credit": "Made with Blockbench",
-	"parent": "minecraft:block/thin_block",
-	"textures": {
-		"particle": "#side"
+ "parent": "minecraft:block/thin_block",
+ "textures": {
+   "particle": "#side"
 	},
 	"elements": [
 		{
-			"from": [0, 8, 4],
-			"to": [8, 24, 12],
-			"rotation": {"x": 0, "y": 0, "z": -90, "origin": [0, 8, 4]},
-			"color": 7,
+			"from": [0, 0, 4],
+			"to": [16, 8, 12],
+			"rotation": {"angle": 0, "axis": "z", "origin": [0, 8, 4]},
 			"faces": {
-				"north": {"uv": [4, 0, 12, 16], "texture": "#missing"},
-				"east": {"uv": [4, 0, 12, 16], "texture": "#missing"},
-				"south": {"uv": [4, 0, 12, 16], "texture": "#missing"},
-				"west": {"uv": [4, 0, 12, 16], "texture": "#missing"},
-				"up": {"uv": [4, 4, 12, 12], "texture": "#missing"},
-				"down": {"uv": [4, 4, 12, 12], "texture": "#missing"}
+				"north": {"uv": [4, 0, 12, 16], "rotation": 270, "texture": "#side"},
+				"east": {"uv": [4, 4, 12, 12], "rotation": 90, "texture": "#end"},
+				"south": {"uv": [4, 0, 12, 16], "rotation": 90, "texture": "#side"},
+				"west": {"uv": [4, 4, 12, 12], "rotation": 90, "texture": "#end"},
+				"up": {"uv": [4, 0, 12, 16], "rotation": 90, "texture": "#side"},
+				"down": {"uv": [4, 0, 12, 16], "rotation": 90, "texture": "#side"}
 			}
 		}
 	]
