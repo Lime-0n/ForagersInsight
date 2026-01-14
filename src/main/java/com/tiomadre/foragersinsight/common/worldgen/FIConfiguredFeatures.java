@@ -2,6 +2,7 @@ package com.tiomadre.foragersinsight.common.worldgen;
 
 import com.tiomadre.foragersinsight.common.block.BountifulLeavesBlock;
 import com.tiomadre.foragersinsight.common.block.SuspiciousLitterBlock;
+import com.tiomadre.foragersinsight.common.worldgen.trees.foliage.LilacTreeFoliagePlacer;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.common.worldgen.trees.foliage.SpruceTipTreeFoliagePlacer;
@@ -43,6 +44,7 @@ public class FIConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> APPLE_TREE_KEY = registerKey("apple_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ACORN_TREE_KEY = registerKey("acorn_dark_oak");
     public static final ResourceKey<ConfiguredFeature<?, ?>> YOUNG_ACORN_TREE_KEY = registerKey("young_acorn_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> LILAC_TREE_KEY = registerKey("lilac_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SPRUCE_TIP_TREE_KEY = registerKey("spruce_tip_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SAPPY_BIRCH_TREE_KEY = registerKey("sappy_birch_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ROSELLE_BUSH_PATCH_KEY = registerKey("patch_roselle_bush");
@@ -80,6 +82,14 @@ public class FIConfiguredFeatures {
                 bountifulLeafStateProvider(Blocks.DARK_OAK_LEAVES, FIBlocks.BOUNTIFUL_DARK_OAK_LEAVES),
                 new DarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
                 new ThreeLayersFeatureSize(1, 1, 0, 1,2, OptionalInt.empty())
+        ).ignoreVines().build());
+
+        register(context, LILAC_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
+                BlockStateProvider.simple(FIBlocks.LILAC_LOG.get()),
+                new StraightTrunkPlacer(2, 2, 0),
+                BlockStateProvider.simple(FIBlocks.LILAC_LEAVES.get()),
+                new LilacTreeFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 2),
+                new TwoLayersFeatureSize(1, 0, 1)
         ).ignoreVines().build());
 
         register(context, SPRUCE_TIP_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(

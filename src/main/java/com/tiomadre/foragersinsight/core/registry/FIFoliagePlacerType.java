@@ -2,6 +2,7 @@ package com.tiomadre.foragersinsight.core.registry;
 
 import com.tiomadre.foragersinsight.common.worldgen.trees.foliage.AcornTreeFoliagePlacer;
 import com.tiomadre.foragersinsight.common.worldgen.trees.foliage.AppleTreeFoliagePlacer;
+import com.tiomadre.foragersinsight.common.worldgen.trees.foliage.LilacTreeFoliagePlacer;
 import com.tiomadre.foragersinsight.common.worldgen.trees.foliage.SpruceTipTreeFoliagePlacer;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
@@ -24,4 +25,8 @@ public class FIFoliagePlacerType {
     public static final RegistryObject<FoliagePlacerType<SpruceTipTreeFoliagePlacer>> SPRUCE_TIP_FOLIAGE_PLACER =
             FOLIAGE_PLACER_TYPE.register("spruce_tip_tree_foliage_placer", () ->
                     new FoliagePlacerType<>(SpruceTipTreeFoliagePlacer.CODEC));
+
+    public static final RegistryObject<FoliagePlacerType<LilacTreeFoliagePlacer>> LILAC_FOLIAGE_PLACER =
+            FOLIAGE_PLACER_TYPE.register("lilac_tree_foliage_placer", () ->
+                    new FoliagePlacerType<>(LilacTreeFoliagePlacer.CODEC));
 }

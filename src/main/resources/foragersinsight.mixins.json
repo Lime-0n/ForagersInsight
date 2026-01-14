@@ -7,6 +7,7 @@
     "BirchTreeGrowerMixin",
     "DarkOakTreeGrowerMixin",
     "OakTreeGrowerMixin",
+    "RichSoilTreeMixin",
     "SpruceTreeGrowerMixin",
     "shears_fortune.FortuneApplyAnvilMixin",
     "shears_fortune.ShearsFortuneMixin"

@@ -85,6 +85,7 @@ public class FITags {
     public static class BiomeTag {
         public static final TagKey<Biome> HAS_APPLE_TREES = hasFeature("apple_trees");
         public static final TagKey<Biome> HAS_ACORN_TREES = hasFeature("acorn_trees");
+        public static final TagKey<Biome> HAS_LILAC_TREES = hasFeature("lilac_trees");
         public static final TagKey<Biome> HAS_SPRUCE_TIP_TREES = hasFeature("spruce_tip_trees");
         public static final TagKey<Biome> HAS_SAPPY_BIRCH_TREES = hasFeature("sappy_birch_trees");
         public static final TagKey<Biome> HAS_ROSELLE_BUSHES = hasFeature("roselle_bushes");

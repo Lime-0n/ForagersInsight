@@ -48,31 +48,36 @@ public class FIBlocks {
             new MushroomColonyBlock(copy(Blocks.RED_MUSHROOM), FIItems.BLEWIT_MUSHROOM) {@Override
             public BlockState getStateForPlacement(BlockPlaceContext context) {BlockState state = super.getStateForPlacement(context);
                     if (state == null) {return null;}int maxAge = MushroomColonyBlock.COLONY_AGE.getPossibleValues().size() - 1;return state.setValue(MushroomColonyBlock.COLONY_AGE, maxAge);}});
-        //Trees
+    //Trees
+    //Oak
     public static final RegistryObject<Block> BOUNTIFUL_OAK_SAPLING = HELPER.createFuelBlock("bountiful_oak_sapling", () ->
             new SaplingBlock(new BountifulOakTreeGrower(), copy(Blocks.OAK_SAPLING)), 100);
     public static final RegistryObject<Block> BOUNTIFUL_OAK_LEAVES = HELPER.createBlock("bountiful_oak_leaves", () ->
             new BountifulLeavesBlock(copy(Blocks.OAK_LEAVES), () -> Items.APPLE));
+    //Dark Oak
     public static final RegistryObject<Block> BOUNTIFUL_DARK_OAK_SAPLING = HELPER.createFuelBlock("bountiful_dark_oak_sapling", () ->
             new SaplingBlock(new BountifulDarkOakTreeGrower(), copy(Blocks.DARK_OAK_SAPLING)), 100);
     public static final RegistryObject<Block> BOUNTIFUL_DARK_OAK_LEAVES = HELPER.createBlock("bountiful_dark_oak_leaves", () ->
             new BountifulLeavesBlock(copy(Blocks.DARK_OAK_LEAVES), BLACK_ACORN));
+    //Spruce
     public static final RegistryObject<Block> BOUNTIFUL_SPRUCE_SAPLING = HELPER.createFuelBlock("bountiful_spruce_sapling", () ->
             new SaplingBlock(new BountifulSpruceTreeGrower(), copy(Blocks.SPRUCE_SAPLING)), 100);
     public static final RegistryObject<Block> BOUNTIFUL_SPRUCE_LEAVES = HELPER.createBlock("bountiful_spruce_leaves", () ->
             new BountifulSpruceLeavesBlock(copy(Blocks.SPRUCE_LEAVES)));
     public static final RegistryObject<Block> BOUNTIFUL_SPRUCE_TIPS = HELPER.createBlockNoItem("bountiful_spruce_tips", () ->
             new SpruceTipBlock(copy(Blocks.SWEET_BERRY_BUSH).noCollission()));
+    //Birch
     public static final RegistryObject<Block> SAPPY_BIRCH_LOG = HELPER.createFuelBlock("sappy_birch_log", () ->
             new LogBlock(() -> Blocks.STRIPPED_BIRCH_LOG, copy(Blocks.BIRCH_LOG)), 300);
+    //Lilac
     public static final RegistryObject<Block> LILAC_LEAVES = HELPER.createBlock("lilac_leaves", () ->
-            new LeavesBlock(copy(Blocks.OAK_LEAVES)));
+            new LeavesBlock(copy(Blocks.AZALEA_LEAVES)));
     public static final RegistryObject<Block> BLOSSOMING_LILAC_LEAVES = HELPER.createBlock("blossoming_lilac_leaves", () ->
-            new BlossomingLilacLeavesBlock(copy(Blocks.OAK_LEAVES)));
+            new BlossomingLilacLeavesBlock(copy(Blocks.FLOWERING_AZALEA_LEAVES)));
     public static final RegistryObject<Block> HANGING_LILAC_LEAVES = HELPER.createBlockNoItem("hanging_lilac_leaves", () ->
-            new HangingLilacLeavesBlock(copy(Blocks.SWEET_BERRY_BUSH).noCollission()));
+            new HangingLilacLeavesBlock(copy(Blocks.AZALEA_LEAVES).noCollission()));
     public static final RegistryObject<Block> LILAC_LOG = HELPER.createFuelBlock("lilac_log", () ->
-            new ThinLogBlock(copy(Blocks.OAK_LOG).noOcclusion()), 300);
+            new ThinLogBlock(FIBlocks.STRIPPED_LILAC_LOG, copy(Blocks.OAK_LOG).noOcclusion()), 300);
     public static final RegistryObject<Block> STRIPPED_LILAC_LOG = HELPER.createFuelBlock("stripped_lilac_log", () ->
             new ThinLogBlock(copy(Blocks.STRIPPED_OAK_LOG).noOcclusion()), 300);
     //Wood Stuff

@@ -14,6 +14,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class FIBiomeModifiers {
     public static final ResourceKey<BiomeModifier> ADD_APPLE_TREES = registerKey("add_apple_trees");
     public static final ResourceKey<BiomeModifier> ADD_ACORN_TREES = registerKey("add_acorn_trees");
+    public static final ResourceKey<BiomeModifier> ADD_LILAC_TREES = registerKey("add_lilac_trees");
     public static final ResourceKey<BiomeModifier> ADD_SPRUCE_TIP_TREES = registerKey("add_spruce_tip_trees");
     public static final ResourceKey<BiomeModifier> ADD_SAPPY_BIRCH_TREES = registerKey("add_sappy_birch_trees");
     public static final ResourceKey<BiomeModifier> ADD_ROSELLE_BUSHES = registerKey("add_roselle_bushes");
@@ -37,6 +38,11 @@ public class FIBiomeModifiers {
         context.register(ADD_ACORN_TREES, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
                 biomes.getOrThrow(FITags.BiomeTag.HAS_ACORN_TREES),
                 HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.ACORN_DARK_OAK_TREE_PLACED_KEY)),
+                GenerationStep.Decoration.VEGETAL_DECORATION)
+        );
+        context.register(ADD_LILAC_TREES, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(FITags.BiomeTag.HAS_LILAC_TREES),
+                HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.LILAC_TREE_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION)
         );
 
