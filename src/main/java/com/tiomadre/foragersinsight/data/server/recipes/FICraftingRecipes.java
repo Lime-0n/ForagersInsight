@@ -297,6 +297,58 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
         ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, LILAC_PLANKS.get(), 2)
                 .requires(LILAC_LOG.get(), 1)
                 .unlockedBy("has_lilac_log", has(LILAC_LOG.get())).save(consumer);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, LILAC_PLANKS.get(), 2)
+                .requires(STRIPPED_LILAC_LOG.get(), 1)
+                .unlockedBy("has_stripped_lilac_log", has(STRIPPED_LILAC_LOG.get()))
+                .save(consumer, ForagersInsight.rl("lilac_planks_from_stripped_lilac_log"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, LILAC_STAIRS.get(), 4)
+                .pattern("P  ")
+                .pattern("PP ")
+                .pattern("PPP")
+                .define('P', LILAC_PLANKS.get())
+                .unlockedBy("has_lilac_planks", has(LILAC_PLANKS.get()))
+                .save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, LILAC_SLAB.get(), 6)
+                .pattern("PPP")
+                .define('P', LILAC_PLANKS.get())
+                .unlockedBy("has_lilac_planks", has(LILAC_PLANKS.get()))
+                .save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, LILAC_FENCE.get(), 3)
+                .pattern("PSP")
+                .pattern("PSP")
+                .define('P', LILAC_PLANKS.get())
+                .define('S', STICK)
+                .unlockedBy("has_lilac_planks", has(LILAC_PLANKS.get()))
+                .save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, LILAC_FENCE_GATE.get())
+                .pattern("SPS")
+                .pattern("SPS")
+                .define('P', LILAC_PLANKS.get())
+                .define('S', STICK)
+                .unlockedBy("has_lilac_planks", has(LILAC_PLANKS.get()))
+                .save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, LILAC_DOOR.get(), 3)
+                .pattern("PP")
+                .pattern("PP")
+                .pattern("PP")
+                .define('P', LILAC_PLANKS.get())
+                .unlockedBy("has_lilac_planks", has(LILAC_PLANKS.get()))
+                .save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, LILAC_TRAPDOOR.get(), 2)
+                .pattern("PPP")
+                .pattern("PPP")
+                .define('P', LILAC_PLANKS.get())
+                .unlockedBy("has_lilac_planks", has(LILAC_PLANKS.get()))
+                .save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, LILAC_PRESSURE_PLATE.get())
+                .pattern("PP")
+                .define('P', LILAC_PLANKS.get())
+                .unlockedBy("has_lilac_planks", has(LILAC_PLANKS.get()))
+                .save(consumer);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, LILAC_BUTTON.get())
+                .requires(LILAC_PLANKS.get())
+                .unlockedBy("has_lilac_planks", has(LILAC_PLANKS.get()))
+                .save(consumer);
 
         //Alternate Recipes using Rabbit Hide
         //Book

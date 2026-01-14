@@ -30,6 +30,9 @@ public class FIItemTags extends ItemTagsProvider {
         this.tag(MILK_BUCKET).add(FIItems.SEED_MILK_BUCKET.get());
         this.tag(MILK_BOTTLE).add(FIItems.SEED_MILK_BOTTLE.get());
         this.tag(ItemTags.SAPLINGS).add(FIBlocks.BOUNTIFUL_DARK_OAK_SAPLING.get().asItem(), FIBlocks.BOUNTIFUL_OAK_SAPLING.get().asItem(), FIBlocks.BOUNTIFUL_SPRUCE_SAPLING.get().asItem());
+        this.tag(ItemTags.SMALL_FLOWERS).add(FIBlocks.STOUT_BEACH_ROSE_BUSH.get().asItem());
+        this.tag(ItemTags.TALL_FLOWERS).add(FIBlocks.ROSELLE_BUSH.get().asItem(), FIBlocks.TALL_BEACH_ROSE_BUSH.get().asItem());
+        this.tag(ItemTags.FLOWERS).add(FIBlocks.ROSELLE_BUSH.get().asItem(), FIBlocks.STOUT_BEACH_ROSE_BUSH.get().asItem(), FIBlocks.TALL_BEACH_ROSE_BUSH.get().asItem());
         this.tag(WOLF_PREY).add(FIItems.RAW_RABBIT_LEG.get());
         //Crops
         this.tag(APPLE).add(FIItems.APPLE_SLICE.get(),Items.APPLE);

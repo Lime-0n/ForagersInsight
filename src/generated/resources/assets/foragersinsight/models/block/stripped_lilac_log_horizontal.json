@@ -1,0 +1,8 @@
+{
+  "parent": "foragersinsight:block/thin_log_horizontal",
+  "textures": {
+    "end": "foragersinsight:block/stripped_lilac_log_top",
+    "particle": "foragersinsight:block/stripped_lilac_log",
+    "side": "foragersinsight:block/stripped_lilac_log"
+  }
+}

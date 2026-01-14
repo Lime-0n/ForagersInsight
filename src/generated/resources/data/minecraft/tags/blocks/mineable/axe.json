@@ -4,6 +4,15 @@
     "foragersinsight:sappy_birch_log",
     "foragersinsight:blewit_mushroom_crate",
     "foragersinsight:lilac_log",
-    "foragersinsight:lilac_planks"
+    "foragersinsight:stripped_lilac_log",
+    "foragersinsight:lilac_planks",
+    "foragersinsight:lilac_stairs",
+    "foragersinsight:lilac_slab",
+    "foragersinsight:lilac_fence",
+    "foragersinsight:lilac_fence_gate",
+    "foragersinsight:lilac_door",
+    "foragersinsight:lilac_trapdoor",
+    "foragersinsight:lilac_pressure_plate",
+    "foragersinsight:lilac_button"
   ]
 }

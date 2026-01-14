@@ -39,10 +39,7 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.sackBlock(SPRUCE_TIPS_SACK);
         this.sackBlock(POPPY_SEEDS_SACK);
         this.sackBlock(DANDELION_ROOT_SACK);
-        this.halfcrateBlock((SlabBlock) BLEWIT_MUSHROOM_CRATE.get(),
-                modTexture("blewit_mushroom_crate_side"),
-                modTexture("blewit_mushroom_crate_bottom"),
-                modTexture("blewit_mushroom_crate_top"));
+        this.slabBlock((SlabBlock) BLEWIT_MUSHROOM_CRATE.get(), modTexture("blewit_mushroom_crate_side"), modTexture("blewit_mushroom_crate_bottom"), modTexture("blewit_mushroom_crate_top"));
 
         //Saplings and Tree Stuff
         this.crossCutout(BOUNTIFUL_OAK_SAPLING);
@@ -57,11 +54,31 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.bountifulLeaves(LILAC_LEAVES, Blocks.OAK_LEAVES);
         this.bountifulLeaves(BLOSSOMING_LILAC_LEAVES, Blocks.OAK_LEAVES);
         this.thinLogBlock(LILAC_LOG, modTexture("lilac_log"), modTexture("lilac_log_top"));
+        this.thinLogBlock(STRIPPED_LILAC_LOG, modTexture("stripped_lilac_log"), modTexture("stripped_lilac_log_top"));
         this.hangingLilacLeavesBlock();
             //Wood Stuff
         this.simpleBlock(LILAC_PLANKS.get(), this.models().cubeAll(name(LILAC_PLANKS.get()), modTexture("lilac_planks")));
         this.blockItem(LILAC_PLANKS.get());
+        this.stairsBlock((StairBlock) LILAC_STAIRS.get(), modTexture("lilac_planks"));
+        this.blockItem(LILAC_STAIRS.get());
+        this.slabBlock((SlabBlock) LILAC_SLAB.get(), modTexture("lilac_planks"), modTexture("lilac_planks"), modTexture("lilac_planks"));
 
+        this.fenceBlock((FenceBlock) LILAC_FENCE.get(), modTexture("lilac_planks"));
+        this.itemModels().withExistingParent(name(LILAC_FENCE.get()), mcLoc("block/fence_inventory"))
+                .texture("texture", modTexture("lilac_planks"));
+        this.fenceGateBlock((FenceGateBlock) LILAC_FENCE_GATE.get(), modTexture("lilac_planks"));
+        this.blockItem(LILAC_FENCE_GATE.get());
+        this.doorBlockWithRenderType((DoorBlock) LILAC_DOOR.get(), modTexture("lilac_door_bottom"), modTexture("lilac_door_top"), "cutout");
+        this.itemModels().withExistingParent(name(LILAC_DOOR.get()), mcLoc("item/generated"))
+                .texture("layer0", modLoc("item/lilac_door"));
+        this.trapdoorBlockWithRenderType((TrapDoorBlock) LILAC_TRAPDOOR.get(), modTexture("lilac_trapdoor"), true, "cutout");
+        this.itemModels().withExistingParent(name(LILAC_TRAPDOOR.get()), mcLoc("item/generated"))
+                .texture("layer0", modTexture("lilac_trapdoor"));
+        this.pressurePlateBlock((PressurePlateBlock) LILAC_PRESSURE_PLATE.get(), modTexture("lilac_planks"));
+        this.blockItem(LILAC_PRESSURE_PLATE.get());
+        this.buttonBlock((ButtonBlock) LILAC_BUTTON.get(), modTexture("lilac_planks"));
+        this.itemModels().withExistingParent(name(LILAC_BUTTON.get()), mcLoc("block/button_inventory"))
+                .texture("texture", modTexture("lilac_planks"));
 
         //Foliage Mats + Suspicious Litter
         this.matBlock(SCATTERED_ROSE_PETAL_MAT, "scattered_rose_petals");
@@ -89,7 +106,7 @@ public class FIBlockStates extends FIBlockStatesHelper {
 
 
     }
-    public void halfcrateBlock(SlabBlock block, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
+    public void slabBlock(SlabBlock block, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
         ModelFile slab = models().slab(name(block), side, bottom, top);
         ModelFile slabTop = models().slabTop(name(block) + "_top", side, bottom, top);
         ModelFile slabDouble = models().cubeBottomTop(name(block) + "_double", side, bottom, top);

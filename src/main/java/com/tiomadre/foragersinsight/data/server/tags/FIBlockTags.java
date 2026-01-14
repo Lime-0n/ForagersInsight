@@ -23,21 +23,26 @@ public class FIBlockTags extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.@NotNull Provider provider) {
-        this.tag(BlockTags.LOGS).add(SAPPY_BIRCH_LOG.get(), LILAC_LOG.get());
+        this.tag(BlockTags.LOGS).add(SAPPY_BIRCH_LOG.get(), LILAC_LOG.get(), STRIPPED_LILAC_LOG.get());
 
-        this.tag(BlockTags.LOGS_THAT_BURN).add(SAPPY_BIRCH_LOG.get(), LILAC_LOG.get());
-
-        this.tag(BlockTags.BIRCH_LOGS).add(SAPPY_BIRCH_LOG.get());
+        this.tag(BlockTags.LOGS_THAT_BURN).add(SAPPY_BIRCH_LOG.get(), LILAC_LOG.get(), STRIPPED_LILAC_LOG.get());
 
         this.tag(BlockTags.PLANKS).add(LILAC_PLANKS.get());
+        this.tag(BlockTags.WOODEN_STAIRS).add(LILAC_STAIRS.get());
+        this.tag(BlockTags.WOODEN_SLABS).add(LILAC_SLAB.get());
+        this.tag(BlockTags.WOODEN_FENCES).add(LILAC_FENCE.get());
+        this.tag(BlockTags.FENCE_GATES).add(LILAC_FENCE_GATE.get());
+        this.tag(BlockTags.WOODEN_DOORS).add(LILAC_DOOR.get());
+        this.tag(BlockTags.WOODEN_TRAPDOORS).add(LILAC_TRAPDOOR.get());
+        this.tag(BlockTags.WOODEN_PRESSURE_PLATES).add(LILAC_PRESSURE_PLATE.get());
+        this.tag(BlockTags.WOODEN_BUTTONS).add(LILAC_BUTTON.get());
 
         this.tag(BlockTags.SAPLINGS).add(BOUNTIFUL_OAK_SAPLING.get(), BOUNTIFUL_DARK_OAK_SAPLING.get(), BOUNTIFUL_SPRUCE_SAPLING.get());
-
         this.tag(BlockTags.LEAVES).add(BOUNTIFUL_OAK_LEAVES.get(),BOUNTIFUL_DARK_OAK_LEAVES.get(),BOUNTIFUL_SPRUCE_LEAVES.get());
-
-        this.tag(BlockTags.CROPS).add(ROSE_CROP.get(), DANDELION_BUSH.get(), POPPY_BUSH.get(),BOUNTIFUL_DARK_OAK_LEAVES.get(),BOUNTIFUL_OAK_LEAVES.get(),BOUNTIFUL_SPRUCE_TIPS.get());
-
-        this.tag(BlockTags.SMALL_FLOWERS).add(DANDELION_BUSH.get(), POPPY_BUSH.get(),ROSE_CROP.get(),BOUNTIFUL_DARK_OAK_LEAVES.get(),BOUNTIFUL_OAK_LEAVES.get(),BOUNTIFUL_SPRUCE_TIPS.get(),ROSE_CROP.get());
+        this.tag(BlockTags.CROPS).add(ROSE_CROP.get(), DANDELION_BUSH.get(), POPPY_BUSH.get(),BOUNTIFUL_DARK_OAK_LEAVES.get(),BOUNTIFUL_OAK_LEAVES.get(),BOUNTIFUL_SPRUCE_TIPS.get(),HANGING_LILAC_LEAVES.get());
+        this.tag(BlockTags.SMALL_FLOWERS).add(DANDELION_BUSH.get(), POPPY_BUSH.get(), ROSE_CROP.get(), BOUNTIFUL_DARK_OAK_LEAVES.get(), BOUNTIFUL_OAK_LEAVES.get(), BOUNTIFUL_SPRUCE_TIPS.get(), ROSE_CROP.get(), STOUT_BEACH_ROSE_BUSH.get());
+        this.tag(BlockTags.TALL_FLOWERS).add(ROSELLE_BUSH.get(), TALL_BEACH_ROSE_BUSH.get());
+        this.tag(BlockTags.FLOWERS).add(ROSELLE_BUSH.get(), STOUT_BEACH_ROSE_BUSH.get(), TALL_BEACH_ROSE_BUSH.get());
 
         this.tag(FORAGING)
         //FD Wild Crops
@@ -53,7 +58,8 @@ public class FIBlockTags extends BlockTagsProvider {
 
     protected void registerMineables() {
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(TAPPER.get(), DIFFUSER.get());
-        this.tag(BlockTags.MINEABLE_WITH_AXE).add(APPLE_CRATE.get(), SAPPY_BIRCH_LOG.get(), BLEWIT_MUSHROOM_CRATE.get(), LILAC_LOG.get(), LILAC_PLANKS.get());
+        this.tag(BlockTags.MINEABLE_WITH_AXE).add(APPLE_CRATE.get(), SAPPY_BIRCH_LOG.get(), BLEWIT_MUSHROOM_CRATE.get(), LILAC_LOG.get(), STRIPPED_LILAC_LOG.get(), LILAC_PLANKS.get(), LILAC_STAIRS.get(),
+        LILAC_SLAB.get(), LILAC_FENCE.get(), LILAC_FENCE_GATE.get(), LILAC_DOOR.get(), LILAC_TRAPDOOR.get(), LILAC_PRESSURE_PLATE.get(), LILAC_BUTTON.get());
         this.tag(BlockTags.MINEABLE_WITH_HOE).add(BOUNTIFUL_OAK_LEAVES.get(),BOUNTIFUL_DARK_OAK_LEAVES.get(),BOUNTIFUL_SPRUCE_LEAVES.get());
         this.tag(ModTags.MINEABLE_WITH_KNIFE).add(DANDELION_ROOT_SACK.get(), ROSE_HIP_SACK.get(), POPPY_SEEDS_SACK.get(), SPRUCE_TIPS_SACK.get(), BLACK_ACORN_SACK.get());
     }

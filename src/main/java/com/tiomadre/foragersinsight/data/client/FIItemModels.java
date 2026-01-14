@@ -25,7 +25,7 @@ public class FIItemModels extends BlueprintItemModelProvider {
                     //Sweets
                 CANDIED_CALYCES,APPLE_DIPPERS,
                 //Crops
-                BLACK_ACORN,DANDELION_ROOT,POPPY_SEEDS,ROSELLE_CALYX,ROSE_HIP,SPRUCE_TIPS,
+                BLACK_ACORN,DANDELION_ROOT,LILAC_BLOOM,ROSELLE_CALYX,ROSE_HIP,SPRUCE_TIPS,
                 //Cuts + Knife Drops
                 APPLE_SLICE,COOKED_RABBIT_LEG,RAW_RABBIT_LEG,ROSELLE_PETALS,ROSE_PETALS,
                 //Crushed + Ingredients

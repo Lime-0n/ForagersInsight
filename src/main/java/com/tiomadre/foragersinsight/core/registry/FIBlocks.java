@@ -13,6 +13,8 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.common.block.MushroomColonyBlock;
@@ -71,9 +73,27 @@ public class FIBlocks {
             new HangingLilacLeavesBlock(copy(Blocks.SWEET_BERRY_BUSH).noCollission()));
     public static final RegistryObject<Block> LILAC_LOG = HELPER.createFuelBlock("lilac_log", () ->
             new ThinLogBlock(copy(Blocks.OAK_LOG).noOcclusion()), 300);
-        //Wood Stuff
+    public static final RegistryObject<Block> STRIPPED_LILAC_LOG = HELPER.createFuelBlock("stripped_lilac_log", () ->
+            new ThinLogBlock(copy(Blocks.STRIPPED_OAK_LOG).noOcclusion()), 300);
+    //Wood Stuff
     public static final RegistryObject<Block> LILAC_PLANKS = HELPER.createBlock("lilac_planks", () ->
-                new Block(copy(Blocks.OAK_PLANKS)));
+            new Block(copy(Blocks.OAK_PLANKS)));
+    public static final RegistryObject<Block> LILAC_STAIRS = HELPER.createBlock("lilac_stairs", () ->
+            new StairBlock(LILAC_PLANKS.get().defaultBlockState(), copy(Blocks.OAK_STAIRS)));
+    public static final RegistryObject<Block> LILAC_SLAB = HELPER.createBlock("lilac_slab", () ->
+            new SlabBlock(copy(Blocks.OAK_SLAB)));
+    public static final RegistryObject<Block> LILAC_FENCE = HELPER.createBlock("lilac_fence", () ->
+            new FenceBlock(copy(Blocks.OAK_FENCE)));
+    public static final RegistryObject<Block> LILAC_FENCE_GATE = HELPER.createBlock("lilac_fence_gate", () ->
+            new FenceGateBlock(copy(Blocks.OAK_FENCE_GATE), WoodType.OAK));
+    public static final RegistryObject<Block> LILAC_DOOR = HELPER.createBlock("lilac_door", () ->
+            new DoorBlock(copy(Blocks.OAK_DOOR), BlockSetType.OAK));
+    public static final RegistryObject<Block> LILAC_TRAPDOOR = HELPER.createBlock("lilac_trapdoor", () ->
+            new TrapDoorBlock(copy(Blocks.OAK_TRAPDOOR), BlockSetType.OAK));
+    public static final RegistryObject<Block> LILAC_PRESSURE_PLATE = HELPER.createBlock("lilac_pressure_plate", () ->
+            new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, copy(Blocks.OAK_PRESSURE_PLATE), BlockSetType.OAK));
+    public static final RegistryObject<Block> LILAC_BUTTON = HELPER.createBlock("lilac_button", () ->
+            new ButtonBlock(copy(Blocks.OAK_BUTTON), BlockSetType.OAK, 30, true));
 
 
         //Syrup Tap

@@ -160,6 +160,7 @@ public class FILoot extends LootTableProvider {
             this.add(BOUNTIFUL_SPRUCE_TIPS.get(), LootTable.lootTable().setParamSet(LootContextParamSets.BLOCK));
             this.add(FIBlocks.SAPPY_BIRCH_LOG.get(), block -> createSilkTouchDispatchTable(block, LootItem.lootTableItem(Blocks.BIRCH_LOG)));
             this.dropSelf(LILAC_LOG.get());
+            this.dropSelf(STRIPPED_LILAC_LOG.get());
             this.add(BOUNTIFUL_OAK_LEAVES.get(), this.createBountifulLeavesDrops(BOUNTIFUL_OAK_LEAVES, BOUNTIFUL_OAK_SAPLING.get()));
             this.add(BOUNTIFUL_DARK_OAK_LEAVES.get(), this.createBountifulLeavesDrops(BOUNTIFUL_DARK_OAK_LEAVES, BOUNTIFUL_DARK_OAK_SAPLING.get()));
             this.add(BOUNTIFUL_SPRUCE_LEAVES.get(), this.createSpruceLeavesDrops(BOUNTIFUL_SPRUCE_LEAVES.get(), BOUNTIFUL_SPRUCE_SAPLING.get()));
@@ -168,6 +169,14 @@ public class FILoot extends LootTableProvider {
             this.add(HANGING_LILAC_LEAVES.get(), LootTable.lootTable().setParamSet(LootContextParamSets.BLOCK));
                 //Wood Stuff
             this.dropSelf(LILAC_PLANKS.get());
+            this.dropSelf(LILAC_STAIRS.get());
+            this.add(LILAC_SLAB.get(), createSlabItemTable(LILAC_SLAB.get()));
+            this.dropSelf(LILAC_FENCE.get());
+            this.dropSelf(LILAC_FENCE_GATE.get());
+            this.add(LILAC_DOOR.get(), createDoorTable(LILAC_DOOR.get()));
+            this.dropSelf(LILAC_TRAPDOOR.get());
+            this.dropSelf(LILAC_PRESSURE_PLATE.get());
+            this.dropSelf(LILAC_BUTTON.get());
                 //Tools + Workstations
             this.add(FIBlocks.DIFFUSER.get(), block -> createSingleItemTable(FIItems.DIFFUSER.get()));
             this.add(FIBlocks.TAPPER.get(), block -> createSingleItemTable(FIItems.TAPPER.get()));

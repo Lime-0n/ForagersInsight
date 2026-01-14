@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.core.other.toolevents;
 
 import com.tiomadre.foragersinsight.common.block.BountifulLeavesBlock;
+import com.tiomadre.foragersinsight.common.block.HangingLilacLeavesBlock;
 import com.tiomadre.foragersinsight.common.block.SpruceTipBlock;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
@@ -48,7 +49,7 @@ public class ShearsSnipInteractions {
         return EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, tool);
     }
 
-    /** Each fortune level has 20% to add +1 to total drops */
+   // Each fortune level has 20% to add +1 to total drops */
     private static int rollFortuneExtras(RandomSource rand, int fortuneLevels) {
         int extra = 0;
         for (int i = 0; i < fortuneLevels; i++) {
@@ -124,6 +125,25 @@ public class ShearsSnipInteractions {
         BlockPos pos = event.getPos();
         BlockState state = level.getBlockState(pos);
         RandomSource rand = level.getRandom();
+
+        // Hanging Lilac Leaves
+        if (state.getBlock() instanceof HangingLilacLeavesBlock) {
+            int age = state.getValue(HangingLilacLeavesBlock.AGE);
+            if (age >= HangingLilacLeavesBlock.MAX_AGE) {
+                event.setCanceled(true);
+
+                int extraDrops = rollFortuneExtras(rand, getFortuneLevel(tool));
+                ItemStack drop = new ItemStack(FIItems.LILAC_BLOOM.get(), 2 + extraDrops);
+                dropItemInFront(level, player, drop);
+
+                level.setBlock(pos, state.setValue(HangingLilacLeavesBlock.AGE, 0), Block.UPDATE_ALL);
+
+                play(level, pos, SoundEvents.SHEEP_SHEAR);
+                play(level, pos, SoundEvents.FLOWERING_AZALEA_HIT);
+                damageTool(tool, player, hand);
+                return;
+            }
+        }
 
         //Bountiful Crops
              // Bountiful Dark Oak and Oak Leaves
