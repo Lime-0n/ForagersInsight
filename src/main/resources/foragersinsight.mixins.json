@@ -6,7 +6,7 @@
   "mixins": [
     "BirchTreeGrowerMixin",
     "lilac.BoneMealLilacMixin",
-    "lilac.RichSoilTreeMixin",
+    "RichSoilTreeMixin",
     "DarkOakTreeGrowerMixin",
     "OakTreeGrowerMixin",
     "SpruceTreeGrowerMixin",

@@ -16,13 +16,13 @@ import vectorwing.farmersdelight.common.block.RichSoilBlock;
 
 import java.util.Optional;
 
-final class LilacTreeGrowthMixin {
+public final class LilacTreeGrowthMixin {
     private static final int LILAC_TREE_CHANCE = 8;
 
     private LilacTreeGrowthMixin() {
     }
 
-    static void tryGrowFromRandomTick(ServerLevel level, BlockPos soilPos, RandomSource random) {
+    public static void tryGrowFromRandomTick(ServerLevel level, BlockPos soilPos, RandomSource random) {
         if (!shouldGrow(random)) {
             return;
         }
@@ -30,11 +30,11 @@ final class LilacTreeGrowthMixin {
         tryGrowLilacTree(level, soilPos, random);
     }
 
-    static boolean shouldGrow(RandomSource random) {
+    public static boolean shouldGrow(RandomSource random) {
         return random.nextInt(LILAC_TREE_CHANCE) == 0;
     }
 
-    static boolean tryGrowLilacTree(ServerLevel level, BlockPos soilPos, RandomSource random) {
+    public static boolean tryGrowLilacTree(ServerLevel level, BlockPos soilPos, RandomSource random) {
         BlockState soilState = level.getBlockState(soilPos);
         if (!(soilState.getBlock() instanceof RichSoilBlock)) {
             return false;

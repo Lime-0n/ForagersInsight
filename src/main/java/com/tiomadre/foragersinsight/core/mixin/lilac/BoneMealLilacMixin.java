@@ -1,5 +1,6 @@
 package com.tiomadre.foragersinsight.core.mixin.lilac;
 
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -53,18 +54,21 @@ public class BoneMealLilacMixin {
         if (!level.isClientSide) {
             ItemStack stack = context.getItemInHand();
             RandomSource random = level.getRandom();
-
             if (LilacTreeGrowthMixin.shouldGrow(random)) {
                 LilacTreeGrowthMixin.tryGrowLilacTree((ServerLevel) level, lilacPos.below(), random);
+
+                if (LilacTreeGrowthMixin.shouldGrow(random)) {
+                    LilacTreeGrowthMixin.tryGrowLilacTree((ServerLevel) level, lilacPos.below(), random);
+                }
+
+                if (context.getPlayer() == null || !context.getPlayer().getAbilities().instabuild) {
+                    stack.shrink(1);
+                }
+
+                level.levelEvent(1505, clickedPos, 0);
             }
 
-            if (context.getPlayer() == null || !context.getPlayer().getAbilities().instabuild) {
-                stack.shrink(1);
-            }
-
-            level.levelEvent(1505, clickedPos, 0);
+            cir.setReturnValue(InteractionResult.sidedSuccess(level.isClientSide));
         }
-
-        cir.setReturnValue(InteractionResult.sidedSuccess(level.isClientSide));
     }
 }

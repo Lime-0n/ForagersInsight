@@ -1,5 +1,7 @@
-package com.tiomadre.foragersinsight.core.mixin.lilac;
+package com.tiomadre.foragersinsight.core.mixin;
 
+
+import com.tiomadre.foragersinsight.core.mixin.lilac.LilacTreeGrowthMixin;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
