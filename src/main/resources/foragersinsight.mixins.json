@@ -5,9 +5,10 @@
   "refmap": "foragersinsight.refmap.json",
   "mixins": [
     "BirchTreeGrowerMixin",
+    "lilac.BoneMealLilacMixin",
+    "lilac.RichSoilTreeMixin",
     "DarkOakTreeGrowerMixin",
     "OakTreeGrowerMixin",
-    "RichSoilTreeMixin",
     "SpruceTreeGrowerMixin",
     "shears_fortune.FortuneApplyAnvilMixin",
     "shears_fortune.ShearsFortuneMixin"

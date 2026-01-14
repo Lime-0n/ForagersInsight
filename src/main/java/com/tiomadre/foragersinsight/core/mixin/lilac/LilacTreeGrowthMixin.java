@@ -1,4 +1,4 @@
-package com.tiomadre.foragersinsight.core.mixin;
+package com.tiomadre.foragersinsight.core.mixin.lilac;
 
 import com.tiomadre.foragersinsight.common.worldgen.FIConfiguredFeatures;
 import net.minecraft.core.BlockPos;
@@ -12,55 +12,72 @@ import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import vectorwing.farmersdelight.common.block.RichSoilBlock;
 
 import java.util.Optional;
 
-@Mixin(RichSoilBlock.class)
-public class RichSoilTreeMixin {
-    @Unique
+final class LilacTreeGrowthMixin {
     private static final int LILAC_TREE_CHANCE = 8;
 
-    @Inject(method = "randomTick", at = @At("TAIL"))
-    private void foragersInsight$growLilacTree(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo ci) {
-        if (random.nextInt(LILAC_TREE_CHANCE) != 0) {
+    private LilacTreeGrowthMixin() {
+    }
+
+    static void tryGrowFromRandomTick(ServerLevel level, BlockPos soilPos, RandomSource random) {
+        if (!shouldGrow(random)) {
             return;
         }
 
-        BlockPos lilacPos = pos.above();
+        tryGrowLilacTree(level, soilPos, random);
+    }
+
+    static boolean shouldGrow(RandomSource random) {
+        return random.nextInt(LILAC_TREE_CHANCE) == 0;
+    }
+
+    static boolean tryGrowLilacTree(ServerLevel level, BlockPos soilPos, RandomSource random) {
+        BlockState soilState = level.getBlockState(soilPos);
+        if (!(soilState.getBlock() instanceof RichSoilBlock)) {
+            return false;
+        }
+
+        BlockPos lilacPos = soilPos.above();
         BlockState lowerLilacState = level.getBlockState(lilacPos);
         if (!lowerLilacState.is(Blocks.LILAC) || lowerLilacState.getValue(DoublePlantBlock.HALF) != DoubleBlockHalf.LOWER) {
-            return;
+            return false;
         }
 
         BlockPos upperLilacPos = lilacPos.above();
         BlockState upperLilacState = level.getBlockState(upperLilacPos);
-        if (!upperLilacState.is(Blocks.LILAC)) {
-            return;
+        if (!upperLilacState.is(Blocks.LILAC) || upperLilacState.getValue(DoublePlantBlock.HALF) != DoubleBlockHalf.UPPER) {
+            return false;
         }
 
         Optional<ConfiguredFeature<?, ?>> configuredFeature = level.registryAccess()
                 .registryOrThrow(Registries.CONFIGURED_FEATURE)
                 .getHolder(FIConfiguredFeatures.LILAC_TREE_KEY)
                 .map(Holder.Reference::value);
+
         if (configuredFeature.isEmpty()) {
-            return;
+            return false;
         }
 
-        level.setBlock(pos, Blocks.ROOTED_DIRT.defaultBlockState(), Block.UPDATE_ALL);
+        level.setBlock(soilPos, Blocks.ROOTED_DIRT.defaultBlockState(), Block.UPDATE_ALL);
         level.setBlock(lilacPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
         level.setBlock(upperLilacPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
 
-        boolean placed = configuredFeature.get().place(level, level.getChunkSource().getGenerator(), random, lilacPos);
+        boolean placed = configuredFeature.get().place(
+                level,
+                level.getChunkSource().getGenerator(),
+                random,
+                lilacPos
+        );
+
         if (!placed) {
-            level.setBlock(pos, state, Block.UPDATE_ALL);
+            level.setBlock(soilPos, soilState, Block.UPDATE_ALL);
             level.setBlock(lilacPos, lowerLilacState, Block.UPDATE_ALL);
             level.setBlock(upperLilacPos, upperLilacState, Block.UPDATE_ALL);
         }
+
+        return placed;
     }
 }
