@@ -20,6 +20,23 @@ import org.jetbrains.annotations.NotNull;
 public class LilacTreeFoliagePlacer extends FoliagePlacer {
     private static final int MAX_BLOSSOMS = 4;
     private static final int BLOSSOM_CHANCE = 5;
+    private static final String[] TOP_LAYER = {
+            "XXX",
+            "XXX",
+            "XXX"
+    };
+    private static final String[] MIDDLE_LAYER = {
+            ".XXX.",
+            "XXXXX",
+            "XXXXX",
+            "XXXXX",
+            ".XXX."
+    };
+    private static final String[] BOTTOM_LAYER = {
+            ".X.",
+            "XXX",
+            ".X."
+    };
     protected final int height;
 
     public static final Codec<LilacTreeFoliagePlacer> CODEC = RecordCodecBuilder
@@ -43,35 +60,25 @@ public class LilacTreeFoliagePlacer extends FoliagePlacer {
                                  int radius, int offset) {
         int[] blossomsPlaced = {0};
         BlockPos basePos = attachment.pos();
-        placeSquareLayer(level, blockSetter, rand, config, basePos, offset, blossomsPlaced);
-        placePlusLayer(level, blockSetter, rand, config, basePos, offset - 1, blossomsPlaced);
-        placeSquareLayer(level, blockSetter, rand, config, basePos, offset - 2, blossomsPlaced);
+        placeLayerPattern(level, blockSetter, rand, config, basePos, offset, blossomsPlaced, TOP_LAYER, false);
+        placeLayerPattern(level, blockSetter, rand, config, basePos, offset - 1, blossomsPlaced, MIDDLE_LAYER, true);
+        placeLayerPattern(level, blockSetter, rand, config, basePos, offset - 2, blossomsPlaced, BOTTOM_LAYER, true);
     }
 
-    private void placeSquareLayer(@NotNull LevelSimulatedReader level, @NotNull FoliageSetter setter, @NotNull RandomSource rand,
-                                  @NotNull TreeConfiguration config, @NotNull BlockPos pos, int localY, int[] blossomsPlaced) {
+    private void placeLayerPattern(@NotNull LevelSimulatedReader level, @NotNull FoliageSetter setter, @NotNull RandomSource rand,
+                                   @NotNull TreeConfiguration config, @NotNull BlockPos pos, int localY, int[] blossomsPlaced,
+                                   String[] pattern, boolean allowBlossoms) {
         BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
+        int half = pattern.length / 2;
 
-        for (int x = -1; x <= 1; ++x) {
-            for (int z = -1; z <= 1; ++z) {
-                mutablePos.setWithOffset(pos, x, localY, z);
-                tryPlaceLeaf(level, setter, rand, config, mutablePos, blossomsPlaced);
-            }
-        }
-    }
-
-    private void placePlusLayer(@NotNull LevelSimulatedReader level, @NotNull FoliageSetter setter, @NotNull RandomSource rand,
-                                @NotNull TreeConfiguration config, @NotNull BlockPos pos, int localY, int[] blossomsPlaced) {
-        BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
-
-        for (int x = -4; x <= 4; ++x) {
-            for (int z = -4; z <= 4; ++z) {
-                if ((Math.abs(x) <= 1 && Math.abs(z) <= 1)
-                        || (x == 0 && Math.abs(z) <= 4)
-                        || (z == 0 && Math.abs(x) <= 4)) {
-                    mutablePos.setWithOffset(pos, x, localY, z);
-                    tryPlaceLeaf(level, setter, rand, config, mutablePos, blossomsPlaced);
+        for (int z = 0; z < pattern.length; ++z) {
+            String row = pattern[z];
+            for (int x = 0; x < row.length(); ++x) {
+                if (row.charAt(x) != 'X') {
+                    continue;
                 }
+                mutablePos.setWithOffset(pos, x - half, localY, z - half);
+                tryPlaceLeaf(level, setter, rand, config, mutablePos, blossomsPlaced, allowBlossoms);
             }
         }
     }
@@ -87,12 +94,14 @@ public class LilacTreeFoliagePlacer extends FoliagePlacer {
     }
 
     protected static boolean tryPlaceLeaf(LevelSimulatedReader level, @NotNull FoliageSetter setter, @NotNull RandomSource rand,
-                                          @NotNull TreeConfiguration config, @NotNull BlockPos pos, int[] blossomsPlaced) {
+                                          @NotNull TreeConfiguration config, @NotNull BlockPos pos, int[] blossomsPlaced,
+                                          boolean allowBlossoms) {
         if (!TreeFeature.validTreePos(level, pos)) {
             return false;
         }
 
-        boolean canBlossom = blossomsPlaced[0] < MAX_BLOSSOMS
+        boolean canBlossom = allowBlossoms
+                && blossomsPlaced[0] < MAX_BLOSSOMS
                 && rand.nextInt(BLOSSOM_CHANCE) == 0
                 && isExposedBelow(level, pos);
         BlockState blockstate = (canBlossom ? FIBlocks.BLOSSOMING_LILAC_LEAVES.get() : FIBlocks.LILAC_LEAVES.get()).defaultBlockState();
@@ -109,7 +118,6 @@ public class LilacTreeFoliagePlacer extends FoliagePlacer {
     }
 
     private static boolean isExposedBelow(LevelSimulatedReader level, BlockPos pos) {
-        return !level.isStateAtPosition(pos.below(), state ->
-                state.is(FIBlocks.LILAC_LEAVES.get()) || state.is(FIBlocks.LILAC_LOG.get()));
+        return level.isStateAtPosition(pos.below(), BlockState::isAir);
     }
 }
