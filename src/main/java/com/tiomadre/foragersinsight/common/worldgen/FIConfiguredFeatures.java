@@ -86,9 +86,9 @@ public class FIConfiguredFeatures {
 
         register(context, LILAC_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(FIBlocks.LILAC_LOG.get()),
-                new StraightTrunkPlacer(2, 2, 0),
+                new StraightTrunkPlacer(3, 1, 0),
                 BlockStateProvider.simple(FIBlocks.LILAC_LEAVES.get()),
-                new LilacTreeFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 2),
+                new LilacTreeFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
                 new TwoLayersFeatureSize(1, 0, 1)
         ).ignoreVines().build());
 

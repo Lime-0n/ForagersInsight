@@ -5,7 +5,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIFoliagePlacerType;
 import net.minecraft.core.BlockPos;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
@@ -43,21 +42,33 @@ public class LilacTreeFoliagePlacer extends FoliagePlacer {
                                  @NotNull TreeConfiguration config, int maxFreeTreeHeight, @NotNull FoliageAttachment attachment, int height,
                                  int radius, int offset) {
         int[] blossomsPlaced = {0};
-        for (int i = offset; i >= offset - height; --i) {
-            int range = Math.max(radius + attachment.radiusOffset() - 1 - i / 2, 0);
-            placeLeavesRow(level, blockSetter, rand, config, attachment.pos(), range, i, attachment.doubleTrunk(), blossomsPlaced);
+        BlockPos basePos = attachment.pos();
+        placeSquareLayer(level, blockSetter, rand, config, basePos, offset, blossomsPlaced);
+        placePlusLayer(level, blockSetter, rand, config, basePos, offset - 1, blossomsPlaced);
+        placeSquareLayer(level, blockSetter, rand, config, basePos, offset - 2, blossomsPlaced);
+    }
+
+    private void placeSquareLayer(@NotNull LevelSimulatedReader level, @NotNull FoliageSetter setter, @NotNull RandomSource rand,
+                                  @NotNull TreeConfiguration config, @NotNull BlockPos pos, int localY, int[] blossomsPlaced) {
+        BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
+
+        for (int x = -1; x <= 1; ++x) {
+            for (int z = -1; z <= 1; ++z) {
+                mutablePos.setWithOffset(pos, x, localY, z);
+                tryPlaceLeaf(level, setter, rand, config, mutablePos, blossomsPlaced);
+            }
         }
     }
 
-    private void placeLeavesRow(@NotNull LevelSimulatedReader level, @NotNull FoliageSetter setter, @NotNull RandomSource rand,
-                                @NotNull TreeConfiguration config, @NotNull BlockPos pos, int range, int localY, boolean large,
-                                int[] blossomsPlaced) {
-        int i = large ? 1 : 0;
+    private void placePlusLayer(@NotNull LevelSimulatedReader level, @NotNull FoliageSetter setter, @NotNull RandomSource rand,
+                                @NotNull TreeConfiguration config, @NotNull BlockPos pos, int localY, int[] blossomsPlaced) {
         BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
 
-        for (int x = -range; x <= range + i; ++x) {
-            for (int z = -range; z <= range + i; ++z) {
-                if (!this.shouldSkipLocationSigned(rand, x, localY, z, range, large)) {
+        for (int x = -4; x <= 4; ++x) {
+            for (int z = -4; z <= 4; ++z) {
+                if ((Math.abs(x) <= 1 && Math.abs(z) <= 1)
+                        || (x == 0 && Math.abs(z) <= 4)
+                        || (z == 0 && Math.abs(x) <= 4)) {
                     mutablePos.setWithOffset(pos, x, localY, z);
                     tryPlaceLeaf(level, setter, rand, config, mutablePos, blossomsPlaced);
                 }
@@ -98,6 +109,7 @@ public class LilacTreeFoliagePlacer extends FoliagePlacer {
     }
 
     private static boolean isExposedBelow(LevelSimulatedReader level, BlockPos pos) {
-        return !level.isStateAtPosition(pos.below(), state -> state.is(BlockTags.LEAVES) || state.is(BlockTags.LOGS));
+        return !level.isStateAtPosition(pos.below(), state ->
+                state.is(FIBlocks.LILAC_LEAVES.get()) || state.is(FIBlocks.LILAC_LOG.get()));
     }
 }

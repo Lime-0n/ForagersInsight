@@ -1,6 +1,5 @@
-package com.tiomadre.foragersinsight.core.mixin.lilac;
+package com.tiomadre.foragersinsight.common.worldgen;
 
-import com.tiomadre.foragersinsight.common.worldgen.FIConfiguredFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -16,10 +15,10 @@ import vectorwing.farmersdelight.common.block.RichSoilBlock;
 
 import java.util.Optional;
 
-public final class LilacTreeGrowthMixin {
+public final class LilacTreeGrowth {
     private static final int LILAC_TREE_CHANCE = 8;
 
-    private LilacTreeGrowthMixin() {
+    private LilacTreeGrowth() {
     }
 
     public static void tryGrowFromRandomTick(ServerLevel level, BlockPos soilPos, RandomSource random) {

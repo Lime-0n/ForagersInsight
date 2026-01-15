@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.core.mixin.lilac;
 
 
+import com.tiomadre.foragersinsight.common.worldgen.LilacTreeGrowth;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -54,20 +55,20 @@ public class BoneMealLilacMixin {
         if (!level.isClientSide) {
             ItemStack stack = context.getItemInHand();
             RandomSource random = level.getRandom();
-            if (LilacTreeGrowthMixin.shouldGrow(random)) {
-                LilacTreeGrowthMixin.tryGrowLilacTree((ServerLevel) level, lilacPos.below(), random);
+            boolean grew = false;
+            if (LilacTreeGrowth.shouldGrow(random)) {
+                grew = LilacTreeGrowth.tryGrowLilacTree((ServerLevel) level, lilacPos.below(), random);
 
-                if (LilacTreeGrowthMixin.shouldGrow(random)) {
-                    LilacTreeGrowthMixin.tryGrowLilacTree((ServerLevel) level, lilacPos.below(), random);
+                if (LilacTreeGrowth.shouldGrow(random)) {
+                    grew = LilacTreeGrowth.tryGrowLilacTree((ServerLevel) level, lilacPos.below(), random) || grew;
                 }
-
-                if (context.getPlayer() == null || !context.getPlayer().getAbilities().instabuild) {
-                    stack.shrink(1);
-                }
-
-                level.levelEvent(1505, clickedPos, 0);
             }
 
+            if (grew && (context.getPlayer() == null || !context.getPlayer().getAbilities().instabuild)) {
+                stack.shrink(1);
+            }
+
+            level.levelEvent(1505, lilacPos, 0);
             cir.setReturnValue(InteractionResult.sidedSuccess(level.isClientSide));
         }
     }
