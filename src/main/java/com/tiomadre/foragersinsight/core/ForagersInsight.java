@@ -1,6 +1,6 @@
 package com.tiomadre.foragersinsight.core;
 
-import com.tiomadre.foragersinsight.common.diffuser.DiffuserScent;
+import com.tiomadre.foragersinsight.data.server.recipes.FIDiffusingRecipes;
 import com.tiomadre.foragersinsight.core.registry.FIEnchantments;
 import com.tiomadre.foragersinsight.core.other.FIClientCompat;
 import com.tiomadre.foragersinsight.core.other.FICompostable;
@@ -64,7 +64,7 @@ public class ForagersInsight {
 	private void commonSetup(FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
 			FICompostable.registerCompat();
-			DiffuserScent.bootstrap();
+			FIDiffusingRecipes.bootstrap();
 		});
 	}
 
