@@ -1,7 +1,7 @@
 package com.tiomadre.foragersinsight.common.block.entity;
 
 import com.tiomadre.foragersinsight.common.block.DiffuserBlock;
-import com.tiomadre.foragersinsight.common.diffuser.DiffuserScent;
+import com.tiomadre.foragersinsight.data.server.recipes.FIDiffusingRecipes;
 import com.tiomadre.foragersinsight.common.gui.DiffuserMenu;
 import com.tiomadre.foragersinsight.core.registry.FIBlockEntityTypes;
 import com.tiomadre.foragersinsight.data.server.tags.FITags;
@@ -43,7 +43,7 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
     private static final int SLOT_COUNT = RESULT_SLOT_INDEX + 1;
     private static final int DATA_COUNT = 4;
 
-    private static final int DEFAULT_DIFFUSION_TIME = DiffuserScent.STANDARD_DURATION;
+    private static final int DEFAULT_DIFFUSION_TIME = FIDiffusingRecipes.STANDARD_DURATION;
     private static final int EFFECT_APPLY_INTERVAL = 40;
 
     private NonNullList<ItemStack> items = NonNullList.withSize(SLOT_COUNT, ItemStack.EMPTY);
@@ -51,7 +51,7 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
     private int litDuration;
     private int craftProgress;
     private int craftTimeTotal = DEFAULT_DIFFUSION_TIME;
-    private DiffuserScent activeScent;
+    private FIDiffusingRecipes activeScent;
     private int effectTickCounter;
     private Enhancement activeEnhancement = Enhancement.NONE;
     private int respirationLevel;
@@ -127,7 +127,7 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         }
     }
 
-    private void startCycle(DiffuserScent scent) {
+    private void startCycle(FIDiffusingRecipes scent) {
         this.activeScent = scent;
         this.activeEnhancement = consumeEnhancement();
         int enhancedDuration = (int) Math.round(DEFAULT_DIFFUSION_TIME * this.activeEnhancement.durationMultiplier());
@@ -138,8 +138,8 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         this.effectTickCounter = 0;
     }
 
-    private void consumeIngredients(DiffuserScent scent) {
-        for (DiffuserScent.IngredientCount ingredient : scent.ingredients()) {
+    private void consumeIngredients(FIDiffusingRecipes scent) {
+        for (FIDiffusingRecipes.IngredientCount ingredient : scent.ingredients()) {
             int remaining = ingredient.count();
             for (int slot = 0; slot < INPUT_SLOT_COUNT && remaining > 0; slot++) {
                 ItemStack stack = this.items.get(slot);
@@ -161,8 +161,8 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         }
     }
 
-    private Optional<DiffuserScent> findMatchingScent() {
-        return DiffuserScent.findMatch(this.items.subList(0, INPUT_SLOT_COUNT));
+    private Optional<FIDiffusingRecipes> findMatchingScent() {
+        return FIDiffusingRecipes.findMatch(this.items.subList(0, INPUT_SLOT_COUNT));
     }
 
     private void clearActiveScent() {
@@ -171,7 +171,7 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         this.activeEnhancement = Enhancement.NONE;
     }
 
-    public Optional<DiffuserScent> getActiveScent() {
+    public Optional<FIDiffusingRecipes> getActiveScent() {
         if (this.activeScent != null) {
             return Optional.of(this.activeScent);
         }
@@ -182,12 +182,12 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         if (this.level == null || this.isLit()) {
             return false;
         }
-        Optional<DiffuserScent> match = findMatchingScent();
+        Optional<FIDiffusingRecipes> match = findMatchingScent();
         if (match.isEmpty()) {
             return false;
         }
 
-        DiffuserScent scent = match.get();
+        FIDiffusingRecipes scent = match.get();
         consumeIngredients(scent);
         startCycle(scent);
         this.setChanged();
@@ -368,10 +368,10 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         this.activeScent = null;
         this.activeEnhancement = Enhancement.NONE;
         if (tag.contains("ActiveScent", CompoundTag.TAG_STRING)) {
-            DiffuserScent.byId(new ResourceLocation(tag.getString("ActiveScent")))
+            FIDiffusingRecipes.byId(new ResourceLocation(tag.getString("ActiveScent")))
                     .ifPresent(scent -> this.activeScent = scent);
         } else if (tag.contains("ActiveScentId", CompoundTag.TAG_INT)) {
-            DiffuserScent.byNetworkId(tag.getInt("ActiveScentId")).ifPresent(scent -> this.activeScent = scent);
+            FIDiffusingRecipes.byNetworkId(tag.getInt("ActiveScentId")).ifPresent(scent -> this.activeScent = scent);
         }
         if (tag.contains("ActiveEnhancement", CompoundTag.TAG_STRING)) {
             this.activeEnhancement = Enhancement.byName(tag.getString("ActiveEnhancement"));

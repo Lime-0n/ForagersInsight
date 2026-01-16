@@ -16,7 +16,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
-import com.tiomadre.foragersinsight.common.diffuser.DiffuserScent;
+import com.tiomadre.foragersinsight.data.server.recipes.FIDiffusingRecipes;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -188,7 +188,7 @@ public class DiffuserMenu extends AbstractContainerMenu {
         return Mth.clamp((int) ((long) progress * ARROW_PROGRESS_PIXELS / total), 0, ARROW_PROGRESS_PIXELS);
     }
 
-    public Optional<DiffuserScent> getActiveScent() {
+    public Optional<FIDiffusingRecipes> getActiveScent() {
         return this.diffuser.getActiveScent();
     }
 

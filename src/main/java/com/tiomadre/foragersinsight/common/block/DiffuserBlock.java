@@ -1,7 +1,7 @@
 package com.tiomadre.foragersinsight.common.block;
 
 import com.tiomadre.foragersinsight.common.block.entity.DiffuserBlockEntity;
-import com.tiomadre.foragersinsight.common.diffuser.DiffuserScent;
+import com.tiomadre.foragersinsight.data.server.recipes.FIDiffusingRecipes;
 import com.tiomadre.foragersinsight.core.registry.FIBlockEntityTypes;
 import com.tiomadre.foragersinsight.core.registry.FIParticleTypes;
 import net.minecraft.core.BlockPos;
@@ -201,7 +201,7 @@ public class DiffuserBlock extends BaseEntityBlock implements SimpleWaterloggedB
         }
 
     }
-    private void spawnScentParticle(Level level, RandomSource random, double x, double y, double z, DiffuserScent scent) {
+    private void spawnScentParticle(Level level, RandomSource random, double x, double y, double z, FIDiffusingRecipes scent) {
         SimpleParticleType particle = getScentParticleType(scent);
         if (particle == null) {
             return;
@@ -212,17 +212,17 @@ public class DiffuserBlock extends BaseEntityBlock implements SimpleWaterloggedB
         level.addParticle(particle, x, y, z, driftX, driftY, driftZ);
     }
 
-    private @Nullable SimpleParticleType getScentParticleType(DiffuserScent scent) {
-        if (scent == DiffuserScent.ROSEY.get()) {
+    private @Nullable SimpleParticleType getScentParticleType(FIDiffusingRecipes scent) {
+        if (scent == FIDiffusingRecipes.ROSEY.get()) {
             return FIParticleTypes.ROSE_SCENT.get();
         }
-        if (scent == DiffuserScent.CONIFEROUS.get()) {
+        if (scent == FIDiffusingRecipes.CONIFEROUS.get()) {
             return FIParticleTypes.CONIFEROUS_SCENT.get();
         }
-        if (scent == DiffuserScent.FLORAL.get()) {
+        if (scent == FIDiffusingRecipes.FLORAL.get()) {
             return FIParticleTypes.FLORAL_SCENT.get();
         }
-        if (scent == DiffuserScent.FOUL.get()) {
+        if (scent == FIDiffusingRecipes.FOUL.get()) {
             return FIParticleTypes.FOUL_SCENT.get();
         }
         return null;

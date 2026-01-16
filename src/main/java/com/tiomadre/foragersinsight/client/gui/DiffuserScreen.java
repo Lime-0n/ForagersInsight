@@ -2,7 +2,7 @@ package com.tiomadre.foragersinsight.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.tiomadre.foragersinsight.common.block.entity.DiffuserBlockEntity;
-import com.tiomadre.foragersinsight.common.diffuser.DiffuserScent;
+import com.tiomadre.foragersinsight.data.server.recipes.FIDiffusingRecipes;
 import com.tiomadre.foragersinsight.common.gui.DiffuserMenu;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
@@ -121,7 +121,7 @@ public class DiffuserScreen extends AbstractContainerScreen<DiffuserMenu> {
     }
 
     private void renderScentIcon(GuiGraphics gui, int left, int top) {
-        Optional<DiffuserScent> scent = this.menu.getActiveScent();
+        Optional<FIDiffusingRecipes> scent = this.menu.getActiveScent();
         if (scent.isEmpty()) {
             return;
         }
@@ -132,7 +132,7 @@ public class DiffuserScreen extends AbstractContainerScreen<DiffuserMenu> {
     }
 
     private void renderScentTooltip(GuiGraphics gui, int mouseX, int mouseY) {
-        Optional<DiffuserScent> scent = this.menu.getActiveScent();
+        Optional<FIDiffusingRecipes> scent = this.menu.getActiveScent();
         if (scent.isEmpty()) {
             return;
         }
@@ -151,7 +151,7 @@ public class DiffuserScreen extends AbstractContainerScreen<DiffuserMenu> {
             return;
         }
 
-        Optional<DiffuserScent> scent = this.menu.getActiveScent();
+        Optional<FIDiffusingRecipes> scent = this.menu.getActiveScent();
         if (scent.isEmpty()) {
             return;
         }
@@ -179,9 +179,9 @@ public class DiffuserScreen extends AbstractContainerScreen<DiffuserMenu> {
 
         DiffuserBlockEntity.Enhancement enhancement = this.menu.getActiveEnhancement();
         if (enhancement == DiffuserBlockEntity.Enhancement.RADIUS) {
-            tooltip.add(Component.translatable("gui.foragersinsight.diffuser.tooltip.enhanced_radius").withStyle(style -> style.withColor(DiffuserScent.RADIUS_ACCENT_COLOR)));
+            tooltip.add(Component.translatable("gui.foragersinsight.diffuser.tooltip.enhanced_radius").withStyle(style -> style.withColor(FIDiffusingRecipes.RADIUS_ACCENT_COLOR)));
         } else if (enhancement == DiffuserBlockEntity.Enhancement.DURATION) {
-            tooltip.add(Component.translatable("gui.foragersinsight.diffuser.tooltip.enhanced_duration").withStyle(style -> style.withColor(DiffuserScent.DURATION_ACCENT_COLOR)));
+            tooltip.add(Component.translatable("gui.foragersinsight.diffuser.tooltip.enhanced_duration").withStyle(style -> style.withColor(FIDiffusingRecipes.DURATION_ACCENT_COLOR)));
         }
 
         gui.renderComponentTooltip(this.font, tooltip, mouseX, mouseY);

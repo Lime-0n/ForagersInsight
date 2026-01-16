@@ -1,4 +1,4 @@
-package com.tiomadre.foragersinsight.common.diffuser;
+package com.tiomadre.foragersinsight.data.server.recipes;
 
 import com.google.common.base.Suppliers;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
@@ -10,7 +10,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import vectorwing.farmersdelight.common.registry.ModItems;
@@ -20,17 +19,16 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
 @SuppressWarnings("ALL")
-public final class DiffuserScent {
+public final class FIDiffusingRecipes {
     public static final int STANDARD_DURATION = 12000;
     public static final TextColor RADIUS_ACCENT_COLOR = TextColor.fromRgb(0xfabf29);
     public static final TextColor DURATION_ACCENT_COLOR = TextColor.fromRgb(0xc2daaf);
 
-    private static final List<DiffuserScent> ALL = new ArrayList<>();
-    private static final Map<ResourceLocation, DiffuserScent> BY_ID = new ConcurrentHashMap<>();
+    private static final List<FIDiffusingRecipes> ALL = new ArrayList<>();
+    private static final Map<ResourceLocation, FIDiffusingRecipes> BY_ID = new ConcurrentHashMap<>();
 
 
-    public static final Supplier<DiffuserScent> ROSEY = Suppliers.memoize(() ->
-            new DiffuserScent(
+    public static final Supplier<FIDiffusingRecipes> ROSEY = Suppliers.memoize(() -> new FIDiffusingRecipes(
                     new ResourceLocation("foragersinsight", "rosey"),
                     List.of(IngredientCount.of(Ingredient.of(FIItems.ROSE_PETALS.get()), 3)),
                     new ResourceLocation("foragersinsight", "textures/scents/rosey.png"),
@@ -40,8 +38,7 @@ public final class DiffuserScent {
                     (Supplier<MobEffectInstance>) () -> new MobEffectInstance(MobEffects.REGENERATION, 200, 0),
                     0));
 
-    public static final Supplier<DiffuserScent> CONIFEROUS = Suppliers.memoize(() ->
-            new DiffuserScent(
+    public static final Supplier<FIDiffusingRecipes> CONIFEROUS = Suppliers.memoize(() -> new FIDiffusingRecipes(
                     new ResourceLocation("foragersinsight", "coniferous"),
                     List.of(IngredientCount.of(Ingredient.of(FIItems.SPRUCE_TIPS.get()), 3)),
                     new ResourceLocation("foragersinsight", "textures/scents/coniferous.png"),
@@ -51,21 +48,20 @@ public final class DiffuserScent {
                     () -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 500, 0),
                     1));
 
-    public static final Supplier<DiffuserScent> FLORAL = Suppliers.memoize(() ->
-            new DiffuserScent(
-                    new ResourceLocation("foragersinsight", "floral"),
+    public static final Supplier<FIDiffusingRecipes> FLORAL = Suppliers.memoize(() -> new FIDiffusingRecipes(
+     new ResourceLocation("foragersinsight", "floral"),
                     List.of(IngredientCount.of(Ingredient.of(FIItems.ROSELLE_PETALS.get()), 1),
                             IngredientCount.of(Ingredient.of(FIItems.ROSE_PETALS.get()), 1),
-                            IngredientCount.of(Ingredient.of(Items.LILAC), 1)),
+                            IngredientCount.of(Ingredient.of(FIItems.LILAC_BLOOM.get()), 1)),
                     new ResourceLocation("foragersinsight", "textures/scents/floral.png"),
                     "foragersinsight.diffuser.floral",
                     "foragersinsight.diffuser.floral.description",
                     8.0,
                     () -> new MobEffectInstance(FIMobEffects.BLOOM.get(), 1200, 0),
                     0));
-    public static final Supplier<DiffuserScent> FOUL = Suppliers.memoize(() ->
-            new DiffuserScent(
-                    new ResourceLocation("foragersinsight", "foul"),
+
+    public static final Supplier<FIDiffusingRecipes> FOUL = Suppliers.memoize(() -> new FIDiffusingRecipes(
+    new ResourceLocation("foragersinsight", "foul"),
                     List.of(IngredientCount.of(Ingredient.of(ModItems.ORGANIC_COMPOST.get()), 3)),
                     new ResourceLocation("foragersinsight", "textures/scents/foul.png"),
                     "foragersinsight.diffuser.foul",
@@ -91,14 +87,14 @@ public final class DiffuserScent {
     private final Supplier<MobEffectInstance> effectSupplier;
     private final int networkId;
 
-    private DiffuserScent(ResourceLocation id,
-                          List<IngredientCount> ingredients,
-                          ResourceLocation icon,
-                          String translationKey,
-                          String descriptionKey,
-                          double radius,
-                          Supplier<MobEffectInstance> effectSupplier,
-                          int networkId) {
+    private FIDiffusingRecipes(ResourceLocation id,
+                               List<IngredientCount> ingredients,
+                               ResourceLocation icon,
+                               String translationKey,
+                               String descriptionKey,
+                               double radius,
+                               Supplier<MobEffectInstance> effectSupplier,
+                               int networkId) {
         this.id = Objects.requireNonNull(id, "id");
         this.ingredients = List.copyOf(ingredients);
         this.icon = Objects.requireNonNull(icon, "icon");
@@ -124,7 +120,7 @@ public final class DiffuserScent {
         return this.icon;
     }
 
-    public static Optional<DiffuserScent> byId(ResourceLocation id) {
+    public static Optional<FIDiffusingRecipes> byId(ResourceLocation id) {
         return Optional.ofNullable(BY_ID.get(id));
     }
 
@@ -132,7 +128,7 @@ public final class DiffuserScent {
         return this.networkId;
     }
 
-    public static Optional<DiffuserScent> byNetworkId(int networkId) {
+    public static Optional<FIDiffusingRecipes> byNetworkId(int networkId) {
         if (networkId < 0 || networkId >= ALL.size()) {
             return Optional.empty();
         }
@@ -244,12 +240,12 @@ public final class DiffuserScent {
         }
     }
 
-    public static Optional<DiffuserScent> findMatch(List<? extends ItemStack> stacks) {
+    public static Optional<FIDiffusingRecipes> findMatch(List<? extends ItemStack> stacks) {
         if (stacks == null || stacks.isEmpty()) {
             return Optional.empty();
         }
 
-        for (DiffuserScent scent : ALL) {
+        for (FIDiffusingRecipes scent : ALL) {
             if (scent.matches(stacks)) {
                 return Optional.of(scent);
             }
