@@ -36,6 +36,12 @@ public class FIBlockTags extends BlockTagsProvider {
         this.tag(BlockTags.WOODEN_TRAPDOORS).add(LILAC_TRAPDOOR.get());
         this.tag(BlockTags.WOODEN_PRESSURE_PLATES).add(LILAC_PRESSURE_PLATE.get());
         this.tag(BlockTags.WOODEN_BUTTONS).add(LILAC_BUTTON.get());
+        this.tag(BlockTags.SIGNS).add(LILAC_SIGN.get(), LILAC_WALL_SIGN.get());
+        this.tag(BlockTags.STANDING_SIGNS).add(LILAC_SIGN.get());
+        this.tag(BlockTags.WALL_SIGNS).add(LILAC_WALL_SIGN.get());
+        this.tag(BlockTags.ALL_HANGING_SIGNS).add(LILAC_HANGING_SIGN.get(), LILAC_WALL_HANGING_SIGN.get());
+        this.tag(BlockTags.CEILING_HANGING_SIGNS).add(LILAC_HANGING_SIGN.get());
+        this.tag(BlockTags.WALL_HANGING_SIGNS).add(LILAC_WALL_HANGING_SIGN.get());
 
         this.tag(BlockTags.SAPLINGS).add(BOUNTIFUL_OAK_SAPLING.get(), BOUNTIFUL_DARK_OAK_SAPLING.get(), BOUNTIFUL_SPRUCE_SAPLING.get());
         this.tag(BlockTags.LEAVES).add(BOUNTIFUL_OAK_LEAVES.get(),BOUNTIFUL_DARK_OAK_LEAVES.get(),BOUNTIFUL_SPRUCE_LEAVES.get());
@@ -59,7 +65,8 @@ public class FIBlockTags extends BlockTagsProvider {
     protected void registerMineables() {
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(TAPPER.get(), DIFFUSER.get());
         this.tag(BlockTags.MINEABLE_WITH_AXE).add(APPLE_CRATE.get(), SAPPY_BIRCH_LOG.get(), BLEWIT_MUSHROOM_CRATE.get(), LILAC_LOG.get(), STRIPPED_LILAC_LOG.get(), LILAC_PLANKS.get(), LILAC_STAIRS.get(),
-        LILAC_SLAB.get(), LILAC_FENCE.get(), LILAC_FENCE_GATE.get(), LILAC_DOOR.get(), LILAC_TRAPDOOR.get(), LILAC_PRESSURE_PLATE.get(), LILAC_BUTTON.get());
+                LILAC_SLAB.get(), LILAC_FENCE.get(), LILAC_FENCE_GATE.get(), LILAC_DOOR.get(), LILAC_TRAPDOOR.get(), LILAC_PRESSURE_PLATE.get(), LILAC_BUTTON.get(),
+                LILAC_SIGN.get(), LILAC_WALL_SIGN.get(), LILAC_HANGING_SIGN.get(), LILAC_WALL_HANGING_SIGN.get());
         this.tag(BlockTags.MINEABLE_WITH_HOE).add(BOUNTIFUL_OAK_LEAVES.get(),BOUNTIFUL_DARK_OAK_LEAVES.get(),BOUNTIFUL_SPRUCE_LEAVES.get());
         this.tag(ModTags.MINEABLE_WITH_KNIFE).add(DANDELION_ROOT_SACK.get(), ROSE_HIP_SACK.get(), POPPY_SEEDS_SACK.get(), SPRUCE_TIPS_SACK.get(), BLACK_ACORN_SACK.get());
     }

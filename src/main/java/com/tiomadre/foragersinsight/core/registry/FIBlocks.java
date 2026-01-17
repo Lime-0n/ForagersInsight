@@ -1,5 +1,9 @@
 package com.tiomadre.foragersinsight.core.registry;
 
+import com.teamabnormals.blueprint.common.block.sign.BlueprintCeilingHangingSignBlock;
+import com.teamabnormals.blueprint.common.block.sign.BlueprintStandingSignBlock;
+import com.teamabnormals.blueprint.common.block.sign.BlueprintWallHangingSignBlock;
+import com.teamabnormals.blueprint.common.block.sign.BlueprintWallSignBlock;
 import com.tiomadre.foragersinsight.common.block.*;
 import com.tiomadre.foragersinsight.common.worldgen.trees.grower.BountifulDarkOakTreeGrower;
 import com.tiomadre.foragersinsight.common.worldgen.trees.grower.BountifulOakTreeGrower;
@@ -90,7 +94,7 @@ public class FIBlocks {
     public static final RegistryObject<Block> LILAC_FENCE = HELPER.createBlock("lilac_fence", () ->
             new FenceBlock(copy(Blocks.OAK_FENCE)));
     public static final RegistryObject<Block> LILAC_FENCE_GATE = HELPER.createBlock("lilac_fence_gate", () ->
-            new FenceGateBlock(copy(Blocks.OAK_FENCE_GATE), WoodType.OAK));
+            new FenceGateBlock(copy(Blocks.OAK_FENCE_GATE), FIWoodTypes.LILAC));
     public static final RegistryObject<Block> LILAC_DOOR = HELPER.createBlock("lilac_door", () ->
             new DoorBlock(copy(Blocks.OAK_DOOR), BlockSetType.OAK));
     public static final RegistryObject<Block> LILAC_TRAPDOOR = HELPER.createBlock("lilac_trapdoor", () ->
@@ -99,6 +103,14 @@ public class FIBlocks {
             new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, copy(Blocks.OAK_PRESSURE_PLATE), BlockSetType.OAK));
     public static final RegistryObject<Block> LILAC_BUTTON = HELPER.createBlock("lilac_button", () ->
             new ButtonBlock(copy(Blocks.OAK_BUTTON), BlockSetType.OAK, 30, true));
+    public static final RegistryObject<Block> LILAC_SIGN = HELPER.createBlockNoItem("lilac_sign", () ->
+            new BlueprintStandingSignBlock(copy(Blocks.OAK_SIGN), FIWoodTypes.LILAC));
+    public static final RegistryObject<Block> LILAC_WALL_SIGN = HELPER.createBlockNoItem("lilac_wall_sign", () ->
+            new BlueprintWallSignBlock(copy(Blocks.OAK_WALL_SIGN), FIWoodTypes.LILAC));
+    public static final RegistryObject<Block> LILAC_HANGING_SIGN = HELPER.createBlockNoItem("lilac_hanging_sign", () ->
+            new BlueprintCeilingHangingSignBlock(copy(Blocks.OAK_HANGING_SIGN), FIWoodTypes.LILAC));
+    public static final RegistryObject<Block> LILAC_WALL_HANGING_SIGN = HELPER.createBlockNoItem("lilac_wall_hanging_sign", () ->
+            new BlueprintWallHangingSignBlock(copy(Blocks.OAK_WALL_HANGING_SIGN), FIWoodTypes.LILAC));
 
 
         //Syrup Tap

@@ -44,6 +44,7 @@ public class FIItemTags extends ItemTagsProvider {
         this.tag(MUSHROOM).add(Items.RED_MUSHROOM, Items.BROWN_MUSHROOM, FIItems.BLEWIT_MUSHROOM.get());
         this.tag(CROPS).addTag(APPLE).addTag(POPPY_SEEDS).addTag(ACORN).addTag(WHEAT).addTag(COCOA).addTag(ROOTS).addTag(MUSHROOM);
 
+
         // Handbasket support tags
         this.tag(RAW_MEATS).add(Items.RABBIT, Items.CHICKEN, Items.PORKCHOP, Items.BEEF, Items.MUTTON, FIItems.RAW_RABBIT_LEG.get())
                 .addOptional(new ResourceLocation("farmersdelight", "chicken_cuts"))
@@ -112,6 +113,11 @@ public class FIItemTags extends ItemTagsProvider {
         //Shears
         //this.tag(Tags.Items.TOOLS_SHEAR).add(FIItems.FLINT_SHEARS.get()); reenable when using newer FD version that uses tag
 
+        //Wood
+        this.tag(ItemTags.SIGNS).add(FIItems.LILAC_SIGN.get());
+        this.tag(ItemTags.HANGING_SIGNS).add(FIItems.LILAC_HANGING_SIGN.get());
+        this.tag(ItemTags.BOATS).add(FIItems.LILAC_BOAT.get());
+        this.tag(ItemTags.CHEST_BOATS).add(FIItems.LILAC_CHEST_BOAT.get());
 
         registerForgeTags();
     }

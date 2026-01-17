@@ -40,6 +40,8 @@ public class ForagersInsight {
 		MinecraftForge.EVENT_BUS.register(this);
 
 		REGISTRY_HELPER.register(bus);
+		FIBoatTypes.register();
+		FIWoodTypes.register();
 		FIEnchantments.register();
 		FIBlockEntityTypes.register(bus);
 		FIFoliagePlacerType.FOLIAGE_PLACER_TYPE.register(bus);

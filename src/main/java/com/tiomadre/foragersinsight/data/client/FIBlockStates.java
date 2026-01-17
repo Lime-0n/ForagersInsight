@@ -13,6 +13,7 @@ import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.common.block.MushroomColonyBlock;
+import com.mojang.datafixers.util.Pair;
 
 import static com.tiomadre.foragersinsight.core.registry.FIBlocks.*;
 
@@ -79,6 +80,8 @@ public class FIBlockStates extends FIBlockStatesHelper {
         this.buttonBlock((ButtonBlock) LILAC_BUTTON.get(), modTexture("lilac_planks"));
         this.itemModels().withExistingParent(name(LILAC_BUTTON.get()), mcLoc("block/button_inventory"))
                 .texture("texture", modTexture("lilac_planks"));
+        this.signBlocks(LILAC_PLANKS, Pair.of(LILAC_SIGN, LILAC_WALL_SIGN));
+        this.hangingSignBlocks(STRIPPED_LILAC_LOG, Pair.of(LILAC_HANGING_SIGN, LILAC_WALL_HANGING_SIGN));
 
         //Foliage Mats + Suspicious Litter
         this.matBlock(SCATTERED_ROSE_PETAL_MAT, "scattered_rose_petals");

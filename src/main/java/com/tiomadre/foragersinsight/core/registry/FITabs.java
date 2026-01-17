@@ -44,6 +44,8 @@ public class FITabs {
             FIBlocks.BLOSSOMING_LILAC_LEAVES,
             FIBlocks.LILAC_LOG,
             FIBlocks.LILAC_PLANKS,
+            FIItems.LILAC_SIGN,
+            FIItems.LILAC_HANGING_SIGN,
             FIBlocks.APPLE_CRATE,
             FIBlocks.BLEWIT_MUSHROOM_CRATE,
             FIBlocks.BLACK_ACORN_SACK,
@@ -146,7 +148,9 @@ public class FITabs {
             FIItems.GOLD_MALLET,
             FIItems.DIAMOND_MALLET,
             FIItems.NETHERITE_MALLET,
-            FIItems.TAPPER
+            FIItems.TAPPER,
+            FIItems.LILAC_BOAT,
+            FIItems.LILAC_CHEST_BOAT
     );
 
     private static final Set<String> BLOCK_PATHS = paths(BLOCK_ENTRIES);

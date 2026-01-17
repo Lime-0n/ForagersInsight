@@ -14,10 +14,14 @@ import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+
+import static com.tiomadre.foragersinsight.core.registry.FIItems.LILAC_HANGING_SIGN;
+import static com.tiomadre.foragersinsight.core.registry.FIItems.LILAC_SIGN;
 import static net.minecraft.world.item.Items.*;
 
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.data.event.GatherDataEvent;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.tag.ForgeTags;
@@ -353,6 +357,33 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
         ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, LILAC_BUTTON.get())
                 .requires(LILAC_PLANKS.get())
                 .unlockedBy("has_lilac_planks", has(LILAC_PLANKS.get()))
+                .save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, LILAC_SIGN.get(), 3)
+                .pattern("PPP")
+                .pattern("PPP")
+                .pattern(" S ")
+                .define('P', LILAC_PLANKS.get())
+                .define('S', Tags.Items.RODS_WOODEN)
+                .unlockedBy("has_lilac_planks", has(LILAC_PLANKS.get()))
+                .save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, LILAC_HANGING_SIGN.get(), 6)
+                .pattern("C C")
+                .pattern("PPP")
+                .pattern("PPP")
+                .define('C', CHAIN)
+                .define('P', STRIPPED_LILAC_LOG.get())
+                .unlockedBy("has_stripped_lilac_log", has(STRIPPED_LILAC_LOG.get()))
+                .save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.TRANSPORTATION, LILAC_BOAT.get())
+                .pattern("P P")
+                .pattern("PPP")
+                .define('P', LILAC_PLANKS.get())
+                .unlockedBy("has_lilac_planks", has(LILAC_PLANKS.get()))
+                .save(consumer);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TRANSPORTATION, LILAC_CHEST_BOAT.get())
+                .requires(Tags.Items.CHESTS_WOODEN)
+                .requires(LILAC_BOAT.get())
+                .unlockedBy("has_lilac_boat", has(LILAC_BOAT.get()))
                 .save(consumer);
 
         //Alternate Recipes using Rabbit Hide

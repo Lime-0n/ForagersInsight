@@ -56,6 +56,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.tiomadre.foragersinsight.core.registry.FIBlocks.*;
+import static com.tiomadre.foragersinsight.core.registry.FIBlocks.LILAC_HANGING_SIGN;
+import static com.tiomadre.foragersinsight.core.registry.FIBlocks.LILAC_SIGN;
 import static com.tiomadre.foragersinsight.core.registry.FIItems.*;
 import static com.tiomadre.foragersinsight.core.registry.FIItems.BLEWIT_MUSHROOM;
 
@@ -177,6 +179,10 @@ public class FILoot extends LootTableProvider {
             this.dropSelf(LILAC_TRAPDOOR.get());
             this.dropSelf(LILAC_PRESSURE_PLATE.get());
             this.dropSelf(LILAC_BUTTON.get());
+            this.add(LILAC_SIGN.get(), block -> createSingleItemTable(FIItems.LILAC_SIGN.get()));
+            this.add(LILAC_WALL_SIGN.get(), block -> createSingleItemTable(FIItems.LILAC_SIGN.get()));
+            this.add(LILAC_HANGING_SIGN.get(), block -> createSingleItemTable(FIItems.LILAC_HANGING_SIGN.get()));
+            this.add(LILAC_WALL_HANGING_SIGN.get(), block -> createSingleItemTable(FIItems.LILAC_HANGING_SIGN.get()));
                 //Tools + Workstations
             this.add(FIBlocks.DIFFUSER.get(), block -> createSingleItemTable(FIItems.DIFFUSER.get()));
             this.add(FIBlocks.TAPPER.get(), block -> createSingleItemTable(FIItems.TAPPER.get()));

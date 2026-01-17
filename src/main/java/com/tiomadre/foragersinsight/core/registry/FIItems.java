@@ -1,5 +1,6 @@
 package com.tiomadre.foragersinsight.core.registry;
 
+import com.teamabnormals.blueprint.common.item.BlueprintBoatItem;
 import com.tiomadre.foragersinsight.common.item.*;
 import com.tiomadre.foragersinsight.common.item.MilkBucketItem;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
@@ -167,7 +168,16 @@ public class FIItems {
     //Foraged
     public static final RegistryObject<Item> BLEWIT_MUSHROOM = HELPER.createItem("blewit_mushroom",  () ->
             new ItemNameBlockItem(FIBlocks.BLEWIT_MUSHROOM.get(), new Item.Properties().food(FIFoods.MID_SAT_MORSELS)));
-
+    //Wood Items
+    public static final RegistryObject<Item> LILAC_SIGN = HELPER.createItem("lilac_sign", () ->
+            new SignItem(new Item.Properties().stacksTo(16), FIBlocks.LILAC_SIGN.get(), FIBlocks.LILAC_WALL_SIGN.get()));
+    public static final RegistryObject<Item> LILAC_HANGING_SIGN = HELPER.createItem("lilac_hanging_sign", () ->
+            new HangingSignItem(FIBlocks.LILAC_HANGING_SIGN.get(), FIBlocks.LILAC_WALL_HANGING_SIGN.get(),
+                    new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> LILAC_BOAT = HELPER.createItem("lilac_boat", () ->
+            new BlueprintBoatItem(false, FIBoatTypes.LILAC, basicItem().stacksTo(1)));
+    public static final RegistryObject<Item> LILAC_CHEST_BOAT = HELPER.createItem("lilac_chest_boat", () ->
+            new BlueprintBoatItem(true, FIBoatTypes.LILAC, basicItem().stacksTo(1)));
 //Workstations & Tools
 //Diffuser
 public static final RegistryObject<Item> DIFFUSER = HELPER.createItem("diffuser", () ->
