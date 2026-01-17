@@ -212,7 +212,7 @@ public class FIBlockStates extends FIBlockStatesHelper {
         ModelFile birch = litterModel("suspicious_leaf_litter_birch",
                 mcLoc("block/birch_leaves"));
         ModelFile flower = litterModel("suspicious_leaf_litter_flower",
-                mcLoc("block/oak_leaves"));
+                modLoc("block/blossoming_lilac_leaves"));
         ModelFile spruce = litterModel("suspicious_leaf_litter_spruce",
                 mcLoc("block/spruce_leaves"));
         ModelFile darkOak = litterModel("suspicious_leaf_litter_dark_oak",
