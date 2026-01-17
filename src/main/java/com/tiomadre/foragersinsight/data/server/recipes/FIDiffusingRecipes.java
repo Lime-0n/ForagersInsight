@@ -13,6 +13,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.registry.ModItems;
 
 import java.util.*;
@@ -114,16 +115,20 @@ public final class FIDiffusingRecipes {
         ALL.add(this);
         BY_ID.put(this.id, this);
     }
-    private static Supplier<FIDiffusingRecipes> register(String name,
-                                                         List<IngredientCount> ingredients,
-                                                         ResourceLocation icon,
-                                                         String translationKey,
-                                                         String descriptionKey,
-                                                         double radius,
-                                                         Supplier<MobEffectInstance> effectSupplier,
-                                                         int networkId) {
-        Supplier<FIDiffusingRecipes> supplier = Suppliers.memoize(() -> new FIDiffusingRecipes(ForagersInsight.rl(name), ingredients, icon, translationKey, descriptionKey, radius,
-
+    private static @NotNull Supplier<FIDiffusingRecipes> register(String name,
+                                                                  List<IngredientCount> ingredients,
+                                                                  ResourceLocation icon,
+                                                                  String translationKey,
+                                                                  String descriptionKey,
+                                                                  double radius,
+                                                                  Supplier<MobEffectInstance> effectSupplier,
+                                                                  int networkId) {
+        Supplier<FIDiffusingRecipes> supplier = Suppliers.memoize(() -> new FIDiffusingRecipes(ForagersInsight.rl(name),
+                ingredients,
+                icon,
+                translationKey,
+                descriptionKey,
+                radius,
                 effectSupplier,
                 networkId));
         REGISTERED.add(supplier);
