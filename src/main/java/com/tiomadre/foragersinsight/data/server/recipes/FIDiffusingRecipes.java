@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.data.server.recipes;
 
 import com.google.common.base.Suppliers;
+import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import com.tiomadre.foragersinsight.core.registry.FIMobEffects;
 import net.minecraft.ChatFormatting;
@@ -26,55 +27,61 @@ public final class FIDiffusingRecipes {
 
     private static final List<FIDiffusingRecipes> ALL = new ArrayList<>();
     private static final Map<ResourceLocation, FIDiffusingRecipes> BY_ID = new ConcurrentHashMap<>();
+    private static final List<Supplier<FIDiffusingRecipes>> REGISTERED = new ArrayList<>();
 
+    public static final Supplier<FIDiffusingRecipes> ROSEY = register(
+            "rosey",
+            List.of(
+                    IngredientCount.of(Ingredient.of(FIItems.ROSE_PETALS.get()), 1),
+                    IngredientCount.of(Ingredient.of(FIItems.ROSE_PETALS.get()), 1),
+                    IngredientCount.of(Ingredient.of(FIItems.ROSE_PETALS.get()), 1)),
+            ForagersInsight.rl("textures/scents/rosey.png"),
+            "foragersinsight.diffuser.rosey",
+            "foragersinsight.diffuser.rosey.description",
+            8.0,
+            () -> new MobEffectInstance(MobEffects.REGENERATION, 200, 0),
+            0);
 
-    public static final Supplier<FIDiffusingRecipes> ROSEY = Suppliers.memoize(() -> new FIDiffusingRecipes(
-                    new ResourceLocation("foragersinsight", "rosey"),
-                    List.of(IngredientCount.of(Ingredient.of(FIItems.ROSE_PETALS.get()), 3)),
-                    new ResourceLocation("foragersinsight", "textures/scents/rosey.png"),
-                    "foragersinsight.diffuser.rosey",
-                    "foragersinsight.diffuser.rosey.description",
-                    8.0,
-                    (Supplier<MobEffectInstance>) () -> new MobEffectInstance(MobEffects.REGENERATION, 200, 0),
-                    0));
+    public static final Supplier<FIDiffusingRecipes> CONIFEROUS = register(
+            "coniferous",
+            List.of(
+                    IngredientCount.of(Ingredient.of(FIItems.SPRUCE_TIPS.get()), 1),
+                    IngredientCount.of(Ingredient.of(FIItems.SPRUCE_TIPS.get()), 1),
+                    IngredientCount.of(Ingredient.of(FIItems.SPRUCE_TIPS.get()), 1)),
+            ForagersInsight.rl("textures/scents/coniferous.png"),
+            "foragersinsight.diffuser.coniferous",
+            "foragersinsight.diffuser.coniferous.description",
+            8.0,
+            () -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 500, 0),
+            1);
 
-    public static final Supplier<FIDiffusingRecipes> CONIFEROUS = Suppliers.memoize(() -> new FIDiffusingRecipes(
-                    new ResourceLocation("foragersinsight", "coniferous"),
-                    List.of(IngredientCount.of(Ingredient.of(FIItems.SPRUCE_TIPS.get()), 3)),
-                    new ResourceLocation("foragersinsight", "textures/scents/coniferous.png"),
-                    "foragersinsight.diffuser.coniferous",
-                    "foragersinsight.diffuser.coniferous.description",
-                    8.0,
-                    () -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 500, 0),
-                    1));
+    public static final Supplier<FIDiffusingRecipes> FLORAL = register(
+            "floral",
+            List.of(IngredientCount.of(Ingredient.of(FIItems.ROSELLE_PETALS.get()), 1),
+                    IngredientCount.of(Ingredient.of(FIItems.ROSE_PETALS.get()), 1),
+                    IngredientCount.of(Ingredient.of(FIItems.LILAC_BLOOM.get()), 1)),
+            ForagersInsight.rl("textures/scents/floral.png"),
+            "foragersinsight.diffuser.floral",
+            "foragersinsight.diffuser.floral.description",
+            8.0,
+            () -> new MobEffectInstance(FIMobEffects.BLOOM.get(), 1200, 0),
+            0);
 
-    public static final Supplier<FIDiffusingRecipes> FLORAL = Suppliers.memoize(() -> new FIDiffusingRecipes(
-     new ResourceLocation("foragersinsight", "floral"),
-                    List.of(IngredientCount.of(Ingredient.of(FIItems.ROSELLE_PETALS.get()), 1),
-                            IngredientCount.of(Ingredient.of(FIItems.ROSE_PETALS.get()), 1),
-                            IngredientCount.of(Ingredient.of(FIItems.LILAC_BLOOM.get()), 1)),
-                    new ResourceLocation("foragersinsight", "textures/scents/floral.png"),
-                    "foragersinsight.diffuser.floral",
-                    "foragersinsight.diffuser.floral.description",
-                    8.0,
-                    () -> new MobEffectInstance(FIMobEffects.BLOOM.get(), 1200, 0),
-                    0));
-
-    public static final Supplier<FIDiffusingRecipes> FOUL = Suppliers.memoize(() -> new FIDiffusingRecipes(
-    new ResourceLocation("foragersinsight", "foul"),
-                    List.of(IngredientCount.of(Ingredient.of(ModItems.ORGANIC_COMPOST.get()), 3)),
-                    new ResourceLocation("foragersinsight", "textures/scents/foul.png"),
-                    "foragersinsight.diffuser.foul",
-                    "foragersinsight.diffuser.foul.description",
-                    8.0,
-                    () -> new MobEffectInstance(FIMobEffects.ODOROUS.get(), 1200, 0),
-                    3));
+    public static final Supplier<FIDiffusingRecipes> FOUL = register(
+            "foul",
+            List.of(
+                    IngredientCount.of(Ingredient.of(ModItems.ORGANIC_COMPOST.get()), 1),
+                    IngredientCount.of(Ingredient.of(ModItems.ORGANIC_COMPOST.get()), 1),
+                    IngredientCount.of(Ingredient.of(ModItems.ORGANIC_COMPOST.get()), 1)),
+            ForagersInsight.rl("textures/scents/foul.png"),
+            "foragersinsight.diffuser.foul",
+            "foragersinsight.diffuser.foul.description",
+            8.0,
+            () -> new MobEffectInstance(FIMobEffects.ODOROUS.get(), 1200, 0),
+            3);
 
     public static void bootstrap() {
-        ROSEY.get();
-        CONIFEROUS.get();
-        FLORAL.get();
-        FOUL.get();
+        REGISTERED.forEach(Supplier::get);
     }
 
     private final ResourceLocation id;
@@ -107,6 +114,22 @@ public final class FIDiffusingRecipes {
         ALL.add(this);
         BY_ID.put(this.id, this);
     }
+    private static Supplier<FIDiffusingRecipes> register(String name,
+                                                         List<IngredientCount> ingredients,
+                                                         ResourceLocation icon,
+                                                         String translationKey,
+                                                         String descriptionKey,
+                                                         double radius,
+                                                         Supplier<MobEffectInstance> effectSupplier,
+                                                         int networkId) {
+        Supplier<FIDiffusingRecipes> supplier = Suppliers.memoize(() -> new FIDiffusingRecipes(ForagersInsight.rl(name), ingredients, icon, translationKey, descriptionKey, radius,
+
+                effectSupplier,
+                networkId));
+        REGISTERED.add(supplier);
+        return supplier;
+    }
+
 
     public ResourceLocation id() {
         return this.id;

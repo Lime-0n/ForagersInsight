@@ -119,6 +119,10 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .requires(BLEWIT_MUSHROOM.get())
                 .unlockedBy("has_blewit", has(BLEWIT_MUSHROOM.get()))
                 .save(consumer, ForagersInsight.rl("blue_dye_from_blewit"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, MAGENTA_DYE, 1)
+                .requires(LILAC_BLOOM.get())
+                .unlockedBy("has_lilac_bloom", has(LILAC_BLOOM.get()))
+                .save(consumer, ForagersInsight.rl("magenta_dye_from_lilac_bloom"));
         //Seed Milk
             //Bucket of Seed Milk -> Bottles
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, SEED_MILK_BOTTLE.get(),4)

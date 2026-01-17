@@ -220,6 +220,11 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
+    public int getMaxStackSize() {
+        return 1;
+    }
+
+    @Override
     public boolean isEmpty() {
         for (int slot = 0; slot < INPUT_SLOT_COUNT; slot++) {
             if (!this.items.get(slot).isEmpty()) {
