@@ -1,6 +1,8 @@
 package com.tiomadre.foragersinsight.common.block;
 
 import java.util.function.Supplier;
+
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Block;
@@ -51,6 +53,20 @@ public class ThinLogBlock extends RotatedPillarBlock {
         }
 
         return super.getToolModifiedState(state, context, toolAction, simulate);
+    }
+    @Override
+    public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+        return true;
+    }
+
+    @Override
+    public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+        return 5;
+    }
+
+    @Override
+    public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+        return 5;
     }
 
     private static VoxelShape getShapeForAxis(Direction.Axis axis) {

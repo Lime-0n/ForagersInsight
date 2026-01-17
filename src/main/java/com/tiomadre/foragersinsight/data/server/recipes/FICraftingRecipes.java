@@ -220,13 +220,14 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .define('s', STICK)
                 .unlockedBy("has_diamond", has(DIAMOND))
                 .save(consumer);
-        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, NETHERITE_MALLET.get())
-                .pattern("iii")
-                .pattern(" s ")
-                .define('i', NETHERITE_INGOT)
-                .define('s', STICK)
-                .unlockedBy("has_netherite",has(NETHERITE_INGOT))
-                .save(consumer);
+        SmithingTransformRecipeBuilder.smithing(
+                Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
+                Ingredient.of(DIAMOND_MALLET.get()),
+                Ingredient.of(NETHERITE_INGOT),
+                RecipeCategory.TOOLS, NETHERITE_MALLET.get())
+                .unlocks("has_diamond_mallet", has(DIAMOND_MALLET.get()))
+                .unlocks("has_netherite_ingot", has(NETHERITE_INGOT))
+                .unlocks("has_smiting_template", has(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE));
         //Diffuser
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, FIItems.DIFFUSER.get())
                 .pattern("BCB")
