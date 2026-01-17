@@ -18,7 +18,6 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
-import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.common.block.MushroomColonyBlock;
@@ -103,13 +102,13 @@ public class FIBlocks {
             new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, copy(Blocks.OAK_PRESSURE_PLATE), BlockSetType.OAK));
     public static final RegistryObject<Block> LILAC_BUTTON = HELPER.createBlock("lilac_button", () ->
             new ButtonBlock(copy(Blocks.OAK_BUTTON), BlockSetType.OAK, 30, true));
-    public static final RegistryObject<Block> LILAC_SIGN = HELPER.createBlockNoItem("lilac_sign", () ->
+    public static final RegistryObject<BlueprintStandingSignBlock> LILAC_SIGN = HELPER.createBlockNoItem("lilac_sign", () ->
             new BlueprintStandingSignBlock(copy(Blocks.OAK_SIGN), FIWoodTypes.LILAC));
-    public static final RegistryObject<Block> LILAC_WALL_SIGN = HELPER.createBlockNoItem("lilac_wall_sign", () ->
+    public static final RegistryObject<BlueprintWallSignBlock> LILAC_WALL_SIGN = HELPER.createBlockNoItem("lilac_wall_sign", () ->
             new BlueprintWallSignBlock(copy(Blocks.OAK_WALL_SIGN), FIWoodTypes.LILAC));
-    public static final RegistryObject<Block> LILAC_HANGING_SIGN = HELPER.createBlockNoItem("lilac_hanging_sign", () ->
+    public static final RegistryObject<BlueprintCeilingHangingSignBlock> LILAC_HANGING_SIGN = HELPER.createBlockNoItem("lilac_hanging_sign", () ->
             new BlueprintCeilingHangingSignBlock(copy(Blocks.OAK_HANGING_SIGN), FIWoodTypes.LILAC));
-    public static final RegistryObject<Block> LILAC_WALL_HANGING_SIGN = HELPER.createBlockNoItem("lilac_wall_hanging_sign", () ->
+    public static final RegistryObject<BlueprintWallHangingSignBlock> LILAC_WALL_HANGING_SIGN = HELPER.createBlockNoItem("lilac_wall_hanging_sign", () ->
             new BlueprintWallHangingSignBlock(copy(Blocks.OAK_WALL_HANGING_SIGN), FIWoodTypes.LILAC));
 
 
