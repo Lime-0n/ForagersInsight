@@ -300,7 +300,6 @@ public class FarmingXPEvents {
             }
         }
         return true;
-        //Brushing Suspicious Leaf Litter, 1-3 depending on rarity of loot
     }
 
     private static void defer(ServerLevel level, Runnable r) {
