@@ -385,6 +385,14 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .requires(LILAC_BOAT.get())
                 .unlockedBy("has_lilac_boat", has(LILAC_BOAT.get()))
                 .save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, LILAC_CABINET.get())
+                .pattern("PPP")
+                .pattern("T T")
+                .pattern("PPP")
+                .define('P', LILAC_SLAB.get())
+                .define('T', LILAC_TRAPDOOR.get())
+                .unlockedBy("has_lilac_planks", has(LILAC_PLANKS.get()))
+                .save(consumer);
 
         //Alternate Recipes using Rabbit Hide
         //Book

@@ -183,6 +183,8 @@ public class FILoot extends LootTableProvider {
             this.add(LILAC_WALL_SIGN.get(), block -> createSingleItemTable(FIItems.LILAC_SIGN.get()));
             this.add(LILAC_HANGING_SIGN.get(), block -> createSingleItemTable(FIItems.LILAC_HANGING_SIGN.get()));
             this.add(LILAC_WALL_HANGING_SIGN.get(), block -> createSingleItemTable(FIItems.LILAC_HANGING_SIGN.get()));
+            this.dropSelf(LILAC_CABINET.get());
+            
                 //Tools + Workstations
             this.add(FIBlocks.DIFFUSER.get(), block -> createSingleItemTable(FIItems.DIFFUSER.get()));
             this.add(FIBlocks.TAPPER.get(), block -> createSingleItemTable(FIItems.TAPPER.get()));
