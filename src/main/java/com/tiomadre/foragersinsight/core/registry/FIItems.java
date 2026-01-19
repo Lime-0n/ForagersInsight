@@ -142,15 +142,15 @@ public class FIItems {
 
         //Tonics (Medicinal)
     public static final RegistryObject<Item> ROSE_CORDIAL = HELPER.createItem("rose_cordial", () -> new TonicItem(new Item.Properties()
-                .food(FIFoods.ROSE_CORDIAL).craftRemainder(Items.GLASS_BOTTLE)));
+                .food(FIFoods.ROSE_CORDIAL).stacksTo(16).craftRemainder(Items.GLASS_BOTTLE)));
     public static final RegistryObject<Item> GLOWING_CARROT_JUICE = HELPER.createItem("glowing_carrot_juice", () -> new TonicItem(new Item.Properties()
-            .food(FIFoods.GLOWING_CARROT_JUICE).craftRemainder(Items.GLASS_BOTTLE)));
+            .food(FIFoods.GLOWING_CARROT_JUICE).stacksTo(16).craftRemainder(Items.GLASS_BOTTLE)));
     public static final RegistryObject<Item> DANDELION_ROOT_TEA = HELPER.createItem("dandelion_root_tea", () -> new TonicItem(new Item.Properties()
-                .food(FIFoods.DANDELION_ROOT_TEA).craftRemainder(Items.GLASS_BOTTLE)));
+                .food(FIFoods.DANDELION_ROOT_TEA).stacksTo(16).craftRemainder(Items.GLASS_BOTTLE)));
     public static final RegistryObject<Item> FOREST_ELIXIR = HELPER.createItem("forest_elixir", () -> new TonicItem(new Item.Properties()
-            .food(FIFoods.FOREST_ELIXIR).craftRemainder(Items.GLASS_BOTTLE)));
+            .food(FIFoods.FOREST_ELIXIR).stacksTo(16).craftRemainder(Items.GLASS_BOTTLE)));
     public static final RegistryObject<Item> ROSELLE_JUICE = HELPER.createItem("roselle_juice", () -> new TonicItem(new Item.Properties()
-            .food(FIFoods.ROSELLE_JUICE).craftRemainder(Items.GLASS_BOTTLE)));
+            .food(FIFoods.ROSELLE_JUICE).stacksTo(16).craftRemainder(Items.GLASS_BOTTLE)));
 
     //Sap Stuff
     public static final RegistryObject<Item> BIRCH_SAP_BUCKET = HELPER.createItem("birch_sap_bucket", () ->

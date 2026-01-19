@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.common.block.entity.suspiciouslitter;
 
 import com.tiomadre.foragersinsight.common.block.SuspiciousLitterBlock;
+import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -147,7 +148,8 @@ public final class SuspiciousLitterLoot {
 
             // Flower Forest
             case FLOWER -> {
-                addDrop(drops, weights, () -> Items.OAK_LEAVES, 8);
+                addDrop(drops, weights, FIBlocks.BLOSSOMING_LILAC_LEAVES, 8);
+                addDrop(drops, weights, FIItems.LILAC_BLOOM, 7);
                 addDrop(drops, weights, FIItems.ROSE_HIP, 6);
                 addDrop(drops, weights, () -> Items.HONEYCOMB, 5);
             }
@@ -164,6 +166,7 @@ public final class SuspiciousLitterLoot {
                 addDrop(drops, weights, () -> Items.SPRUCE_LEAVES, 8);
                 addDrop(drops, weights, FIItems.SPRUCE_TIPS, 7);
                 addDrop(drops, weights, () -> Items.SWEET_BERRIES, 6);
+                addDrop(drops, weights, () -> Items.FERN, 8);
             }
 
             // Dark Forest

@@ -17,9 +17,9 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
+import vectorwing.farmersdelight.common.block.CabinetBlock;
 import vectorwing.farmersdelight.common.block.MushroomColonyBlock;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import static com.tiomadre.foragersinsight.core.registry.FIItems.*;
@@ -84,6 +84,7 @@ public class FIBlocks {
     public static final RegistryObject<Block> STRIPPED_LILAC_LOG = HELPER.createFuelBlock("stripped_lilac_log", () ->
             new ThinLogBlock(copy(Blocks.STRIPPED_OAK_LOG).noOcclusion()), 300);
     //Wood Stuff
+        //Lilac
     public static final RegistryObject<Block> LILAC_PLANKS = HELPER.createBlock("lilac_planks", () ->
             new Block(copy(Blocks.OAK_PLANKS)));
     public static final RegistryObject<Block> LILAC_STAIRS = HELPER.createBlock("lilac_stairs", () ->
@@ -95,13 +96,13 @@ public class FIBlocks {
     public static final RegistryObject<Block> LILAC_FENCE_GATE = HELPER.createBlock("lilac_fence_gate", () ->
             new FenceGateBlock(copy(Blocks.OAK_FENCE_GATE), FIWoodTypes.LILAC));
     public static final RegistryObject<Block> LILAC_DOOR = HELPER.createBlock("lilac_door", () ->
-            new DoorBlock(copy(Blocks.OAK_DOOR), BlockSetType.OAK));
+            new DoorBlock(copy(Blocks.OAK_DOOR), FIWoodTypes.LILAC.setType()));
     public static final RegistryObject<Block> LILAC_TRAPDOOR = HELPER.createBlock("lilac_trapdoor", () ->
-            new TrapDoorBlock(copy(Blocks.OAK_TRAPDOOR), BlockSetType.OAK));
+            new TrapDoorBlock(copy(Blocks.OAK_TRAPDOOR), FIWoodTypes.LILAC.setType()));
     public static final RegistryObject<Block> LILAC_PRESSURE_PLATE = HELPER.createBlock("lilac_pressure_plate", () ->
-            new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, copy(Blocks.OAK_PRESSURE_PLATE), BlockSetType.OAK));
+            new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, copy(Blocks.OAK_PRESSURE_PLATE), FIWoodTypes.LILAC.setType()));
     public static final RegistryObject<Block> LILAC_BUTTON = HELPER.createBlock("lilac_button", () ->
-            new ButtonBlock(copy(Blocks.OAK_BUTTON), BlockSetType.OAK, 30, true));
+            new ButtonBlock(copy(Blocks.OAK_BUTTON), FIWoodTypes.LILAC.setType(), 30, true));
     public static final RegistryObject<BlueprintStandingSignBlock> LILAC_SIGN = HELPER.createBlockNoItem("lilac_sign", () ->
             new BlueprintStandingSignBlock(copy(Blocks.OAK_SIGN), FIWoodTypes.LILAC));
     public static final RegistryObject<BlueprintWallSignBlock> LILAC_WALL_SIGN = HELPER.createBlockNoItem("lilac_wall_sign", () ->
@@ -110,6 +111,7 @@ public class FIBlocks {
             new BlueprintCeilingHangingSignBlock(copy(Blocks.OAK_HANGING_SIGN), FIWoodTypes.LILAC));
     public static final RegistryObject<BlueprintWallHangingSignBlock> LILAC_WALL_HANGING_SIGN = HELPER.createBlockNoItem("lilac_wall_hanging_sign", () ->
             new BlueprintWallHangingSignBlock(copy(Blocks.OAK_WALL_HANGING_SIGN), FIWoodTypes.LILAC));
+
 
 
         //Syrup Tap

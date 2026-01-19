@@ -167,7 +167,7 @@ public class FILoot extends LootTableProvider {
             this.add(BOUNTIFUL_DARK_OAK_LEAVES.get(), this.createBountifulLeavesDrops(BOUNTIFUL_DARK_OAK_LEAVES, BOUNTIFUL_DARK_OAK_SAPLING.get()));
             this.add(BOUNTIFUL_SPRUCE_LEAVES.get(), this.createSpruceLeavesDrops(BOUNTIFUL_SPRUCE_LEAVES.get(), BOUNTIFUL_SPRUCE_SAPLING.get()));
             this.add(LILAC_LEAVES.get(), this.createLeafDrops(LILAC_LEAVES.get()));
-            this.add(BLOSSOMING_LILAC_LEAVES.get(), this.createLeafDrops(BLOSSOMING_LILAC_LEAVES.get()));
+            this.add(BLOSSOMING_LILAC_LEAVES.get(), this.createBlossomingLilacLeavesDrops(BLOSSOMING_LILAC_LEAVES.get()));
             this.add(HANGING_LILAC_LEAVES.get(), LootTable.lootTable().setParamSet(LootContextParamSets.BLOCK));
                 //Wood Stuff
             this.dropSelf(LILAC_PLANKS.get());
@@ -201,6 +201,13 @@ public class FILoot extends LootTableProvider {
                     LootItem.lootTableItem(BLEWIT_MUSHROOM.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(5))).when(stateCond(BLEWIT_MUSHROOM_COLONY, MushroomColonyBlock.COLONY_AGE, 3))
                             .when(HAS_NO_SHEARS_OR_SILK_TOUCH))))));
 
+        }
+        private LootTable.Builder createBlossomingLilacLeavesDrops(Block leaves) {
+            return this.createLeafDrops(leaves)
+                    .withPool(LootPool.lootPool()
+                            .when(HAS_NO_SHEARS_OR_SILK_TOUCH)
+                            .add(this.applyExplosionCondition(leaves, LootItem.lootTableItem(Blocks.LILAC)))
+                            .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, VanillaBlockLoot.NORMAL_LEAVES_SAPLING_CHANCES)));
         }
         private LootTable.Builder createLeafDrops(Block leaves) {
             return LootTable.lootTable()
