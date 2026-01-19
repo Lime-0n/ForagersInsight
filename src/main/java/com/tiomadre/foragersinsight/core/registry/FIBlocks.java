@@ -111,7 +111,8 @@ public class FIBlocks {
             new BlueprintCeilingHangingSignBlock(copy(Blocks.OAK_HANGING_SIGN), FIWoodTypes.LILAC));
     public static final RegistryObject<BlueprintWallHangingSignBlock> LILAC_WALL_HANGING_SIGN = HELPER.createBlockNoItem("lilac_wall_hanging_sign", () ->
             new BlueprintWallHangingSignBlock(copy(Blocks.OAK_WALL_HANGING_SIGN), FIWoodTypes.LILAC));
-
+    public static final RegistryObject<CabinetBlock> LILAC_CABINET = HELPER.createBlock("lilac_cabinet", () ->
+            new CabinetBlock(copy(ModBlocks.OAK_CABINET.get())));
 
 
         //Syrup Tap
