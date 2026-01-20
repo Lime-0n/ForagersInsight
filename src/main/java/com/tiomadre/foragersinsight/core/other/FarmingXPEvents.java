@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.core.other;
 
 import com.tiomadre.foragersinsight.common.block.BountifulLeavesBlock;
+import com.tiomadre.foragersinsight.common.block.HangingLilacLeavesBlock;
 import com.tiomadre.foragersinsight.common.block.SpruceTipBlock;
 import com.tiomadre.foragersinsight.common.block.TapperBlock;
 import com.tiomadre.foragersinsight.common.block.entity.suspiciouslitter.SuspiciousLitterLoot;
@@ -21,6 +22,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ShearsItem;
+import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
@@ -36,6 +38,7 @@ import net.minecraftforge.fml.common.Mod;
 import vectorwing.farmersdelight.common.block.MushroomColonyBlock;
 import vectorwing.farmersdelight.common.block.TomatoVineBlock;
 import vectorwing.farmersdelight.common.item.KnifeItem;
+import net.minecraft.world.entity.animal.Cow;
 
 import java.util.*;
 
@@ -44,6 +47,7 @@ public class FarmingXPEvents {
 
     private static final Map<ResourceKey<Level>, Map<BlockPos, PendingForage>> PENDING_FORAGING_DROPS = new HashMap<>();
     private static final int FORAGING_DROP_TIMEOUT_TICKS = 20;
+    private static final long MILK_XP_COOLDOWN_TICKS = 2400L;
 
 
     @SubscribeEvent
@@ -127,6 +131,12 @@ public class FarmingXPEvents {
         BlockState state = level.getBlockState(pos);
         Block block = state.getBlock();
 
+        //Prevent Fire from giving XP in weird modded situations
+        if (isFireExtinguishInteraction(state, held)) {
+            return;
+        }
+
+
         // Beehive
         if (block instanceof BeehiveBlock &&
                 state.getValue(BeehiveBlock.HONEY_LEVEL) >= 5 &&
@@ -200,8 +210,8 @@ public class FarmingXPEvents {
                 if (harvested) {
                     boolean leavesOrTips =
                             state.getBlock() instanceof BountifulLeavesBlock ||
-                                    state.getBlock() instanceof SpruceTipBlock;
-
+                                    state.getBlock() instanceof SpruceTipBlock ||
+                                    state.getBlock() instanceof HangingLilacLeavesBlock;
                     awardUnifiedXP(level, player,
                             leavesOrTips ? 0 : 1,
                             leavesOrTips ? 2 : 3,
@@ -241,6 +251,28 @@ public class FarmingXPEvents {
                 }
             }
         }
+    }
+    @SubscribeEvent
+    public static void onAnimalMilk(PlayerInteractEvent.EntityInteract event) {
+        if (!(event.getEntity() instanceof ServerPlayer player)) return;
+        Level lvl = event.getLevel();
+        if (lvl.isClientSide()) return;
+        if (!(event.getTarget() instanceof Cow cow)) return;
+
+        ItemStack tool = player.getItemInHand(event.getHand());
+        if (!tool.is(Items.BUCKET)) return;
+        if (cow.isBaby()) return;
+
+        long now = lvl.getGameTime();
+        long last = cow.getPersistentData().getLong("MilkXpTime");
+        if (now - last < MILK_XP_COOLDOWN_TICKS) return;
+
+        defer((ServerLevel) lvl, () -> {
+            ItemStack after = player.getItemInHand(event.getHand());
+            if (!after.is(Items.MILK_BUCKET)) return;
+            cow.getPersistentData().putLong("MilkXpTime", now);
+            awardUnifiedXP((ServerLevel) lvl, player, 1, 3, XPSource.ANIMAL_SHEAR, false);
+        });
     }
 
     private static void awardUnifiedXP(ServerLevel level, ServerPlayer player, int min, int max, XPSource src, boolean isForaging) {
@@ -300,6 +332,11 @@ public class FarmingXPEvents {
             }
         }
         return true;
+
+    }
+    private static boolean isFireExtinguishInteraction(BlockState state, ItemStack held) {
+        if (!state.hasProperty(BlockStateProperties.LIT) || !state.getValue(BlockStateProperties.LIT)) return false;
+        return held.is(Items.WATER_BUCKET) || held.getItem() instanceof ShovelItem;
     }
 
     private static void defer(ServerLevel level, Runnable r) {

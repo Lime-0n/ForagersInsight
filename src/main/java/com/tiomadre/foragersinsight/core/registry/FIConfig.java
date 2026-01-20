@@ -22,6 +22,7 @@ public class FIConfig {
         public final ForgeConfigSpec.BooleanValue enableAnimalShearXP;
         public final ForgeConfigSpec.BooleanValue enableTapperXP;
         public final ForgeConfigSpec.BooleanValue enableBeehiveXP;
+        public final ForgeConfigSpec.BooleanValue enableMilkingXP;
 
 
         public Common(ForgeConfigSpec.Builder builder) {
@@ -75,6 +76,10 @@ public class FIConfig {
             this.enableBeehiveXP = builder
                     .comment("Enable XP from harvesting Honey or shearing Honeycomb")
                     .define("Beehive XP", true);
+
+            this.enableMilkingXP = builder
+                    .comment("Enable XP from milking cows.")
+                    .define("Milking XP", true);
 
             builder.pop();
         }
