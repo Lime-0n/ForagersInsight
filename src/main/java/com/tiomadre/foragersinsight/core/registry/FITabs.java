@@ -3,22 +3,15 @@ package com.tiomadre.foragersinsight.core.registry;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
-
 import java.util.Collection;
-import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class FITabs {
@@ -33,15 +26,15 @@ public class FITabs {
                     .build());
 
     private static final List<RegistryObject<? extends ItemLike>> BLOCK_ENTRIES = List.of(
+
             FIBlocks.BOUNTIFUL_DARK_OAK_SAPLING,
-            FIBlocks.BOUNTIFUL_DARK_OAK_LEAVES,
             FIBlocks.BOUNTIFUL_OAK_SAPLING,
-            FIBlocks.BOUNTIFUL_OAK_LEAVES,
-            FIBlocks.SAPPY_BIRCH_LOG,
             FIBlocks.BOUNTIFUL_SPRUCE_SAPLING,
+            FIBlocks.BOUNTIFUL_DARK_OAK_LEAVES,
+            FIBlocks.BOUNTIFUL_OAK_LEAVES,
             FIBlocks.BOUNTIFUL_SPRUCE_LEAVES,
-            FIBlocks.LILAC_LEAVES,
             FIBlocks.BLOSSOMING_LILAC_LEAVES,
+            FIBlocks.LILAC_LEAVES,
             FIBlocks.APPLE_CRATE,
             FIBlocks.BLEWIT_MUSHROOM_CRATE,
             FIBlocks.BLACK_ACORN_SACK,
@@ -147,6 +140,8 @@ public class FITabs {
             FIItems.TAPPER
     );
     private static final List<RegistryObject<? extends ItemLike>> WOODEN_ENTRIES = List.of(
+            //SPRUCE
+            FIBlocks.SAPPY_BIRCH_LOG,
             //LILAC
             FIBlocks.LILAC_LOG,
             FIBlocks.STRIPPED_LILAC_LOG,
@@ -167,52 +162,16 @@ public class FITabs {
     );
 
 
-    private static final Set<String> BLOCK_PATHS = paths(BLOCK_ENTRIES);
-    private static final Set<String> INGREDIENT_PATHS = paths(INGREDIENT_ENTRIES);
-    private static final Set<String> CUISINE_PATHS = paths(CUISINE_ENTRIES);
-    private static final Set<String> TOOL_PATHS = paths(TOOL_ENTRIES);
-    private static final Set<String> WOODEN_PATHS = paths(WOODEN_ENTRIES);
-
     public static void register(IEventBus bus) {
         TABS.register(bus);
     }
 
     private static void displayEntries(CreativeModeTab.Output output) {
-        Stream.of(BLOCK_ENTRIES, INGREDIENT_ENTRIES, CUISINE_ENTRIES, TOOL_ENTRIES)
+        Stream.of(BLOCK_ENTRIES, INGREDIENT_ENTRIES, CUISINE_ENTRIES, TOOL_ENTRIES, WOODEN_ENTRIES)
                 .flatMap(Collection::stream)
-                .map(entry -> Map.entry(entry.getId(), entry))
-                .sorted(Comparator
-                        .comparingInt((Map.Entry<ResourceLocation, ? extends Supplier<? extends ItemLike>> entry) ->
-                                categoryOrder(entry.getKey().getPath()))
-                        .thenComparing(entry -> entry.getKey().getPath()))
-                .map(Map.Entry::getValue)
                 .map(Supplier::get)
                 .map(ItemStack::new)
                 .forEach(output::accept);
     }
 
-    private static Set<String> paths(Collection<RegistryObject<? extends ItemLike>> entries) {
-        return entries.stream()
-                .map(entry -> entry.getId().getPath())
-                .collect(Collectors.toCollection(HashSet::new));
-    }
-
-    private static int categoryOrder(String path) {
-        if (BLOCK_PATHS.contains(path)) {
-            return 0;
-        }
-        if (INGREDIENT_PATHS.contains(path)) {
-            return 1;
-        }
-        if (CUISINE_PATHS.contains(path)) {
-            return 2;
-        }
-        if (TOOL_PATHS.contains(path)) {
-            return 3;
-        }
-        if (WOODEN_PATHS.contains(path)) {
-            return 4;
-        }
-        return 5;
-    }
 }
