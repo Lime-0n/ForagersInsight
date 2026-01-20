@@ -1,0 +1,11 @@
+{
+  "parent": "farmersdelight:block/cabinet_open",
+  "textures": {
+    "bottom": "foragersinsight:block/lilac_cabinet_top",
+    "front": "foragersinsight:block/lilac_cabinet_front",
+    "front_open": "foragersinsight:block/lilac_cabinet_front_open",
+    "particle": "foragersinsight:block/lilac_cabinet_side",
+    "side": "foragersinsight:block/lilac_cabinet_side",
+    "top": "foragersinsight:block/lilac_cabinet_top"
+  }
+}

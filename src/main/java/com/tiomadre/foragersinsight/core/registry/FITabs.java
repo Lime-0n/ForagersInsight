@@ -28,7 +28,7 @@ public class FITabs {
     public static final RegistryObject<CreativeModeTab> FORAGERS_INSIGHT = TABS.register("foragersinsight", () ->
             CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.foragersinsight"))
-                    .icon(() -> new ItemStack(FIItems.ROSELLE_BUSH_ITEM.get()))
+                    .icon(() -> new ItemStack(FIBlocks.BLOSSOMING_LILAC_LEAVES.get()))
                     .displayItems((parameters, output) -> displayEntries(output))
                     .build());
 
@@ -42,10 +42,6 @@ public class FITabs {
             FIBlocks.BOUNTIFUL_SPRUCE_LEAVES,
             FIBlocks.LILAC_LEAVES,
             FIBlocks.BLOSSOMING_LILAC_LEAVES,
-            FIBlocks.LILAC_LOG,
-            FIBlocks.LILAC_PLANKS,
-            FIItems.LILAC_SIGN,
-            FIItems.LILAC_HANGING_SIGN,
             FIBlocks.APPLE_CRATE,
             FIBlocks.BLEWIT_MUSHROOM_CRATE,
             FIBlocks.BLACK_ACORN_SACK,
@@ -148,15 +144,34 @@ public class FITabs {
             FIItems.GOLD_MALLET,
             FIItems.DIAMOND_MALLET,
             FIItems.NETHERITE_MALLET,
-            FIItems.TAPPER,
+            FIItems.TAPPER
+    );
+    private static final List<RegistryObject<? extends ItemLike>> WOODEN_ENTRIES = List.of(
+            //LILAC
+            FIBlocks.LILAC_LOG,
+            FIBlocks.STRIPPED_LILAC_LOG,
+            FIBlocks.LILAC_PLANKS,
+            FIBlocks.LILAC_STAIRS,
+            FIBlocks.LILAC_SLAB,
+            FIBlocks.LILAC_FENCE,
+            FIBlocks.LILAC_FENCE_GATE,
+            FIBlocks.LILAC_DOOR,
+            FIBlocks.LILAC_TRAPDOOR,
+            FIBlocks.LILAC_PRESSURE_PLATE,
+            FIBlocks.LILAC_BUTTON,
+            FIItems.LILAC_SIGN,
+            FIItems.LILAC_HANGING_SIGN,
+            FIBlocks.LILAC_CABINET,
             FIItems.LILAC_BOAT,
             FIItems.LILAC_CHEST_BOAT
     );
+
 
     private static final Set<String> BLOCK_PATHS = paths(BLOCK_ENTRIES);
     private static final Set<String> INGREDIENT_PATHS = paths(INGREDIENT_ENTRIES);
     private static final Set<String> CUISINE_PATHS = paths(CUISINE_ENTRIES);
     private static final Set<String> TOOL_PATHS = paths(TOOL_ENTRIES);
+    private static final Set<String> WOODEN_PATHS = paths(WOODEN_ENTRIES);
 
     public static void register(IEventBus bus) {
         TABS.register(bus);
@@ -195,6 +210,9 @@ public class FITabs {
         if (TOOL_PATHS.contains(path)) {
             return 3;
         }
-        return 4;
+        if (WOODEN_PATHS.contains(path)) {
+            return 4;
+        }
+        return 5;
     }
 }
