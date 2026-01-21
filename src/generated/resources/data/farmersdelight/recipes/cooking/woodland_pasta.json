@@ -9,30 +9,15 @@
     {
       "item": "farmersdelight:raw_pasta"
     },
-    [
-      {
-        "item": "minecraft:brown_mushroom"
-      },
-      {
-        "item": "minecraft:red_mushroom"
-      }
-    ],
-    [
-      {
-        "item": "minecraft:brown_mushroom"
-      },
-      {
-        "item": "minecraft:red_mushroom"
-      }
-    ],
-    [
-      {
-        "item": "minecraft:brown_mushroom"
-      },
-      {
-        "item": "minecraft:red_mushroom"
-      }
-    ]
+    {
+      "tag": "forge:crops/mushroom"
+    },
+    {
+      "tag": "forge:crops/mushroom"
+    },
+    {
+      "tag": "forge:crops/mushroom"
+    }
   ],
   "recipe_book_tab": "meals",
   "result": {

@@ -1,5 +1,5 @@
 {
-  "parent": "farmersdelight:block/cabinet",
+  "parent": "farmersdelight:block/oak_cabinet",
   "textures": {
     "bottom": "foragersinsight:block/lilac_cabinet_top",
     "front": "foragersinsight:block/lilac_cabinet_front",
