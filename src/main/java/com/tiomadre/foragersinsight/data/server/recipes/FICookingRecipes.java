@@ -27,6 +27,15 @@ public class FICookingRecipes {
 
     public static void buildRecipes(@NotNull Consumer<FinishedRecipe> consumer) {
         //Comfort
+        CookingPotRecipeBuilder.cookingPotRecipe(BLEWIT_BITES.get(), 2, NORMAL_COOKING, MEDIUM_EXP)
+                .addIngredient(BLEWIT_MUSHROOM.get())
+                .addIngredient(FITags.ItemTag.WHEAT)
+                .addIngredient(FITags.ItemTag.BLEWIT_STUFFING)
+                .addIngredient(FITags.ItemTag.WHEAT)
+                .addIngredient(BLEWIT_MUSHROOM.get())
+                .unlockedByAnyIngredient(BLEWIT_MUSHROOM.get())
+                .setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
+                .build(consumer);
         CookingPotRecipeBuilder.cookingPotRecipe(CARROT_POPPY_CHOWDER.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
                 .addIngredient(FITags.ItemTag.POPPY_SEEDS)
                 .addIngredient(FITags.ItemTag.POPPY_SEEDS)
@@ -217,6 +226,13 @@ public class FICookingRecipes {
                 .setRecipeBookTab(CookingPotRecipeBookTab.DRINKS)
                 .build(consumer);
         //Other
+        CookingPotRecipeBuilder.cookingPotRecipe(AUSPICIOUS_STEW.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
+                .addIngredient(BLEWIT_MUSHROOM.get())
+                .addIngredient(BLEWIT_MUSHROOM.get())
+                .addIngredient(Ingredient.of(ROSE_PETALS.get(), ROSELLE_PETALS.get(), SPRUCE_TIPS.get(), LILAC_BLOOM.get()))
+                .unlockedByAnyIngredient(BLEWIT_MUSHROOM.get())
+                .setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
+                .build(consumer);
         CookingPotRecipeBuilder.cookingPotRecipe(CANDIED_CALYCES.get(), 2, NORMAL_COOKING, MEDIUM_EXP)
                 .addIngredient(Items.SUGAR)
                 .addIngredient(ROSELLE_CALYX.get())

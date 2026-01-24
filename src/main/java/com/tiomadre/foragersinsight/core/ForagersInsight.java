@@ -1,6 +1,5 @@
 package com.tiomadre.foragersinsight.core;
 
-import com.tiomadre.foragersinsight.core.registry.FIRecipeSerializers;
 import com.tiomadre.foragersinsight.data.server.recipes.FIDiffusingRecipes;
 import com.tiomadre.foragersinsight.core.registry.FIEnchantments;
 import com.tiomadre.foragersinsight.core.other.FIClientCompat;
@@ -50,7 +49,6 @@ public class ForagersInsight {
 		FIMenuTypes.MENUS.register(bus);
 		FIMobEffects.MOB_EFFECTS.register(bus);
 		FIParticleTypes.PARTICLES.register(bus);
-		FIRecipeSerializers.register(bus);
 		FITabs.TABS.register(bus);
 		FITreeDecoratorTypes.TREE_DECORATOR_TYPES.register(bus);
 

@@ -47,6 +47,9 @@ public class FITags {
         //Diffuser
         public static final TagKey<Item> AROMATICS = TagKey.create(Registries.ITEM,
                 new ResourceLocation(ForagersInsight.MOD_ID, "aromatics"));
+        //Food
+        public static final TagKey<Item> BLEWIT_STUFFING = TagKey.create(Registries.ITEM,
+                new ResourceLocation(ForagersInsight.MOD_ID, "blewit_stuffing"));
         //Handbasket
         public static final TagKey<Item> HANDBASKET_ALLOWED = TagKey.create(Registries.ITEM, new ResourceLocation("foragersinsight","handbasket_allowed"));
         public static final TagKey<Item> HANDBASKET_OTHER = TagKey.create(Registries.ITEM, new ResourceLocation(ForagersInsight.MOD_ID, "handbasket/other"));

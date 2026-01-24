@@ -143,8 +143,9 @@ public class FIItems {
             new Item.Properties().food(FIFoods.SWEET_ROASTED_RABBIT_LEG)));
 
     //Other
-    public static final RegistryObject<Item> AUSPICIOUS_STEW = HELPER.createItem("auspicious_soup", () -> new ConsumableItem(
+    public static final RegistryObject<Item> AUSPICIOUS_STEW = HELPER.createItem("auspicious_soup", () -> new AuspiciousStewItem(
             new Item.Properties().food(FIFoods.AUSPICIOUS_STEW).craftRemainder(Items.BOWL)));
+
 
     //Drinks
         //Seed Milk
