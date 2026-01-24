@@ -8,6 +8,6 @@ This mod is still in **development**.
 
 Looking for information regarding Forager's Insight's feature, go to the link below!
 
-Forager's Insight Wiki: https://github.com/tiomadre/ForagersInsight/wiki/Home-Page%F0%9F%8F%A1 
+Forager's Insight Wiki: https://github.com/tiomadre/ForagersInsight/wiki
 
 
