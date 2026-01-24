@@ -39,6 +39,7 @@ public class FIItemTags extends ItemTagsProvider {
         this.tag(POPPY_SEEDS).add(FIItems.POPPY_SEEDS.get(), FIItems.POPPY_SEED_PASTE.get());
         this.tag(ACORN).add(FIItems.BLACK_ACORN.get(), FIItems.ACORN_MEAL.get());
         this.tag(WHEAT).add(FIItems.WHEAT_FLOUR.get(), Items.WHEAT);
+        this.tag(LILAC).add(FIItems.LILAC_BLOOM.get(), Items.LILAC);
         this.tag(COCOA).add(Items.COCOA_BEANS, FIItems.COCOA_POWDER.get());
         this.tag(ROOTS).add(Items.CARROT, Items.BEETROOT, FIItems.DANDELION_ROOT.get());
         this.tag(MUSHROOM).add(Items.RED_MUSHROOM, Items.BROWN_MUSHROOM, FIItems.BLEWIT_MUSHROOM.get());
@@ -77,7 +78,7 @@ public class FIItemTags extends ItemTagsProvider {
         .add(Items.INK_SAC, Items.GLOW_INK_SAC, Items.RABBIT_FOOT, Items.SUGAR,Items.SUGAR_CANE, Items.FEATHER, Items.KELP, Items.DRIED_KELP, Items.BAMBOO,
          Items.CACTUS, Items.VINE, Items.MOSS_BLOCK, Items.AZALEA, Items.FLOWERING_AZALEA, Items.HONEYCOMB)
         .add(FIItems.ROSE_PETALS.get(), FIItems.ROSELLE_PETALS.get(), FIItems.BIRCH_SAP_BOTTLE.get(), FIItems.BIRCH_SYRUP_BOTTLE.get(), FIItems.ROSELLE_BUSH_ITEM.get(),
-         FIItems.STOUT_BEACH_ROSE_BUSH_ITEM.get(),FIItems.TALL_BEACH_ROSE_BUSH_ITEM.get())
+         FIItems.STOUT_BEACH_ROSE_BUSH_ITEM.get(),FIItems.TALL_BEACH_ROSE_BUSH_ITEM.get(), FIItems.LILAC_BLOOM.get())
         .add(ModItems.WILD_CABBAGES.get(), ModItems.WILD_BEETROOTS.get(), ModItems.WILD_POTATOES.get(), ModItems.WILD_TOMATOES.get(), ModItems.WILD_CARROTS.get(),
         ModItems.RICE_PANICLE.get(), ModItems.PUMPKIN_SLICE.get(), ModItems.CABBAGE_LEAF.get(), ModItems.MILK_BOTTLE.get());
 

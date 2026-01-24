@@ -41,6 +41,7 @@ public class FITags {
         public static final TagKey<net.minecraft.world.item.Item> ACORN = TagUtil.itemTag("forge", "crops/acorn");
         public static final TagKey<net.minecraft.world.item.Item> WHEAT = TagUtil.itemTag("forge", "crops/wheat");
         public static final TagKey<net.minecraft.world.item.Item> COCOA = TagUtil.itemTag("forge", "crops/cocoa");
+        public static final TagKey<net.minecraft.world.item.Item> LILAC = TagUtil.itemTag("forge", "crops/lilac");
         public static final TagKey<net.minecraft.world.item.Item> ROOTS = TagUtil.itemTag("forge", "crops/root_vegetable");
         public static final TagKey<net.minecraft.world.item.Item> MUSHROOM = TagUtil.itemTag("forge", "crops/mushroom");
         //Diffuser

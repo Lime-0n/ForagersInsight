@@ -29,19 +29,26 @@ public class FIFoods {
             //This is for Dandelion Root/Roselle Calyx
     public static final FoodProperties LOW_SAT_MORSELS = new FoodProperties.Builder().fast()
             .nutrition(1).saturationMod(0.1f).build();
-            //This is for Poppy Seeds/Rose Hips/Spruce Tips
+            //This is for Poppy Seeds/Rose Hips/Spruce Tips/Lilac Bloom
     public static final FoodProperties NO_SAT_MORSELS= new FoodProperties.Builder().fast()
             .nutrition( 1).build();
+            //This is for Blewits
+    public static final FoodProperties BLEWIT = new FoodProperties.Builder()
+            .nutrition(2).saturationMod(0.45f)
+                    .effect(() -> new MobEffectInstance(MobEffects.HUNGER, 200, 0), 0.30f).build();
     //DISHES
         //Comfort
+    public static final FoodProperties BLEWIT_BITES = new FoodProperties.Builder()
+            .nutrition(3).saturationMod(0.3f)
+            .effect(() -> new MobEffectInstance(ModEffects.COMFORT.get(), 700), 1).build();
     public static final FoodProperties CARROT_POPPY_CHOWDER = new FoodProperties.Builder()
             .nutrition(8).saturationMod(0.7f)
             .effect(() -> new MobEffectInstance(ModEffects.COMFORT.get(), 2200, 1), 1).build();
     public static final FoodProperties COD_AND_PUMPKIN_STEW = new FoodProperties.Builder()
             .nutrition(10).saturationMod(0.9f)
             .effect(() -> new MobEffectInstance(ModEffects.COMFORT.get(),2500),1).build();
-    public static final FoodProperties CREAMY_SALMON_BAGEL = new FoodProperties.Builder().fast()
-            .nutrition(3).saturationMod(0.3f)
+    public static final FoodProperties CREAMY_SALMON_BAGEL = new FoodProperties.Builder()
+            .nutrition(4).saturationMod(0.35f)
             .effect(() -> new MobEffectInstance(ModEffects.COMFORT.get(), 800), 1).build();
     public static final FoodProperties FORAGERS_GRANOLA = new FoodProperties.Builder()
             .nutrition(6).saturationMod(0.6f)
@@ -86,9 +93,11 @@ public class FIFoods {
             .effect(() -> new MobEffectInstance(ModEffects.NOURISHMENT.get(), 2500), 1).build();
 
         //Other
+        public static final FoodProperties AUSPICIOUS_STEW = new FoodProperties.Builder()
+             .nutrition(6).saturationMod(0.6f).build();
         public static final FoodProperties BAKED_GOOD = new FoodProperties.Builder()
-                .nutrition(4).saturationMod(0.3f)
-                .effect(() -> new MobEffectInstance(ModEffects.COMFORT.get(), 500), 1).build();
+             .nutrition(4).saturationMod(0.3f)
+             .effect(() -> new MobEffectInstance(ModEffects.COMFORT.get(), 500), 1).build();
         public static final FoodProperties CAKE_SLICE = (new FoodProperties.Builder().fast())
             .nutrition(2).saturationMod(0.1F)
             .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 400, 0, false, false), 1.0F).build();

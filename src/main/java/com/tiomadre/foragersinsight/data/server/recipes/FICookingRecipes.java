@@ -91,6 +91,14 @@ public class FICookingRecipes {
                 .unlockedByAnyIngredient(POPPY_SEEDS.get(), Items.WHEAT)
                 .setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
                 .build(consumer);
+        CookingPotRecipeBuilder.cookingPotRecipe(LILAC_TEACAKE.get(), 2, NORMAL_COOKING, MEDIUM_EXP)
+                .addIngredient(ModItems.WHEAT_DOUGH.get())
+                .addIngredient(FITags.ItemTag.LILAC)
+                .addIngredient(FITags.ItemTag.LILAC)
+                .addIngredient(Items.SUGAR)
+                .unlockedByAnyIngredient(Items.BEETROOT, Items.COCOA_BEANS)
+                .setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
+                .build(consumer);
         //Nourishment
         CookingPotRecipeBuilder.cookingPotRecipe(ACORN_NOODLES.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
                 .addIngredient(ACORN_DOUGH.get())

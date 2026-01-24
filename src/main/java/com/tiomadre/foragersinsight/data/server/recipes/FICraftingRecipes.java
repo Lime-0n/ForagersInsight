@@ -5,18 +5,15 @@ import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import com.tiomadre.foragersinsight.data.server.tags.FITags;
 import static com.tiomadre.foragersinsight.core.registry.FIBlocks.*;
-import static com.tiomadre.foragersinsight.core.registry.FIBlocks.BLEWIT_MUSHROOM;
 import static com.tiomadre.foragersinsight.core.registry.FIItems.*;
-import static com.tiomadre.foragersinsight.core.registry.FIItems.ACORN_CARROT_CAKE_ITEM;
-
 import com.teamabnormals.blueprint.core.data.server.BlueprintRecipeProvider;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
-import static com.tiomadre.foragersinsight.core.registry.FIItems.LILAC_HANGING_SIGN;
-import static com.tiomadre.foragersinsight.core.registry.FIItems.LILAC_SIGN;
+
 import static net.minecraft.world.item.Items.*;
 
 import net.minecraft.world.item.crafting.Ingredient;
@@ -120,8 +117,8 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .unlockedBy("has_roselle_bush", has(TALL_BEACH_ROSE_BUSH_ITEM.get()))
                 .save(consumer, ForagersInsight.rl("red_dye_from_tall_beach_rose_bush"));
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BLUE_DYE, 1)
-                .requires(BLEWIT_MUSHROOM.get())
-                .unlockedBy("has_blewit", has(BLEWIT_MUSHROOM.get()))
+                .requires(FIItems.BLEWIT_MUSHROOM.get())
+                .unlockedBy("has_blewit", has(FIItems.BLEWIT_MUSHROOM.get()))
                 .save(consumer, ForagersInsight.rl("blue_dye_from_blewit"));
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, MAGENTA_DYE, 1)
                 .requires(LILAC_BLOOM.get())
@@ -358,7 +355,7 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .requires(LILAC_PLANKS.get())
                 .unlockedBy("has_lilac_planks", has(LILAC_PLANKS.get()))
                 .save(consumer);
-        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, LILAC_SIGN.get(), 3)
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, FIBlocks.LILAC_SIGN.get(), 3)
                 .pattern("PPP")
                 .pattern("PPP")
                 .pattern(" S ")
@@ -366,7 +363,7 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .define('S', Tags.Items.RODS_WOODEN)
                 .unlockedBy("has_lilac_planks", has(LILAC_PLANKS.get()))
                 .save(consumer);
-        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, LILAC_HANGING_SIGN.get(), 6)
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, FIBlocks.LILAC_HANGING_SIGN.get(), 6)
                 .pattern("C C")
                 .pattern("PPP")
                 .pattern("PPP")
@@ -427,6 +424,14 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
         FICrushandCutRecipes.buildRecipes(consumer);
     }
     private void addVanillaOverrides(Consumer<FinishedRecipe> consumer) {
+        //Book
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BOOK, 2)
+                .requires(PAPER)
+                .requires(PAPER)
+                .requires(PAPER)
+                .requires(LEATHER)
+                .unlockedBy("has_leather", has(LEATHER))
+                .save(consumer, new ResourceLocation("minecraft", "book"));
         //Bread
         ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, Items.BREAD)
                 .pattern("WWW")
@@ -441,7 +446,6 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .requires(FITags.ItemTag.WHEAT)
                 .unlockedBy("has_cocoa", has(COCOA_BEANS))
                 .save(consumer, new ResourceLocation("minecraft", "cookie"));
-
         //Cake
         ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, Items.CAKE)
                 .pattern("MMM")
@@ -462,14 +466,14 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .define('L', LEATHER)
                 .unlockedBy("has_leather", has(LEATHER))
                 .save(consumer, new ResourceLocation("minecraft", "item_frame"));
-        //Book
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BOOK, 2)
-                .requires(PAPER)
-                .requires(PAPER)
-                .requires(PAPER)
-                .requires(LEATHER)
-                .unlockedBy("has_leather", has(LEATHER))
-                .save(consumer, new ResourceLocation("minecraft", "book"));
+        //Suspicious Stew
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, Items.SUSPICIOUS_STEW)
+                .requires(Ingredient.of(Items.BROWN_MUSHROOM, FIItems.BLEWIT_MUSHROOM.get()))
+                .requires(Ingredient.of(Items.RED_MUSHROOM, FIItems.BLEWIT_MUSHROOM.get()))
+                .requires(ItemTags.SMALL_FLOWERS)
+                .requires(BOWL)
+                .unlockedBy("has_mushroom", has(FITags.ItemTag.MUSHROOM))
+                .save(consumer, new ResourceLocation("minecraft", "suspicious_stew"));
 
     }
     private void addFarmersDelightOverrides(Consumer<FinishedRecipe> consumer) {
