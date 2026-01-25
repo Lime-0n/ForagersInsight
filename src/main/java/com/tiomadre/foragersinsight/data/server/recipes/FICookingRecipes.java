@@ -1,13 +1,24 @@
 package com.tiomadre.foragersinsight.data.server.recipes;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
+import com.tiomadre.foragersinsight.core.registry.FIMobEffects;
 import com.tiomadre.foragersinsight.data.server.tags.FITags;
+import net.minecraft.core.NonNullList;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.client.recipebook.CookingPotRecipeBookTab;
+import vectorwing.farmersdelight.common.registry.ModRecipeSerializers;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.tag.ForgeTags;
 import vectorwing.farmersdelight.data.builder.CookingPotRecipeBuilder;
@@ -194,7 +205,7 @@ public class FICookingRecipes {
                 .unlockedByAnyIngredient(Items.CARROT, Items.GLOW_BERRIES)
                 .setRecipeBookTab(CookingPotRecipeBookTab.DRINKS)
                 .build(consumer);
-            //Medicinal
+        //Medicinal
         CookingPotRecipeBuilder.cookingPotRecipe(DANDELION_ROOT_TEA.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
                 .addIngredient(DANDELION_ROOT.get())
                 .addIngredient(DANDELION_ROOT.get())
@@ -216,7 +227,7 @@ public class FICookingRecipes {
                 .unlockedByAnyIngredient(ROSELLE_CALYX.get())
                 .setRecipeBookTab(CookingPotRecipeBookTab.DRINKS)
                 .build(consumer);
-            //Seed Milk
+        //Seed Milk
         CookingPotRecipeBuilder.cookingPotRecipe(SEED_MILK_BUCKET.get(), 1, MODERATE_COOKING, MODERATE_EXP, Items.BUCKET)
                 .addIngredient(ForgeTags.SEEDS)
                 .addIngredient(ForgeTags.SEEDS)
@@ -226,13 +237,11 @@ public class FICookingRecipes {
                 .setRecipeBookTab(CookingPotRecipeBookTab.DRINKS)
                 .build(consumer);
         //Other
-        CookingPotRecipeBuilder.cookingPotRecipe(AUSPICIOUS_STEW.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
-                .addIngredient(BLEWIT_MUSHROOM.get())
-                .addIngredient(BLEWIT_MUSHROOM.get())
-                .addIngredient(Ingredient.of(ROSE_PETALS.get(), ROSELLE_PETALS.get(), SPRUCE_TIPS.get(), LILAC_BLOOM.get()))
-                .unlockedByAnyIngredient(BLEWIT_MUSHROOM.get())
-                .setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
-                .build(consumer);
+        buildAuspiciousStewRecipe(consumer, ROSE_PETALS.get(), MobEffects.REGENERATION, "auspicious_stew_from_rose_petals");
+        buildAuspiciousStewRecipe(consumer, ROSELLE_PETALS.get(), FIMobEffects.BLOOM.get(), "auspicious_stew_from_roselle_petals");
+        buildAuspiciousStewRecipe(consumer, SPRUCE_TIPS.get(), MobEffects.ABSORPTION, "auspicious_stew_from_spruce_tips");
+        buildAuspiciousStewRecipe(consumer, LILAC_BLOOM.get(), FIMobEffects.MEDICINAL.get(), "auspicious_stew_from_lilac_bloom");
+
         CookingPotRecipeBuilder.cookingPotRecipe(CANDIED_CALYCES.get(), 2, NORMAL_COOKING, MEDIUM_EXP)
                 .addIngredient(Items.SUGAR)
                 .addIngredient(ROSELLE_CALYX.get())
@@ -241,7 +250,7 @@ public class FICookingRecipes {
                 .unlockedByAnyIngredient(ROSELLE_CALYX.get())
                 .setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
                 .build(consumer);
-        CookingPotRecipeBuilder.cookingPotRecipe(APPLE_DIPPERS.get(),1, NORMAL_COOKING, MEDIUM_EXP)
+        CookingPotRecipeBuilder.cookingPotRecipe(APPLE_DIPPERS.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
                 .addIngredient(Items.SUGAR)
                 .addIngredient(FITags.ItemTag.APPLE)
                 .addIngredient(Ingredient.of(Items.HONEY_BOTTLE, BIRCH_SYRUP_BOTTLE.get()))
@@ -254,7 +263,7 @@ public class FICookingRecipes {
                 .unlockedByAnyIngredient(DANDELION_ROOT.get())
                 .setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
                 .build(consumer);
-        CookingPotRecipeBuilder.cookingPotRecipe(GREEN_SAUCE.get(), 1, NORMAL_COOKING,MEDIUM_EXP)
+        CookingPotRecipeBuilder.cookingPotRecipe(GREEN_SAUCE.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
                 .addIngredient(SPRUCE_TIPS.get())
                 .addIngredient(SPRUCE_TIPS.get())
                 .addIngredient(SPRUCE_TIPS.get())
@@ -281,7 +290,7 @@ public class FICookingRecipes {
         //Hot Cocoa
         net.minecraftforge.common.crafting.ConditionalRecipe.builder()
                 .addCondition(new net.minecraftforge.common.crafting.conditions.ModLoadedCondition("farmersdelight"))
-                .addRecipe(r -> CookingPotRecipeBuilder.cookingPotRecipe(ModItems.HOT_COCOA.get(), 1,NORMAL_COOKING,MEDIUM_EXP)
+                .addRecipe(r -> CookingPotRecipeBuilder.cookingPotRecipe(ModItems.HOT_COCOA.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
                         .addIngredient(ForgeTags.MILK)
                         .addIngredient(Items.SUGAR)
                         .addIngredient(FITags.ItemTag.COCOA)
@@ -293,7 +302,7 @@ public class FICookingRecipes {
         //Apple Cider
         net.minecraftforge.common.crafting.ConditionalRecipe.builder()
                 .addCondition(new net.minecraftforge.common.crafting.conditions.ModLoadedCondition("farmersdelight"))
-                .addRecipe(r -> CookingPotRecipeBuilder.cookingPotRecipe(ModItems.APPLE_CIDER.get(), 1,NORMAL_COOKING,MEDIUM_EXP)
+                .addRecipe(r -> CookingPotRecipeBuilder.cookingPotRecipe(ModItems.APPLE_CIDER.get(), 1, NORMAL_COOKING, MEDIUM_EXP)
                         .addIngredient(FITags.ItemTag.APPLE)
                         .addIngredient(FITags.ItemTag.APPLE)
                         .addIngredient(Items.SUGAR)
@@ -304,4 +313,114 @@ public class FICookingRecipes {
 
     }
 
+    private static void buildAuspiciousStewRecipe(Consumer<FinishedRecipe> consumer, ItemLike flower, MobEffect effect, String recipeName) {
+        ItemStack stew = createAuspiciousStew(effect);
+        NonNullList<Ingredient> ingredients = NonNullList.of(
+                Ingredient.EMPTY,
+                Ingredient.of(BLEWIT_MUSHROOM.get()),
+                Ingredient.of(BLEWIT_MUSHROOM.get()),
+                Ingredient.of(flower)
+        );
+        ResourceLocation id = new ResourceLocation("farmersdelight", "cooking/" + recipeName);
+        JsonObject advancement = buildCookingAdvancement(id, BLEWIT_MUSHROOM.get(), flower);
+        ResourceLocation advancementId = new ResourceLocation("farmersdelight", "recipes/cooking/" + recipeName);
+        consumer.accept(new CookingPotRecipeWithNbt(id, CookingPotRecipeBookTab.MEALS, ingredients, stew, NORMAL_COOKING, MEDIUM_EXP, advancement, advancementId));
+    }
+
+    private static ItemStack createAuspiciousStew(MobEffect effect) {
+        ItemStack stew = new ItemStack(AUSPICIOUS_STEW.get());
+        CompoundTag tag = stew.getOrCreateTag();
+        tag.putString("AuspiciousEffect", BuiltInRegistries.MOB_EFFECT.getKey(effect).toString());
+        return stew;
+    }
+
+    private static JsonObject buildCookingAdvancement(ResourceLocation recipeId, ItemLike... ingredients) {
+        JsonObject advancement = new JsonObject();
+        advancement.addProperty("parent", "minecraft:recipes/root");
+        JsonObject criteria = new JsonObject();
+        JsonObject hasAnyIngredient = new JsonObject();
+        JsonObject conditions = new JsonObject();
+        JsonArray items = new JsonArray();
+        JsonObject itemEntry = new JsonObject();
+        JsonArray itemIds = new JsonArray();
+        for (ItemLike ingredient : ingredients) {
+            itemIds.add(BuiltInRegistries.ITEM.getKey(ingredient.asItem()).toString());
+        }
+        itemEntry.add("items", itemIds);
+        items.add(itemEntry);
+        conditions.add("items", items);
+        hasAnyIngredient.add("conditions", conditions);
+        hasAnyIngredient.addProperty("trigger", "minecraft:inventory_changed");
+        criteria.add("has_any_ingredient", hasAnyIngredient);
+        JsonObject hasRecipe = new JsonObject();
+        JsonObject recipeConditions = new JsonObject();
+        recipeConditions.addProperty("recipe", recipeId.toString());
+        hasRecipe.add("conditions", recipeConditions);
+        hasRecipe.addProperty("trigger", "minecraft:recipe_unlocked");
+        criteria.add("has_the_recipe", hasRecipe);
+        advancement.add("criteria", criteria);
+        JsonArray requirements = new JsonArray();
+        JsonArray requirement = new JsonArray();
+        requirement.add("has_any_ingredient");
+        requirement.add("has_the_recipe");
+        requirements.add(requirement);
+        advancement.add("requirements", requirements);
+        JsonObject rewards = new JsonObject();
+        JsonArray recipes = new JsonArray();
+        recipes.add(recipeId.toString());
+        rewards.add("recipes", recipes);
+        advancement.add("rewards", rewards);
+        advancement.addProperty("sends_telemetry_event", true);
+        return advancement;
+    }
+
+    private record CookingPotRecipeWithNbt(ResourceLocation id, CookingPotRecipeBookTab tab, NonNullList<Ingredient> ingredients, ItemStack result, int cookingTime,
+    float experience, JsonObject advancement, ResourceLocation advancementId) implements FinishedRecipe {
+
+        @Override
+            public void serializeRecipeData(JsonObject json) {
+                if (tab != null) {
+                    json.addProperty("recipe_book_tab", tab.toString());
+                }
+                JsonArray ingredientArray = new JsonArray();
+                for (Ingredient ingredient : ingredients) {
+                    ingredientArray.add(ingredient.toJson());
+                }
+                json.add("ingredients", ingredientArray);
+                JsonObject resultObject = new JsonObject();
+                resultObject.addProperty("item", BuiltInRegistries.ITEM.getKey(result.getItem()).toString());
+                if (result.getCount() > 1) {
+                    resultObject.addProperty("count", result.getCount());
+                }
+                if (result.hasTag()) {
+                    resultObject.addProperty("nbt", result.getTag().toString());
+                }
+                json.add("result", resultObject);
+                if (experience > 0) {
+                    json.addProperty("experience", experience);
+                }
+                json.addProperty("cookingtime", cookingTime);
+            }
+
+            @Override
+            public ResourceLocation getId() {
+                return id;
+            }
+
+            @Override
+            public net.minecraft.world.item.crafting.RecipeSerializer<?> getType() {
+                return ModRecipeSerializers.COOKING.get();
+            }
+
+            @Override
+            public JsonObject serializeAdvancement() {
+                return advancement;
+            }
+
+            @Override
+            public ResourceLocation getAdvancementId() {
+                return advancementId;
+            }
+
+        }
 }
