@@ -35,6 +35,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -149,6 +151,14 @@ public class DiffuserBlock extends BaseEntityBlock implements SimpleWaterloggedB
         super.onRemove(state, level, pos, newState, isMoving);
     }
 
+    @Override
+    public @NotNull java.util.List<ItemStack> getDrops(@NotNull BlockState state, @NotNull LootParams.Builder params) {
+        BlockEntity entity = params.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
+        if (entity instanceof DiffuserBlockEntity diffuser) {
+            return java.util.Collections.singletonList(diffuser.getDiffuserStack());
+        }
+        return super.getDrops(state, params);
+    }
 
     @Nullable
     @Override

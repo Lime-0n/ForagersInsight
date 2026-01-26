@@ -22,6 +22,8 @@ import vectorwing.farmersdelight.common.registry.ModRecipeSerializers;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.tag.ForgeTags;
 import vectorwing.farmersdelight.data.builder.CookingPotRecipeBuilder;
+
+import javax.annotation.Nullable;
 import java.util.function.Consumer;
 import static com.tiomadre.foragersinsight.core.registry.FIItems.*;
 
@@ -238,9 +240,9 @@ public class FICookingRecipes {
                 .build(consumer);
         //Other
         buildAuspiciousStewRecipe(consumer, ROSE_PETALS.get(), MobEffects.REGENERATION, "auspicious_stew_from_rose_petals");
-        buildAuspiciousStewRecipe(consumer, ROSELLE_PETALS.get(), FIMobEffects.BLOOM.get(), "auspicious_stew_from_roselle_petals");
-        buildAuspiciousStewRecipe(consumer, SPRUCE_TIPS.get(), MobEffects.ABSORPTION, "auspicious_stew_from_spruce_tips");
-        buildAuspiciousStewRecipe(consumer, LILAC_BLOOM.get(), FIMobEffects.MEDICINAL.get(), "auspicious_stew_from_lilac_bloom");
+        buildAuspiciousStewRecipe(consumer, ROSELLE_PETALS.get(), MobEffects.DAMAGE_RESISTANCE, "auspicious_stew_from_roselle_petals");
+        buildAuspiciousStewRecipe(consumer, SPRUCE_TIPS.get(), MobEffects.HEALTH_BOOST, "auspicious_stew_from_spruce_tips");
+        buildAuspiciousStewRecipe(consumer, LILAC_BLOOM.get(), FIMobEffects.BLOOM.get(), "auspicious_stew_from_lilac_bloom");
 
         CookingPotRecipeBuilder.cookingPotRecipe(CANDIED_CALYCES.get(), 2, NORMAL_COOKING, MEDIUM_EXP)
                 .addIngredient(Items.SUGAR)
@@ -316,7 +318,7 @@ public class FICookingRecipes {
     private static void buildAuspiciousStewRecipe(Consumer<FinishedRecipe> consumer, ItemLike flower, MobEffect effect, String recipeName) {
         ItemStack stew = createAuspiciousStew(effect);
         NonNullList<Ingredient> ingredients = NonNullList.of(
-                Ingredient.EMPTY,
+                Ingredient.of(FITags.ItemTag.MILK_BOTTLE),
                 Ingredient.of(BLEWIT_MUSHROOM.get()),
                 Ingredient.of(BLEWIT_MUSHROOM.get()),
                 Ingredient.of(flower)
@@ -324,7 +326,7 @@ public class FICookingRecipes {
         ResourceLocation id = new ResourceLocation("farmersdelight", "cooking/" + recipeName);
         JsonObject advancement = buildCookingAdvancement(id, BLEWIT_MUSHROOM.get(), flower);
         ResourceLocation advancementId = new ResourceLocation("farmersdelight", "recipes/cooking/" + recipeName);
-        consumer.accept(new CookingPotRecipeWithNbt(id, CookingPotRecipeBookTab.MEALS, ingredients, stew, NORMAL_COOKING, MEDIUM_EXP, advancement, advancementId));
+        consumer.accept(new CookingPotRecipeWithNbt(id, CookingPotRecipeBookTab.MEALS, ingredients, stew, NORMAL_COOKING, MEDIUM_EXP, Items.BOWL, advancement, advancementId));
     }
 
     private static ItemStack createAuspiciousStew(MobEffect effect) {
@@ -375,7 +377,7 @@ public class FICookingRecipes {
     }
 
     private record CookingPotRecipeWithNbt(ResourceLocation id, CookingPotRecipeBookTab tab, NonNullList<Ingredient> ingredients, ItemStack result, int cookingTime,
-    float experience, JsonObject advancement, ResourceLocation advancementId) implements FinishedRecipe {
+    float experience, @Nullable ItemLike container, JsonObject advancement, ResourceLocation advancementId) implements FinishedRecipe {
 
         @Override
             public void serializeRecipeData(JsonObject json) {
@@ -399,7 +401,12 @@ public class FICookingRecipes {
                 if (experience > 0) {
                     json.addProperty("experience", experience);
                 }
-                json.addProperty("cookingtime", cookingTime);
+            json.addProperty("cookingtime", cookingTime);
+            if (container != null) {
+                JsonObject containerObject = new JsonObject();
+                containerObject.addProperty("item", BuiltInRegistries.ITEM.getKey(container.asItem()).toString());
+                json.add("container", containerObject);
+                }
             }
 
             @Override

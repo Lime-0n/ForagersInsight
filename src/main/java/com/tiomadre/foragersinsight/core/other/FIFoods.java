@@ -94,7 +94,8 @@ public class FIFoods {
 
         //Other
         public static final FoodProperties AUSPICIOUS_STEW = new FoodProperties.Builder()
-             .nutrition(6).saturationMod(0.6f).build();
+             .nutrition(6).saturationMod(0.6f)
+             .effect(() -> new MobEffectInstance(ModEffects.COMFORT.get(), 500), 1).build();
         public static final FoodProperties BAKED_GOOD = new FoodProperties.Builder()
              .nutrition(4).saturationMod(0.3f)
              .effect(() -> new MobEffectInstance(ModEffects.COMFORT.get(), 500), 1).build();

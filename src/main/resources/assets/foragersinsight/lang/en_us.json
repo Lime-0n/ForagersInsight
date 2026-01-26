@@ -65,7 +65,7 @@
   "item.foragersinsight.roselle_petals": "Roselle Petals",
 
   "item.foragersinsight.slice_of_acorn_carrot_cake": "Slice of Acorn Carrot Cake",
-  "item.foragersinsight.acorn_carrot_cake_item": "Acorn Carrot Cake",
+  "item.foragersinsight.acorn_carrot_cake": "Acorn Carrot Cake",
   "block.foragersinsight.acorn_carrot_cake": "Acorn Carrot Cake",
 
   "item.foragersinsight.diffuser": "Diffuser",
@@ -170,11 +170,16 @@
   "foragersinsight.diffuser.coniferous.description": "An invigorating coniferous scent fills the air, giving Resistance to those near this Diffuser.",
   "foragersinsight.diffuser.floral.description": "A blossoming floral scent fills the air, giving Bloom to those near this Diffuser.",
   "foragersinsight.diffuser.foul.description": "A stinky aroma fills the air, giving Odorous to those near this Diffuser.",
+  "item.foragersinsight.diffuser.tooltip.scent": "Active Scent: %s",
+  "item.foragersinsight.diffuser.tooltip.ingredients": "Ingredients:",
+  "item.foragersinsight.diffuser.tooltip.empty_slot": "Empty Slot",
+
   "gui.foragersinsight.diffuser.extinguish": "Stop Scent",
   "gui.foragersinsight.diffuser.tooltip.radius": "Radius: %s blocks",
   "gui.foragersinsight.diffuser.tooltip.duration": "Duration: %s seconds",
   "gui.foragersinsight.diffuser.tooltip.enhanced_radius": " + Honeycomb (+20% radius)",
   "gui.foragersinsight.diffuser.tooltip.enhanced_duration": " + Birch Sap (+20% duration)",
+
 
 
   "advancements.foragersinsight.adventure.brush_it_off.title": "Brush It Off",

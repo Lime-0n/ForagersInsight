@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.common.block.entity;
 
 import com.tiomadre.foragersinsight.common.block.DiffuserBlock;
+import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.data.server.recipes.FIDiffusingRecipes;
 import com.tiomadre.foragersinsight.common.gui.DiffuserMenu;
 import com.tiomadre.foragersinsight.core.registry.FIBlockEntityTypes;
@@ -9,6 +10,8 @@ import com.tiomadre.foragersinsight.core.registry.FIItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -37,6 +40,15 @@ import java.util.List;
 import java.util.Optional;
 
 public class DiffuserBlockEntity extends BaseContainerBlockEntity {
+    private static final String TAG_ACTIVE_SCENT = "ActiveScent";
+    private static final String TAG_ACTIVE_SCENT_ID = "ActiveScentId";
+    private static final String TAG_ACTIVE_ENHANCEMENT = "ActiveEnhancement";
+    private static final String TAG_ACTIVE_INGREDIENTS = "ActiveIngredients";
+    private static final String TAG_LIT_TIME = "LitTime";
+    private static final String TAG_LIT_DURATION = "LitDuration";
+    private static final String TAG_CRAFT_PROGRESS = "CraftProgress";
+    private static final String TAG_CRAFT_TIME_TOTAL = "CraftTimeTotal";
+
     public static final int INPUT_SLOT_COUNT = 3;
     public static final int ENHANCEMENT_SLOT_INDEX = INPUT_SLOT_COUNT;
     public static final int RESULT_SLOT_INDEX = ENHANCEMENT_SLOT_INDEX + 1;
@@ -47,6 +59,7 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
     private static final int EFFECT_APPLY_INTERVAL = 40;
 
     private NonNullList<ItemStack> items = NonNullList.withSize(SLOT_COUNT, ItemStack.EMPTY);
+    private NonNullList<ItemStack> activeIngredients = NonNullList.withSize(INPUT_SLOT_COUNT, ItemStack.EMPTY);
     private int litTime;
     private int litDuration;
     private int craftProgress;
@@ -137,6 +150,17 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         this.craftProgress = 0;
         this.effectTickCounter = 0;
     }
+    private void storeActiveIngredients() {
+        NonNullList<ItemStack> stored = NonNullList.withSize(INPUT_SLOT_COUNT, ItemStack.EMPTY);
+        for (int slot = 0; slot < INPUT_SLOT_COUNT; slot++) {
+            ItemStack stack = this.items.get(slot);
+            if (!stack.isEmpty()) {
+                stored.set(slot, stack.copyWithCount(1));
+            }
+        }
+        this.activeIngredients = stored;
+    }
+
 
     private void consumeIngredients(FIDiffusingRecipes scent) {
         for (FIDiffusingRecipes.IngredientCount ingredient : scent.ingredients()) {
@@ -169,7 +193,9 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         this.activeScent = null;
         this.effectTickCounter = 0;
         this.activeEnhancement = Enhancement.NONE;
+        this.activeIngredients = NonNullList.withSize(INPUT_SLOT_COUNT, ItemStack.EMPTY);
     }
+
 
     public Optional<FIDiffusingRecipes> getActiveScent() {
         if (this.activeScent != null) {
@@ -188,6 +214,7 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         }
 
         FIDiffusingRecipes scent = match.get();
+        storeActiveIngredients();
         consumeIngredients(scent);
         startCycle(scent);
         this.setChanged();
@@ -365,39 +392,47 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
             enhancement.setCount(1);
 
         }
-        this.litTime = tag.getInt("LitTime");
-        this.litDuration = tag.getInt("LitDuration");
-        this.craftProgress = tag.getInt("CraftProgress");
-        this.craftTimeTotal = Math.max(DEFAULT_DIFFUSION_TIME, tag.getInt("CraftTimeTotal"));
+        int storedLitTime = tag.getInt(TAG_LIT_TIME);
+        int storedLitDuration = tag.getInt(TAG_LIT_DURATION);
+        int storedCraftTotal = tag.getInt(TAG_CRAFT_TIME_TOTAL);
+        this.craftTimeTotal = Math.max(DEFAULT_DIFFUSION_TIME, storedCraftTotal > 0 ? storedCraftTotal : storedLitDuration);
+        this.litDuration = Math.max(DEFAULT_DIFFUSION_TIME, storedLitDuration > 0 ? storedLitDuration : this.craftTimeTotal);
+        this.litTime = storedLitTime > 0 ? storedLitTime : this.litDuration;
+        this.craftProgress = tag.getInt(TAG_CRAFT_PROGRESS);
         this.effectTickCounter = 0;
         this.activeScent = null;
         this.activeEnhancement = Enhancement.NONE;
-        if (tag.contains("ActiveScent", CompoundTag.TAG_STRING)) {
-            FIDiffusingRecipes.byId(new ResourceLocation(tag.getString("ActiveScent")))
+        if (tag.contains(TAG_ACTIVE_SCENT, CompoundTag.TAG_STRING)) {
+            FIDiffusingRecipes.byId(new ResourceLocation(tag.getString(TAG_ACTIVE_SCENT)))
                     .ifPresent(scent -> this.activeScent = scent);
-        } else if (tag.contains("ActiveScentId", CompoundTag.TAG_INT)) {
-            FIDiffusingRecipes.byNetworkId(tag.getInt("ActiveScentId")).ifPresent(scent -> this.activeScent = scent);
+        } else if (tag.contains(TAG_ACTIVE_SCENT_ID, CompoundTag.TAG_INT)) {
+            FIDiffusingRecipes.byNetworkId(tag.getInt(TAG_ACTIVE_SCENT_ID)).ifPresent(scent -> this.activeScent = scent);
         }
-        if (tag.contains("ActiveEnhancement", CompoundTag.TAG_STRING)) {
-            this.activeEnhancement = Enhancement.byName(tag.getString("ActiveEnhancement"));
+        if (tag.contains(TAG_ACTIVE_ENHANCEMENT, CompoundTag.TAG_STRING)) {
+            this.activeEnhancement = Enhancement.byName(tag.getString(TAG_ACTIVE_ENHANCEMENT));
         }
         this.respirationLevel = Mth.clamp(tag.getInt("RespirationLevel"), 0, 3);
+        this.activeIngredients = loadActiveIngredients(tag);
     }
+
 
     @Override
     protected void saveAdditional(@NotNull CompoundTag tag) {
         super.saveAdditional(tag);
         ContainerHelper.saveAllItems(tag, this.items);
-        tag.putInt("LitTime", this.litTime);
-        tag.putInt("LitDuration", this.litDuration);
-        tag.putInt("CraftProgress", this.craftProgress);
-        tag.putInt("CraftTimeTotal", this.craftTimeTotal);
+        tag.putInt(TAG_LIT_TIME, this.litTime);
+        tag.putInt(TAG_LIT_DURATION, this.litDuration);
+        tag.putInt(TAG_CRAFT_PROGRESS, this.craftProgress);
+        tag.putInt(TAG_CRAFT_TIME_TOTAL, this.craftTimeTotal);
         if (this.activeScent != null) {
-            tag.putString("ActiveScent", this.activeScent.id().toString());
-            tag.putInt("ActiveScentId", this.activeScent.networkId());
+            tag.putString(TAG_ACTIVE_SCENT, this.activeScent.id().toString());
+            tag.putInt(TAG_ACTIVE_SCENT_ID, this.activeScent.networkId());
         }
-        tag.putString("ActiveEnhancement", this.activeEnhancement.getSerializedName());
+        tag.putString(TAG_ACTIVE_ENHANCEMENT, this.activeEnhancement.getSerializedName());
         tag.putInt("RespirationLevel", this.respirationLevel);
+        if (this.activeScent != null) {
+            tag.put(TAG_ACTIVE_INGREDIENTS, saveActiveIngredients(this.activeIngredients));
+        }
     }
 
     public boolean hasActiveScent() {
@@ -482,6 +517,104 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
 
     public int getRemainingDuration() {
         return this.litTime;
+    }
+    public NonNullList<ItemStack> getActiveIngredients() {
+        return this.activeIngredients;
+    }
+
+    public @NotNull ItemStack getDiffuserStack() {
+        ItemStack stack = new ItemStack(FIBlocks.DIFFUSER.get());
+        if (this.activeScent == null) {
+            return stack;
+        }
+        CompoundTag tag = stack.getOrCreateTag();
+        tag.putString(TAG_ACTIVE_SCENT, this.activeScent.id().toString());
+        tag.putInt(TAG_ACTIVE_SCENT_ID, this.activeScent.networkId());
+        tag.putInt(TAG_LIT_TIME, this.litTime);
+        tag.putInt(TAG_LIT_DURATION, this.litDuration);
+        tag.putInt(TAG_CRAFT_PROGRESS, this.craftProgress);
+        tag.putInt(TAG_CRAFT_TIME_TOTAL, this.craftTimeTotal);
+        tag.putString(TAG_ACTIVE_ENHANCEMENT, this.activeEnhancement.getSerializedName());
+        tag.put(TAG_ACTIVE_INGREDIENTS, saveActiveIngredients(this.activeIngredients));
+        return stack;
+    }
+
+    public boolean applyItemData(CompoundTag tag) {
+        if (tag == null) {
+            return false;
+        }
+        if (tag.contains(TAG_ACTIVE_SCENT, CompoundTag.TAG_STRING)) {
+            FIDiffusingRecipes.byId(new ResourceLocation(tag.getString(TAG_ACTIVE_SCENT)))
+                    .ifPresent(scent -> this.activeScent = scent);
+        } else if (tag.contains(TAG_ACTIVE_SCENT_ID, CompoundTag.TAG_INT)) {
+            FIDiffusingRecipes.byNetworkId(tag.getInt(TAG_ACTIVE_SCENT_ID)).ifPresent(scent -> this.activeScent = scent);
+        }
+        if (this.activeScent == null) {
+            return false;
+        }
+        int storedLitTime = tag.getInt(TAG_LIT_TIME);
+        int storedLitDuration = tag.getInt(TAG_LIT_DURATION);
+        int storedCraftTotal = tag.getInt(TAG_CRAFT_TIME_TOTAL);
+        this.craftTimeTotal = Math.max(DEFAULT_DIFFUSION_TIME, storedCraftTotal > 0 ? storedCraftTotal : storedLitDuration);
+        this.litDuration = Math.max(DEFAULT_DIFFUSION_TIME, storedLitDuration > 0 ? storedLitDuration : this.craftTimeTotal);
+        this.litTime = storedLitTime > 0 ? storedLitTime : this.litDuration;
+        this.craftProgress = tag.getInt(TAG_CRAFT_PROGRESS);
+        if (tag.contains(TAG_ACTIVE_ENHANCEMENT, CompoundTag.TAG_STRING)) {
+            this.activeEnhancement = Enhancement.byName(tag.getString(TAG_ACTIVE_ENHANCEMENT));
+        }
+        this.activeIngredients = loadActiveIngredients(tag);
+        this.effectTickCounter = 0;
+        this.setChanged();
+        return true;
+    }
+
+    public static Optional<FIDiffusingRecipes> getScentFromItem(ItemStack stack) {
+        if (stack == null) {
+            return Optional.empty();
+        }
+        CompoundTag tag = stack.getTag();
+        if (tag == null) {
+            return Optional.empty();
+        }
+        if (tag.contains(TAG_ACTIVE_SCENT, CompoundTag.TAG_STRING)) {
+            return FIDiffusingRecipes.byId(new ResourceLocation(tag.getString(TAG_ACTIVE_SCENT)));
+        }
+        if (tag.contains(TAG_ACTIVE_SCENT_ID, CompoundTag.TAG_INT)) {
+            return FIDiffusingRecipes.byNetworkId(tag.getInt(TAG_ACTIVE_SCENT_ID));
+        }
+        return Optional.empty();
+    }
+
+    public static NonNullList<ItemStack> getIngredientsFromItem(ItemStack stack) {
+        if (stack == null) {
+            return NonNullList.withSize(INPUT_SLOT_COUNT, ItemStack.EMPTY);
+        }
+        CompoundTag tag = stack.getTag();
+        if (tag == null) {
+            return NonNullList.withSize(INPUT_SLOT_COUNT, ItemStack.EMPTY);
+        }
+        return loadActiveIngredients(tag);
+    }
+
+    private static ListTag saveActiveIngredients(List<ItemStack> ingredients) {
+        ListTag list = new ListTag();
+        for (ItemStack stack : ingredients) {
+            list.add(stack.save(new CompoundTag()));
+        }
+        return list;
+    }
+
+    private static NonNullList<ItemStack> loadActiveIngredients(CompoundTag tag) {
+        if (!tag.contains(TAG_ACTIVE_INGREDIENTS, Tag.TAG_LIST)) {
+            return NonNullList.withSize(INPUT_SLOT_COUNT, ItemStack.EMPTY);
+        }
+        ListTag list = tag.getList(TAG_ACTIVE_INGREDIENTS, Tag.TAG_COMPOUND);
+        NonNullList<ItemStack> ingredients = NonNullList.withSize(INPUT_SLOT_COUNT, ItemStack.EMPTY);
+        int limit = Math.min(list.size(), INPUT_SLOT_COUNT);
+        for (int i = 0; i < limit; i++) {
+            ingredients.set(i, ItemStack.of(list.getCompound(i)));
+        }
+        return ingredients;
     }
 
     private Enhancement consumeEnhancement() {

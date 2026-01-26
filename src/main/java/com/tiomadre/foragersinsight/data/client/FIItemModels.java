@@ -17,7 +17,7 @@ public class FIItemModels extends BlueprintItemModelProvider {
         this.generatedItem(
                 //BAKED GOODS, COOKIES AND SWEETS
                     //Baked Goods
-                BLACK_FOREST_MUFFIN,POPPY_SEED_BAGEL,RED_VELVET_CUPCAKE,
+                BLACK_FOREST_MUFFIN,LILAC_TEACAKE,POPPY_SEED_BAGEL,RED_VELVET_CUPCAKE,
                     //Cake and Pie Slices
                 SLICE_OF_ACORN_CARROT_CAKE,ACORN_CARROT_CAKE_ITEM,
                     //Cookies
@@ -40,17 +40,14 @@ public class FIItemModels extends BlueprintItemModelProvider {
                 ACORN_NOODLES,GLAZED_PORKCHOP_AND_ACORN_GRITS,ROSE_ROASTED_ROOTS,SEASIDE_SIZZLER,SYRUP_TOAST_STACKS,
                 TART_WHEAT_PILAF,WOODLAND_PASTA,SAVORY_PASTA_ROLL,
                 //Salad
-                KELP_AND_BEET_SALAD,MEADOW_MEDLEY,
+                KELP_AND_BEET_SALAD,LILAC_SALAD,MEADOW_MEDLEY,
                 //Sandwiches + Finger Foods
-                DANDELION_FRIES,KELP_WRAP,SEED_BUTTER_JAMWICH,
+                BLEWIT_BITES,DANDELION_FRIES,KELP_WRAP,SEED_BUTTER_JAMWICH,
                     //Comfort
                 CREAMY_SALMON_BAGEL,JAMMY_BREAKFAST_SANDWICH,
                 //Drinks
-                GLOWING_CARROT_JUICE,ROSE_CORDIAL,
-                    //Chilled
-
                     //Medicinal
-                DANDELION_ROOT_TEA, FOREST_ELIXIR, ROSELLE_JUICE,
+                DANDELION_ROOT_TEA, FOREST_ELIXIR,GLOWING_CARROT_JUICE,ROSELLE_JUICE,ROSE_CORDIAL,
                 //Ingredients
                 ACORN_DOUGH, BIRCH_SAP_BUCKET,BIRCH_SAP_BOTTLE, BIRCH_SYRUP_BUCKET,BIRCH_SYRUP_BOTTLE, SEED_MILK_BOTTLE,
                 SEED_MILK_BUCKET,

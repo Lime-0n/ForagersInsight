@@ -6,7 +6,8 @@
         "items": [
           {
             "items": [
-              "foragersinsight:blewit_mushroom"
+              "foragersinsight:blewit_mushroom",
+              "foragersinsight:roselle_petals"
             ]
           }
         ]
@@ -15,7 +16,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "farmersdelight:cooking/auspicious_soup"
+        "recipe": "farmersdelight:cooking/auspicious_stew_from_roselle_petals"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +29,7 @@
   ],
   "rewards": {
     "recipes": [
-      "farmersdelight:cooking/auspicious_soup"
+      "farmersdelight:cooking/auspicious_stew_from_roselle_petals"
     ]
   },
   "sends_telemetry_event": true

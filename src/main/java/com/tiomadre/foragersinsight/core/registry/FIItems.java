@@ -143,7 +143,7 @@ public class FIItems {
             new Item.Properties().food(FIFoods.SWEET_ROASTED_RABBIT_LEG)));
 
     //Other
-    public static final RegistryObject<Item> AUSPICIOUS_STEW = HELPER.createItem("auspicious_soup", () -> new AuspiciousStewItem(
+    public static final RegistryObject<Item> AUSPICIOUS_STEW = HELPER.createItem("auspicious_stew", () -> new AuspiciousStewItem(
             new Item.Properties().food(FIFoods.AUSPICIOUS_STEW).craftRemainder(Items.BOWL)));
 
 
@@ -195,7 +195,7 @@ public class FIItems {
 //Workstations & Tools
 //Diffuser
 public static final RegistryObject<Item> DIFFUSER = HELPER.createItem("diffuser", () ->
-        new BlockItem(FIBlocks.DIFFUSER.get(), basicItem().stacksTo(1)));
+        new DiffuserBlockItem(FIBlocks.DIFFUSER.get(), basicItem().stacksTo(1)));
     //Handbasket
     public static final RegistryObject<Item> HANDBASKET = HELPER.createItem("handbasket", () ->
         new HandbasketItem(new Item.Properties().stacksTo(1)));

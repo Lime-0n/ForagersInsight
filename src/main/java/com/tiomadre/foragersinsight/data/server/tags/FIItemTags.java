@@ -43,9 +43,10 @@ public class FIItemTags extends ItemTagsProvider {
         this.tag(COCOA).add(Items.COCOA_BEANS, FIItems.COCOA_POWDER.get());
         this.tag(ROOTS).add(Items.CARROT, Items.BEETROOT, FIItems.DANDELION_ROOT.get());
         this.tag(MUSHROOM).add(Items.RED_MUSHROOM, Items.BROWN_MUSHROOM, FIItems.BLEWIT_MUSHROOM.get());
-        this.tag(CROPS).addTag(APPLE).addTag(POPPY_SEEDS).addTag(ACORN).addTag(WHEAT).addTag(COCOA).addTag(ROOTS).addTag(MUSHROOM);
+            //tag as crops
+        this.tag(CROPS).addTags(APPLE,POPPY_SEEDS,ACORN,WHEAT,COCOA,ROOTS,MUSHROOM,LILAC);
         //Food
-        this.tag(BLEWIT_STUFFING).addTag(SEEDS).addTag(NUTS).addTag(VEGETABLES);
+        this.tag(BLEWIT_STUFFING).addTags(SEEDS,NUTS,VEGETABLES,RAW_MEATS,RAW_FISHES);
 
         // Handbasket support tags
         this.tag(RAW_MEATS).add(Items.RABBIT, Items.CHICKEN, Items.PORKCHOP, Items.BEEF, Items.MUTTON, FIItems.RAW_RABBIT_LEG.get())
