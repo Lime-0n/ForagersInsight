@@ -32,7 +32,7 @@ public class FIItemModels extends BlueprintItemModelProvider {
                 ACORN_MEAL,COCOA_POWDER,CRUSHED_ICE,GREEN_SAUCE,POPPY_SEED_PASTE, SEED_BUTTER,WHEAT_FLOUR,
                 //Dishes
                     //Comfort
-                COD_AND_PUMPKIN_STEW,FORAGERS_GRANOLA,STEAMY_KELP_RICE,ROSE_HIP_SOUP,HEARTY_SPRUCE_PILAF,
+                AUSPICIOUS_STEW,COD_AND_PUMPKIN_STEW,FORAGERS_GRANOLA,STEAMY_KELP_RICE,ROSE_HIP_SOUP,HEARTY_SPRUCE_PILAF,
                 CARROT_POPPY_CHOWDER,
                     //Finger Foods
                 SWEET_ROASTED_RABBIT_LEG,

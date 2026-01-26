@@ -9,7 +9,10 @@
   "item.foragersinsight.spruce_tips": "Spruce Tips",
   "item.foragersinsight.blewit_mushroom": "Blewit Mushroom",
 
+
   "item.foragersinsight.apple_dippers": "Apple Dippers",
+  "item.foragersinsight.auspicious_stew": "Auspicious Stew",
+  "item.foragersinsight.blewit_bites": "Blewit Bites",
   "item.foragersinsight.acorn_cookie": "Acorn Cookie",
   "item.foragersinsight.acorn_noodles": "Acorn Noodles",
   "item.foragersinsight.black_forest_muffin": "Black Forest Muffin",
@@ -23,6 +26,8 @@
   "item.foragersinsight.jammy_breakfast_sandwich": "Jammy Breakfast Sandwich",
   "item.foragersinsight.kelp_and_beet_salad": "Kelp and Beet Salad",
   "item.foragersinsight.kelp_wrap": "Kelp Wrap",
+  "item.foragersinsight.lilac_salad": "Lilac Salad",
+  "item.foragersinsight.lilac_teacake": "Lilac Teacake",
   "item.foragersinsight.meadow_medley": "Meadow Medley",
   "item.foragersinsight.poppy_seed_bagel": "Poppy Seed Bagel",
   "item.foragersinsight.red_velvet_cupcake": "Red Velvet Cupcake",
@@ -162,7 +167,7 @@
   "foragersinsight.tool_interaction.shears.chicken": "Please wait %s seconds to shear this chicken again.",
   "foragersinsight.tool_interaction.shears.baby_chicken": "Baby chickens cannot be sheared.",
   "foragersinsight.tool_interaction.mallet.anvil_no_repairs": "This anvil is fully repaired.",
-  "foragersinsight.diffuser.rosey": "The diffuser is exuding a Rosey scent!",
+  "foragersinsight.diffuser.rosey": "The diffuser is exuding a Rosey scent! Replace and light this Diffuser to reactive its scent!",
   "foragersinsight.diffuser.coniferous": "The diffuser is exuding a Coniferous scent!",
   "foragersinsight.diffuser.floral": "The diffuser is exuding a Floral scent!",
   "foragersinsight.diffuser.foul": "The diffuser is exuding a Foul scent!",

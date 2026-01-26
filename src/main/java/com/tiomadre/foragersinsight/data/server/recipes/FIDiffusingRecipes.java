@@ -95,43 +95,26 @@ public final class FIDiffusingRecipes {
     private final Supplier<MobEffectInstance> effectSupplier;
     private final int networkId;
 
-    private FIDiffusingRecipes(ResourceLocation id,
-                               List<IngredientCount> ingredients,
-                               ResourceLocation icon,
-                               String translationKey,
-                               String descriptionKey,
-                               double radius,
-                               Supplier<MobEffectInstance> effectSupplier,
-                               int networkId) {
-        this.id = Objects.requireNonNull(id, "id");
-        this.ingredients = List.copyOf(ingredients);
-        this.icon = Objects.requireNonNull(icon, "icon");
-        this.totalItemCount = this.ingredients.stream().mapToInt(IngredientCount::count).sum();
-        this.translationKey = Objects.requireNonNull(translationKey, "translationKey");
-        this.descriptionKey = Objects.requireNonNull(descriptionKey, "descriptionKey");
-        this.radius = radius;
-        this.effectSupplier = Objects.requireNonNull(effectSupplier, "effectSupplier");
-        this.networkId = networkId;
-        ALL.add(this);
-        BY_ID.put(this.id, this);
+    private FIDiffusingRecipes(ResourceLocation id, List<IngredientCount> ingredients, ResourceLocation icon,
+    String translationKey, String descriptionKey, double radius, Supplier<MobEffectInstance> effectSupplier, int networkId) {
+
+    this.id = Objects.requireNonNull(id, "id");
+    this.ingredients = List.copyOf(ingredients);
+    this.icon = Objects.requireNonNull(icon, "icon");
+    this.totalItemCount = this.ingredients.stream().mapToInt(IngredientCount::count).sum();
+    this.translationKey = Objects.requireNonNull(translationKey, "translationKey");
+    this.descriptionKey = Objects.requireNonNull(descriptionKey, "descriptionKey");
+    this.radius = radius;
+    this.effectSupplier = Objects.requireNonNull(effectSupplier, "effectSupplier");
+    this.networkId = networkId;
+    ALL.add(this);
+    BY_ID.put(this.id, this);
     }
-    private static @NotNull Supplier<FIDiffusingRecipes> register(String name,
-                                                                  List<IngredientCount> ingredients,
-                                                                  ResourceLocation icon,
-                                                                  String translationKey,
-                                                                  String descriptionKey,
-                                                                  double radius,
-                                                                  Supplier<MobEffectInstance> effectSupplier,
-                                                                  int networkId) {
-        Supplier<FIDiffusingRecipes> supplier = Suppliers.memoize(() -> new FIDiffusingRecipes(ForagersInsight.rl(name),
-                ingredients,
-                icon,
-                translationKey,
-                descriptionKey,
-                radius,
-                effectSupplier,
-                networkId));
-        REGISTERED.add(supplier);
+    private static @NotNull Supplier<FIDiffusingRecipes> register(String name, List<IngredientCount> ingredients, ResourceLocation icon,
+    String translationKey, String descriptionKey, double radius, Supplier<MobEffectInstance> effectSupplier, int networkId) {
+
+        Supplier<FIDiffusingRecipes> supplier = Suppliers.memoize(() -> new FIDiffusingRecipes(ForagersInsight.rl(name), ingredients,
+        icon, translationKey, descriptionKey, radius, effectSupplier, networkId));REGISTERED.add(supplier);
         return supplier;
     }
 
@@ -205,9 +188,14 @@ public final class FIDiffusingRecipes {
             boolean matched = false;
             for (int i = 0; i < this.ingredients.size(); i++) {
                 IngredientCount ingredient = this.ingredients.get(i);
+                if (remaining[i] <= 0) {
+                    continue;
+                }
                 if (ingredient.ingredient().test(stack)) {
+                    if (stack.getCount() > remaining[i]) {
+                        continue;
+                    }
                     remaining[i] -= stack.getCount();
-                    if (remaining[i] < 0) return false;
                     matched = true;
                     break;
                 }
