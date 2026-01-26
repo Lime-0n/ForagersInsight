@@ -633,13 +633,22 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
             this.items.set(ENHANCEMENT_SLOT_INDEX, ItemStack.EMPTY);
         }
 
-        if (enhancement == Enhancement.DURATION && this.level != null && !this.level.isClientSide) {
-            ItemStack emptyBottle = new ItemStack(Items.GLASS_BOTTLE);
-            Containers.dropItemStack(this.level,
-                    this.worldPosition.getX() + 0.5D,
-                    this.worldPosition.getY() + 1.0D,
-                    this.worldPosition.getZ() + 0.5D,
-                    emptyBottle);
+        if (this.level != null && !this.level.isClientSide) {
+            if (enhancement == Enhancement.DURATION) {
+                ItemStack emptyBottle = new ItemStack(Items.GLASS_BOTTLE);
+                Containers.dropItemStack(this.level,
+                        this.worldPosition.getX() + 0.5D,
+                        this.worldPosition.getY() + 1.0D,
+                        this.worldPosition.getZ() + 0.5D,
+                        emptyBottle);
+            } else if (enhancement == Enhancement.DURATION_BUCKET) {
+                ItemStack emptyBucket = new ItemStack(Items.BUCKET);
+                Containers.dropItemStack(this.level,
+                        this.worldPosition.getX() + 0.5D,
+                        this.worldPosition.getY() + 1.0D,
+                        this.worldPosition.getZ() + 0.5D,
+                        emptyBucket);
+            }
         }
 
         return enhancement;
@@ -652,7 +661,9 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
     public enum Enhancement {
         NONE(1.0D, 1.0D, "none"),
         RADIUS(1.2D, 1.0D, "honeycomb"),
-        DURATION(1.0D, 1.2D, "birch_sap_bottle");
+        RADIUS_BLOCK(2.0D, 1.0D, "honeycomb_block"),
+        DURATION(1.0D, 1.2D, "birch_sap_bottle"),
+        DURATION_BUCKET(1.0D, 1.85D, "birch_sap_bucket");
 
         private final double radiusMultiplier;
         private final double durationMultiplier;
@@ -680,8 +691,14 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
             if (stack.is(Items.HONEYCOMB)) {
                 return RADIUS;
             }
+            if (stack.is(Items.HONEYCOMB_BLOCK)) {
+                return RADIUS_BLOCK;
+            }
             if (stack.is(FIItems.BIRCH_SAP_BOTTLE.get())) {
                 return DURATION;
+            }
+            if (stack.is(FIItems.BIRCH_SAP_BUCKET.get())) {
+                return DURATION_BUCKET;
             }
             return NONE;
         }

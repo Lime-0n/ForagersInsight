@@ -180,8 +180,12 @@ public class DiffuserScreen extends AbstractContainerScreen<DiffuserMenu> {
         DiffuserBlockEntity.Enhancement enhancement = this.menu.getActiveEnhancement();
         if (enhancement == DiffuserBlockEntity.Enhancement.RADIUS) {
             tooltip.add(Component.translatable("gui.foragersinsight.diffuser.tooltip.enhanced_radius").withStyle(style -> style.withColor(FIDiffusingRecipes.RADIUS_ACCENT_COLOR)));
+        } else if (enhancement == DiffuserBlockEntity.Enhancement.RADIUS_BLOCK) {
+            tooltip.add(Component.translatable("gui.foragersinsight.diffuser.tooltip.enhanced_radius_block").withStyle(style -> style.withColor(FIDiffusingRecipes.RADIUS_ACCENT_COLOR)));
         } else if (enhancement == DiffuserBlockEntity.Enhancement.DURATION) {
             tooltip.add(Component.translatable("gui.foragersinsight.diffuser.tooltip.enhanced_duration").withStyle(style -> style.withColor(FIDiffusingRecipes.DURATION_ACCENT_COLOR)));
+        } else if (enhancement == DiffuserBlockEntity.Enhancement.DURATION_BUCKET) {
+            tooltip.add(Component.translatable("gui.foragersinsight.diffuser.tooltip.enhanced_duration_bucket").withStyle(style -> style.withColor(FIDiffusingRecipes.DURATION_ACCENT_COLOR)));
         }
 
         gui.renderComponentTooltip(this.font, tooltip, mouseX, mouseY);

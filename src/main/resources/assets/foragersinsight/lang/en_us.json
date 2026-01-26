@@ -178,8 +178,9 @@
   "gui.foragersinsight.diffuser.tooltip.radius": "Radius: %s blocks",
   "gui.foragersinsight.diffuser.tooltip.duration": "Duration: %s seconds",
   "gui.foragersinsight.diffuser.tooltip.enhanced_radius": " + Honeycomb (+20% radius)",
+  "gui.foragersinsight.diffuser.tooltip.enhanced_radius_block": " + Honeycomb Block (+100% radius)",
   "gui.foragersinsight.diffuser.tooltip.enhanced_duration": " + Birch Sap (+20% duration)",
-
+  "gui.foragersinsight.diffuser.tooltip.enhanced_duration_bucket": " + Birch Sap Bucket (+85% duration)",
 
 
   "advancements.foragersinsight.adventure.brush_it_off.title": "Brush It Off",
