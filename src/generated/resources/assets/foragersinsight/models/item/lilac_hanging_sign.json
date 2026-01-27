@@ -1,3 +1,6 @@
 {
-  "parent": "foragersinsight:block/lilac_hanging_sign"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "foragersinsight:item/lilac_hanging_sign"
+  }
 }

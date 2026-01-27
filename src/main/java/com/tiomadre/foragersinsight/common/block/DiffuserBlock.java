@@ -96,6 +96,14 @@ public class DiffuserBlock extends BaseEntityBlock implements SimpleWaterloggedB
     public void setPlacedBy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state,
                             @Nullable LivingEntity placer, @NotNull ItemStack stack) {
         super.setPlacedBy(level, pos, state, placer, stack);
+        if (!level.isClientSide) {
+            BlockEntity entity = level.getBlockEntity(pos);
+            if (entity instanceof DiffuserBlockEntity diffuser && stack.hasTag()) {
+                if (diffuser.applyItemData(stack.getTag())) {
+                    level.sendBlockUpdated(pos, state, state, Block.UPDATE_ALL);
+                }
+            }
+        }
     }
     @Override
     public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos,

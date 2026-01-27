@@ -17,6 +17,8 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.ContainerHelper;
@@ -105,11 +107,10 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         boolean wasLit = blockEntity.isLit();
         boolean changed = false;
 
-        if (blockEntity.litTime > 0) {
-            blockEntity.litTime--;
-        }
-
         if (blockEntity.isLit()) {
+            if (blockEntity.litTime > 0) {
+                blockEntity.litTime--;
+            }
             blockEntity.craftProgress = Mth.clamp(blockEntity.craftProgress + 1, 0, blockEntity.craftTimeTotal);
             if (!level.isClientSide) {
                 blockEntity.effectTickCounter++;
@@ -124,7 +125,7 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
             blockEntity.effectTickCounter = 0;
         }
 
-        if (!level.isClientSide && !blockEntity.isLit() && blockEntity.activeScent != null) {
+        if (!level.isClientSide && !blockEntity.isLit() && blockEntity.activeScent != null && blockEntity.litTime <= 0) {
             blockEntity.clearActiveScent();
             changed = true;
         }
@@ -208,6 +209,17 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         if (this.level == null || this.isLit()) {
             return false;
         }
+        if (this.activeScent != null && this.litTime > 0) {
+            this.effectTickCounter = 0;
+            BlockState state = this.getBlockState();
+            if (!state.getValue(DiffuserBlock.LIT)) {
+                this.level.setBlock(this.worldPosition, state.setValue(DiffuserBlock.LIT, true), Block.UPDATE_ALL);
+            } else {
+                this.level.sendBlockUpdated(this.worldPosition, state, state, Block.UPDATE_ALL);
+            }
+            this.setChanged();
+            return true;
+        }
         Optional<FIDiffusingRecipes> match = findMatchingScent();
         if (match.isEmpty()) {
             return false;
@@ -228,7 +240,10 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
     }
 
     public boolean isLit() {
-        return this.litTime > 0;
+        if (this.level == null) {
+            return this.litTime > 0;
+        }
+        return this.litTime > 0 && this.getBlockState().getValue(DiffuserBlock.LIT);
     }
 
     @Override
@@ -333,6 +348,9 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         }
 
         if (this.level != null) {
+            if (!this.level.isClientSide && (wasLit || hadActiveScent)) {
+                this.level.playSound(null, this.worldPosition, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.7F, 1.0F);
+            }
             BlockState state = this.getBlockState();
             boolean blockLit = state.getValue(DiffuserBlock.LIT);
             if (blockLit != this.isLit()) {
@@ -395,9 +413,8 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         int storedLitTime = tag.getInt(TAG_LIT_TIME);
         int storedLitDuration = tag.getInt(TAG_LIT_DURATION);
         int storedCraftTotal = tag.getInt(TAG_CRAFT_TIME_TOTAL);
-        this.craftTimeTotal = Math.max(DEFAULT_DIFFUSION_TIME, storedCraftTotal > 0 ? storedCraftTotal : storedLitDuration);
-        this.litDuration = Math.max(DEFAULT_DIFFUSION_TIME, storedLitDuration > 0 ? storedLitDuration : this.craftTimeTotal);
-        this.litTime = storedLitTime > 0 ? storedLitTime : this.litDuration;
+        this.craftTimeTotal = storedCraftTotal > 0 ? storedCraftTotal : DEFAULT_DIFFUSION_TIME;
+        this.litDuration = storedLitDuration > 0 ? storedLitDuration : this.craftTimeTotal;
         this.craftProgress = tag.getInt(TAG_CRAFT_PROGRESS);
         this.effectTickCounter = 0;
         this.activeScent = null;
@@ -413,6 +430,12 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         }
         this.respirationLevel = Mth.clamp(tag.getInt("RespirationLevel"), 0, 3);
         this.activeIngredients = loadActiveIngredients(tag);
+        if (this.activeScent != null) {
+            this.litTime = Math.min(storedLitTime, this.litDuration);
+        } else {
+            this.litTime = 0;
+            this.craftProgress = 0;
+        }
     }
 
 
@@ -555,9 +578,9 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         int storedLitTime = tag.getInt(TAG_LIT_TIME);
         int storedLitDuration = tag.getInt(TAG_LIT_DURATION);
         int storedCraftTotal = tag.getInt(TAG_CRAFT_TIME_TOTAL);
-        this.craftTimeTotal = Math.max(DEFAULT_DIFFUSION_TIME, storedCraftTotal > 0 ? storedCraftTotal : storedLitDuration);
-        this.litDuration = Math.max(DEFAULT_DIFFUSION_TIME, storedLitDuration > 0 ? storedLitDuration : this.craftTimeTotal);
-        this.litTime = storedLitTime > 0 ? storedLitTime : this.litDuration;
+        this.craftTimeTotal = storedCraftTotal > 0 ? storedCraftTotal : DEFAULT_DIFFUSION_TIME;
+        this.litDuration = storedLitDuration > 0 ? storedLitDuration : this.craftTimeTotal;
+        this.litTime = Math.min(storedLitTime, this.litDuration);
         this.craftProgress = tag.getInt(TAG_CRAFT_PROGRESS);
         if (tag.contains(TAG_ACTIVE_ENHANCEMENT, CompoundTag.TAG_STRING)) {
             this.activeEnhancement = Enhancement.byName(tag.getString(TAG_ACTIVE_ENHANCEMENT));

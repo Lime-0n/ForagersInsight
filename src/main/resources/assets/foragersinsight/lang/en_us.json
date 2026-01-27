@@ -167,7 +167,7 @@
   "foragersinsight.tool_interaction.shears.chicken": "Please wait %s seconds to shear this chicken again.",
   "foragersinsight.tool_interaction.shears.baby_chicken": "Baby chickens cannot be sheared.",
   "foragersinsight.tool_interaction.mallet.anvil_no_repairs": "This anvil is fully repaired.",
-  "foragersinsight.diffuser.rosey": "The diffuser is exuding a Rosey scent! Replace and light this Diffuser to reactive its scent!",
+  "foragersinsight.diffuser.rosey": "The diffuser is exuding a Rosey scent!",
   "foragersinsight.diffuser.coniferous": "The diffuser is exuding a Coniferous scent!",
   "foragersinsight.diffuser.floral": "The diffuser is exuding a Floral scent!",
   "foragersinsight.diffuser.foul": "The diffuser is exuding a Foul scent!",
@@ -184,7 +184,7 @@
   "gui.foragersinsight.diffuser.tooltip.duration": "Duration: %s seconds",
   "gui.foragersinsight.diffuser.tooltip.enhanced_radius": " + Honeycomb (+20% radius)",
   "gui.foragersinsight.diffuser.tooltip.enhanced_radius_block": " + Honeycomb Block (+100% radius)",
-  "gui.foragersinsight.diffuser.tooltip.enhanced_duration": " + Birch Sap (+20% duration)",
+  "gui.foragersinsight.diffuser.tooltip.enhanced_duration": " + Birch Sap Bottle (+20% duration)",
   "gui.foragersinsight.diffuser.tooltip.enhanced_duration_bucket": " + Birch Sap Bucket (+85% duration)",
 
 

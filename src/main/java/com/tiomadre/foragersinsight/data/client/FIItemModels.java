@@ -58,7 +58,7 @@ public class FIItemModels extends BlueprintItemModelProvider {
                 //Tools and Workstations
                 HANDBASKET, FLINT_MALLET, IRON_MALLET, GOLD_MALLET, DIAMOND_MALLET, NETHERITE_MALLET, FLINT_SHEARS, TAPPER,
                 //Wood Items
-                LILAC_BOAT, LILAC_CHEST_BOAT
+                LILAC_BOAT, LILAC_CHEST_BOAT,LILAC_SIGN, LILAC_HANGING_SIGN
 
                 );
 

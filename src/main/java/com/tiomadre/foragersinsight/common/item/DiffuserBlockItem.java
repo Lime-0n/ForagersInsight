@@ -39,7 +39,7 @@ public class DiffuserBlockItem extends BlockItem {
             if (ingredient.isEmpty()) {
                 tooltip.add(Component.translatable("item.foragersinsight.diffuser.tooltip.empty_slot").withStyle(ChatFormatting.DARK_GRAY));
             } else {
-                tooltip.add(Component.literal("• ").append(ingredient.getHoverName()).withStyle(ChatFormatting.GRAY));
+                tooltip.add(Component.literal("-").append(ingredient.getHoverName()).withStyle(ChatFormatting.WHITE));
             }
         }
     }
