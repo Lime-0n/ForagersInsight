@@ -58,9 +58,11 @@ public class FITags {
         public static final TagKey<Item> STORAGE_BLOCK_ROSE_HIP = storageTag("rose_hip");
         public static final TagKey<Item> STORAGE_BLOCK_SPRUCE_TIPS = storageTag("spruce_tips");
         public static final TagKey<Item> STORAGE_BLOCK_DANDELION_ROOT = storageTag("dandelion_root");
+        public static final TagKey<Item> STORAGE_BLOCK_ROSELLE_CALYX = storageTag("dandelion_root");
         public static final TagKey<Item> STORAGE_BLOCK_POPPY_SEEDS = storageTag("poppy_seeds");
         public static final TagKey<Item> STORAGE_BLOCK_BLACK_ACORNS = storageTag("black_acorns");
         public static final TagKey<Item> STORAGE_BLOCK_BLEWIT_MUSHROOM = storageTag("blewit_mushroom");
+        public static final TagKey<Item> STORAGE_BLOCK_LILAC_BLOOM = storageTag("lilac_bloom");
 
         public static TagKey<Item> storageTag(String thing) {
             return TagUtil.itemTag("forge", "storage_blocks/" + thing);

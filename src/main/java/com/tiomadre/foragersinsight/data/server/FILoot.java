@@ -127,7 +127,8 @@ public class FILoot extends LootTableProvider {
             this.dropSelf(ROSELLE_CALYX_SACK.get());
             this.dropSelf(DANDELION_ROOT_SACK.get());
             this.dropSelf(POPPY_SEEDS_SACK.get());
-            this.add(FIBlocks.BLEWIT_MUSHROOM_CRATE.get(), this::createSlabItemTable);
+            this.add(FIBlocks.BLEWIT_CRATE.get(), this::createSlabItemTable);
+            this.add(LILAC_BLOOM_CRATE.get(), this::createSlabItemTable);
                 //Wildflower + Plants
             this.add(FIBlocks.ROSELLE_BUSH.get(), block -> LootTable.lootTable().withPool(this.applyExplosionCondition(block, LootPool.lootPool()
                                             .setRolls(ConstantValue.exactly(1.0F))
@@ -155,17 +156,14 @@ public class FILoot extends LootTableProvider {
             this.dropSelf(DENSE_SPRUCE_TIP_MAT.get());
             this.dropSelf(DENSE_ROSE_PETAL_MAT.get());
             this.dropSelf(DENSE_ROSELLE_PETAL_MAT.get());
-                //Saplings and Tree Stuff
-            this.dropSelf(BOUNTIFUL_OAK_SAPLING.get());
-            this.dropSelf(BOUNTIFUL_DARK_OAK_SAPLING.get());
-            this.dropSelf(BOUNTIFUL_SPRUCE_SAPLING.get());
+                //Leaves and Tree Stuff
             this.add(BOUNTIFUL_SPRUCE_TIPS.get(), LootTable.lootTable().setParamSet(LootContextParamSets.BLOCK));
             this.add(FIBlocks.SAPPY_BIRCH_LOG.get(), block -> createSilkTouchDispatchTable(block, LootItem.lootTableItem(Blocks.BIRCH_LOG)));
             this.dropSelf(LILAC_LOG.get());
             this.dropSelf(STRIPPED_LILAC_LOG.get());
-            this.add(BOUNTIFUL_OAK_LEAVES.get(), this.createBountifulLeavesDrops(BOUNTIFUL_OAK_LEAVES, BOUNTIFUL_OAK_SAPLING.get()));
-            this.add(BOUNTIFUL_DARK_OAK_LEAVES.get(), this.createBountifulLeavesDrops(BOUNTIFUL_DARK_OAK_LEAVES, BOUNTIFUL_DARK_OAK_SAPLING.get()));
-            this.add(BOUNTIFUL_SPRUCE_LEAVES.get(), this.createSpruceLeavesDrops(BOUNTIFUL_SPRUCE_LEAVES.get(), BOUNTIFUL_SPRUCE_SAPLING.get()));
+            this.add(BOUNTIFUL_OAK_LEAVES.get(), this.createBountifulLeavesDrops(BOUNTIFUL_OAK_LEAVES, Blocks.OAK_SAPLING));
+            this.add(BOUNTIFUL_DARK_OAK_LEAVES.get(), this.createBountifulLeavesDrops(BOUNTIFUL_DARK_OAK_LEAVES, Blocks.DARK_OAK_SAPLING));
+            this.add(BOUNTIFUL_SPRUCE_LEAVES.get(), this.createSpruceLeavesDrops(BOUNTIFUL_SPRUCE_LEAVES.get(), Blocks.SPRUCE_SAPLING));
             this.add(LILAC_LEAVES.get(), this.createLeafDrops(LILAC_LEAVES.get()));
             this.add(BLOSSOMING_LILAC_LEAVES.get(), this.createBlossomingLilacLeavesDrops(BLOSSOMING_LILAC_LEAVES.get()));
             this.add(HANGING_LILAC_LEAVES.get(), LootTable.lootTable().setParamSet(LootContextParamSets.BLOCK));

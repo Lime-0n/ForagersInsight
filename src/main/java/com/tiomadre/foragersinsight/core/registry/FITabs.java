@@ -27,16 +27,13 @@ public class FITabs {
 
     private static final List<RegistryObject<? extends ItemLike>> BLOCK_ENTRIES = List.of(
 
-            FIBlocks.BOUNTIFUL_DARK_OAK_SAPLING,
-            FIBlocks.BOUNTIFUL_OAK_SAPLING,
-            FIBlocks.BOUNTIFUL_SPRUCE_SAPLING,
             FIBlocks.BOUNTIFUL_DARK_OAK_LEAVES,
             FIBlocks.BOUNTIFUL_OAK_LEAVES,
             FIBlocks.BOUNTIFUL_SPRUCE_LEAVES,
             FIBlocks.BLOSSOMING_LILAC_LEAVES,
             FIBlocks.LILAC_LEAVES,
             FIBlocks.APPLE_CRATE,
-            FIBlocks.BLEWIT_MUSHROOM_CRATE,
+            FIBlocks.BLEWIT_CRATE,
             FIBlocks.BLACK_ACORN_SACK,
             FIBlocks.DANDELION_ROOT_SACK,
             FIBlocks.POPPY_SEEDS_SACK,

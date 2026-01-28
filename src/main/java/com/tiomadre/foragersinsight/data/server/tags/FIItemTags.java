@@ -10,6 +10,7 @@ import net.minecraft.world.item.Items;
 import net.minecraftforge.data.event.GatherDataEvent;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.registry.ModItems;
+
 import static com.tiomadre.foragersinsight.data.server.tags.FITags.ItemTag.*;
 
 public class FIItemTags extends ItemTagsProvider {
@@ -29,7 +30,6 @@ public class FIItemTags extends ItemTagsProvider {
         this.tag(SEEDS).add(FIItems.POPPY_SEEDS.get());
         this.tag(MILK_BUCKET).add(FIItems.SEED_MILK_BUCKET.get());
         this.tag(MILK_BOTTLE).add(FIItems.SEED_MILK_BOTTLE.get());
-        this.tag(ItemTags.SAPLINGS).add(FIBlocks.BOUNTIFUL_DARK_OAK_SAPLING.get().asItem(), FIBlocks.BOUNTIFUL_OAK_SAPLING.get().asItem(), FIBlocks.BOUNTIFUL_SPRUCE_SAPLING.get().asItem());
         this.tag(ItemTags.SMALL_FLOWERS).add(FIBlocks.STOUT_BEACH_ROSE_BUSH.get().asItem());
         this.tag(ItemTags.TALL_FLOWERS).add(FIBlocks.ROSELLE_BUSH.get().asItem(), FIBlocks.TALL_BEACH_ROSE_BUSH.get().asItem());
         this.tag(ItemTags.FLOWERS).add(FIBlocks.ROSELLE_BUSH.get().asItem(), FIBlocks.STOUT_BEACH_ROSE_BUSH.get().asItem(), FIBlocks.TALL_BEACH_ROSE_BUSH.get().asItem());
@@ -126,11 +126,13 @@ public class FIItemTags extends ItemTagsProvider {
     }
     protected void registerForgeTags() {
         tag(STORAGE_BLOCK_ROSE_HIP).add(FIBlocks.ROSE_HIP_SACK.get().asItem());
+        tag(STORAGE_BLOCK_ROSE_HIP).add(FIBlocks.ROSELLE_CALYX_SACK.get().asItem());
         tag(STORAGE_BLOCK_POPPY_SEEDS).add(FIBlocks.POPPY_SEEDS_SACK.get().asItem());
         tag(STORAGE_BLOCK_DANDELION_ROOT).add(FIBlocks.DANDELION_ROOT_SACK.get().asItem());
         tag(STORAGE_BLOCK_SPRUCE_TIPS).add(FIBlocks.SPRUCE_TIPS_SACK.get().asItem());
         tag(STORAGE_BLOCK_BLACK_ACORNS).add(FIBlocks.BLACK_ACORN_SACK.get().asItem());
-        tag(STORAGE_BLOCK_BLEWIT_MUSHROOM).add(FIBlocks.BLEWIT_MUSHROOM_CRATE.get().asItem());
+        tag(STORAGE_BLOCK_BLEWIT_MUSHROOM).add(FIBlocks.BLEWIT_CRATE.get().asItem());
+        tag(STORAGE_BLOCK_LILAC_BLOOM).add(FIBlocks.LILAC_BLOOM_CRATE.get().asItem());
     }
 
 

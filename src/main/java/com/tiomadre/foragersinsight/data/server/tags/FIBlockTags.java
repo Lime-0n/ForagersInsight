@@ -43,7 +43,6 @@ public class FIBlockTags extends BlockTagsProvider {
         this.tag(BlockTags.CEILING_HANGING_SIGNS).add(LILAC_HANGING_SIGN.get());
         this.tag(BlockTags.WALL_HANGING_SIGNS).add(LILAC_WALL_HANGING_SIGN.get());
 
-        this.tag(BlockTags.SAPLINGS).add(BOUNTIFUL_OAK_SAPLING.get(), BOUNTIFUL_DARK_OAK_SAPLING.get(), BOUNTIFUL_SPRUCE_SAPLING.get());
         this.tag(BlockTags.LEAVES).add(BOUNTIFUL_OAK_LEAVES.get(),BOUNTIFUL_DARK_OAK_LEAVES.get(),BOUNTIFUL_SPRUCE_LEAVES.get());
         this.tag(BlockTags.CROPS).add(ROSE_CROP.get(), DANDELION_BUSH.get(), POPPY_BUSH.get(),BOUNTIFUL_DARK_OAK_LEAVES.get(),BOUNTIFUL_OAK_LEAVES.get(),BOUNTIFUL_SPRUCE_TIPS.get(),HANGING_LILAC_LEAVES.get());
         this.tag(BlockTags.SMALL_FLOWERS).add(DANDELION_BUSH.get(), POPPY_BUSH.get(), ROSE_CROP.get(), BOUNTIFUL_DARK_OAK_LEAVES.get(), BOUNTIFUL_OAK_LEAVES.get(), BOUNTIFUL_SPRUCE_TIPS.get(), ROSE_CROP.get(), STOUT_BEACH_ROSE_BUSH.get());
@@ -64,11 +63,11 @@ public class FIBlockTags extends BlockTagsProvider {
 
     protected void registerMineables() {
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(TAPPER.get(), DIFFUSER.get());
-        this.tag(BlockTags.MINEABLE_WITH_AXE).add(APPLE_CRATE.get(), SAPPY_BIRCH_LOG.get(), BLEWIT_MUSHROOM_CRATE.get(), LILAC_LOG.get(), STRIPPED_LILAC_LOG.get(), LILAC_PLANKS.get(), LILAC_STAIRS.get(),
+        this.tag(BlockTags.MINEABLE_WITH_AXE).add(APPLE_CRATE.get(),BLEWIT_CRATE.get(),LILAC_BLOOM_CRATE.get(), SAPPY_BIRCH_LOG.get(), BLEWIT_CRATE.get(), LILAC_LOG.get(), STRIPPED_LILAC_LOG.get(), LILAC_PLANKS.get(), LILAC_STAIRS.get(),
                 LILAC_SLAB.get(), LILAC_FENCE.get(), LILAC_FENCE_GATE.get(), LILAC_DOOR.get(), LILAC_TRAPDOOR.get(), LILAC_PRESSURE_PLATE.get(), LILAC_BUTTON.get(),
                 LILAC_SIGN.get(), LILAC_WALL_SIGN.get(), LILAC_HANGING_SIGN.get(), LILAC_WALL_HANGING_SIGN.get(), LILAC_CABINET.get());
         this.tag(BlockTags.MINEABLE_WITH_HOE).add(BOUNTIFUL_OAK_LEAVES.get(),BOUNTIFUL_DARK_OAK_LEAVES.get(),BOUNTIFUL_SPRUCE_LEAVES.get());
-        this.tag(ModTags.MINEABLE_WITH_KNIFE).add(DANDELION_ROOT_SACK.get(), ROSE_HIP_SACK.get(), POPPY_SEEDS_SACK.get(), SPRUCE_TIPS_SACK.get(), BLACK_ACORN_SACK.get());
+        this.tag(ModTags.MINEABLE_WITH_KNIFE).add(DANDELION_ROOT_SACK.get(),ROSELLE_CALYX_SACK.get(), ROSE_HIP_SACK.get(), POPPY_SEEDS_SACK.get(), SPRUCE_TIPS_SACK.get(), BLACK_ACORN_SACK.get());
     }
 
 
@@ -79,7 +78,7 @@ public class FIBlockTags extends BlockTagsProvider {
         tag(STORAGE_BLOCK_DANDELION_ROOT).add(DANDELION_ROOT_SACK.get());
         tag(STORAGE_BLOCK_SPRUCE_TIPS).add(SPRUCE_TIPS_SACK.get());
         tag(STORAGE_BLOCK_BLACK_ACORNS).add(BLACK_ACORN_SACK.get());
-        tag(STORAGE_BLOCK_BLEWIT_MUSHROOM).add(BLEWIT_MUSHROOM_CRATE.get());
+        tag(STORAGE_BLOCK_BLEWIT_MUSHROOM).add(BLEWIT_CRATE.get());
 
     }
 
