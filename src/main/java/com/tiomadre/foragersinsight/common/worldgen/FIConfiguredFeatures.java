@@ -5,7 +5,7 @@ import com.tiomadre.foragersinsight.common.block.SuspiciousLitterBlock;
 import com.tiomadre.foragersinsight.common.worldgen.trees.foliage.LilacTreeFoliagePlacer;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
-import com.tiomadre.foragersinsight.common.worldgen.trees.foliage.SpruceTipTreeFoliagePlacer;
+import com.tiomadre.foragersinsight.common.worldgen.trees.decorator.SappyBirchLogDecorator;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
@@ -13,6 +13,7 @@ import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
@@ -27,6 +28,7 @@ import net.minecraft.world.level.levelgen.feature.featuresize.ThreeLayersFeature
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.DarkOakFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.SpruceFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.material.Fluids;
@@ -60,21 +62,21 @@ public class FIConfiguredFeatures {
     }
 
     public static void bootstap(BootstapContext<ConfiguredFeature<?, ?>> context) {
-            //Tree Stuff
+        //Tree Stuff
         register(context, APPLE_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(Blocks.OAK_LOG),
                 new StraightTrunkPlacer(4, 2, 0),
                 bountifulLeafStateProvider(Blocks.OAK_LEAVES, FIBlocks.BOUNTIFUL_OAK_LEAVES),
                 new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
                 new TwoLayersFeatureSize(1, 0, 1)
-        ).build());
+        ).ignoreVines().build());
         register(context, YOUNG_ACORN_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(Blocks.DARK_OAK_LOG),
                 new StraightTrunkPlacer(4, 2, 0),
                 bountifulLeafStateProvider(Blocks.DARK_OAK_LEAVES, FIBlocks.BOUNTIFUL_DARK_OAK_LEAVES),
                 new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
                 new TwoLayersFeatureSize(1, 0, 1)
-        ).build());
+        ).ignoreVines().build());
 
         register(context, ACORN_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(Blocks.DARK_OAK_LOG),
@@ -96,19 +98,19 @@ public class FIConfiguredFeatures {
                 BlockStateProvider.simple(Blocks.SPRUCE_LOG),
                 new StraightTrunkPlacer(5, 2, 1),
                 bountifulLeafStateProvider(Blocks.SPRUCE_LEAVES, FIBlocks.BOUNTIFUL_SPRUCE_LEAVES),
-                new SpruceTipTreeFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 3),
+                new SpruceFoliagePlacer(UniformInt.of(2, 3), UniformInt.of(0, 2), UniformInt.of(1, 2)),
                 new TwoLayersFeatureSize(2, 0, 2)
-        ).build());
+        ).ignoreVines().build());
 
         register(context, SAPPY_BIRCH_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(Blocks.BIRCH_LOG),
                 new StraightTrunkPlacer(5, 2, 0),
                 BlockStateProvider.simple(Blocks.BIRCH_LEAVES),
-                new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 3),
-                new TwoLayersFeatureSize(1, 0, 2)
-        ).build());
+                new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
+                new TwoLayersFeatureSize(1, 0, 1)
+        ).decorators(java.util.List.of(new SappyBirchLogDecorator(1.0F))).ignoreVines().build());
 
-            //Wild Flowers
+        //Wild Flowers
         WeightedStateProvider rosellePatchProvider = new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                 .add(Blocks.GRASS.defaultBlockState(), 6)
                 .add(FIBlocks.ROSELLE_BUSH.get().defaultBlockState()
