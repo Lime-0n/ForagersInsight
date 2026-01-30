@@ -1,12 +1,11 @@
-<img width="1280" height="320" alt="image" src="https://github.com/user-attachments/assets/30cdca84-c2ad-40a7-8829-9e3da1b245fd" />
+<img width="1440" height="640" alt="image" src="https://github.com/user-attachments/assets/cf0732f5-3a9c-4447-8f11-04966eb584cd" />
 
-Forager's Insight is an addon for Farmer's Delight. Forager's Insight brings crop functionality to some vanilla flora as well
-adding its own content in the form of new crops, biomes, tools and unique features that aim to reward those who enjoy farming 
-and foraging!
+Forager's Insight is an addon for Farmer's Delight. Forager's Insight seeks to enhance the Overworld by introducing new crops, interactions, tools and more to bring foraging
+and other aspects of nature to Minecraft! 
 
 This mod is still in **development**.
 
-Looking for information regarding Forager's Insight's feature, go to the link below!
+Looking for information regarding Forager's Insight? Go to the link below!
 
 Forager's Insight Wiki: https://github.com/tiomadre/ForagersInsight/wiki
 
