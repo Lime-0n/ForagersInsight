@@ -51,6 +51,14 @@ public class FITags {
         //Food
         public static final TagKey<Item> BLEWIT_STUFFING = TagKey.create(Registries.ITEM,
                 new ResourceLocation(ForagersInsight.MOD_ID, "blewit_stuffing"));
+        //Advancement Tags
+
+        public static final TagKey<Item> FORAGERS_INSIGHT_ITEMS = TagKey.create(Registries.ITEM,
+                new ResourceLocation(ForagersInsight.MOD_ID, "foragers_insight_items"));
+        public static final TagKey<Item> WILD_FLOWER_DROPS = TagKey.create(Registries.ITEM,
+                new ResourceLocation(ForagersInsight.MOD_ID, "wild_flower_drops"));
+        public static final TagKey<Block> RICH_SOIL_TREE_STARTERS = TagKey.create(Registries.BLOCK,
+                new ResourceLocation(ForagersInsight.MOD_ID, "rich_soil_tree_starters"));
         //Handbasket
         public static final TagKey<Item> HANDBASKET_ALLOWED = TagKey.create(Registries.ITEM, new ResourceLocation("foragersinsight","handbasket_allowed"));
         public static final TagKey<Item> HANDBASKET_OTHER = TagKey.create(Registries.ITEM, new ResourceLocation(ForagersInsight.MOD_ID, "handbasket/other"));
@@ -79,6 +87,7 @@ public class FITags {
         public static final TagKey<Block> STORAGE_BLOCK_BLEWIT_MUSHROOM = storageTag("blewit_mushroom");
 
         public static final TagKey<Block> FORAGING = blockTag("foraging");
+        public static final TagKey<Block> SHEARABLE_CROPS = blockTag("shearable_crops");
 
         public static TagKey<Block> blockTag(String namespace) {
             return TagUtil.blockTag(ForagersInsight.MOD_ID, namespace);

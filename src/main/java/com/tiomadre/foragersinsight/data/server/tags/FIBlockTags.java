@@ -2,6 +2,7 @@ package com.tiomadre.foragersinsight.data.server.tags;
 
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -14,6 +15,7 @@ import vectorwing.farmersdelight.common.tag.ModTags;
 
 import static com.tiomadre.foragersinsight.core.registry.FIBlocks.*;
 import static com.tiomadre.foragersinsight.data.server.tags.FITags.BlockTag.*;
+import static com.tiomadre.foragersinsight.data.server.tags.FITags.ItemTag.RICH_SOIL_TREE_STARTERS;
 
 public class FIBlockTags extends BlockTagsProvider {
 
@@ -49,6 +51,15 @@ public class FIBlockTags extends BlockTagsProvider {
         this.tag(BlockTags.TALL_FLOWERS).add(ROSELLE_BUSH.get(), TALL_BEACH_ROSE_BUSH.get());
         this.tag(BlockTags.FLOWERS).add(ROSELLE_BUSH.get(), STOUT_BEACH_ROSE_BUSH.get(), TALL_BEACH_ROSE_BUSH.get());
 
+        this.tag(SHEARABLE_CROPS)
+                .add(HANGING_LILAC_LEAVES.get(), BOUNTIFUL_OAK_LEAVES.get(), BOUNTIFUL_DARK_OAK_LEAVES.get(), BOUNTIFUL_SPRUCE_LEAVES.get(), BOUNTIFUL_SPRUCE_TIPS.get())
+                .add(Blocks.KELP, Blocks.KELP_PLANT, Blocks.SUGAR_CANE, Blocks.SWEET_BERRY_BUSH)
+                .addOptional(new ResourceLocation("farmersdelight", "brown_mushroom_colony"))
+                .addOptional(new ResourceLocation("farmersdelight", "red_mushroom_colony"))
+                .addOptional(new ResourceLocation("farmersdelight", "tomato_vine"));
+        this.tag(RICH_SOIL_TREE_STARTERS)
+                .add(Blocks.LILAC)
+                .addOptionalTag(new ResourceLocation("minecraft", "saplings"));
         this.tag(FORAGING)
         //FD Wild Crops
         .add(ModBlocks.WILD_BEETROOTS.get(),ModBlocks.WILD_CABBAGES.get(),ModBlocks.WILD_CARROTS.get(),
@@ -59,6 +70,7 @@ public class FIBlockTags extends BlockTagsProvider {
         Blocks.ROSE_BUSH,Blocks.DANDELION,Blocks.POPPY,STOUT_BEACH_ROSE_BUSH.get(), TALL_BEACH_ROSE_BUSH.get(),ROSELLE_BUSH.get());
         registerForgeTags();
         registerMineables();
+
     }
 
     protected void registerMineables() {
