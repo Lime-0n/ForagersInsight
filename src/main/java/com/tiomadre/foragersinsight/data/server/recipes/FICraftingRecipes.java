@@ -260,6 +260,10 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
         //BLOCKS
         //Decorative
             //Foliage Mats
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, SCATTERED_LILAC_BLOOM_MAT.get())
+                .requires(FIItems.LILAC_BLOOM.get(), 4)
+                .unlockedBy("has_lilac_bloom", has(FIItems.LILAC_BLOOM.get()))
+                .save(consumer);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, SCATTERED_ROSE_PETAL_MAT.get())
                 .requires(FIItems.ROSE_PETALS.get(), 4)
                 .unlockedBy("has_rose_petals", has(FIItems.ROSE_PETALS.get()))
@@ -275,6 +279,10 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
         ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, SCATTERED_STRAW_MAT.get())
                 .requires(ModItems.STRAW.get(), 4)
                 .unlockedBy("has_straw", has(ModItems.STRAW.get()))
+                .save(consumer);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, DENSE_LILAC_BLOOM_MAT.get())
+                .requires(FIBlocks.SCATTERED_LILAC_BLOOM_MAT.get(), 2)
+                .unlockedBy("has_scattered_lilac_blooms", has(FIBlocks.SCATTERED_LILAC_BLOOM_MAT.get()))
                 .save(consumer);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, DENSE_STRAW_MAT.get())
                 .requires(FIBlocks.SCATTERED_STRAW_MAT.get(), 2)

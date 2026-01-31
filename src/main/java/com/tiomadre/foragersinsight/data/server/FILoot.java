@@ -148,10 +148,12 @@ public class FILoot extends LootTableProvider {
                             .withPool(this.applyExplosionCondition(block,
                                             LootPool.lootPool())));
                 //Decorative
+            this.dropSelf(SCATTERED_LILAC_BLOOM_MAT.get());
             this.dropSelf(SCATTERED_ROSE_PETAL_MAT.get());
             this.dropSelf(SCATTERED_ROSELLE_PETAL_MAT.get());
             this.dropSelf(SCATTERED_SPRUCE_TIP_MAT.get());
             this.dropSelf(SCATTERED_STRAW_MAT.get());
+            this.dropSelf(DENSE_LILAC_BLOOM_MAT.get());
             this.dropSelf(DENSE_STRAW_MAT.get());
             this.dropSelf(DENSE_SPRUCE_TIP_MAT.get());
             this.dropSelf(DENSE_ROSE_PETAL_MAT.get());

@@ -33,12 +33,12 @@ public class FICompostable {
         registerCompostables(0.2f, ROSE_PETALS, ROSELLE_PETALS);
         // Foliage Mats
             // Scattered
-        registerCompostables(0.3f,
-                SCATTERED_ROSE_PETAL_MAT, SCATTERED_ROSELLE_PETAL_MAT,
+        registerCompostables(0.35f,
+                SCATTERED_ROSE_PETAL_MAT, SCATTERED_ROSELLE_PETAL_MAT, SCATTERED_LILAC_BLOOM_MAT,
                 SCATTERED_SPRUCE_TIP_MAT, SCATTERED_STRAW_MAT);
             // Dense
         registerCompostables(0.6f,
-                DENSE_ROSE_PETAL_MAT, DENSE_ROSELLE_PETAL_MAT,
+                DENSE_ROSE_PETAL_MAT, DENSE_ROSELLE_PETAL_MAT, DENSE_LILAC_BLOOM_MAT,
                 DENSE_SPRUCE_TIP_MAT, DENSE_STRAW_MAT);
 
 // Crops

@@ -114,10 +114,12 @@ public class FIBlocks {
             () -> new DiffuserBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK).noOcclusion()));
     //DECORATIVE
         //Foliage Mats
+    public static final RegistryObject<Block> SCATTERED_LILAC_BLOOM_MAT = HELPER.createBlock("scattered_lilac_blooms", FoliageMatBlock::new);
     public static final RegistryObject<Block> SCATTERED_ROSE_PETAL_MAT = HELPER.createBlock("scattered_rose_petals", FoliageMatBlock::new);
     public static final RegistryObject<Block> SCATTERED_ROSELLE_PETAL_MAT = HELPER.createBlock("scattered_roselle_petals", FoliageMatBlock::new);
     public static final RegistryObject<Block> SCATTERED_SPRUCE_TIP_MAT = HELPER.createBlock("scattered_spruce_tips", FoliageMatBlock::new);
     public static final RegistryObject<Block> SCATTERED_STRAW_MAT = HELPER.createBlock("scattered_straw", FoliageMatBlock::new);
+    public static final RegistryObject<Block> DENSE_LILAC_BLOOM_MAT = HELPER.createBlock("dense_lilac_blooms", FoliageMatBlock::new);
     public static final RegistryObject<Block> DENSE_STRAW_MAT = HELPER.createBlock("dense_straw", FoliageMatBlock::new);
     public static final RegistryObject<Block> DENSE_SPRUCE_TIP_MAT = HELPER.createBlock("dense_spruce_tips", FoliageMatBlock::new);
     public static final RegistryObject<Block> DENSE_ROSELLE_PETAL_MAT = HELPER.createBlock("dense_roselle_petals", FoliageMatBlock::new);
