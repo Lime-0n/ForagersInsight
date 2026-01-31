@@ -78,10 +78,12 @@ public class SpruceTipTreeFoliagePlacer extends FoliagePlacer {
             return false;
         } else {
             BlockState blockstate;
-            if (bottom) {
-                blockstate = rand.nextBoolean()
-                        ? FIBlocks.BOUNTIFUL_SPRUCE_LEAVES.get().defaultBlockState()
-                        : Blocks.SPRUCE_LEAVES.defaultBlockState();
+            boolean hasSpruceBelow = level.isStateAtPosition(pos.below(),
+                    state -> state.is(Blocks.SPRUCE_LEAVES) || state.is(Blocks.SPRUCE_LOG));
+            boolean canPlaceBountiful = !hasSpruceBelow
+                    && level.isStateAtPosition(pos.below(), BlockState::isAir);
+            if (canPlaceBountiful && rand.nextBoolean()) {
+                blockstate = FIBlocks.BOUNTIFUL_SPRUCE_LEAVES.get().defaultBlockState();
             } else {
                 blockstate = Blocks.SPRUCE_LEAVES.defaultBlockState();
             }

@@ -164,6 +164,7 @@
   "foragersinsight.tool_interaction.shears.chicken": "Please wait %s seconds to shear this chicken again.",
   "foragersinsight.tool_interaction.shears.baby_chicken": "Baby chickens cannot be sheared.",
   "foragersinsight.tool_interaction.mallet.anvil_no_repairs": "This anvil is fully repaired.",
+
   "foragersinsight.diffuser.rosey": "The diffuser is exuding a Rosey scent!",
   "foragersinsight.diffuser.coniferous": "The diffuser is exuding a Coniferous scent!",
   "foragersinsight.diffuser.floral": "The diffuser is exuding a Floral scent!",
@@ -172,6 +173,8 @@
   "foragersinsight.diffuser.coniferous.description": "An invigorating coniferous scent fills the air, giving Resistance to those near this Diffuser.",
   "foragersinsight.diffuser.floral.description": "A blossoming floral scent fills the air, giving Bloom to those near this Diffuser.",
   "foragersinsight.diffuser.foul.description": "A stinky aroma fills the air, giving Odorous to those near this Diffuser.",
+
+  "item.foragersinsight.diffuser.tooltip.remaining_duration": "The scent is paused for %s seconds",
   "item.foragersinsight.diffuser.tooltip.scent": "Active Scent: %s",
   "item.foragersinsight.diffuser.tooltip.ingredients": "Ingredients:",
   "item.foragersinsight.diffuser.tooltip.empty_slot": "Empty Slot",

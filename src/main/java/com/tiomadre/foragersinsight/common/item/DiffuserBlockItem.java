@@ -30,6 +30,10 @@ public class DiffuserBlockItem extends BlockItem {
         if (scent.isPresent()) {
             tooltip.add(Component.translatable("item.foragersinsight.diffuser.tooltip.scent", scent.get().displayName())
                     .withStyle(ChatFormatting.GOLD));
+            int remainingDuration = DiffuserBlockEntity.getRemainingDurationFromItem(stack);
+            int durationSeconds = (int) Math.round(remainingDuration / 20.0D);
+            tooltip.add(Component.translatable("item.foragersinsight.diffuser.tooltip.remaining_duration", durationSeconds)
+                    .withStyle(ChatFormatting.GRAY));
             tooltip.add(Component.translatable("item.foragersinsight.diffuser.tooltip.ingredients").withStyle(ChatFormatting.GRAY));
         }
 

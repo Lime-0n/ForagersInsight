@@ -39,7 +39,7 @@ public class FICrushandCutRecipes {
 
 
         //Crushing Recipes (Mallet)
-            //Items
+            //Blocks
         CuttingBoardRecipeBuilder.cuttingRecipe(of(Items.ICE), of(FITags.ItemTag.MALLETS), FIItems.CRUSHED_ICE.get(), 4).addResultWithChance(FIItems.CRUSHED_ICE.get(),0.1f).build(consumer);
         CuttingBoardRecipeBuilder.cuttingRecipe(of(Items.PACKED_ICE), of(FITags.ItemTag.MALLETS), Items.ICE, 9).addResultWithChance(Items.ICE,0.1f).build(consumer);
         CuttingBoardRecipeBuilder.cuttingRecipe(of(Items.BLUE_ICE), of(FITags.ItemTag.MALLETS), Items.PACKED_ICE, 9).addResultWithChance(Items.PACKED_ICE,0.1f).build(consumer);

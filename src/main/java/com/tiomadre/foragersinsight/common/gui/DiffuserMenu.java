@@ -108,7 +108,10 @@ public class DiffuserMenu extends AbstractContainerMenu {
                 if (DiffuserMenu.this.diffuser.hasActiveScent()) {
                     return false;
                 }
-                return stack.is(Items.HONEYCOMB) || stack.is(FIItems.BIRCH_SAP_BOTTLE.get());
+                return stack.is(Items.HONEYCOMB)
+                        || stack.is(Items.HONEYCOMB_BLOCK)
+                        || stack.is(FIItems.BIRCH_SAP_BOTTLE.get())
+                        || stack.is(FIItems.BIRCH_SAP_BUCKET.get());
             }
 
             @Override
@@ -161,7 +164,10 @@ public class DiffuserMenu extends AbstractContainerMenu {
                 return ItemStack.EMPTY;
             }
         } else {
-            if (sourceStack.is(Items.HONEYCOMB) || sourceStack.is(FIItems.BIRCH_SAP_BOTTLE.get())) {
+            if (sourceStack.is(Items.HONEYCOMB)
+                    || sourceStack.is(Items.HONEYCOMB_BLOCK)
+                    || sourceStack.is(FIItems.BIRCH_SAP_BOTTLE.get())
+                    || sourceStack.is(FIItems.BIRCH_SAP_BUCKET.get())) {
                 if (!this.moveItemStackTo(sourceStack, ENHANCEMENT_SLOT_INDEX, ENHANCEMENT_SLOT_INDEX + 1, false)) {
                     return ItemStack.EMPTY;
                 }

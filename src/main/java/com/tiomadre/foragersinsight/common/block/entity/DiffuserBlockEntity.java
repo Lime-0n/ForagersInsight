@@ -349,7 +349,7 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
 
         if (this.level != null) {
             if (!this.level.isClientSide && (wasLit || hadActiveScent)) {
-                this.level.playSound(null, this.worldPosition, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.7F, 1.0F);
+                this.level.playSound(null, this.worldPosition, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.3F, .0F);
             }
             BlockState state = this.getBlockState();
             boolean blockLit = state.getValue(DiffuserBlock.LIT);
@@ -362,7 +362,16 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
 
         this.setChanged();
     }
-
+    public static int getRemainingDurationFromItem(ItemStack stack) {
+        if (stack == null) {
+            return 0;
+        }
+        CompoundTag tag = stack.getTag();
+        if (tag == null) {
+            return 0;
+        }
+        return Math.max(tag.getInt(TAG_LIT_TIME), 0);
+    }
 
     @Override
     public boolean stillValid(@NotNull Player pPlayer) {

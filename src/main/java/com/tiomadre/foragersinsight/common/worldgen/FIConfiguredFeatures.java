@@ -2,6 +2,7 @@ package com.tiomadre.foragersinsight.common.worldgen;
 
 import com.tiomadre.foragersinsight.common.block.BountifulLeavesBlock;
 import com.tiomadre.foragersinsight.common.block.SuspiciousLitterBlock;
+import com.tiomadre.foragersinsight.common.worldgen.trees.decorator.BountifulOakLeafDecorator;
 import com.tiomadre.foragersinsight.common.worldgen.trees.foliage.LilacTreeFoliagePlacer;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
@@ -69,10 +70,11 @@ public class FIConfiguredFeatures {
                 bountifulLeafStateProvider(Blocks.OAK_LEAVES, FIBlocks.BOUNTIFUL_OAK_LEAVES),
                 new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
                 new TwoLayersFeatureSize(1, 0, 1)
-        ).ignoreVines().build());
+        ).decorators(java.util.List.of(new BountifulOakLeafDecorator(5)))
+                .ignoreVines().build());
         register(context, YOUNG_ACORN_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(Blocks.DARK_OAK_LOG),
-                new StraightTrunkPlacer(4, 2, 0),
+                new StraightTrunkPlacer(5, 2, 1),
                 bountifulLeafStateProvider(Blocks.DARK_OAK_LEAVES, FIBlocks.BOUNTIFUL_DARK_OAK_LEAVES),
                 new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
                 new TwoLayersFeatureSize(1, 0, 1)
