@@ -1,0 +1,28 @@
+{
+  "parent": "foragersinsight:adventure/foragers_insight",
+  "criteria": {
+    "brush_suspicious_litter": {
+      "trigger": "foragersinsight:brush_suspicious_litter"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.foragersinsight.adventure.brush_it_off.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "foragersinsight:suspicious_leaf_litter"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.foragersinsight.adventure.brush_it_off.title"
+    }
+  },
+  "requirements": [
+    [
+      "brush_suspicious_litter"
+    ]
+  ]
+}

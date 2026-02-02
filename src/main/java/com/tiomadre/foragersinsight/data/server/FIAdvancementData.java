@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.tiomadre.foragersinsight.core.registry.FIAdvancementTree;
+import com.tiomadre.foragersinsight.core.registry.FIAdvancements;
 import com.tiomadre.foragersinsight.data.server.tags.FITags;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
@@ -29,11 +29,11 @@ public class FIAdvancementData implements DataProvider {
     public CompletableFuture<?> run(CachedOutput output) {
         Map<ResourceLocation, JsonObject> advancements = new LinkedHashMap<>();
 
-        advancements.put(FIAdvancementTree.ROOT, rootAdvancement());
-        advancements.put(FIAdvancementTree.BRUSH_IT_OFF, brushItOff());
-        advancements.put(FIAdvancementTree.WILD_FLOWERS, wildFlowers());
-        advancements.put(FIAdvancementTree.SHEARING_IS_CARING, shearingIsCaring());
-        advancements.put(FIAdvancementTree.GIVING_TREES, givingTrees());
+        advancements.put(FIAdvancements.ROOT, rootAdvancement());
+        advancements.put(FIAdvancements.BRUSH_IT_OFF, brushItOff());
+        advancements.put(FIAdvancements.WILD_FLOWERS, wildFlowers());
+        advancements.put(FIAdvancements.SHEARING_IS_CARING, shearingIsCaring());
+        advancements.put(FIAdvancements.GIVING_TREES, givingTrees());
 
         CompletableFuture<?>[] writes = advancements.entrySet().stream()
                 .map(entry -> DataProvider.saveStable(output, entry.getValue(), this.pathProvider.json(entry.getKey())))
@@ -47,7 +47,7 @@ public class FIAdvancementData implements DataProvider {
     }
 
     private static JsonObject rootAdvancement() {
-        JsonObject advancement = baseDisplay(FIAdvancementTree.ROOT_ICON,
+        JsonObject advancement = baseDisplay(FIAdvancements.ROOT_ICON,
                 "advancements.foragersinsight.adventure.foragers_insight.title",
                 "advancements.foragersinsight.adventure.foragers_insight.description");
         advancement.getAsJsonObject("display")
@@ -62,18 +62,18 @@ public class FIAdvancementData implements DataProvider {
     }
 
     private static JsonObject brushItOff() {
-        JsonObject advancement = childAdvancement(FIAdvancementTree.BRUSH_IT_OFF_ICON,
+        JsonObject advancement = childAdvancement(FIAdvancements.BRUSH_IT_OFF_ICON,
                 "advancements.foragersinsight.adventure.brush_it_off.title",
                 "advancements.foragersinsight.adventure.brush_it_off.description");
         JsonObject criteria = new JsonObject();
-        criteria.add("brush_suspicious_litter", inventoryChangedWithItem("foragersinsight:suspicious_leaf_litter"));
+        criteria.add("brush_suspicious_litter", simpleTrigger("foragersinsight:brush_suspicious_litter"));
         advancement.add("criteria", criteria);
         advancement.add("requirements", requirements("brush_suspicious_litter"));
         return advancement;
     }
 
     private static JsonObject wildFlowers() {
-        JsonObject advancement = childAdvancement(FIAdvancementTree.WILD_FLOWERS_ICON,
+        JsonObject advancement = childAdvancement(FIAdvancements.WILD_FLOWERS_ICON,
                 "advancements.foragersinsight.adventure.wild_flowers.title",
                 "advancements.foragersinsight.adventure.wild_flowers.description");
         JsonObject criteria = new JsonObject();
@@ -84,35 +84,30 @@ public class FIAdvancementData implements DataProvider {
     }
 
     private static JsonObject shearingIsCaring() {
-        JsonObject advancement = childAdvancement(FIAdvancementTree.SHEARING_IS_CARING_ICON,
-                "advancements.foragersinsight.adventure.shearing_is_caring.title",
-                "advancements.foragersinsight.adventure.shearing_is_caring.description");
+        JsonObject advancement = childAdvancement(FIAdvancements.SHEARING_IS_CARING_ICON,
+                "advancements.foragersinsight.adventure.shear.title",
+                "advancements.foragersinsight.adventure.shear.description");
         JsonObject criteria = new JsonObject();
-        criteria.add("snip_a_ripe_crop", inventoryChangedWithItem("foragersinsight:spruce_tips"));
+        criteria.add("snip_a_crop", inventoryChangedWithItem("foragersinsight:spruce_tips"));
         advancement.add("criteria", criteria);
-        advancement.add("requirements", requirements("snip_a_ripe_crop"));
+        advancement.add("requirements", requirements("snip_a_crop"));
         return advancement;
     }
 
     private static JsonObject givingTrees() {
-        JsonObject advancement = childAdvancement(FIAdvancementTree.GIVING_TREES_ICON,
+        JsonObject advancement = childAdvancement(FIAdvancements.GIVING_TREES_ICON,
                 "advancements.foragersinsight.adventure.giving_trees.title",
                 "advancements.foragersinsight.adventure.giving_trees.description");
         JsonObject criteria = new JsonObject();
-        JsonObject placedBlock = new JsonObject();
-        placedBlock.addProperty("trigger", "minecraft:placed_block");
-        JsonObject conditions = new JsonObject();
-        conditions.addProperty("block", "minecraft:lilac");
-        placedBlock.add("conditions", conditions);
-        criteria.add("plant_on_rich_soil", placedBlock);
+        criteria.add("grow_rich_soil_tree", simpleTrigger("foragersinsight:grow_rich_soil_tree"));
         advancement.add("criteria", criteria);
-        advancement.add("requirements", requirements("plant_on_rich_soil"));
+        advancement.add("requirements", requirements("grow_rich_soil_tree"));
         return advancement;
     }
 
     private static JsonObject childAdvancement(ResourceLocation icon, String titleKey, String descriptionKey) {
         JsonObject advancement = baseDisplay(icon, titleKey, descriptionKey);
-        advancement.addProperty("parent", FIAdvancementTree.ROOT.toString());
+        advancement.addProperty("parent", FIAdvancements.ROOT.toString());
         return advancement;
     }
 
@@ -148,6 +143,11 @@ public class FIAdvancementData implements DataProvider {
         items.add(item);
         conditions.add("items", items);
         criterion.add("conditions", conditions);
+        return criterion;
+    }
+    private static JsonObject simpleTrigger(String triggerId) {
+        JsonObject criterion = new JsonObject();
+        criterion.addProperty("trigger", triggerId);
         return criterion;
     }
 

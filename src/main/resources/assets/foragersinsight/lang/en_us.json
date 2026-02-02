@@ -191,16 +191,16 @@
 
 
   "advancements.foragersinsight.adventure.brush_it_off.title": "Brush It Off",
-  "advancements.foragersinsight.adventure.brush_it_off.description": "Brush Suspicious Leaf Litter until an item is revealed",
+  "advancements.foragersinsight.adventure.brush_it_off.description": "Brush away strange piles of forest litter.",
 
   "advancements.foragersinsight.adventure.foragers_insight.title": "Forager's Insight",
-  "advancements.foragersinsight.adventure.foragers_insight.description": "Carry a Forager's Insight item in your inventory",
-  "advancements.foragersinsight.adventure.wild_flowers.title": "Wild Flowers",
-  "advancements.foragersinsight.adventure.wild_flowers.description": "Use a knife to forage a unique drop from a wild flower",
-  "advancements.foragersinsight.adventure.shearing_is_caring.title": "Shearing is Caring",
-  "advancements.foragersinsight.adventure.shearing_is_caring.description": "Snip a ripe crop with shears",
+  "advancements.foragersinsight.adventure.foragers_insight.description": "Forage delights that are hidden in plain sight!",
+  "advancements.foragersinsight.adventure.wild_flowers.title": "Stop and Stab the Roses?",
+  "advancements.foragersinsight.adventure.wild_flowers.description": "Use a knife to forage a unique crop from a wild flower",
+  "advancements.foragersinsight.adventure.shear.title": "Shearing is Caring",
+  "advancements.foragersinsight.adventure.shear.description": "Use shears to increase certain crop yields!",
   "advancements.foragersinsight.adventure.giving_trees.title": "Giving Trees",
-  "advancements.foragersinsight.adventure.giving_trees.description": "Plant a sapling or lilac on rich soil",
+  "advancements.foragersinsight.adventure.giving_trees.description": "Grow a unique tree on some very fertile soil!",
 
   "itemGroup.foragersinsight": "Forager's Insight"
 }

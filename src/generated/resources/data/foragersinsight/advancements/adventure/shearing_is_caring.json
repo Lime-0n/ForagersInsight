@@ -1,0 +1,37 @@
+{
+  "parent": "foragersinsight:adventure/foragers_insight",
+  "criteria": {
+    "snip_a_crop": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "foragersinsight:spruce_tips"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.foragersinsight.adventure.shear.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "foragersinsight:flint_shears"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.foragersinsight.adventure.shear.title"
+    }
+  },
+  "requirements": [
+    [
+      "snip_a_crop"
+    ]
+  ]
+}
