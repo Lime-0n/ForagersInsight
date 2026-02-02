@@ -7,20 +7,28 @@ import java.util.List;
 
 public final class FIAdvancementTree {
     public static final ResourceLocation ROOT = ForagersInsight.rl("adventure/foragers_insight");
+    public static final ResourceLocation BRUSH_IT_OFF = ForagersInsight.rl("adventure/brush_it_off");
     public static final ResourceLocation WILD_FLOWERS = ForagersInsight.rl("adventure/wild_flowers");
     public static final ResourceLocation SHEARING_IS_CARING = ForagersInsight.rl("adventure/shearing_is_caring");
     public static final ResourceLocation GIVING_TREES = ForagersInsight.rl("adventure/giving_trees");
 
-    public static final Node ROOT_NODE = new Node(ROOT, 0, 0);
+    public static final ResourceLocation ROOT_ICON = ForagersInsight.rl("handbasket");
+    public static final ResourceLocation BRUSH_IT_OFF_ICON = ForagersInsight.rl("suspicious_leaf_litter");
+    public static final ResourceLocation WILD_FLOWERS_ICON = ForagersInsight.rl("rose_hip");
+    public static final ResourceLocation SHEARING_IS_CARING_ICON = new ResourceLocation("minecraft", "shears");
+    public static final ResourceLocation GIVING_TREES_ICON = new ResourceLocation("minecraft", "lilac");
+
+    public static final Node ROOT_NODE = new Node(ROOT, ROOT_ICON, 0, 0);
     public static final List<Node> FIRST_ROW = List.of(
-            new Node(WILD_FLOWERS, -2, 1),
-            new Node(SHEARING_IS_CARING, 0, 1),
-            new Node(GIVING_TREES, 2, 1)
+            new Node(BRUSH_IT_OFF, BRUSH_IT_OFF_ICON, -4, 1),
+            new Node(WILD_FLOWERS, WILD_FLOWERS_ICON, -2, 1),
+            new Node(SHEARING_IS_CARING, SHEARING_IS_CARING_ICON, 0, 1),
+            new Node(GIVING_TREES, GIVING_TREES_ICON, 2, 1)
     );
 
     private FIAdvancementTree() {
     }
 
-    public record Node(ResourceLocation id, int x, int y) {
+    public record Node(ResourceLocation id, ResourceLocation icon, int x, int y) {
     }
 }
