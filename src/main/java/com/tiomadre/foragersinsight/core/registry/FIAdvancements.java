@@ -12,11 +12,11 @@ public final class FIAdvancements {
     public static final ResourceLocation SHEARING_IS_CARING = ForagersInsight.rl("adventure/shearing_is_caring");
     public static final ResourceLocation GIVING_TREES = ForagersInsight.rl("adventure/giving_trees");
 
-    public static final ResourceLocation ROOT_ICON = ForagersInsight.rl("full_handbasket");
+    public static final ResourceLocation ROOT_ICON = ForagersInsight.rl("handbasket");
     public static final ResourceLocation BRUSH_IT_OFF_ICON = new ResourceLocation("minecraft", "brush");
     public static final ResourceLocation WILD_FLOWERS_ICON = ForagersInsight.rl("rose_hip");
     public static final ResourceLocation SHEARING_IS_CARING_ICON = ForagersInsight.rl("flint_shears");
-    public static final ResourceLocation GIVING_TREES_ICON = ForagersInsight.rl("bountiful_oak_sapling");
+    public static final ResourceLocation GIVING_TREES_ICON = ForagersInsight.rl("oak_sapling");
 
     public static final Node ROOT_NODE = new Node(ROOT, ROOT_ICON, 0, 0);
     public static final List<Node> FIRST_ROW = List.of(

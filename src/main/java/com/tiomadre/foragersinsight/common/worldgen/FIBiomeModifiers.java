@@ -2,10 +2,14 @@ package com.tiomadre.foragersinsight.common.worldgen;
 
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.data.server.tags.FITags;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.common.world.ForgeBiomeModifiers;
@@ -28,76 +32,83 @@ public class FIBiomeModifiers {
     public static void bootstap(BootstapContext<BiomeModifier> context) {
         var placedFeatures = context.lookup(Registries.PLACED_FEATURE);
         var biomes = context.lookup(Registries.BIOME);
-                //Tree Stuff
+        //Tree Stuff
         context.register(ADD_APPLE_TREES, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-                biomes.getOrThrow(FITags.BiomeTag.HAS_APPLE_TREES),
+                tagSet(biomes, FITags.BiomeTag.HAS_APPLE_TREES),
                 HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.APPLE_TREE_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION)
         );
 
         context.register(ADD_ACORN_TREES, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-                biomes.getOrThrow(FITags.BiomeTag.HAS_ACORN_TREES),
+                tagSet(biomes, FITags.BiomeTag.HAS_ACORN_TREES),
                 HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.ACORN_DARK_OAK_TREE_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION)
         );
         context.register(ADD_LILAC_TREES, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-                biomes.getOrThrow(FITags.BiomeTag.HAS_LILAC_TREES),
+                tagSet(biomes, FITags.BiomeTag.HAS_LILAC_TREES),
                 HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.LILAC_TREE_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION)
         );
 
         context.register(ADD_SPRUCE_TIP_TREES, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-                biomes.getOrThrow(FITags.BiomeTag.HAS_SPRUCE_TIP_TREES),
+                tagSet(biomes, FITags.BiomeTag.HAS_SPRUCE_TIP_TREES),
                 HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.SPRUCE_TIP_TREE_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION)
         );
 
         context.register(ADD_SAPPY_BIRCH_TREES, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-                biomes.getOrThrow(FITags.BiomeTag.HAS_SAPPY_BIRCH_TREES),
-                HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.SAPPY_BIRCH_TREE_PLACED_KEY)),
-                GenerationStep.Decoration.VEGETAL_DECORATION)
+                        tagSet(biomes, FITags.BiomeTag.HAS_SAPPY_BIRCH_TREES),
+                        HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.SAPPY_BIRCH_TREE_PLACED_KEY)),
+                        GenerationStep.Decoration.VEGETAL_DECORATION)
                 //Wild Flower Patches
         );
         context.register(ADD_ROSELLE_BUSHES, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-                biomes.getOrThrow(FITags.BiomeTag.HAS_ROSELLE_BUSHES),
+                tagSet(biomes, FITags.BiomeTag.HAS_ROSELLE_BUSHES),
                 HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.ROSELLE_PATCH_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION)
         );
         context.register(ADD_BEACH_ROSES, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-                biomes.getOrThrow(FITags.BiomeTag.HAS_BEACH_ROSES),
+                tagSet(biomes, FITags.BiomeTag.HAS_BEACH_ROSES),
                 HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.BEACH_ROSE_PATCH_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION)
         );
         context.register(ADD_OAK_SUSPICIOUS_LEAF_LITTER, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-                biomes.getOrThrow(FITags.BiomeTag.HAS_OAK_FOREST_LITTER),
+                tagSet(biomes, FITags.BiomeTag.HAS_OAK_FOREST_LITTER),
                 HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.OAK_SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION)
         );
         context.register(ADD_BIRCH_SUSPICIOUS_LEAF_LITTER, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-                biomes.getOrThrow(FITags.BiomeTag.HAS_BIRCH_FOREST_LITTER),
+                tagSet(biomes, FITags.BiomeTag.HAS_BIRCH_FOREST_LITTER),
                 HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.BIRCH_SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION)
         );
         context.register(ADD_SPRUCE_SUSPICIOUS_LEAF_LITTER, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-                biomes.getOrThrow(FITags.BiomeTag.HAS_SPRUCE_FOREST_LITTER),
+                tagSet(biomes, FITags.BiomeTag.HAS_SPRUCE_FOREST_LITTER),
                 HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.SPRUCE_SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION)
         );
         context.register(ADD_DARK_OAK_SUSPICIOUS_LEAF_LITTER, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-                biomes.getOrThrow(FITags.BiomeTag.HAS_DARK_OAK_FOREST_LITTER),
+                tagSet(biomes, FITags.BiomeTag.HAS_DARK_OAK_FOREST_LITTER),
                 HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.DARK_OAK_SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION)
         );
         context.register(ADD_FLOWER_SUSPICIOUS_LEAF_LITTER, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-                biomes.getOrThrow(FITags.BiomeTag.HAS_FLOWER_FOREST_LITTER),
+                tagSet(biomes, FITags.BiomeTag.HAS_FLOWER_FOREST_LITTER),
                 HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.FLOWER_SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION)
         );
+    }
+
+    private static HolderSet<Biome> tagSet(HolderGetter<Biome> biomes, TagKey<Biome> hasFlowerForestLitter) {
+        return null;
     }
 
     public static ResourceKey<BiomeModifier> registerKey(String name) {
         return ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, ForagersInsight.rl(name));
     }
 
+    private static <T> HolderSet<T> tagSet(HolderLookup.RegistryLookup<T> lookup, TagKey<T> tag) {
+        return HolderSet.direct();
+    }
 
 }
