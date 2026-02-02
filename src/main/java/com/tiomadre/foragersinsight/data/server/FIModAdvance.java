@@ -12,8 +12,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class FIAdvancements extends AdvancementModifierProvider {
-    public FIAdvancements(GatherDataEvent event) {
+public class FIModAdvance extends AdvancementModifierProvider {
+    public FIModAdvance(GatherDataEvent event) {
         super(ForagersInsight.MOD_ID, event.getGenerator().getPackOutput(), event.getLookupProvider());
     }
 

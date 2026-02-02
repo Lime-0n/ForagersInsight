@@ -1,5 +1,6 @@
 package com.tiomadre.foragersinsight.data.server.tags;
 
+import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import net.minecraft.core.HolderLookup;
@@ -8,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.data.event.GatherDataEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.registry.ModItems;
 
@@ -34,6 +36,13 @@ public class FIItemTags extends ItemTagsProvider {
         this.tag(ItemTags.TALL_FLOWERS).add(FIBlocks.ROSELLE_BUSH.get().asItem(), FIBlocks.TALL_BEACH_ROSE_BUSH.get().asItem());
         this.tag(ItemTags.FLOWERS).add(FIBlocks.ROSELLE_BUSH.get().asItem(), FIBlocks.STOUT_BEACH_ROSE_BUSH.get().asItem(), FIBlocks.TALL_BEACH_ROSE_BUSH.get().asItem());
         this.tag(WOLF_PREY).add(FIItems.RAW_RABBIT_LEG.get());
+
+        this.tag(WILD_FLOWER_DROPS).add(FIItems.ROSE_HIP.get(), FIItems.LILAC_BLOOM.get(), FIItems.POPPY_SEEDS.get(), FIItems.DANDELION_ROOT.get(), FIItems.ROSELLE_CALYX.get());
+        var foragersInsightItems = this.tag(FORAGERS_INSIGHT_ITEMS);
+        ForgeRegistries.ITEMS.getValues().stream()
+                .filter(item -> ForagersInsight.MOD_ID.equals(ForgeRegistries.ITEMS.getKey(item).getNamespace()))
+                .forEach(foragersInsightItems::add);
+
         //Crops
         this.tag(APPLE).add(FIItems.APPLE_SLICE.get(),Items.APPLE);
         this.tag(POPPY_SEEDS).add(FIItems.POPPY_SEEDS.get(), FIItems.POPPY_SEED_PASTE.get());

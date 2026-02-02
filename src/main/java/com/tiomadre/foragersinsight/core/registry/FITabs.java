@@ -1,8 +1,13 @@
 package com.tiomadre.foragersinsight.core.registry;
 
 import com.tiomadre.foragersinsight.core.ForagersInsight;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
@@ -163,6 +168,12 @@ public class FITabs {
             FIItems.LILAC_BOAT,
             FIItems.LILAC_CHEST_BOAT
     );
+    private static final List<Supplier<MobEffect>> AUSPICIOUS_STEW_EFFECTS = List.of(
+            () -> MobEffects.REGENERATION,
+            () -> MobEffects.DAMAGE_RESISTANCE,
+            () -> MobEffects.HEALTH_BOOST,
+            FIMobEffects.BLOOM
+    );
 
 
     public static void register(IEventBus bus) {
@@ -175,6 +186,21 @@ public class FITabs {
                 .map(Supplier::get)
                 .map(ItemStack::new)
                 .forEach(output::accept);
+
+        AUSPICIOUS_STEW_EFFECTS.stream()
+                .map(Supplier::get)
+                .map(FITabs::createAuspiciousStew)
+                .forEach(output::accept);
+    }
+
+    private static ItemStack createAuspiciousStew(MobEffect effect) {
+        ItemStack stack = new ItemStack(FIItems.AUSPICIOUS_STEW.get());
+        CompoundTag tag = stack.getOrCreateTag();
+        ResourceLocation effectId = BuiltInRegistries.MOB_EFFECT.getKey(effect);
+        if (effectId != null) {
+            tag.putString("AuspiciousEffect", effectId.toString());
+        }
+        return stack;
     }
 
 }
