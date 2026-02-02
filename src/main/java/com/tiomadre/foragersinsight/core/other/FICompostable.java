@@ -2,6 +2,7 @@ package com.tiomadre.foragersinsight.core.other;
 
 
 import com.teamabnormals.blueprint.core.util.DataUtil;
+import com.tiomadre.foragersinsight.core.registry.FIItems;
 import net.minecraft.world.level.ItemLike;
 
 import java.util.function.Supplier;
@@ -15,14 +16,14 @@ public class FICompostable {
     }
 
     private static void registerCompostable() {
-     // Leaves and Saplings
+        // Leaves and Saplings
         registerCompostables(0.3f,
-                BOUNTIFUL_OAK_LEAVES, BOUNTIFUL_OAK_SAPLING, BOUNTIFUL_DARK_OAK_LEAVES, BOUNTIFUL_DARK_OAK_SAPLING,
-                BOUNTIFUL_SPRUCE_LEAVES, BOUNTIFUL_SPRUCE_SAPLING);
+                BOUNTIFUL_OAK_LEAVES, BOUNTIFUL_DARK_OAK_LEAVES,
+                BOUNTIFUL_SPRUCE_LEAVES, LILAC_LEAVES, BLOSSOMING_LILAC_LEAVES);
 
      // Storage
         registerCompostables(1.0f,
-                APPLE_CRATE,BLACK_ACORN_SACK, DANDELION_ROOT_SACK, POPPY_SEEDS_SACK,
+                APPLE_CRATE,BLACK_ACORN_SACK,BLEWIT_CRATE,DANDELION_ROOT_SACK,LILAC_BLOOM_CRATE,POPPY_SEEDS_SACK,
                 ROSE_HIP_SACK, ROSELLE_CALYX_SACK, SPRUCE_TIPS_SACK);
 
      // Decorative
@@ -32,21 +33,23 @@ public class FICompostable {
         registerCompostables(0.2f, ROSE_PETALS, ROSELLE_PETALS);
         // Foliage Mats
             // Scattered
-        registerCompostables(0.3f,
-                SCATTERED_ROSE_PETAL_MAT, SCATTERED_ROSELLE_PETAL_MAT,
+        registerCompostables(0.35f,
+                SCATTERED_ROSE_PETAL_MAT, SCATTERED_ROSELLE_PETAL_MAT, SCATTERED_LILAC_BLOOM_MAT,
                 SCATTERED_SPRUCE_TIP_MAT, SCATTERED_STRAW_MAT);
             // Dense
         registerCompostables(0.6f,
-                DENSE_ROSE_PETAL_MAT, DENSE_ROSELLE_PETAL_MAT,
+                DENSE_ROSE_PETAL_MAT, DENSE_ROSELLE_PETAL_MAT, DENSE_LILAC_BLOOM_MAT,
                 DENSE_SPRUCE_TIP_MAT, DENSE_STRAW_MAT);
 
 // Crops
         registerCompostables(0.3f,
-                APPLE_SLICE, BLACK_ACORN, DANDELION_ROOT, SPRUCE_TIPS, POPPY_SEEDS,
+                APPLE_SLICE, BLACK_ACORN, DANDELION_ROOT, LILAC_BLOOM,SPRUCE_TIPS, POPPY_SEEDS,
                 ROSE_HIP, ROSELLE_CALYX);
+        registerCompostables(0.4f,
+               FIItems.BLEWIT_MUSHROOM);
      // Food
         registerCompostables(0.85f,
-                ACORN_COOKIE, ROSE_COOKIE, CANDIED_CALYCES, APPLE_DIPPERS, KELP_WRAP,
+                ACORN_COOKIE,BLEWIT_BITES, ROSE_COOKIE, CANDIED_CALYCES, APPLE_DIPPERS, KELP_WRAP,
                 SEED_BUTTER_JAMWICH, JAMMY_BREAKFAST_SANDWICH,CREAMY_SALMON_BAGEL);
         registerCompostables(0.3f, WHEAT_FLOUR, ACORN_MEAL,POPPY_SEED_PASTE, COCOA_POWDER);
     }

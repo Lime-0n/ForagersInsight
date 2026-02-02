@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "foragersinsight:block/blewit_mushroom"
+    "layer0": "foragersinsight:item/blewit_mushroom"
   }
 }

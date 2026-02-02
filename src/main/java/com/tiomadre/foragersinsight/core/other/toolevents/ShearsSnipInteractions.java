@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.core.other.toolevents;
 
 import com.tiomadre.foragersinsight.common.block.BountifulLeavesBlock;
+import com.tiomadre.foragersinsight.common.block.HangingLilacLeavesBlock;
 import com.tiomadre.foragersinsight.common.block.SpruceTipBlock;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
@@ -48,7 +49,7 @@ public class ShearsSnipInteractions {
         return EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, tool);
     }
 
-    /** Each fortune level has 20% to add +1 to total drops */
+   // Each fortune level has 20% to add +1 to total drops */
     private static int rollFortuneExtras(RandomSource rand, int fortuneLevels) {
         int extra = 0;
         for (int i = 0; i < fortuneLevels; i++) {
@@ -125,6 +126,25 @@ public class ShearsSnipInteractions {
         BlockState state = level.getBlockState(pos);
         RandomSource rand = level.getRandom();
 
+        // Hanging Lilac Leaves
+        if (state.getBlock() instanceof HangingLilacLeavesBlock) {
+            int age = state.getValue(HangingLilacLeavesBlock.AGE);
+            if (age >= HangingLilacLeavesBlock.MAX_AGE) {
+                event.setCanceled(true);
+
+                int extraDrops = rollFortuneExtras(rand, getFortuneLevel(tool));
+                ItemStack drop = new ItemStack(FIItems.LILAC_BLOOM.get(), 2 + extraDrops);
+                dropItemInFront(level, player, drop);
+
+                level.setBlock(pos, state.setValue(HangingLilacLeavesBlock.AGE, 0), Block.UPDATE_ALL);
+
+                play(level, pos, SoundEvents.SHEEP_SHEAR);
+                play(level, pos, SoundEvents.FLOWERING_AZALEA_HIT);
+                damageTool(tool, player, hand);
+                return;
+            }
+        }
+
         //Bountiful Crops
              // Bountiful Dark Oak and Oak Leaves
         if (state.getBlock() instanceof BountifulLeavesBlock leavesBlock) {
@@ -146,28 +166,29 @@ public class ShearsSnipInteractions {
                 damageTool(tool, player, hand);
                 return;
             }
+        }
+        // Bountiful Spruce Tips
+        if (state.getBlock() instanceof SpruceTipBlock tip && tip.isRandomlyTicking(state)) {
+            int age = state.getValue(SpruceTipBlock.AGE);
+            if (age >= SpruceTipBlock.MAX_AGE) {
+                event.setCanceled(true);
 
-                // Bountiful Spruce Tips
-            if (state.getBlock() instanceof SpruceTipBlock tip && tip.isRandomlyTicking(state)) {
-                age = state.getValue(SpruceTipBlock.AGE);
-                if (age >= SpruceTipBlock.MAX_AGE) {
-                    event.setCanceled(true);
-                    //snip 2 spruce tips plus fortune
-                    int fortune = getFortuneLevel(tool);
-                    int extra = fortune > 0 ? rand.nextInt(fortune + 1) : 0;
-                    ItemStack drop = new ItemStack(FIItems.SPRUCE_TIPS.get(), 2 + extra);
-                    dropItemInFront(level, player, drop);
+                //snip 2 spruce tips plus fortune
+                int fortune = getFortuneLevel(tool);
+                int extra = fortune > 0 ? rand.nextInt(fortune + 1) : 0;
+                ItemStack drop = new ItemStack(FIItems.SPRUCE_TIPS.get(), 2 + extra);
+                dropItemInFront(level, player, drop);
 
-                    level.setBlock(pos, state.setValue(SpruceTipBlock.AGE, 0), Block.UPDATE_ALL);
-                    play(level, pos, SoundEvents.SHEEP_SHEAR);
-                    play(level, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES);
-                    damageTool(tool, player, hand);
-                    return;
-                }
+                level.setBlock(pos, state.setValue(SpruceTipBlock.AGE, 0), Block.UPDATE_ALL);
+                play(level, pos, SoundEvents.SHEEP_SHEAR);
+                play(level, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES);
+                damageTool(tool, player, hand);
+                return;
+
             }
         }
-
-        // Kelp
+        //Other Crops
+        //Kelp
         if (state.is(Blocks.KELP) || state.is(Blocks.KELP_PLANT)) {
             event.setCanceled(true);
 
@@ -190,7 +211,7 @@ public class ShearsSnipInteractions {
             return;
         }
 
-        // Mushroom Colonies
+        //Mushroom Colonies
         if (state.getBlock() instanceof MushroomColonyBlock mushroomColony) {
             int age = state.getValue(MushroomColonyBlock.COLONY_AGE);
             if (age > 0) {
@@ -209,7 +230,7 @@ public class ShearsSnipInteractions {
             return;
         }
 
-        // Sugar Cane
+        //Sugar Cane
         if (state.is(Blocks.SUGAR_CANE)) {
             // snip 1 sugarcane if plant is 2 blocks or taller, this will not snip if the total height is 1 block
             int broken = harvestVerticalTop(level, pos, bs -> bs.is(Blocks.SUGAR_CANE), 1);

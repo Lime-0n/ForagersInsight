@@ -4,10 +4,9 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "foragersinsight.refmap.json",
   "mixins": [
-    "BirchTreeGrowerMixin",
-    "DarkOakTreeGrowerMixin",
-    "OakTreeGrowerMixin",
-    "SpruceTreeGrowerMixin",
+    "RichSoilSaplingMixin",
+    "RichSoilTreeMixin",
+    "lilac.BoneMealLilacMixin",
     "shears_fortune.FortuneApplyAnvilMixin",
     "shears_fortune.ShearsFortuneMixin"
   ],

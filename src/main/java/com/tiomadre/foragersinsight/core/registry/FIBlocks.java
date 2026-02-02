@@ -1,9 +1,10 @@
 package com.tiomadre.foragersinsight.core.registry;
 
+import com.teamabnormals.blueprint.common.block.sign.BlueprintCeilingHangingSignBlock;
+import com.teamabnormals.blueprint.common.block.sign.BlueprintStandingSignBlock;
+import com.teamabnormals.blueprint.common.block.sign.BlueprintWallHangingSignBlock;
+import com.teamabnormals.blueprint.common.block.sign.BlueprintWallSignBlock;
 import com.tiomadre.foragersinsight.common.block.*;
-import com.tiomadre.foragersinsight.common.worldgen.trees.grower.BountifulDarkOakTreeGrower;
-import com.tiomadre.foragersinsight.common.worldgen.trees.grower.BountifulOakTreeGrower;
-import com.tiomadre.foragersinsight.common.worldgen.trees.grower.BountifulSpruceTreeGrower;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.teamabnormals.blueprint.common.block.LogBlock;
 import com.teamabnormals.blueprint.core.util.registry.BlockSubRegistryHelper;
@@ -15,6 +16,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
+import vectorwing.farmersdelight.common.block.CabinetBlock;
 import vectorwing.farmersdelight.common.block.MushroomColonyBlock;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import static com.tiomadre.foragersinsight.core.registry.FIItems.*;
@@ -46,23 +48,63 @@ public class FIBlocks {
             new MushroomColonyBlock(copy(Blocks.RED_MUSHROOM), FIItems.BLEWIT_MUSHROOM) {@Override
             public BlockState getStateForPlacement(BlockPlaceContext context) {BlockState state = super.getStateForPlacement(context);
                     if (state == null) {return null;}int maxAge = MushroomColonyBlock.COLONY_AGE.getPossibleValues().size() - 1;return state.setValue(MushroomColonyBlock.COLONY_AGE, maxAge);}});
-        //Trees
-    public static final RegistryObject<Block> BOUNTIFUL_OAK_SAPLING = HELPER.createFuelBlock("bountiful_oak_sapling", () ->
-            new SaplingBlock(new BountifulOakTreeGrower(), copy(Blocks.OAK_SAPLING)), 100);
+    //Trees
+    //Oak
     public static final RegistryObject<Block> BOUNTIFUL_OAK_LEAVES = HELPER.createBlock("bountiful_oak_leaves", () ->
             new BountifulLeavesBlock(copy(Blocks.OAK_LEAVES), () -> Items.APPLE));
-    public static final RegistryObject<Block> BOUNTIFUL_DARK_OAK_SAPLING = HELPER.createFuelBlock("bountiful_dark_oak_sapling", () ->
-            new SaplingBlock(new BountifulDarkOakTreeGrower(), copy(Blocks.DARK_OAK_SAPLING)), 100);
+    //Dark Oak
     public static final RegistryObject<Block> BOUNTIFUL_DARK_OAK_LEAVES = HELPER.createBlock("bountiful_dark_oak_leaves", () ->
             new BountifulLeavesBlock(copy(Blocks.DARK_OAK_LEAVES), BLACK_ACORN));
-    public static final RegistryObject<Block> BOUNTIFUL_SPRUCE_SAPLING = HELPER.createFuelBlock("bountiful_spruce_sapling", () ->
-            new SaplingBlock(new BountifulSpruceTreeGrower(), copy(Blocks.SPRUCE_SAPLING)), 100);
+    //Spruce
     public static final RegistryObject<Block> BOUNTIFUL_SPRUCE_LEAVES = HELPER.createBlock("bountiful_spruce_leaves", () ->
             new BountifulSpruceLeavesBlock(copy(Blocks.SPRUCE_LEAVES)));
     public static final RegistryObject<Block> BOUNTIFUL_SPRUCE_TIPS = HELPER.createBlockNoItem("bountiful_spruce_tips", () ->
             new SpruceTipBlock(copy(Blocks.SWEET_BERRY_BUSH).noCollission()));
+    //Birch
     public static final RegistryObject<Block> SAPPY_BIRCH_LOG = HELPER.createFuelBlock("sappy_birch_log", () ->
             new LogBlock(() -> Blocks.STRIPPED_BIRCH_LOG, copy(Blocks.BIRCH_LOG)), 300);
+    //Lilac
+    public static final RegistryObject<Block> LILAC_LEAVES = HELPER.createBlock("lilac_leaves", () ->
+            new LeavesBlock(copy(Blocks.AZALEA_LEAVES)));
+    public static final RegistryObject<Block> BLOSSOMING_LILAC_LEAVES = HELPER.createBlock("blossoming_lilac_leaves", () ->
+            new BlossomingLilacLeavesBlock(copy(Blocks.FLOWERING_AZALEA_LEAVES)));
+    public static final RegistryObject<Block> HANGING_LILAC_LEAVES = HELPER.createBlockNoItem("hanging_lilac_leaves", () ->
+            new HangingLilacLeavesBlock(copy(Blocks.AZALEA_LEAVES).noCollission()));
+    public static final RegistryObject<Block> LILAC_LOG = HELPER.createFuelBlock("lilac_log", () ->
+            new ThinLogBlock(FIBlocks.STRIPPED_LILAC_LOG, copy(Blocks.OAK_LOG).noOcclusion()), 300);
+    public static final RegistryObject<Block> STRIPPED_LILAC_LOG = HELPER.createFuelBlock("stripped_lilac_log", () ->
+            new ThinLogBlock(copy(Blocks.STRIPPED_OAK_LOG).noOcclusion()), 300);
+    //Wood Stuff
+        //Lilac
+    public static final RegistryObject<Block> LILAC_PLANKS = HELPER.createBlock("lilac_planks", () ->
+            new Block(copy(Blocks.OAK_PLANKS)));
+    public static final RegistryObject<Block> LILAC_STAIRS = HELPER.createBlock("lilac_stairs", () ->
+            new StairBlock(LILAC_PLANKS.get().defaultBlockState(), copy(Blocks.OAK_STAIRS)));
+    public static final RegistryObject<Block> LILAC_SLAB = HELPER.createBlock("lilac_slab", () ->
+            new SlabBlock(copy(Blocks.OAK_SLAB)));
+    public static final RegistryObject<Block> LILAC_FENCE = HELPER.createBlock("lilac_fence", () ->
+            new FenceBlock(copy(Blocks.OAK_FENCE)));
+    public static final RegistryObject<Block> LILAC_FENCE_GATE = HELPER.createBlock("lilac_fence_gate", () ->
+            new FenceGateBlock(copy(Blocks.OAK_FENCE_GATE), FIWoodTypes.LILAC));
+    public static final RegistryObject<Block> LILAC_DOOR = HELPER.createBlock("lilac_door", () ->
+            new DoorBlock(copy(Blocks.OAK_DOOR), FIWoodTypes.LILAC.setType()));
+    public static final RegistryObject<Block> LILAC_TRAPDOOR = HELPER.createBlock("lilac_trapdoor", () ->
+            new TrapDoorBlock(copy(Blocks.OAK_TRAPDOOR), FIWoodTypes.LILAC.setType()));
+    public static final RegistryObject<Block> LILAC_PRESSURE_PLATE = HELPER.createBlock("lilac_pressure_plate", () ->
+            new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, copy(Blocks.OAK_PRESSURE_PLATE), FIWoodTypes.LILAC.setType()));
+    public static final RegistryObject<Block> LILAC_BUTTON = HELPER.createBlock("lilac_button", () ->
+            new ButtonBlock(copy(Blocks.OAK_BUTTON), FIWoodTypes.LILAC.setType(), 30, true));
+    public static final RegistryObject<BlueprintStandingSignBlock> LILAC_SIGN = HELPER.createBlockNoItem("lilac_sign", () ->
+            new BlueprintStandingSignBlock(copy(Blocks.OAK_SIGN), FIWoodTypes.LILAC));
+    public static final RegistryObject<BlueprintWallSignBlock> LILAC_WALL_SIGN = HELPER.createBlockNoItem("lilac_wall_sign", () ->
+            new BlueprintWallSignBlock(copy(Blocks.OAK_WALL_SIGN), FIWoodTypes.LILAC));
+    public static final RegistryObject<BlueprintCeilingHangingSignBlock> LILAC_HANGING_SIGN = HELPER.createBlockNoItem("lilac_hanging_sign", () ->
+            new BlueprintCeilingHangingSignBlock(copy(Blocks.OAK_HANGING_SIGN), FIWoodTypes.LILAC));
+    public static final RegistryObject<BlueprintWallHangingSignBlock> LILAC_WALL_HANGING_SIGN = HELPER.createBlockNoItem("lilac_wall_hanging_sign", () ->
+            new BlueprintWallHangingSignBlock(copy(Blocks.OAK_WALL_HANGING_SIGN), FIWoodTypes.LILAC));
+    public static final RegistryObject<CabinetBlock> LILAC_CABINET = HELPER.createBlock("lilac_cabinet", () ->
+            new CabinetBlock(copy(ModBlocks.OAK_CABINET.get())));
+
 
         //Syrup Tap
     public static final RegistryObject<Block> TAPPER = HELPER.createBlockNoItem("tapper", () ->
@@ -72,10 +114,12 @@ public class FIBlocks {
             () -> new DiffuserBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK).noOcclusion()));
     //DECORATIVE
         //Foliage Mats
+    public static final RegistryObject<Block> SCATTERED_LILAC_BLOOM_MAT = HELPER.createBlock("scattered_lilac_blooms", FoliageMatBlock::new);
     public static final RegistryObject<Block> SCATTERED_ROSE_PETAL_MAT = HELPER.createBlock("scattered_rose_petals", FoliageMatBlock::new);
     public static final RegistryObject<Block> SCATTERED_ROSELLE_PETAL_MAT = HELPER.createBlock("scattered_roselle_petals", FoliageMatBlock::new);
     public static final RegistryObject<Block> SCATTERED_SPRUCE_TIP_MAT = HELPER.createBlock("scattered_spruce_tips", FoliageMatBlock::new);
     public static final RegistryObject<Block> SCATTERED_STRAW_MAT = HELPER.createBlock("scattered_straw", FoliageMatBlock::new);
+    public static final RegistryObject<Block> DENSE_LILAC_BLOOM_MAT = HELPER.createBlock("dense_lilac_blooms", FoliageMatBlock::new);
     public static final RegistryObject<Block> DENSE_STRAW_MAT = HELPER.createBlock("dense_straw", FoliageMatBlock::new);
     public static final RegistryObject<Block> DENSE_SPRUCE_TIP_MAT = HELPER.createBlock("dense_spruce_tips", FoliageMatBlock::new);
     public static final RegistryObject<Block> DENSE_ROSELLE_PETAL_MAT = HELPER.createBlock("dense_roselle_petals", FoliageMatBlock::new);
@@ -95,6 +139,8 @@ public class FIBlocks {
             new Block(copy(ModBlocks.BEETROOT_CRATE.get())));
     public static final RegistryObject<Block> DANDELION_ROOT_SACK = HELPER.createBlock("dandelion_root_sack", () ->
             new Block(copy(ModBlocks.RICE_BAG.get())));
+    public static final RegistryObject<Block> LILAC_BLOOM_CRATE = HELPER.createBlock("lilac_crate", () ->
+            new SlabBlock(copy(Blocks.OAK_SLAB)));
     public static final RegistryObject<Block> POPPY_SEEDS_SACK = HELPER.createBlock("poppy_seeds_sack", () ->
             new Block(copy(ModBlocks.RICE_BAG.get())));
     public static final RegistryObject<Block> ROSE_HIP_SACK = HELPER.createBlock("rose_hip_sack", () -> new Block(
@@ -105,6 +151,6 @@ public class FIBlocks {
             copy(ModBlocks.RICE_BAG.get())));
     public static final RegistryObject<Block> SPRUCE_TIPS_SACK = HELPER.createBlock("spruce_tips_sack", () -> new Block(
             copy(ModBlocks.RICE_BAG.get())));
-    public static final RegistryObject<Block> BLEWIT_MUSHROOM_CRATE = HELPER.createBlock("blewit_mushroom_crate", () ->
+    public static final RegistryObject<Block> BLEWIT_CRATE = HELPER.createBlock("blewit_mushroom_crate", () ->
             new SlabBlock(copy(Blocks.OAK_SLAB)));
 }

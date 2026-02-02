@@ -43,31 +43,60 @@ import java.util.Set;
 public class FarmhandEvents {
     //checks if player has a handbasket and if item can go in
     private static boolean tryInsertToHandbasket(Player player, ItemStack drop) {
+        IItemHandler selectedHandler = null;
+        int selectedUsedSlots = -1;
+        boolean selectedHasItems = false;
+
         for (ItemStack invStack : player.getInventory().items) {
-            if (invStack.getItem() instanceof HandbasketItem) {
-                LazyOptional<IItemHandler> cap = invStack.getCapability(ForgeCapabilities.ITEM_HANDLER);
-                Optional<IItemHandler> resolved = cap.resolve();
-                if (resolved.isPresent()) {
-                    IItemHandler handler = resolved.get();
-                    ItemStack remainder = drop.copy();
-
-                    for (int slot = 0; slot < handler.getSlots(); slot++) {
-                        remainder = handler.insertItem(slot, remainder, true);
-                        if (remainder.isEmpty()) break;
-                    }
-                    if (remainder.isEmpty()) {
-
-                        ItemStack toInsert = drop.copy();
-                        for (int slot = 0; slot < handler.getSlots(); slot++) {
-                            toInsert = handler.insertItem(slot, toInsert, false);
-                            if (toInsert.isEmpty()) break;
-                        }
-                        return true;
-                    }
+            if (!(invStack.getItem() instanceof HandbasketItem)) {
+                continue;
+            }
+            LazyOptional<IItemHandler> cap = invStack.getCapability(ForgeCapabilities.ITEM_HANDLER);
+            Optional<IItemHandler> resolved = cap.resolve();
+            if (resolved.isEmpty()) {
+                continue;
+            }
+            IItemHandler handler = resolved.get();
+            int totalSlots = handler.getSlots();
+            int usedSlots = 0;
+            for (int slot = 0; slot < totalSlots; slot++) {
+                if (!handler.getStackInSlot(slot).isEmpty()) {
+                    usedSlots++;
                 }
             }
+            if (usedSlots >= totalSlots) {
+                continue;
+            }
+
+            boolean hasItems = usedSlots > 0;
+            if (selectedHandler == null
+                    || (hasItems && !selectedHasItems)
+                    || (hasItems == selectedHasItems && usedSlots > selectedUsedSlots)) {
+                selectedHandler = handler;
+                selectedUsedSlots = usedSlots;
+                selectedHasItems = hasItems;
+            }
         }
-        return false;
+
+        if (selectedHandler == null) {
+            return false;
+        }
+
+        ItemStack remainder = drop.copy();
+        for (int slot = 0; slot < selectedHandler.getSlots(); slot++) {
+            remainder = selectedHandler.insertItem(slot, remainder, true);
+            if (remainder.isEmpty()) break;
+        }
+        if (!remainder.isEmpty()) {
+            return false;
+        }
+
+        ItemStack toInsert = drop.copy();
+        for (int slot = 0; slot < selectedHandler.getSlots(); slot++) {
+            toInsert = selectedHandler.insertItem(slot, toInsert, false);
+            if (toInsert.isEmpty()) break;
+        }
+        return true;
     }
     @SubscribeEvent
     public static void onCropBreak(BlockEvent.BreakEvent event) {

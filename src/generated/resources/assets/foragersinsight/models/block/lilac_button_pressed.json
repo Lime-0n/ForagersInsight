@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button_pressed",
+  "textures": {
+    "texture": "foragersinsight:block/lilac_planks"
+  }
+}

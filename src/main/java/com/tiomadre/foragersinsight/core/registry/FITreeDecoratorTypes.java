@@ -1,5 +1,6 @@
 package com.tiomadre.foragersinsight.core.registry;
 
+import com.tiomadre.foragersinsight.common.worldgen.trees.decorator.BountifulOakLeafDecorator;
 import com.tiomadre.foragersinsight.common.worldgen.trees.decorator.SappyBirchLogDecorator;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
@@ -14,4 +15,8 @@ public class FITreeDecoratorTypes {
     public static final RegistryObject<TreeDecoratorType<SappyBirchLogDecorator>> SAPPY_BIRCH_LOG_DECORATOR =
             TREE_DECORATOR_TYPES.register("sappy_birch_log_decorator",
                     () -> new TreeDecoratorType<>(SappyBirchLogDecorator.CODEC));
+
+    public static final RegistryObject<TreeDecoratorType<BountifulOakLeafDecorator>> BOUNTIFUL_OAK_LEAF_DECORATOR =
+            TREE_DECORATOR_TYPES.register("bountiful_oak_leaf_decorator",
+                    () -> new TreeDecoratorType<>(BountifulOakLeafDecorator.CODEC));
 }

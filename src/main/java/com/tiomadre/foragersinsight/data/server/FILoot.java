@@ -56,6 +56,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.tiomadre.foragersinsight.core.registry.FIBlocks.*;
+import static com.tiomadre.foragersinsight.core.registry.FIBlocks.LILAC_HANGING_SIGN;
+import static com.tiomadre.foragersinsight.core.registry.FIBlocks.LILAC_SIGN;
 import static com.tiomadre.foragersinsight.core.registry.FIItems.*;
 import static com.tiomadre.foragersinsight.core.registry.FIItems.BLEWIT_MUSHROOM;
 
@@ -125,7 +127,8 @@ public class FILoot extends LootTableProvider {
             this.dropSelf(ROSELLE_CALYX_SACK.get());
             this.dropSelf(DANDELION_ROOT_SACK.get());
             this.dropSelf(POPPY_SEEDS_SACK.get());
-            this.add(FIBlocks.BLEWIT_MUSHROOM_CRATE.get(), this::createSlabItemTable);
+            this.add(FIBlocks.BLEWIT_CRATE.get(), this::createSlabItemTable);
+            this.add(LILAC_BLOOM_CRATE.get(), this::createSlabItemTable);
                 //Wildflower + Plants
             this.add(FIBlocks.ROSELLE_BUSH.get(), block -> LootTable.lootTable().withPool(this.applyExplosionCondition(block, LootPool.lootPool()
                                             .setRolls(ConstantValue.exactly(1.0F))
@@ -145,23 +148,43 @@ public class FILoot extends LootTableProvider {
                             .withPool(this.applyExplosionCondition(block,
                                             LootPool.lootPool())));
                 //Decorative
+            this.dropSelf(SCATTERED_LILAC_BLOOM_MAT.get());
             this.dropSelf(SCATTERED_ROSE_PETAL_MAT.get());
             this.dropSelf(SCATTERED_ROSELLE_PETAL_MAT.get());
             this.dropSelf(SCATTERED_SPRUCE_TIP_MAT.get());
             this.dropSelf(SCATTERED_STRAW_MAT.get());
+            this.dropSelf(DENSE_LILAC_BLOOM_MAT.get());
             this.dropSelf(DENSE_STRAW_MAT.get());
             this.dropSelf(DENSE_SPRUCE_TIP_MAT.get());
             this.dropSelf(DENSE_ROSE_PETAL_MAT.get());
             this.dropSelf(DENSE_ROSELLE_PETAL_MAT.get());
-                //Saplings and Tree Stuff
-            this.dropSelf(BOUNTIFUL_OAK_SAPLING.get());
-            this.dropSelf(BOUNTIFUL_DARK_OAK_SAPLING.get());
-            this.dropSelf(BOUNTIFUL_SPRUCE_SAPLING.get());
+                //Leaves and Tree Stuff
             this.add(BOUNTIFUL_SPRUCE_TIPS.get(), LootTable.lootTable().setParamSet(LootContextParamSets.BLOCK));
             this.add(FIBlocks.SAPPY_BIRCH_LOG.get(), block -> createSilkTouchDispatchTable(block, LootItem.lootTableItem(Blocks.BIRCH_LOG)));
-            this.add(BOUNTIFUL_OAK_LEAVES.get(), this.createBountifulLeavesDrops(BOUNTIFUL_OAK_LEAVES, BOUNTIFUL_OAK_SAPLING.get()));
-            this.add(BOUNTIFUL_DARK_OAK_LEAVES.get(), this.createBountifulLeavesDrops(BOUNTIFUL_DARK_OAK_LEAVES, BOUNTIFUL_DARK_OAK_SAPLING.get()));
-            this.add(BOUNTIFUL_SPRUCE_LEAVES.get(), this.createSpruceLeavesDrops(BOUNTIFUL_SPRUCE_LEAVES.get(), BOUNTIFUL_SPRUCE_SAPLING.get()));
+            this.dropSelf(LILAC_LOG.get());
+            this.dropSelf(STRIPPED_LILAC_LOG.get());
+            this.add(BOUNTIFUL_OAK_LEAVES.get(), this.createBountifulLeavesDrops(BOUNTIFUL_OAK_LEAVES, Blocks.OAK_SAPLING));
+            this.add(BOUNTIFUL_DARK_OAK_LEAVES.get(), this.createBountifulLeavesDrops(BOUNTIFUL_DARK_OAK_LEAVES, Blocks.DARK_OAK_SAPLING));
+            this.add(BOUNTIFUL_SPRUCE_LEAVES.get(), this.createSpruceLeavesDrops(BOUNTIFUL_SPRUCE_LEAVES.get(), Blocks.SPRUCE_SAPLING));
+            this.add(LILAC_LEAVES.get(), this.createLeafDrops(LILAC_LEAVES.get()));
+            this.add(BLOSSOMING_LILAC_LEAVES.get(), this.createBlossomingLilacLeavesDrops(BLOSSOMING_LILAC_LEAVES.get()));
+            this.add(HANGING_LILAC_LEAVES.get(), LootTable.lootTable().setParamSet(LootContextParamSets.BLOCK));
+                //Wood Stuff
+            this.dropSelf(LILAC_PLANKS.get());
+            this.dropSelf(LILAC_STAIRS.get());
+            this.add(LILAC_SLAB.get(), createSlabItemTable(LILAC_SLAB.get()));
+            this.dropSelf(LILAC_FENCE.get());
+            this.dropSelf(LILAC_FENCE_GATE.get());
+            this.add(LILAC_DOOR.get(), createDoorTable(LILAC_DOOR.get()));
+            this.dropSelf(LILAC_TRAPDOOR.get());
+            this.dropSelf(LILAC_PRESSURE_PLATE.get());
+            this.dropSelf(LILAC_BUTTON.get());
+            this.add(LILAC_SIGN.get(), block -> createSingleItemTable(FIItems.LILAC_SIGN.get()));
+            this.add(LILAC_WALL_SIGN.get(), block -> createSingleItemTable(FIItems.LILAC_SIGN.get()));
+            this.add(LILAC_HANGING_SIGN.get(), block -> createSingleItemTable(FIItems.LILAC_HANGING_SIGN.get()));
+            this.add(LILAC_WALL_HANGING_SIGN.get(), block -> createSingleItemTable(FIItems.LILAC_HANGING_SIGN.get()));
+            this.dropSelf(LILAC_CABINET.get());
+            
                 //Tools + Workstations
             this.add(FIBlocks.DIFFUSER.get(), block -> createSingleItemTable(FIItems.DIFFUSER.get()));
             this.add(FIBlocks.TAPPER.get(), block -> createSingleItemTable(FIItems.TAPPER.get()));
@@ -180,6 +203,25 @@ public class FILoot extends LootTableProvider {
                     LootItem.lootTableItem(BLEWIT_MUSHROOM.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(5))).when(stateCond(BLEWIT_MUSHROOM_COLONY, MushroomColonyBlock.COLONY_AGE, 3))
                             .when(HAS_NO_SHEARS_OR_SILK_TOUCH))))));
 
+        }
+        private LootTable.Builder createBlossomingLilacLeavesDrops(Block leaves) {
+            return this.createLeafDrops(leaves)
+                    .withPool(LootPool.lootPool()
+                            .when(HAS_NO_SHEARS_OR_SILK_TOUCH)
+                            .add(this.applyExplosionCondition(leaves, LootItem.lootTableItem(Blocks.LILAC)))
+                            .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, VanillaBlockLoot.NORMAL_LEAVES_SAPLING_CHANCES)));
+        }
+        private LootTable.Builder createLeafDrops(Block leaves) {
+            return LootTable.lootTable()
+                    .withPool(LootPool.lootPool()
+                            .add(AlternativesEntry.alternatives(
+                                    LootItem.lootTableItem(leaves)
+                                            .when(HAS_SHEARS_OR_SILK_TOUCH))))
+                    .withPool(LootPool.lootPool()
+                            .when(HAS_NO_SHEARS_OR_SILK_TOUCH)
+                            .add(this.applyExplosionDecay(leaves, LootItem.lootTableItem(Items.STICK)
+                                            .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))
+                                    .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, NORMAL_LEAVES_STICK_CHANCES))));
         }
 
         private void createFlowerBushDrops(RegistryObject<? extends Block> registryBlock, RegistryObject<Item> registrySeed, Item originalFlower, IntegerProperty ageProperty, int maxAge) {

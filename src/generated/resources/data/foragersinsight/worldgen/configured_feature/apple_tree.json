@@ -1,7 +1,12 @@
 {
   "type": "minecraft:tree",
   "config": {
-    "decorators": [],
+    "decorators": [
+      {
+        "type": "foragersinsight:bountiful_oak_leaf_decorator",
+        "count": 5
+      }
+    ],
     "dirt_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
@@ -43,7 +48,7 @@
       ]
     },
     "force_dirt": false,
-    "ignore_vines": false,
+    "ignore_vines": true,
     "minimum_size": {
       "type": "minecraft:two_layers_feature_size",
       "limit": 1,

@@ -140,42 +140,45 @@ public final class SuspiciousLitterLoot {
         switch (type) {
             // Forest
             case OAK -> {
-                addDrop(drops, weights, () -> Items.OAK_LEAVES, 8);
                 addDrop(drops, weights, () -> Items.APPLE, 7);
                 addDrop(drops, weights, FIItems.ROSE_HIP, 6);
+                addDrop(drops, weights, () -> Items.EGG, 4);
+
             }
 
             // Flower Forest
             case FLOWER -> {
-                addDrop(drops, weights, () -> Items.OAK_LEAVES, 8);
+                addDrop(drops, weights, FIItems.LILAC_BLOOM, 7);
                 addDrop(drops, weights, FIItems.ROSE_HIP, 6);
                 addDrop(drops, weights, () -> Items.HONEYCOMB, 5);
             }
 
             // Birch Forest
             case BIRCH -> {
-                addDrop(drops, weights, () -> Items.BIRCH_LEAVES, 8);
                 addDrop(drops, weights, FIItems.ROSE_HIP, 6);
+                addDrop(drops, weights, () -> Items.HONEYCOMB, 4);
 
             }
 
             // Taiga
             case SPRUCE -> {
-                addDrop(drops, weights, () -> Items.SPRUCE_LEAVES, 8);
+                addDrop(drops, weights, () -> Items.FERN, 8);
                 addDrop(drops, weights, FIItems.SPRUCE_TIPS, 7);
                 addDrop(drops, weights, () -> Items.SWEET_BERRIES, 6);
             }
 
             // Dark Forest
             case DARK_OAK -> {
-                addDrop(drops, weights, () -> Items.DARK_OAK_LEAVES, 8);
                 addDrop(drops, weights, FIItems.BLACK_ACORN, 7);
                 addDrop(drops, weights, FIItems.ROSE_HIP, 6);
+                addDrop(drops, weights, () -> Items.STRING, 5);
             }
         }
 
         // Can be found across all biomes
+        addDrop(drops, weights,() -> Items.STICK, 8);
         addDrop(drops, weights, ModItems.TREE_BARK, 7);
+        addDrop(drops, weights,() -> Items.FEATHER, 6);
         addDrop(drops, weights, FIItems.DANDELION_ROOT, 6);
         addDrop(drops, weights, FIItems.POPPY_SEEDS, 6);
         addDrop(drops, weights, () -> Items.RED_MUSHROOM, 5);

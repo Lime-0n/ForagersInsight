@@ -1,0 +1,19 @@
+{
+  "type": "foragersinsight:replace_item",
+  "conditions": [
+    {
+      "condition": "match_tool",
+      "predicate": {
+        "tag": "farmersdelight:tools/knives"
+      }
+    },
+    {
+      "condition": "block_state_property",
+      "block": "minecraft:lilac"
+    }
+  ],
+  "new": "foragersinsight:lilac_blossom",
+  "replace": "minecraft:lilac",
+  "chance": 0.65,
+  "destroy_on_fail": true
+}

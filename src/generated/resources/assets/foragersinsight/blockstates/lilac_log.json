@@ -1,0 +1,14 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "foragersinsight:block/lilac_log_horizontal"
+    },
+    "axis=y": {
+      "model": "foragersinsight:block/lilac_log"
+    },
+    "axis=z": {
+      "model": "foragersinsight:block/lilac_log_horizontal",
+      "y": 90
+    }
+  }
+}

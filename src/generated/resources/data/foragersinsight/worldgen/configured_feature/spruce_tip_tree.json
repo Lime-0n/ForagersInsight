@@ -9,10 +9,28 @@
       }
     },
     "foliage_placer": {
-      "type": "foragersinsight:spruce_tip_tree_foliage_placer",
-      "height": 3,
-      "offset": 1,
-      "radius": 2
+      "type": "minecraft:spruce_foliage_placer",
+      "offset": {
+        "type": "minecraft:uniform",
+        "value": {
+          "max_inclusive": 2,
+          "min_inclusive": 0
+        }
+      },
+      "radius": {
+        "type": "minecraft:uniform",
+        "value": {
+          "max_inclusive": 3,
+          "min_inclusive": 2
+        }
+      },
+      "trunk_height": {
+        "type": "minecraft:uniform",
+        "value": {
+          "max_inclusive": 2,
+          "min_inclusive": 1
+        }
+      }
     },
     "foliage_provider": {
       "type": "minecraft:weighted_state_provider",
@@ -42,7 +60,7 @@
       ]
     },
     "force_dirt": false,
-    "ignore_vines": false,
+    "ignore_vines": true,
     "minimum_size": {
       "type": "minecraft:two_layers_feature_size",
       "limit": 2,

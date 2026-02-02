@@ -2,10 +2,7 @@ package com.tiomadre.foragersinsight.common.block.entity.suspiciouslitter;
 
 import com.tiomadre.foragersinsight.common.block.SuspiciousLitterBlock;
 import com.tiomadre.foragersinsight.core.other.FarmingXPEvents;
-import com.tiomadre.foragersinsight.core.registry.FIEnchantments;
-import com.tiomadre.foragersinsight.core.registry.FIBlockEntityTypes;
-import com.tiomadre.foragersinsight.core.registry.FIBlocks;
-import com.tiomadre.foragersinsight.core.registry.FIParticleTypes;
+import com.tiomadre.foragersinsight.core.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
@@ -106,6 +103,7 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
             SuspiciousLitterLoot.dropLoot(serverLevel, pos, state, drop);
             if (player instanceof ServerPlayer serverPlayer) {
                 FarmingXPEvents.awardSuspiciousLitterXP(serverLevel, serverPlayer, state, drop);
+                FIAdvancementCriteria.BRUSH_SUSPICIOUS_LITTER.trigger(serverPlayer);
             }
             serverLevel.setBlock(pos, Block.pushEntitiesUp(state, Blocks.AIR.defaultBlockState(), serverLevel, pos), Block.UPDATE_ALL);
             blockEntity.resetProgress();

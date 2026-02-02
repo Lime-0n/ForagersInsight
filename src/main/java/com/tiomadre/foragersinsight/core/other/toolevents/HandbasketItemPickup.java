@@ -25,7 +25,8 @@ public class HandbasketItemPickup {
         // check for handbaskets
         ItemStack selectedBasket = null;
         IItemHandler selectedHandler = null;
-        int minRemainingSpace = Integer.MAX_VALUE;
+        int selectedUsedSlots = -1;
+        boolean selectedHasItems = false;
 
         for (ItemStack stack : server.getInventory().items) {
             if (stack.getItem() instanceof HandbasketItem) {
@@ -39,12 +40,16 @@ public class HandbasketItemPickup {
                         }
                     }
                     int remainingSpace = totalSlots - usedSlots;
+                    if (remainingSpace <= 0) continue;
 
-                    // prioritize one that is closest to full
-                    if (remainingSpace < minRemainingSpace) {
-                        minRemainingSpace = remainingSpace;
+                    boolean hasItems = usedSlots > 0;
+                    if (selectedBasket == null
+                            || (hasItems && !selectedHasItems)
+                            || (hasItems == selectedHasItems && usedSlots > selectedUsedSlots)) {
                         selectedBasket = stack;
                         selectedHandler = handler;
+                        selectedUsedSlots = usedSlots;
+                        selectedHasItems = hasItems;
                     }
                 }
             }

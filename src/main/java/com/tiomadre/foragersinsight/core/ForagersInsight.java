@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.core;
 
-import com.tiomadre.foragersinsight.common.diffuser.DiffuserScent;
+import com.tiomadre.foragersinsight.data.server.FIAdvancementData;
+import com.tiomadre.foragersinsight.data.server.recipes.FIDiffusingRecipes;
 import com.tiomadre.foragersinsight.core.registry.FIEnchantments;
 import com.tiomadre.foragersinsight.core.other.FIClientCompat;
 import com.tiomadre.foragersinsight.core.other.FICompostable;
@@ -8,7 +9,7 @@ import com.tiomadre.foragersinsight.core.registry.*;
 import com.tiomadre.foragersinsight.data.client.FIBlockStates;
 import com.tiomadre.foragersinsight.data.client.FIItemModels;
 import com.tiomadre.foragersinsight.data.client.FIParticles;
-import com.tiomadre.foragersinsight.data.server.FIAdvancements;
+import com.tiomadre.foragersinsight.data.server.FIModAdvance;
 import com.tiomadre.foragersinsight.data.server.FILoot;
 import com.tiomadre.foragersinsight.data.server.FIWorldgen;
 import com.tiomadre.foragersinsight.data.server.recipes.FICraftingRecipes;
@@ -40,6 +41,9 @@ public class ForagersInsight {
 		MinecraftForge.EVENT_BUS.register(this);
 
 		REGISTRY_HELPER.register(bus);
+		FIBoatTypes.register();
+		FIAdvancementCriteria.register();
+		FIWoodTypes.register();
 		FIEnchantments.register();
 		FIBlockEntityTypes.register(bus);
 		FIFoliagePlacerType.FOLIAGE_PLACER_TYPE.register(bus);
@@ -49,6 +53,7 @@ public class ForagersInsight {
 		FIParticleTypes.PARTICLES.register(bus);
 		FITabs.TABS.register(bus);
 		FITreeDecoratorTypes.TREE_DECORATOR_TYPES.register(bus);
+
 
 		bus.addListener(this::commonSetup);
 		bus.addListener(this::clientSetup);
@@ -64,7 +69,7 @@ public class ForagersInsight {
 	private void commonSetup(FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
 			FICompostable.registerCompat();
-			DiffuserScent.bootstrap();
+			FIDiffusingRecipes.bootstrap();
 		});
 	}
 
@@ -83,7 +88,9 @@ public class ForagersInsight {
 		gen.addProvider(server, new FILoot(event));
 		gen.addProvider(server, new FICraftingRecipes(event));
 		gen.addProvider(server, new FIWorldgen(event));
-		gen.addProvider(server, new FIAdvancements(event));
+		gen.addProvider(server, new FIModAdvance(event));
+		gen.addProvider(server, new FIAdvancementData(event));
+
 
 		boolean client = event.includeClient();
 		gen.addProvider(client, new FIBlockStates(event));

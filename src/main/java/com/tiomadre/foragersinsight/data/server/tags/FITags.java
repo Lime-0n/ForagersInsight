@@ -41,11 +41,24 @@ public class FITags {
         public static final TagKey<net.minecraft.world.item.Item> ACORN = TagUtil.itemTag("forge", "crops/acorn");
         public static final TagKey<net.minecraft.world.item.Item> WHEAT = TagUtil.itemTag("forge", "crops/wheat");
         public static final TagKey<net.minecraft.world.item.Item> COCOA = TagUtil.itemTag("forge", "crops/cocoa");
+        public static final TagKey<net.minecraft.world.item.Item> LILAC = TagUtil.itemTag("forge", "crops/lilac");
         public static final TagKey<net.minecraft.world.item.Item> ROOTS = TagUtil.itemTag("forge", "crops/root_vegetable");
         public static final TagKey<net.minecraft.world.item.Item> MUSHROOM = TagUtil.itemTag("forge", "crops/mushroom");
+
         //Diffuser
         public static final TagKey<Item> AROMATICS = TagKey.create(Registries.ITEM,
                 new ResourceLocation(ForagersInsight.MOD_ID, "aromatics"));
+        //Food
+        public static final TagKey<Item> BLEWIT_STUFFING = TagKey.create(Registries.ITEM,
+                new ResourceLocation(ForagersInsight.MOD_ID, "blewit_stuffing"));
+        //Advancement Tags
+
+        public static final TagKey<Item> FORAGERS_INSIGHT_ITEMS = TagKey.create(Registries.ITEM,
+                new ResourceLocation(ForagersInsight.MOD_ID, "foragers_insight_items"));
+        public static final TagKey<Item> WILD_FLOWER_DROPS = TagKey.create(Registries.ITEM,
+                new ResourceLocation(ForagersInsight.MOD_ID, "wild_flower_drops"));
+        public static final TagKey<Block> RICH_SOIL_TREE_STARTERS = TagKey.create(Registries.BLOCK,
+                new ResourceLocation(ForagersInsight.MOD_ID, "rich_soil_tree_starters"));
         //Handbasket
         public static final TagKey<Item> HANDBASKET_ALLOWED = TagKey.create(Registries.ITEM, new ResourceLocation("foragersinsight","handbasket_allowed"));
         public static final TagKey<Item> HANDBASKET_OTHER = TagKey.create(Registries.ITEM, new ResourceLocation(ForagersInsight.MOD_ID, "handbasket/other"));
@@ -53,9 +66,11 @@ public class FITags {
         public static final TagKey<Item> STORAGE_BLOCK_ROSE_HIP = storageTag("rose_hip");
         public static final TagKey<Item> STORAGE_BLOCK_SPRUCE_TIPS = storageTag("spruce_tips");
         public static final TagKey<Item> STORAGE_BLOCK_DANDELION_ROOT = storageTag("dandelion_root");
+        public static final TagKey<Item> STORAGE_BLOCK_ROSELLE_CALYX = storageTag("dandelion_root");
         public static final TagKey<Item> STORAGE_BLOCK_POPPY_SEEDS = storageTag("poppy_seeds");
         public static final TagKey<Item> STORAGE_BLOCK_BLACK_ACORNS = storageTag("black_acorns");
         public static final TagKey<Item> STORAGE_BLOCK_BLEWIT_MUSHROOM = storageTag("blewit_mushroom");
+        public static final TagKey<Item> STORAGE_BLOCK_LILAC_BLOOM = storageTag("lilac_bloom");
 
         public static TagKey<Item> storageTag(String thing) {
             return TagUtil.itemTag("forge", "storage_blocks/" + thing);
@@ -72,6 +87,7 @@ public class FITags {
         public static final TagKey<Block> STORAGE_BLOCK_BLEWIT_MUSHROOM = storageTag("blewit_mushroom");
 
         public static final TagKey<Block> FORAGING = blockTag("foraging");
+        public static final TagKey<Block> SHEARABLE_CROPS = blockTag("shearable_crops");
 
         public static TagKey<Block> blockTag(String namespace) {
             return TagUtil.blockTag(ForagersInsight.MOD_ID, namespace);
@@ -85,6 +101,7 @@ public class FITags {
     public static class BiomeTag {
         public static final TagKey<Biome> HAS_APPLE_TREES = hasFeature("apple_trees");
         public static final TagKey<Biome> HAS_ACORN_TREES = hasFeature("acorn_trees");
+        public static final TagKey<Biome> HAS_LILAC_TREES = hasFeature("lilac_trees");
         public static final TagKey<Biome> HAS_SPRUCE_TIP_TREES = hasFeature("spruce_tip_trees");
         public static final TagKey<Biome> HAS_SAPPY_BIRCH_TREES = hasFeature("sappy_birch_trees");
         public static final TagKey<Biome> HAS_ROSELLE_BUSHES = hasFeature("roselle_bushes");

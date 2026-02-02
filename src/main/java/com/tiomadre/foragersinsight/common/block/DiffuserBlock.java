@@ -1,7 +1,7 @@
 package com.tiomadre.foragersinsight.common.block;
 
 import com.tiomadre.foragersinsight.common.block.entity.DiffuserBlockEntity;
-import com.tiomadre.foragersinsight.common.diffuser.DiffuserScent;
+import com.tiomadre.foragersinsight.data.server.recipes.FIDiffusingRecipes;
 import com.tiomadre.foragersinsight.core.registry.FIBlockEntityTypes;
 import com.tiomadre.foragersinsight.core.registry.FIParticleTypes;
 import net.minecraft.core.BlockPos;
@@ -35,6 +35,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -94,6 +96,14 @@ public class DiffuserBlock extends BaseEntityBlock implements SimpleWaterloggedB
     public void setPlacedBy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state,
                             @Nullable LivingEntity placer, @NotNull ItemStack stack) {
         super.setPlacedBy(level, pos, state, placer, stack);
+        if (!level.isClientSide) {
+            BlockEntity entity = level.getBlockEntity(pos);
+            if (entity instanceof DiffuserBlockEntity diffuser && stack.hasTag()) {
+                if (diffuser.applyItemData(stack.getTag())) {
+                    level.sendBlockUpdated(pos, state, state, Block.UPDATE_ALL);
+                }
+            }
+        }
     }
     @Override
     public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos,
@@ -149,6 +159,14 @@ public class DiffuserBlock extends BaseEntityBlock implements SimpleWaterloggedB
         super.onRemove(state, level, pos, newState, isMoving);
     }
 
+    @Override
+    public @NotNull java.util.List<ItemStack> getDrops(@NotNull BlockState state, @NotNull LootParams.Builder params) {
+        BlockEntity entity = params.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
+        if (entity instanceof DiffuserBlockEntity diffuser) {
+            return java.util.Collections.singletonList(diffuser.getDiffuserStack());
+        }
+        return super.getDrops(state, params);
+    }
 
     @Nullable
     @Override
@@ -201,7 +219,7 @@ public class DiffuserBlock extends BaseEntityBlock implements SimpleWaterloggedB
         }
 
     }
-    private void spawnScentParticle(Level level, RandomSource random, double x, double y, double z, DiffuserScent scent) {
+    private void spawnScentParticle(Level level, RandomSource random, double x, double y, double z, FIDiffusingRecipes scent) {
         SimpleParticleType particle = getScentParticleType(scent);
         if (particle == null) {
             return;
@@ -212,17 +230,17 @@ public class DiffuserBlock extends BaseEntityBlock implements SimpleWaterloggedB
         level.addParticle(particle, x, y, z, driftX, driftY, driftZ);
     }
 
-    private @Nullable SimpleParticleType getScentParticleType(DiffuserScent scent) {
-        if (scent == DiffuserScent.ROSEY.get()) {
+    private @Nullable SimpleParticleType getScentParticleType(FIDiffusingRecipes scent) {
+        if (scent == FIDiffusingRecipes.ROSEY.get()) {
             return FIParticleTypes.ROSE_SCENT.get();
         }
-        if (scent == DiffuserScent.CONIFEROUS.get()) {
+        if (scent == FIDiffusingRecipes.CONIFEROUS.get()) {
             return FIParticleTypes.CONIFEROUS_SCENT.get();
         }
-        if (scent == DiffuserScent.FLORAL.get()) {
+        if (scent == FIDiffusingRecipes.FLORAL.get()) {
             return FIParticleTypes.FLORAL_SCENT.get();
         }
-        if (scent == DiffuserScent.FOUL.get()) {
+        if (scent == FIDiffusingRecipes.FOUL.get()) {
             return FIParticleTypes.FOUL_SCENT.get();
         }
         return null;
