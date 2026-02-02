@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "foragersinsight:block/lilac_crate"
+    },
+    "type=double": {
+      "model": "foragersinsight:block/lilac_crate_double"
+    },
+    "type=top": {
+      "model": "foragersinsight:block/lilac_crate_top"
+    }
+  }
+}

@@ -13,7 +13,7 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "minecraft:lilac"
+      "item": "foragersinsight:bountiful_oak_sapling"
     },
     "show_toast": true,
     "title": {

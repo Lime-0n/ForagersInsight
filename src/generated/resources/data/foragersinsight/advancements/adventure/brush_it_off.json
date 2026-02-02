@@ -13,7 +13,7 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "foragersinsight:suspicious_leaf_litter"
+      "item": "minecraft:brush"
     },
     "show_toast": true,
     "title": {

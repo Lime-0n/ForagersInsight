@@ -168,11 +168,11 @@ public class FITabs {
             FIItems.LILAC_BOAT,
             FIItems.LILAC_CHEST_BOAT
     );
-    private static final List<MobEffect> AUSPICIOUS_STEW_EFFECTS = List.of(
-            MobEffects.REGENERATION,
-            MobEffects.DAMAGE_RESISTANCE,
-            MobEffects.HEALTH_BOOST,
-            FIMobEffects.BLOOM.get()
+    private static final List<Supplier<MobEffect>> AUSPICIOUS_STEW_EFFECTS = List.of(
+            () -> MobEffects.REGENERATION,
+            () -> MobEffects.DAMAGE_RESISTANCE,
+            () -> MobEffects.HEALTH_BOOST,
+            FIMobEffects.BLOOM
     );
 
 
@@ -188,6 +188,7 @@ public class FITabs {
                 .forEach(output::accept);
 
         AUSPICIOUS_STEW_EFFECTS.stream()
+                .map(Supplier::get)
                 .map(FITabs::createAuspiciousStew)
                 .forEach(output::accept);
     }
