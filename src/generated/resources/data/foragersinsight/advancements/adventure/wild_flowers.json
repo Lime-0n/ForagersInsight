@@ -20,7 +20,7 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "foragersinsight:rose_hip"
+      "item": "minecraft:rose_bush"
     },
     "show_toast": true,
     "title": {

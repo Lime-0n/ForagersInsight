@@ -8,20 +8,14 @@ import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
 import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.advancements.critereon.DeserializationContext;
 import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
-import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 public final class FIAdvancementCriteria {
+    public static final SimpleTrigger FIND_BLEWIT_MUSHROOM = register(new SimpleTrigger("find_blewit_mushroom"));
     public static final SimpleTrigger BRUSH_SUSPICIOUS_LITTER = register(new SimpleTrigger("brush_suspicious_litter"));
-    public static final SimpleTrigger GROW_RICH_SOIL_TREE = register(new SimpleTrigger("grow_rich_soil_tree"));
-    private static final Map<ResourceLocation, Map<BlockPos, UUID>> RICH_SOIL_TREE_OWNERS = new HashMap<>();
+
 
     private FIAdvancementCriteria() {
     }
@@ -33,24 +27,7 @@ public final class FIAdvancementCriteria {
     public static void register() {
     }
 
-    public static void recordRichSoilTreeOwner(ServerLevel level, BlockPos pos, ServerPlayer player) {
-        RICH_SOIL_TREE_OWNERS
-                .computeIfAbsent(level.dimension().location(), key -> new HashMap<>())
-                .put(pos.immutable(), player.getUUID());
-    }
 
-    @Nullable
-    public static ServerPlayer consumeRichSoilTreeOwner(ServerLevel level, BlockPos pos) {
-        Map<BlockPos, UUID> owners = RICH_SOIL_TREE_OWNERS.get(level.dimension().location());
-        if (owners == null) {
-            return null;
-        }
-        UUID ownerId = owners.remove(pos);
-        if (ownerId == null) {
-            return null;
-        }
-        return (ServerPlayer) level.getPlayerByUUID(ownerId);
-    }
 
     public static class SimpleTrigger extends SimpleCriterionTrigger<SimpleTrigger.TriggerInstance> {
         private final ResourceLocation id;

@@ -31,9 +31,9 @@ public class FIAdvancementData implements DataProvider {
 
         advancements.put(FIAdvancements.ROOT, rootAdvancement());
         advancements.put(FIAdvancements.BRUSH_IT_OFF, brushItOff());
+        advancements.put(FIAdvancements.RARE_FIND, rareFind());
         advancements.put(FIAdvancements.WILD_FLOWERS, wildFlowers());
         advancements.put(FIAdvancements.SHEARING_IS_CARING, shearingIsCaring());
-        advancements.put(FIAdvancements.GIVING_TREES, givingTrees());
 
         CompletableFuture<?>[] writes = advancements.entrySet().stream()
                 .map(entry -> DataProvider.saveStable(output, entry.getValue(), this.pathProvider.json(entry.getKey())))
@@ -71,6 +71,16 @@ public class FIAdvancementData implements DataProvider {
         advancement.add("requirements", requirements("brush_suspicious_litter"));
         return advancement;
     }
+    private static JsonObject rareFind() {
+        JsonObject advancement = childAdvancement(FIAdvancements.BRUSH_IT_OFF, FIAdvancements.RARE_FIND_ICON,
+                "advancements.foragersinsight.adventure.rare_find.title",
+                "advancements.foragersinsight.adventure.rare_find.description");
+        JsonObject criteria = new JsonObject();
+        criteria.add("find_blewit_mushroom", simpleTrigger("foragersinsight:find_blewit_mushroom"));
+        advancement.add("criteria", criteria);
+        advancement.add("requirements", requirements("find_blewit_mushroom"));
+        return advancement;
+    }
 
     private static JsonObject wildFlowers() {
         JsonObject advancement = childAdvancement(FIAdvancements.WILD_FLOWERS_ICON,
@@ -94,20 +104,14 @@ public class FIAdvancementData implements DataProvider {
         return advancement;
     }
 
-    private static JsonObject givingTrees() {
-        JsonObject advancement = childAdvancement(FIAdvancements.GIVING_TREES_ICON,
-                "advancements.foragersinsight.adventure.giving_trees.title",
-                "advancements.foragersinsight.adventure.giving_trees.description");
-        JsonObject criteria = new JsonObject();
-        criteria.add("grow_rich_soil_tree", simpleTrigger("foragersinsight:grow_rich_soil_tree"));
-        advancement.add("criteria", criteria);
-        advancement.add("requirements", requirements("grow_rich_soil_tree"));
-        return advancement;
-    }
 
     private static JsonObject childAdvancement(ResourceLocation icon, String titleKey, String descriptionKey) {
+        return childAdvancement(FIAdvancements.ROOT, icon, titleKey, descriptionKey);
+    }
+
+    private static JsonObject childAdvancement(ResourceLocation parent, ResourceLocation icon, String titleKey, String descriptionKey) {
         JsonObject advancement = baseDisplay(icon, titleKey, descriptionKey);
-        advancement.addProperty("parent", FIAdvancements.ROOT.toString());
+        advancement.addProperty("parent", parent.toString());
         return advancement;
     }
 

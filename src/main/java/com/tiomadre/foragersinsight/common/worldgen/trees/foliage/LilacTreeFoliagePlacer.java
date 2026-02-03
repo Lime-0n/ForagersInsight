@@ -18,22 +18,28 @@ import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 
 public class LilacTreeFoliagePlacer extends FoliagePlacer {
-    private static final String[] TOP_LAYER = {
+
+    private static final String[] TOPMOST_LAYER = {
+            ".X.",
+            "XXX",
+            ".X."
+    };
+    private static final String[] TOP_MIDDLE_LAYER = {
             "XXX",
             "XXX",
             "XXX"
     };
     private static final String[] MIDDLE_LAYER = {
-            ".XXX.",
+            ".XxX.",
             "XXXXX",
+            "xXXXx",
             "XXXXX",
-            "XXXXX",
-            ".XXX."
+            ".XxX."
     };
     private static final String[] BOTTOM_LAYER = {
-            ".X.",
-            "XXX",
-            ".X."
+            ".x.",
+            "xXx",
+            ".x."
     };
     protected final int height;
 
@@ -57,25 +63,27 @@ public class LilacTreeFoliagePlacer extends FoliagePlacer {
                                  @NotNull TreeConfiguration config, int maxFreeTreeHeight, @NotNull FoliageAttachment attachment, int height,
                                  int radius, int offset) {
         BlockPos basePos = attachment.pos();
-        placeLayerPattern(level, blockSetter, config, basePos, offset, TOP_LAYER, false);
-        placeLayerPattern(level, blockSetter, config, basePos, offset - 1, MIDDLE_LAYER, false);
-        placeLayerPattern(level, blockSetter, config, basePos, offset - 2, BOTTOM_LAYER, true);
+        placeLayerPattern(level, blockSetter, config, basePos, offset + 1, TOPMOST_LAYER);
+        placeLayerPattern(level, blockSetter, config, basePos, offset, TOP_MIDDLE_LAYER);
+        placeLayerPattern(level, blockSetter, config, basePos, offset - 1, MIDDLE_LAYER);
+        placeLayerPattern(level, blockSetter, config, basePos, offset - 2, BOTTOM_LAYER);
     }
 
     private void placeLayerPattern(@NotNull LevelSimulatedReader level, @NotNull FoliageSetter setter,
                                    @NotNull TreeConfiguration config, @NotNull BlockPos pos, int localY,
-                                   String[] pattern, boolean allowBottomLayerBlossoms) {
+                                   String[] pattern) {
         BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
         int half = pattern.length / 2;
 
         for (int z = 0; z < pattern.length; ++z) {
             String row = pattern[z];
             for (int x = 0; x < row.length(); ++x) {
-                if (row.charAt(x) != 'X') {
+                char symbol = row.charAt(x);
+                if (symbol != 'X' && symbol != 'x') {
                     continue;
                 }
                 mutablePos.setWithOffset(pos, x - half, localY, z - half);
-                boolean shouldBlossom = allowBottomLayerBlossoms && isBottomLayerOuterBlock(pattern, x, z);
+                boolean shouldBlossom = symbol == 'x';
                 tryPlaceLeaf(level, setter, config, mutablePos, shouldBlossom);
             }
         }
@@ -107,10 +115,4 @@ public class LilacTreeFoliagePlacer extends FoliagePlacer {
         return true;
     }
 
-    private static boolean isBottomLayerOuterBlock(String[] pattern, int x, int z) {
-        if (pattern.length != 3 || pattern[0].length() != 3) {
-            return false;
-        }
-        return (x == 1 && z == 0) || (x == 0 && z == 1) || (x == 2 && z == 1) || (x == 1 && z == 2);
-    }
 }

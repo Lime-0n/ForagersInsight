@@ -1,0 +1,28 @@
+{
+  "parent": "foragersinsight:adventure/brush_it_off",
+  "criteria": {
+    "find_blewit_mushroom": {
+      "trigger": "foragersinsight:find_blewit_mushroom"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.foragersinsight.adventure.rare_find.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "foragersinsight:blewit_mushroom"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.foragersinsight.adventure.rare_find.title"
+    }
+  },
+  "requirements": [
+    [
+      "find_blewit_mushroom"
+    ]
+  ]
+}

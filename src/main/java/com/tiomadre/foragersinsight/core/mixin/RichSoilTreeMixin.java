@@ -5,10 +5,8 @@ import com.tiomadre.foragersinsight.common.worldgen.trees.grower.BountifulDarkOa
 import com.tiomadre.foragersinsight.common.worldgen.trees.grower.BountifulOakTreeGrower;
 import com.tiomadre.foragersinsight.common.worldgen.trees.grower.BountifulSpruceTreeGrower;
 import com.tiomadre.foragersinsight.common.worldgen.trees.grower.SappyBirchTreeGrower;
-import com.tiomadre.foragersinsight.core.registry.FIAdvancementCriteria;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
@@ -31,15 +29,8 @@ public class RichSoilTreeMixin {
             return;
         }
 
-        if (LilacTreeGrowth.shouldGrow(random) && LilacTreeGrowth.tryGrowLilacTree(level, pos, random)) {
-            foragersInsight$triggerGivingTrees(level, pos);
-        }
-    }
-
-    private static void foragersInsight$triggerGivingTrees(ServerLevel level, BlockPos pos) {
-        ServerPlayer player = FIAdvancementCriteria.consumeRichSoilTreeOwner(level, pos);
-        if (player != null) {
-            FIAdvancementCriteria.GROW_RICH_SOIL_TREE.trigger(player);
+        if (LilacTreeGrowth.shouldGrow(random)) {
+            LilacTreeGrowth.tryGrowLilacTree(level, pos, random);
         }
     }
 }
@@ -75,15 +66,7 @@ class RichSoilSaplingMixin {
 
         if (grew) {
             level.setBlock(pos.below(), Blocks.ROOTED_DIRT.defaultBlockState(), 2);
-            foragersInsight$triggerGivingTrees(level, pos);
             ci.cancel();
-        }
-    }
-
-    private static void foragersInsight$triggerGivingTrees(ServerLevel level, BlockPos pos) {
-        ServerPlayer player = FIAdvancementCriteria.consumeRichSoilTreeOwner(level, pos);
-        if (player != null) {
-            FIAdvancementCriteria.GROW_RICH_SOIL_TREE.trigger(player);
         }
     }
 }

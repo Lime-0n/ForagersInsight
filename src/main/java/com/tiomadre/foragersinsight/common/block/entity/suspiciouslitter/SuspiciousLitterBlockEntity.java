@@ -104,6 +104,9 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
             if (player instanceof ServerPlayer serverPlayer) {
                 FarmingXPEvents.awardSuspiciousLitterXP(serverLevel, serverPlayer, state, drop);
                 FIAdvancementCriteria.BRUSH_SUSPICIOUS_LITTER.trigger(serverPlayer);
+                if (drop.is(FIItems.BLEWIT_MUSHROOM.get())) {
+                    FIAdvancementCriteria.FIND_BLEWIT_MUSHROOM.trigger(serverPlayer);
+                }
             }
             serverLevel.setBlock(pos, Block.pushEntitiesUp(state, Blocks.AIR.defaultBlockState(), serverLevel, pos), Block.UPDATE_ALL);
             blockEntity.resetProgress();

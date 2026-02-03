@@ -20,7 +20,7 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "foragersinsight:handbasket"
+      "item": "foragersinsight:full_handbasket"
     },
     "show_toast": true,
     "title": {
