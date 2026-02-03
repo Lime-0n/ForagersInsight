@@ -1,5 +1,6 @@
 package com.tiomadre.foragersinsight.core.other;
 
+import com.tiomadre.foragersinsight.common.block.SuspiciousLitterBlock;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.teamabnormals.blueprint.core.util.DataUtil;
 import net.minecraft.client.Minecraft;
@@ -59,10 +60,16 @@ public class FIClientCompat {
 
         DataUtil.registerBlockColor(
                 blockColors,
-                (state, world, pos, tintIndex) ->
-                        (world != null && pos != null)
-                                ? BiomeColors.getAverageFoliageColor(world, pos)
-                                : FoliageColor.getDefaultColor(),
+                (state, world, pos, tintIndex) -> {
+                    if (state != null
+                            && state.hasProperty(SuspiciousLitterBlock.FOLIAGE)
+                            && state.getValue(SuspiciousLitterBlock.FOLIAGE) == SuspiciousLitterBlock.FoliageType.FLOWER) {
+                        return 0xFFFFFF;
+                    }
+                    return (world != null && pos != null)
+                            ? BiomeColors.getAverageFoliageColor(world, pos)
+                            : FoliageColor.getDefaultColor();
+                },
                 suspiciousLitter
         );
         DataUtil.registerBlockItemColor(
