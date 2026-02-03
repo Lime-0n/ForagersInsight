@@ -13,7 +13,7 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "foragersinsight:bountiful_oak_sapling"
+      "item": "foragersinsight:oak_sapling"
     },
     "show_toast": true,
     "title": {

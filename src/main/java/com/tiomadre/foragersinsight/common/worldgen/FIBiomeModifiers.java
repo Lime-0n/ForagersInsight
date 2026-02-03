@@ -4,12 +4,10 @@ import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.data.server.tags.FITags;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.common.world.ForgeBiomeModifiers;
@@ -99,16 +97,12 @@ public class FIBiomeModifiers {
         );
     }
 
-    private static HolderSet<Biome> tagSet(HolderGetter<Biome> biomes, TagKey<Biome> hasFlowerForestLitter) {
-        return null;
-    }
-
     public static ResourceKey<BiomeModifier> registerKey(String name) {
         return ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, ForagersInsight.rl(name));
     }
 
-    private static <T> HolderSet<T> tagSet(HolderLookup.RegistryLookup<T> lookup, TagKey<T> tag) {
-        return HolderSet.direct();
+    private static <T> HolderSet<T> tagSet(HolderGetter<T> lookup, TagKey<T> tag) {
+        return lookup.getOrThrow(tag);
     }
 
 }
