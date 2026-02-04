@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.common.block;
 
 import com.tiomadre.foragersinsight.common.block.entity.DiffuserBlockEntity;
+import com.tiomadre.foragersinsight.core.registry.FIAdvancementCriteria;
 import com.tiomadre.foragersinsight.data.server.recipes.FIDiffusingRecipes;
 import com.tiomadre.foragersinsight.core.registry.FIBlockEntityTypes;
 import com.tiomadre.foragersinsight.core.registry.FIParticleTypes;
@@ -82,6 +83,9 @@ public class DiffuserBlock extends BaseEntityBlock implements SimpleWaterloggedB
                 held.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
                 level.playSound(null, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F,
                         level.random.nextFloat() * 0.4F + 0.8F);
+                if (player instanceof ServerPlayer serverPlayer) {
+                    FIAdvancementCriteria.SCENTSATIONAL.trigger(serverPlayer);
+                }
                 return InteractionResult.CONSUME;
             }
 

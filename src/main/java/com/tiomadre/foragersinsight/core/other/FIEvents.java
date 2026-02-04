@@ -1,6 +1,8 @@
 package com.tiomadre.foragersinsight.core.other;
 
+import com.tiomadre.foragersinsight.core.registry.FIAdvancementCriteria;
 import com.tiomadre.foragersinsight.core.registry.FIEnchantments;
+import com.tiomadre.foragersinsight.core.registry.FIItems;
 import com.tiomadre.foragersinsight.core.registry.FIMobEffects;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import net.minecraft.core.BlockPos;
@@ -18,6 +20,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
+import net.minecraftforge.event.entity.living.MobEffectEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerXpEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -52,7 +56,24 @@ public class FIEvents {
 
         event.setNewTarget(null);
         monster.setTarget(null);
+        //Advancement Triggers
     }
+    @SubscribeEvent
+    public static void onMobEffectAdded(MobEffectEvent.Added event) {
+        if (!(event.getEntity() instanceof ServerPlayer player)) return;
+        if (event.getEffectInstance().getEffect() != FIMobEffects.ODOROUS.get()) return;
+
+        FIAdvancementCriteria.STINKY_SITUATION.trigger(player);
+    }
+
+    @SubscribeEvent
+    public static void onItemCrafted(PlayerEvent.ItemCraftedEvent event) {
+        if (!(event.getEntity() instanceof ServerPlayer player)) return;
+        if (!event.getCrafting().is(FIItems.TAPPER.get())) return;
+
+        FIAdvancementCriteria.TAP_THAT.trigger(player);
+    }
+
 
     // Bloom Effect XP Amp n Reduction
     @SubscribeEvent

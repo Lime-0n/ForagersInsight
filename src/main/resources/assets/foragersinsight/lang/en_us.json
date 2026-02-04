@@ -195,13 +195,31 @@
 
   "advancements.foragersinsight.adventure.foragers_insight.title": "Forager's Insight",
   "advancements.foragersinsight.adventure.foragers_insight.description": "Forage delights that are hidden in plain sight!",
-  "advancements.foragersinsight.adventure.wild_flowers.title": "Stop and Stab the Roses?",
-  "advancements.foragersinsight.adventure.wild_flowers.description": "Use a knife to forage a unique crop from a wild flower",
-  "advancements.foragersinsight.adventure.shear.title": "Shearing is Caring",
-  "advancements.foragersinsight.adventure.shear.description": "Use shears to increase certain crop yields!",
 
-  "advancements.foragersinsight.adventure.rare_find.title": "Rare Find",
-  "advancements.foragersinsight.adventure.rare_find.description": "Find a rare item amongst the litter...",
+  "advancements.foragersinsight.adventure.wild_flowers.title": "Stop and Stab the Roses?",
+  "advancements.foragersinsight.adventure.wild_flowers.description": "Use a knife to forage a unique crop from a wild flower.",
+
+  "advancements.foragersinsight.adventure.giving_trees.title": "The Giving Tree",
+  "advancements.foragersinsight.adventure.giving_trees.description": "Collect the crop of one of the fruiting variants of trees.",
+
+  "advancements.foragersinsight.adventure.shear.title": "Shearing is Caring",
+  "advancements.foragersinsight.adventure.shear.description": "Instead of plucking, snip with Shears to get a little something extra!",
+
+  "advancements.foragersinsight.adventure.scentsational.title": "Scentsational",
+  "advancements.foragersinsight.adventure.scentsational.description": "Ignite a Diffuser and take a deep breath!",
+
+  "advancements.foragersinsight.adventure.stinky_situation.title": "I Hope You Wash That...",
+  "advancements.foragersinsight.adventure.stinky_situation.description": "Exude a distasteful scent from the Diffuser.",
+
+  "advancements.foragersinsight.adventure.tap_that.title": "Tap That",
+  "advancements.foragersinsight.adventure.tap_that.description": "Craft a Tapper and begin collecting new ingredients!",
+
+  "advancements.foragersinsight.adventure.birch_please.title": "Birch, Please",
+  "advancements.foragersinsight.adventure.birch_please.description": "Collect something sticky from the Tapper",
+
+
+  "advancements.foragersinsight.adventure.rare_find.title": "Choice Edible",
+  "advancements.foragersinsight.adventure.rare_find.description": "Brush away some litter and find something rare to eat...",
 
   "itemGroup.foragersinsight": "Forager's Insight"
 }

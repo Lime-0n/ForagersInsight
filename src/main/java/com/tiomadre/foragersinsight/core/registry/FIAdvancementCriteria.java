@@ -15,6 +15,10 @@ import net.minecraft.server.level.ServerPlayer;
 public final class FIAdvancementCriteria {
     public static final SimpleTrigger FIND_BLEWIT_MUSHROOM = register(new SimpleTrigger("find_blewit_mushroom"));
     public static final SimpleTrigger BRUSH_SUSPICIOUS_LITTER = register(new SimpleTrigger("brush_suspicious_litter"));
+    public static final SimpleTrigger SCENTSATIONAL = register(new SimpleTrigger("scentsational"));
+    public static final SimpleTrigger STINKY_SITUATION = register(new SimpleTrigger("stinky_situation"));
+    public static final SimpleTrigger TAP_THAT = register(new SimpleTrigger("tap_that"));
+    public static final SimpleTrigger BIRCH_PLEASE = register(new SimpleTrigger("birch_please"));
 
 
     private FIAdvancementCriteria() {

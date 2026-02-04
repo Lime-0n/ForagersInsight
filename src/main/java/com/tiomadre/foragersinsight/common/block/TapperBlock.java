@@ -1,12 +1,14 @@
 package com.tiomadre.foragersinsight.common.block;
 
 import com.tiomadre.foragersinsight.common.block.entity.TapperBlockEntity;
+import com.tiomadre.foragersinsight.core.registry.FIAdvancementCriteria;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import com.tiomadre.foragersinsight.core.registry.FIParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -198,6 +200,9 @@ public class TapperBlock extends HorizontalDirectionalBlock implements EntityBlo
                 level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 0.9F, 0.9F);
                 level.playSound(null, pos, SoundEvents.BEEHIVE_DRIP, SoundSource.BLOCKS, 1.1F, 0.0001F);
                 if (!player.getAbilities().instabuild) held.shrink(1);
+                if (player instanceof ServerPlayer serverPlayer) {
+                    FIAdvancementCriteria.BIRCH_PLEASE.trigger(serverPlayer);
+                }
             }
             return InteractionResult.sidedSuccess(level.isClientSide);
         }

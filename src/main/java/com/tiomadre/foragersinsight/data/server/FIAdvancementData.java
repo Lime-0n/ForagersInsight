@@ -34,6 +34,11 @@ public class FIAdvancementData implements DataProvider {
         advancements.put(FIAdvancements.RARE_FIND, rareFind());
         advancements.put(FIAdvancements.WILD_FLOWERS, wildFlowers());
         advancements.put(FIAdvancements.SHEARING_IS_CARING, shearingIsCaring());
+        advancements.put(FIAdvancements.SCENTSATIONAL, scentsational());
+        advancements.put(FIAdvancements.STINKY_SITUATION, stinkySituation());
+        advancements.put(FIAdvancements.TAP_THAT, tapThat());
+        advancements.put(FIAdvancements.BIRCH_PLEASE, birchPlease());
+        advancements.put(FIAdvancements.GIVING_TREES, givingTrees());
 
         CompletableFuture<?>[] writes = advancements.entrySet().stream()
                 .map(entry -> DataProvider.saveStable(output, entry.getValue(), this.pathProvider.json(entry.getKey())))
@@ -51,7 +56,7 @@ public class FIAdvancementData implements DataProvider {
                 "advancements.foragersinsight.adventure.foragers_insight.title",
                 "advancements.foragersinsight.adventure.foragers_insight.description");
         advancement.getAsJsonObject("display")
-                .addProperty("background", "minecraft:textures/gui/advancements/backgrounds/adventure.png");
+                .addProperty("background", "foragersinsight:textures/gui/advancements/backgrounds/foraging.png");
 
         JsonObject criteria = new JsonObject();
         criteria.add("has_foragers_insight_item",
@@ -103,6 +108,66 @@ public class FIAdvancementData implements DataProvider {
         advancement.add("requirements", requirements("snip_a_crop"));
         return advancement;
     }
+    private static JsonObject scentsational() {
+        JsonObject advancement = childAdvancement(FIAdvancements.SCENTSATIONAL_ICON,
+                "advancements.foragersinsight.adventure.scentsational.title",
+                "advancements.foragersinsight.adventure.scentsational.description");
+        JsonObject criteria = new JsonObject();
+        criteria.add("scentsational", simpleTrigger("foragersinsight:scentsational"));
+        advancement.add("criteria", criteria);
+        advancement.add("requirements", requirements("scentsational"));
+        return advancement;
+    }
+
+    private static JsonObject stinkySituation() {
+        JsonObject advancement = childAdvancement(FIAdvancements.STINKY_SITUATION_ICON,
+                "advancements.foragersinsight.adventure.stinky_situation.title",
+                "advancements.foragersinsight.adventure.stinky_situation.description");
+        JsonObject criteria = new JsonObject();
+        criteria.add("stinky_situation", simpleTrigger("foragersinsight:stinky_situation"));
+        advancement.add("criteria", criteria);
+        advancement.add("requirements", requirements("stinky_situation"));
+        return advancement;
+    }
+
+    private static JsonObject tapThat() {
+        JsonObject advancement = childAdvancement(FIAdvancements.TAP_THAT_ICON,
+                "advancements.foragersinsight.adventure.tap_that.title",
+                "advancements.foragersinsight.adventure.tap_that.description");
+        JsonObject criteria = new JsonObject();
+        criteria.add("tap_that", simpleTrigger("foragersinsight:tap_that"));
+        advancement.add("criteria", criteria);
+        advancement.add("requirements", requirements("tap_that"));
+        return advancement;
+    }
+
+    private static JsonObject birchPlease() {
+        JsonObject advancement = childAdvancement(FIAdvancements.TAP_THAT, FIAdvancements.BIRCH_PLEASE_ICON,
+                "advancements.foragersinsight.adventure.birch_please.title",
+                "advancements.foragersinsight.adventure.birch_please.description");
+        JsonObject criteria = new JsonObject();
+        criteria.add("birch_please", simpleTrigger("foragersinsight:birch_please"));
+        advancement.add("criteria", criteria);
+        advancement.add("requirements", requirements("birch_please"));
+        return advancement;
+    }
+
+    private static JsonObject givingTrees() {
+        JsonObject advancement = childAdvancement(FIAdvancements.WILD_FLOWERS, FIAdvancements.GIVING_TREES_ICON,
+                "advancements.foragersinsight.adventure.giving_trees.title",
+                "advancements.foragersinsight.adventure.giving_trees.description");
+        JsonObject criteria = new JsonObject();
+        criteria.add("giving_trees", inventoryChangedWithItems(
+                "foragersinsight:lilac_bloom",
+                "minecraft:apple",
+                "foragersinsight:black_acorn",
+                "foragersinsight:spruce_tips"
+        ));
+        advancement.add("criteria", criteria);
+        advancement.add("requirements", requirements("giving_trees"));
+        return advancement;
+    }
+
 
 
     private static JsonObject childAdvancement(ResourceLocation icon, String titleKey, String descriptionKey) {
@@ -129,6 +194,22 @@ public class FIAdvancementData implements DataProvider {
         display.addProperty("hidden", false);
         advancement.add("display", display);
         return advancement;
+    }
+    private static JsonObject inventoryChangedWithItems(String... itemIds) {
+        JsonObject criterion = new JsonObject();
+        criterion.addProperty("trigger", "minecraft:inventory_changed");
+        JsonObject conditions = new JsonObject();
+        JsonArray items = new JsonArray();
+        JsonObject item = new JsonObject();
+        JsonArray itemList = new JsonArray();
+        for (String itemId : itemIds) {
+            itemList.add(itemId);
+        }
+        item.add("items", itemList);
+        items.add(item);
+        conditions.add("items", items);
+        criterion.add("conditions", conditions);
+        return criterion;
     }
 
     private static JsonObject translation(String key) {
