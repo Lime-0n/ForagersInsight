@@ -1,7 +1,9 @@
 package com.tiomadre.foragersinsight.common.item;
 
+import com.tiomadre.foragersinsight.core.registry.FIAdvancementCriteria;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -182,6 +184,9 @@ public class MalletItem extends PickaxeItem {
             int totalAmount = baseAmount + extraAmount;
 
             dropItemInFront(level, player, new ItemStack(resultItem, totalAmount));
+            if (player instanceof ServerPlayer serverPlayer) {
+                FIAdvancementCriteria.WILL_IT_CRUSH.trigger(serverPlayer);
+            }
             return InteractionResult.SUCCESS;
         }
 

@@ -19,6 +19,7 @@ public final class FIAdvancementCriteria {
     public static final SimpleTrigger STINKY_SITUATION = register(new SimpleTrigger("stinky_situation"));
     public static final SimpleTrigger TAP_THAT = register(new SimpleTrigger("tap_that"));
     public static final SimpleTrigger BIRCH_PLEASE = register(new SimpleTrigger("birch_please"));
+    public static final SimpleTrigger WILL_IT_CRUSH = register(new SimpleTrigger("will_it_crush"));
 
 
     private FIAdvancementCriteria() {

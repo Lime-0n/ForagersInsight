@@ -1,0 +1,28 @@
+{
+  "parent": "foragersinsight:adventure/stop_hammer_time",
+  "criteria": {
+    "will_it_crush": {
+      "trigger": "foragersinsight:will_it_crush"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.foragersinsight.adventure.will_it_crush.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "foragersinsight:crushed_ice"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.foragersinsight.adventure.will_it_crush.title"
+    }
+  },
+  "requirements": [
+    [
+      "will_it_crush"
+    ]
+  ]
+}

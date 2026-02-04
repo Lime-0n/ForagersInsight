@@ -1,12 +1,12 @@
 {
-  "parent": "foragersinsight:adventure/giving_trees",
+  "parent": "foragersinsight:adventure/foragers_insight",
   "criteria": {
-    "snip_a_crop": {
+    "pick_up_brush": {
       "conditions": {
         "items": [
           {
             "items": [
-              "foragersinsight:spruce_tips"
+              "minecraft:brush"
             ]
           }
         ]
@@ -17,21 +17,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.foragersinsight.adventure.shear.description"
+      "translate": "advancements.foragersinsight.adventure.spring_cleaning.description"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "foragersinsight:flint_shears"
+      "item": "minecraft:brush"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.foragersinsight.adventure.shear.title"
+      "translate": "advancements.foragersinsight.adventure.spring_cleaning.title"
     }
   },
   "requirements": [
     [
-      "snip_a_crop"
+      "pick_up_brush"
     ]
   ]
 }

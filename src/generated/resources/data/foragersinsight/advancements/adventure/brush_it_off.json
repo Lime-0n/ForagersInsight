@@ -1,5 +1,5 @@
 {
-  "parent": "foragersinsight:adventure/foragers_insight",
+  "parent": "foragersinsight:adventure/spring_cleaning",
   "criteria": {
     "brush_suspicious_litter": {
       "trigger": "foragersinsight:brush_suspicious_litter"

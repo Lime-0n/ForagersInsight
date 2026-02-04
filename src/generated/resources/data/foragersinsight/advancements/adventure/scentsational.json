@@ -1,0 +1,28 @@
+{
+  "parent": "foragersinsight:adventure/wild_flowers",
+  "criteria": {
+    "scentsational": {
+      "trigger": "foragersinsight:scentsational"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.foragersinsight.adventure.scentsational.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "foragersinsight:diffuser"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.foragersinsight.adventure.scentsational.title"
+    }
+  },
+  "requirements": [
+    [
+      "scentsational"
+    ]
+  ]
+}

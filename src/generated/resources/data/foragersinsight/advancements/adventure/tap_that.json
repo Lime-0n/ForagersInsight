@@ -1,0 +1,28 @@
+{
+  "parent": "foragersinsight:adventure/foragers_insight",
+  "criteria": {
+    "tap_that": {
+      "trigger": "foragersinsight:tap_that"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.foragersinsight.adventure.tap_that.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "foragersinsight:tapper"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.foragersinsight.adventure.tap_that.title"
+    }
+  },
+  "requirements": [
+    [
+      "tap_that"
+    ]
+  ]
+}

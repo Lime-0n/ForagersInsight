@@ -1,13 +1,11 @@
 {
-  "parent": "foragersinsight:adventure/giving_trees",
+  "parent": "foragersinsight:adventure/foragers_insight",
   "criteria": {
-    "snip_a_crop": {
+    "pick_up_mallet": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "foragersinsight:spruce_tips"
-            ]
+            "tag": "forge:tools/mallets"
           }
         ]
       },
@@ -17,21 +15,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.foragersinsight.adventure.shear.description"
+      "translate": "advancements.foragersinsight.adventure.stop_hammer_time.description"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "foragersinsight:flint_shears"
+      "item": "foragersinsight:flint_mallet"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.foragersinsight.adventure.shear.title"
+      "translate": "advancements.foragersinsight.adventure.stop_hammer_time.title"
     }
   },
   "requirements": [
     [
-      "snip_a_crop"
+      "pick_up_mallet"
     ]
   ]
 }

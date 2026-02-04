@@ -189,24 +189,37 @@
   "gui.foragersinsight.diffuser.tooltip.enhanced_duration": " + Birch Sap Bottle (+20% duration)",
   "gui.foragersinsight.diffuser.tooltip.enhanced_duration_bucket": " + Birch Sap Bucket (+85% duration)",
 
-
-  "advancements.foragersinsight.adventure.brush_it_off.title": "Brush It Off",
-  "advancements.foragersinsight.adventure.brush_it_off.description": "Brush away strange piles of forest litter.",
-
   "advancements.foragersinsight.adventure.foragers_insight.title": "Forager's Insight",
   "advancements.foragersinsight.adventure.foragers_insight.description": "Forage delights that are hidden in plain sight!",
+
+  "advancements.foragersinsight.adventure.spring_cleaning.title": "Spring Cleaning",
+  "advancements.foragersinsight.adventure.spring_cleaning.description": "Craft a Brush and look in forested areas for leaf litter to clean up.",
 
   "advancements.foragersinsight.adventure.wild_flowers.title": "Stop and Stab the Roses?",
   "advancements.foragersinsight.adventure.wild_flowers.description": "Use a knife to forage a unique crop from a wild flower.",
 
-  "advancements.foragersinsight.adventure.giving_trees.title": "The Giving Tree",
+  "advancements.foragersinsight.adventure.giving_trees.title": "Giving Tree",
   "advancements.foragersinsight.adventure.giving_trees.description": "Collect the crop of one of the fruiting variants of trees.",
+
+  "advancements.foragersinsight.adventure.stop_hammer_time.title": "Stop...Hammer Time",
+  "advancements.foragersinsight.adventure.stop_hammer_time.description": "Craft a Mallet to crush certain blocks and items.",
+
+
+
+  "advancements.foragersinsight.adventure.brush_it_off.title": "Brush It Off",
+  "advancements.foragersinsight.adventure.brush_it_off.description": "Brush away forest litter to reveal an item",
+
+  "advancements.foragersinsight.adventure.scentsational.title": "Scentsational.",
+  "advancements.foragersinsight.adventure.scentsational.description": "Ignite a Diffuser and take a deep breath!",
 
   "advancements.foragersinsight.adventure.shear.title": "Shearing is Caring",
   "advancements.foragersinsight.adventure.shear.description": "Instead of plucking, snip with Shears to get a little something extra!",
 
-  "advancements.foragersinsight.adventure.scentsational.title": "Scentsational",
-  "advancements.foragersinsight.adventure.scentsational.description": "Ignite a Diffuser and take a deep breath!",
+  "advancements.foragersinsight.adventure.will_it_crush.title": "Will It Crush?",
+  "advancements.foragersinsight.adventure.will_it_crush.description": "Crush an item using a Mallet.",
+
+  "advancements.foragersinsight.adventure.rare_find.title": "Choice Edible",
+  "advancements.foragersinsight.adventure.rare_find.description": "Find something rare from Suspicious Leaf Litter...",
 
   "advancements.foragersinsight.adventure.stinky_situation.title": "I Hope You Wash That...",
   "advancements.foragersinsight.adventure.stinky_situation.description": "Exude a distasteful scent from the Diffuser.",
@@ -216,10 +229,6 @@
 
   "advancements.foragersinsight.adventure.birch_please.title": "Birch, Please",
   "advancements.foragersinsight.adventure.birch_please.description": "Collect something sticky from the Tapper",
-
-
-  "advancements.foragersinsight.adventure.rare_find.title": "Choice Edible",
-  "advancements.foragersinsight.adventure.rare_find.description": "Brush away some litter and find something rare to eat...",
 
   "itemGroup.foragersinsight": "Forager's Insight"
 }

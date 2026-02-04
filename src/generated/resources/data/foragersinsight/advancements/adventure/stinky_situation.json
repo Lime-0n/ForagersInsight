@@ -1,0 +1,28 @@
+{
+  "parent": "foragersinsight:adventure/scentsational",
+  "criteria": {
+    "stinky_situation": {
+      "trigger": "foragersinsight:stinky_situation"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.foragersinsight.adventure.stinky_situation.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:rotten_flesh"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.foragersinsight.adventure.stinky_situation.title"
+    }
+  },
+  "requirements": [
+    [
+      "stinky_situation"
+    ]
+  ]
+}

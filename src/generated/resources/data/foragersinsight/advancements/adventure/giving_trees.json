@@ -1,11 +1,14 @@
 {
-  "parent": "foragersinsight:adventure/giving_trees",
+  "parent": "foragersinsight:adventure/foragers_insight",
   "criteria": {
-    "snip_a_crop": {
+    "giving_trees": {
       "conditions": {
         "items": [
           {
             "items": [
+              "foragersinsight:lilac_bloom",
+              "minecraft:apple",
+              "foragersinsight:black_acorn",
               "foragersinsight:spruce_tips"
             ]
           }
@@ -17,21 +20,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.foragersinsight.adventure.shear.description"
+      "translate": "advancements.foragersinsight.adventure.giving_trees.description"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "foragersinsight:flint_shears"
+      "item": "minecraft:apple"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.foragersinsight.adventure.shear.title"
+      "translate": "advancements.foragersinsight.adventure.giving_trees.title"
     }
   },
   "requirements": [
     [
-      "snip_a_crop"
+      "giving_trees"
     ]
   ]
 }
