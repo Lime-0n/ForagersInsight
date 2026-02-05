@@ -19,7 +19,7 @@
     "description": {
       "translate": "advancements.foragersinsight.adventure.shear.description"
     },
-    "frame": "task",
+    "frame": "goal",
     "hidden": false,
     "icon": {
       "item": "foragersinsight:flint_shears"

@@ -10,7 +10,7 @@
     "description": {
       "translate": "advancements.foragersinsight.adventure.brush_it_off.description"
     },
-    "frame": "task",
+    "frame": "goal",
     "hidden": false,
     "icon": {
       "item": "foragersinsight:suspicious_leaf_litter"

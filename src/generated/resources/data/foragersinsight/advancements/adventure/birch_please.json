@@ -10,7 +10,7 @@
     "description": {
       "translate": "advancements.foragersinsight.adventure.birch_please.description"
     },
-    "frame": "task",
+    "frame": "goal",
     "hidden": false,
     "icon": {
       "item": "foragersinsight:birch_sap_bucket"
