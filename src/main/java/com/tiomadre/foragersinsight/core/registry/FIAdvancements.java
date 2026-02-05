@@ -6,6 +6,19 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.List;
 
 public final class FIAdvancements {
+
+    public enum FIFrameType {
+        TASK("task"),
+        GOAL("goal"),
+        CHALLENGE("challenge");
+
+        public final String id;
+
+        FIFrameType(String id) {
+            this.id = id;
+        }
+    }
+
     public static final ResourceLocation ROOT = ForagersInsight.rl("adventure/foragers_insight");
 
     public static final ResourceLocation SPRING_CLEANING = ForagersInsight.rl("adventure/spring_cleaning");
@@ -29,41 +42,48 @@ public final class FIAdvancements {
     public static final ResourceLocation STOP_HAMMER_TIME_ICON = ForagersInsight.rl("flint_mallet");
     public static final ResourceLocation WILL_IT_CRUSH_ICON = ForagersInsight.rl("wheat_flour");
 
-
     public static final ResourceLocation TAP_THAT = ForagersInsight.rl("adventure/tap_that");
     public static final ResourceLocation BIRCH_PLEASE = ForagersInsight.rl("adventure/birch_please");
 
-
-    public static final ResourceLocation WILD_FLOWERS_ICON =new ResourceLocation("minecraft", "rose_bush");
+    public static final ResourceLocation WILD_FLOWERS_ICON = new ResourceLocation("minecraft", "rose_bush");
     public static final ResourceLocation SHEARING_IS_CARING_ICON = ForagersInsight.rl("flint_shears");
 
     public static final ResourceLocation SCENTSATIONAL = ForagersInsight.rl("adventure/scentsational");
     public static final ResourceLocation STINKY_SITUATION = ForagersInsight.rl("adventure/stinky_situation");
 
+    public static final Node ROOT_NODE =
+            new Node(ROOT, ROOT_ICON, -3, 0, FIFrameType.TASK);
 
-    public static final Node ROOT_NODE = new Node(ROOT, ROOT_ICON, 0, 0);
     public static final List<Node> FIRST_ROW = List.of(
-            new Node(SPRING_CLEANING, SPRING_CLEANING_ICON, -8, 2),
-            new Node(WILD_FLOWERS, WILD_FLOWERS_ICON, -4, 1),
-            new Node(GIVING_TREES, GIVING_TREES_ICON, 0, 1),
-            new Node(TAP_THAT, TAP_THAT_ICON, 4, 1),
-            new Node(STOP_HAMMER_TIME, STOP_HAMMER_TIME_ICON, 8, 2)
+            new Node(SPRING_CLEANING, SPRING_CLEANING_ICON, -15, 2, FIFrameType.TASK),
+            new Node(WILD_FLOWERS, WILD_FLOWERS_ICON, -5, 1, FIFrameType.TASK),
+            new Node(GIVING_TREES, GIVING_TREES_ICON, 0, 1, FIFrameType.TASK),
+            new Node(TAP_THAT, TAP_THAT_ICON, 5, 1, FIFrameType.TASK),
+            new Node(STOP_HAMMER_TIME, STOP_HAMMER_TIME_ICON, 15, 2, FIFrameType.TASK)
     );
+
     public static final List<Node> SECOND_ROW = List.of(
-            new Node(BRUSH_IT_OFF, BRUSH_IT_OFF_ICON, -8, 5),
-            new Node(SCENTSATIONAL, SCENTSATIONAL_ICON, -4, 4),
-            new Node(SHEARING_IS_CARING, SHEARING_IS_CARING_ICON, 0, 4),
-            new Node(BIRCH_PLEASE, BIRCH_PLEASE_ICON, 4, 4),
-            new Node(WILL_IT_CRUSH, WILL_IT_CRUSH_ICON, 8, 5)
+            new Node(BRUSH_IT_OFF, BRUSH_IT_OFF_ICON, -15, 5, FIFrameType.GOAL),
+            new Node(SCENTSATIONAL, SCENTSATIONAL_ICON, -5, 4, FIFrameType.GOAL),
+            new Node(SHEARING_IS_CARING, SHEARING_IS_CARING_ICON, 0, 4, FIFrameType.GOAL),
+            new Node(BIRCH_PLEASE, BIRCH_PLEASE_ICON, 5, 4, FIFrameType.GOAL),
+            new Node(WILL_IT_CRUSH, WILL_IT_CRUSH_ICON, 15, 5, FIFrameType.GOAL)
     );
+
     public static final List<Node> THIRD_ROW = List.of(
-            new Node(RARE_FIND, RARE_FIND_ICON, -8, 6),
-            new Node(STINKY_SITUATION, STINKY_SITUATION_ICON, -4, 6)
+            new Node(RARE_FIND, RARE_FIND_ICON, -15, 6, FIFrameType.CHALLENGE),
+            new Node(STINKY_SITUATION, STINKY_SITUATION_ICON, -5, 6, FIFrameType.CHALLENGE)
     );
 
     private FIAdvancements() {
     }
 
-    public record Node(ResourceLocation id, ResourceLocation icon, int x, int y) {
+    public record Node(
+            ResourceLocation id,
+            ResourceLocation icon,
+            int x,
+            int y,
+            FIFrameType frame
+    ) {
     }
 }
