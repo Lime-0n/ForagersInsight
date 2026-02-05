@@ -19,15 +19,15 @@ public final class FIAdvancements {
 
     public static final ResourceLocation ROOT_ICON = ForagersInsight.rl("handbasket");
     public static final ResourceLocation SPRING_CLEANING_ICON = new ResourceLocation("minecraft", "brush");
-    public static final ResourceLocation BRUSH_IT_OFF_ICON = new ResourceLocation("minecraft", "brush");
+    public static final ResourceLocation BRUSH_IT_OFF_ICON = ForagersInsight.rl("suspicious_leaf_litter");
     public static final ResourceLocation RARE_FIND_ICON = ForagersInsight.rl("blewit_mushroom");
     public static final ResourceLocation GIVING_TREES_ICON = new ResourceLocation("minecraft", "apple");
-    public static final ResourceLocation STINKY_SITUATION_ICON = new ResourceLocation("minecraft", "rotten_flesh");
+    public static final ResourceLocation STINKY_SITUATION_ICON = new ResourceLocation("farmersdelight", "organic_compost");
     public static final ResourceLocation TAP_THAT_ICON = ForagersInsight.rl("tapper");
     public static final ResourceLocation BIRCH_PLEASE_ICON = ForagersInsight.rl("birch_sap_bucket");
     public static final ResourceLocation SCENTSATIONAL_ICON = ForagersInsight.rl("diffuser");
     public static final ResourceLocation STOP_HAMMER_TIME_ICON = ForagersInsight.rl("flint_mallet");
-    public static final ResourceLocation WILL_IT_CRUSH_ICON = ForagersInsight.rl("crushed_ice");
+    public static final ResourceLocation WILL_IT_CRUSH_ICON = ForagersInsight.rl("wheat_flour");
 
 
     public static final ResourceLocation TAP_THAT = ForagersInsight.rl("adventure/tap_that");
@@ -43,22 +43,22 @@ public final class FIAdvancements {
 
     public static final Node ROOT_NODE = new Node(ROOT, ROOT_ICON, 0, 0);
     public static final List<Node> FIRST_ROW = List.of(
-            new Node(SPRING_CLEANING, SPRING_CLEANING_ICON, -8, 1),
+            new Node(SPRING_CLEANING, SPRING_CLEANING_ICON, -8, 2),
             new Node(WILD_FLOWERS, WILD_FLOWERS_ICON, -4, 1),
             new Node(GIVING_TREES, GIVING_TREES_ICON, 0, 1),
             new Node(TAP_THAT, TAP_THAT_ICON, 4, 1),
-            new Node(STOP_HAMMER_TIME, STOP_HAMMER_TIME_ICON, 8, 1)
+            new Node(STOP_HAMMER_TIME, STOP_HAMMER_TIME_ICON, 8, 2)
     );
     public static final List<Node> SECOND_ROW = List.of(
-            new Node(BRUSH_IT_OFF, BRUSH_IT_OFF_ICON, -8, 2),
-            new Node(SCENTSATIONAL, SCENTSATIONAL_ICON, -4, 2),
-            new Node(SHEARING_IS_CARING, SHEARING_IS_CARING_ICON, 0, 2),
-            new Node(BIRCH_PLEASE, BIRCH_PLEASE_ICON, 4, 2),
-            new Node(WILL_IT_CRUSH, WILL_IT_CRUSH_ICON, 8, 2)
+            new Node(BRUSH_IT_OFF, BRUSH_IT_OFF_ICON, -8, 5),
+            new Node(SCENTSATIONAL, SCENTSATIONAL_ICON, -4, 4),
+            new Node(SHEARING_IS_CARING, SHEARING_IS_CARING_ICON, 0, 4),
+            new Node(BIRCH_PLEASE, BIRCH_PLEASE_ICON, 4, 4),
+            new Node(WILL_IT_CRUSH, WILL_IT_CRUSH_ICON, 8, 5)
     );
     public static final List<Node> THIRD_ROW = List.of(
-            new Node(RARE_FIND, RARE_FIND_ICON, -8, 3),
-            new Node(STINKY_SITUATION, STINKY_SITUATION_ICON, -4, 3)
+            new Node(RARE_FIND, RARE_FIND_ICON, -8, 6),
+            new Node(STINKY_SITUATION, STINKY_SITUATION_ICON, -4, 6)
     );
 
     private FIAdvancements() {

@@ -13,7 +13,7 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "minecraft:rotten_flesh"
+      "item": "farmersdelight:organic_compost"
     },
     "show_toast": true,
     "title": {
