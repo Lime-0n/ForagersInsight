@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 public final class FIAdvancements {
-    private static final int X_SPACING = 5;
-    private static final int Y_SPACING = 2;
+        private static final int X_SPACING = 8;
+        private static final int Y_SPACING = 4;
 
     public enum FIFrameType {
         TASK("task"),
