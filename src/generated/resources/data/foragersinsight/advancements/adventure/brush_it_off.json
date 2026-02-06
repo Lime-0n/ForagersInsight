@@ -1,5 +1,5 @@
 {
-  "parent": "foragersinsight:adventure/spring_cleaning",
+  "parent": "foragersinsight:adventure/brush_it_off",
   "criteria": {
     "brush_suspicious_litter": {
       "trigger": "foragersinsight:brush_suspicious_litter"
@@ -13,12 +13,14 @@
     "frame": "goal",
     "hidden": false,
     "icon": {
-      "item": "foragersinsight:suspicious_leaf_litter"
+      "item": "minecraft:brush"
     },
     "show_toast": true,
     "title": {
       "translate": "advancements.foragersinsight.adventure.brush_it_off.title"
-    }
+    },
+    "x": -15,
+    "y": 2
   },
   "requirements": [
     [

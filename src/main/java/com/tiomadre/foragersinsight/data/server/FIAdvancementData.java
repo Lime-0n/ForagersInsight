@@ -55,7 +55,7 @@ public class FIAdvancementData implements DataProvider {
     }
 
     private static JsonObject rootAdvancement() {
-        JsonObject advancement = baseDisplay(FIAdvancements.ROOT_ICON,
+        JsonObject advancement = baseDisplay(FIAdvancements.node(FIAdvancements.ROOT),
                 "advancements.foragersinsight.adventure.foragers_insight.title",
                 "advancements.foragersinsight.adventure.foragers_insight.description",
                 FIAdvancements.FIFrameType.TASK);
@@ -71,7 +71,7 @@ public class FIAdvancementData implements DataProvider {
     }
 
     private static JsonObject brushItOff() {
-        JsonObject advancement = childAdvancement(FIAdvancements.SPRING_CLEANING, FIAdvancements.BRUSH_IT_OFF_ICON,
+        JsonObject advancement = childAdvancement(FIAdvancements.SPRING_CLEANING, FIAdvancements.BRUSH_IT_OFF,
                 "advancements.foragersinsight.adventure.brush_it_off.title",
                 "advancements.foragersinsight.adventure.brush_it_off.description",
                 FIAdvancements.FIFrameType.GOAL);
@@ -82,7 +82,7 @@ public class FIAdvancementData implements DataProvider {
         return advancement;
     }
     private static JsonObject rareFind() {
-        JsonObject advancement = childAdvancement(FIAdvancements.BRUSH_IT_OFF, FIAdvancements.RARE_FIND_ICON,
+        JsonObject advancement = childAdvancement(FIAdvancements.BRUSH_IT_OFF, FIAdvancements.RARE_FIND,
                 "advancements.foragersinsight.adventure.rare_find.title",
                 "advancements.foragersinsight.adventure.rare_find.description",
                 FIAdvancements.FIFrameType.CHALLENGE);
@@ -94,7 +94,7 @@ public class FIAdvancementData implements DataProvider {
     }
 
     private static JsonObject wildFlowers() {
-        JsonObject advancement = childAdvancement(FIAdvancements.WILD_FLOWERS_ICON,
+        JsonObject advancement = childAdvancement(FIAdvancements.WILD_FLOWERS,
                 "advancements.foragersinsight.adventure.wild_flowers.title",
                 "advancements.foragersinsight.adventure.wild_flowers.description",
                 FIAdvancements.FIFrameType.TASK);
@@ -106,7 +106,7 @@ public class FIAdvancementData implements DataProvider {
     }
 
     private static JsonObject springCleaning() {
-        JsonObject advancement = childAdvancement(FIAdvancements.SPRING_CLEANING_ICON,
+        JsonObject advancement = childAdvancement(FIAdvancements.SPRING_CLEANING,
                 "advancements.foragersinsight.adventure.spring_cleaning.title",
                 "advancements.foragersinsight.adventure.spring_cleaning.description",
                 FIAdvancements.FIFrameType.TASK);
@@ -118,18 +118,18 @@ public class FIAdvancementData implements DataProvider {
     }
 
     private static JsonObject shearingIsCaring() {
-        JsonObject advancement = childAdvancement(FIAdvancements.GIVING_TREES, FIAdvancements.SHEARING_IS_CARING_ICON,
+        JsonObject advancement = childAdvancement(FIAdvancements.GIVING_TREES, FIAdvancements.SHEARING_IS_CARING,
                 "advancements.foragersinsight.adventure.shear.title",
                 "advancements.foragersinsight.adventure.shear.description",
                 FIAdvancements.FIFrameType.GOAL);
         JsonObject criteria = new JsonObject();
-        criteria.add("snip_a_crop", inventoryChangedWithItem("foragersinsight:spruce_tips"));
+        criteria.add("shear_bountiful_tree", simpleTrigger("foragersinsight:SG"));
         advancement.add("criteria", criteria);
-        advancement.add("requirements", requirements("snip_a_crop"));
+        advancement.add("requirements", requirements("shear_bountiful_tree"));
         return advancement;
     }
     private static JsonObject scentsational() {
-        JsonObject advancement = childAdvancement(FIAdvancements.WILD_FLOWERS, FIAdvancements.SCENTSATIONAL_ICON,
+        JsonObject advancement = childAdvancement(FIAdvancements.WILD_FLOWERS, FIAdvancements.SCENTSATIONAL,
                 "advancements.foragersinsight.adventure.scentsational.title",
                 "advancements.foragersinsight.adventure.scentsational.description",
                 FIAdvancements.FIFrameType.GOAL);
@@ -141,7 +141,7 @@ public class FIAdvancementData implements DataProvider {
     }
 
     private static JsonObject stinkySituation() {
-        JsonObject advancement = childAdvancement(FIAdvancements.SCENTSATIONAL, FIAdvancements.STINKY_SITUATION_ICON,
+        JsonObject advancement = childAdvancement(FIAdvancements.SCENTSATIONAL, FIAdvancements.STINKY_SITUATION,
                 "advancements.foragersinsight.adventure.stinky_situation.title",
                 "advancements.foragersinsight.adventure.stinky_situation.description",
                 FIAdvancements.FIFrameType.CHALLENGE);
@@ -153,7 +153,7 @@ public class FIAdvancementData implements DataProvider {
     }
 
     private static JsonObject tapThat() {
-        JsonObject advancement = childAdvancement(FIAdvancements.TAP_THAT_ICON,
+        JsonObject advancement = childAdvancement(FIAdvancements.TAP_THAT,
                 "advancements.foragersinsight.adventure.tap_that.title",
                 "advancements.foragersinsight.adventure.tap_that.description",
                 FIAdvancements.FIFrameType.TASK);
@@ -165,7 +165,7 @@ public class FIAdvancementData implements DataProvider {
     }
 
     private static JsonObject birchPlease() {
-        JsonObject advancement = childAdvancement(FIAdvancements.TAP_THAT, FIAdvancements.BIRCH_PLEASE_ICON,
+        JsonObject advancement = childAdvancement(FIAdvancements.TAP_THAT, FIAdvancements.BIRCH_PLEASE,
                 "advancements.foragersinsight.adventure.birch_please.title",
                 "advancements.foragersinsight.adventure.birch_please.description",
                 FIAdvancements.FIFrameType.GOAL);
@@ -177,7 +177,7 @@ public class FIAdvancementData implements DataProvider {
     }
 
     private static JsonObject givingTrees() {
-        JsonObject advancement = childAdvancement(FIAdvancements.GIVING_TREES_ICON,
+        JsonObject advancement = childAdvancement(FIAdvancements.GIVING_TREES,
                 "advancements.foragersinsight.adventure.giving_trees.title",
                 "advancements.foragersinsight.adventure.giving_trees.description",
                 FIAdvancements.FIFrameType.TASK);
@@ -194,7 +194,7 @@ public class FIAdvancementData implements DataProvider {
     }
 
     private static JsonObject stopHammerTime() {
-        JsonObject advancement = childAdvancement(FIAdvancements.STOP_HAMMER_TIME_ICON,
+        JsonObject advancement = childAdvancement(FIAdvancements.STOP_HAMMER_TIME,
                 "advancements.foragersinsight.adventure.stop_hammer_time.title",
                 "advancements.foragersinsight.adventure.stop_hammer_time.description",
                 FIAdvancements.FIFrameType.TASK);
@@ -206,7 +206,7 @@ public class FIAdvancementData implements DataProvider {
     }
 
     private static JsonObject willItCrush() {
-        JsonObject advancement = childAdvancement(FIAdvancements.STOP_HAMMER_TIME, FIAdvancements.WILL_IT_CRUSH_ICON,
+        JsonObject advancement = childAdvancement(FIAdvancements.STOP_HAMMER_TIME, FIAdvancements.WILL_IT_CRUSH,
                 "advancements.foragersinsight.adventure.will_it_crush.title",
                 "advancements.foragersinsight.adventure.will_it_crush.description",
                 FIAdvancements.FIFrameType.GOAL);
@@ -216,25 +216,24 @@ public class FIAdvancementData implements DataProvider {
         advancement.add("requirements", requirements("will_it_crush"));
         return advancement;
     }
-
-    private static JsonObject childAdvancement(ResourceLocation icon, String titleKey, String descriptionKey,
+    private static JsonObject childAdvancement(ResourceLocation id, String titleKey, String descriptionKey,
                                                FIAdvancements.FIFrameType frame) {
-        return childAdvancement(FIAdvancements.ROOT, icon, titleKey, descriptionKey, frame);
+        return childAdvancement(id, FIAdvancements.ROOT, titleKey, descriptionKey, frame);
     }
 
-    private static JsonObject childAdvancement(ResourceLocation parent, ResourceLocation icon, String titleKey,
+    private static JsonObject childAdvancement(ResourceLocation id, ResourceLocation parent, String titleKey,
                                                String descriptionKey, FIAdvancements.FIFrameType frame) {
-        JsonObject advancement = baseDisplay(icon, titleKey, descriptionKey, frame);
+        JsonObject advancement = baseDisplay(FIAdvancements.node(id), titleKey, descriptionKey, frame);
         advancement.addProperty("parent", parent.toString());
         return advancement;
     }
 
-    private static JsonObject baseDisplay(ResourceLocation icon, String titleKey, String descriptionKey,
+    private static JsonObject baseDisplay(FIAdvancements.Node node, String titleKey, String descriptionKey,
                                           FIAdvancements.FIFrameType frame) {
         JsonObject advancement = new JsonObject();
         JsonObject display = new JsonObject();
         JsonObject displayIcon = new JsonObject();
-        displayIcon.addProperty("item", icon.toString());
+        displayIcon.addProperty("item", node.icon().toString());
         display.add("icon", displayIcon);
         display.add("title", translation(titleKey));
         display.add("description", translation(descriptionKey));
@@ -242,6 +241,8 @@ public class FIAdvancementData implements DataProvider {
         display.addProperty("show_toast", true);
         display.addProperty("announce_to_chat", true);
         display.addProperty("hidden", false);
+        display.addProperty("x", node.x());
+        display.addProperty("y", node.y());
         advancement.add("display", display);
         return advancement;
     }

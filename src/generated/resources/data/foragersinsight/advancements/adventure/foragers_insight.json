@@ -25,7 +25,9 @@
     "show_toast": true,
     "title": {
       "translate": "advancements.foragersinsight.adventure.foragers_insight.title"
-    }
+    },
+    "x": 0,
+    "y": 0
   },
   "requirements": [
     [

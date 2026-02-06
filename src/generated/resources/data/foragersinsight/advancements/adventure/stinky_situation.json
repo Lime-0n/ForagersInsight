@@ -1,5 +1,5 @@
 {
-  "parent": "foragersinsight:adventure/scentsational",
+  "parent": "foragersinsight:adventure/stinky_situation",
   "criteria": {
     "stinky_situation": {
       "trigger": "foragersinsight:stinky_situation"
@@ -13,12 +13,14 @@
     "frame": "challenge",
     "hidden": false,
     "icon": {
-      "item": "farmersdelight:organic_compost"
+      "item": "foragersinsight:diffuser"
     },
     "show_toast": true,
     "title": {
       "translate": "advancements.foragersinsight.adventure.stinky_situation.title"
-    }
+    },
+    "x": -5,
+    "y": 4
   },
   "requirements": [
     [

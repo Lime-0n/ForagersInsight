@@ -1,17 +1,8 @@
 {
-  "parent": "foragersinsight:adventure/giving_trees",
+  "parent": "foragersinsight:adventure/shearing_is_caring",
   "criteria": {
-    "snip_a_crop": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "foragersinsight:spruce_tips"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
+    "shear_bountiful_tree": {
+      "trigger": "foragersinsight:SG"
     }
   },
   "display": {
@@ -22,16 +13,18 @@
     "frame": "goal",
     "hidden": false,
     "icon": {
-      "item": "foragersinsight:flint_shears"
+      "item": "minecraft:apple"
     },
     "show_toast": true,
     "title": {
       "translate": "advancements.foragersinsight.adventure.shear.title"
-    }
+    },
+    "x": 1,
+    "y": 1
   },
   "requirements": [
     [
-      "snip_a_crop"
+      "shear_bountiful_tree"
     ]
   ]
 }

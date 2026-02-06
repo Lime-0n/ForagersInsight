@@ -20,6 +20,7 @@ public final class FIAdvancementCriteria {
     public static final SimpleTrigger TAP_THAT = register(new SimpleTrigger("tap_that"));
     public static final SimpleTrigger BIRCH_PLEASE = register(new SimpleTrigger("birch_please"));
     public static final SimpleTrigger WILL_IT_CRUSH = register(new SimpleTrigger("will_it_crush"));
+    public static final SimpleTrigger SHEAR_BOUNTIFUL_TREE = register(new SimpleTrigger("shear_bountiful_tree"));
 
 
     private FIAdvancementCriteria() {

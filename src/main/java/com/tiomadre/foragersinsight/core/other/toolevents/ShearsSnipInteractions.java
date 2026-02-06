@@ -5,9 +5,11 @@ import com.tiomadre.foragersinsight.common.block.HangingLilacLeavesBlock;
 import com.tiomadre.foragersinsight.common.block.SpruceTipBlock;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
+import com.tiomadre.foragersinsight.core.registry.FIAdvancementCriteria;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -141,12 +143,15 @@ public class ShearsSnipInteractions {
                 play(level, pos, SoundEvents.SHEEP_SHEAR);
                 play(level, pos, SoundEvents.FLOWERING_AZALEA_HIT);
                 damageTool(tool, player, hand);
+                if (player instanceof ServerPlayer serverPlayer) {
+                    FIAdvancementCriteria.SHEAR_BOUNTIFUL_TREE.trigger(serverPlayer);
+                }
                 return;
             }
         }
 
         //Bountiful Crops
-             // Bountiful Dark Oak and Oak Leaves
+        // Bountiful Dark Oak and Oak Leaves
         if (state.getBlock() instanceof BountifulLeavesBlock leavesBlock) {
             int age = state.getValue(BountifulLeavesBlock.AGE);
             if (age >= BountifulLeavesBlock.MAX_AGE) {
@@ -164,6 +169,9 @@ public class ShearsSnipInteractions {
                 play(level, pos, SoundEvents.SHEEP_SHEAR);
                 play(level, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES);
                 damageTool(tool, player, hand);
+                if (player instanceof ServerPlayer serverPlayer) {
+                    FIAdvancementCriteria.SHEAR_BOUNTIFUL_TREE.trigger(serverPlayer);
+                }
                 return;
             }
         }
@@ -183,6 +191,9 @@ public class ShearsSnipInteractions {
                 play(level, pos, SoundEvents.SHEEP_SHEAR);
                 play(level, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES);
                 damageTool(tool, player, hand);
+                if (player instanceof ServerPlayer serverPlayer) {
+                    FIAdvancementCriteria.SHEAR_BOUNTIFUL_TREE.trigger(serverPlayer);
+                }
                 return;
 
             }

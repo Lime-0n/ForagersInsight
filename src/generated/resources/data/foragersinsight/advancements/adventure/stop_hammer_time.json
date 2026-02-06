@@ -25,7 +25,9 @@
     "show_toast": true,
     "title": {
       "translate": "advancements.foragersinsight.adventure.stop_hammer_time.title"
-    }
+    },
+    "x": 15,
+    "y": 2
   },
   "requirements": [
     [

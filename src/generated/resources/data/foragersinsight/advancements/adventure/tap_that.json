@@ -18,7 +18,9 @@
     "show_toast": true,
     "title": {
       "translate": "advancements.foragersinsight.adventure.tap_that.title"
-    }
+    },
+    "x": 5,
+    "y": 1
   },
   "requirements": [
     [

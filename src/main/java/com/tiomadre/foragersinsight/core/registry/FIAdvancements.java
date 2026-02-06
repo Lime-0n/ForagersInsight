@@ -3,7 +3,9 @@ package com.tiomadre.foragersinsight.core.registry;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import net.minecraft.resources.ResourceLocation;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public final class FIAdvancements {
 
@@ -52,12 +54,12 @@ public final class FIAdvancements {
     public static final ResourceLocation STINKY_SITUATION = ForagersInsight.rl("adventure/stinky_situation");
 
     public static final Node ROOT_NODE =
-            new Node(ROOT, ROOT_ICON, -3, 0, FIFrameType.TASK);
+            new Node(ROOT, ROOT_ICON, 0, 0, FIFrameType.TASK);
 
     public static final List<Node> FIRST_ROW = List.of(
             new Node(SPRING_CLEANING, SPRING_CLEANING_ICON, -15, 2, FIFrameType.TASK),
             new Node(WILD_FLOWERS, WILD_FLOWERS_ICON, -5, 1, FIFrameType.TASK),
-            new Node(GIVING_TREES, GIVING_TREES_ICON, 0, 1, FIFrameType.TASK),
+            new Node(GIVING_TREES, GIVING_TREES_ICON, 1, 1, FIFrameType.TASK),
             new Node(TAP_THAT, TAP_THAT_ICON, 5, 1, FIFrameType.TASK),
             new Node(STOP_HAMMER_TIME, STOP_HAMMER_TIME_ICON, 15, 2, FIFrameType.TASK)
     );
@@ -65,7 +67,7 @@ public final class FIAdvancements {
     public static final List<Node> SECOND_ROW = List.of(
             new Node(BRUSH_IT_OFF, BRUSH_IT_OFF_ICON, -15, 5, FIFrameType.GOAL),
             new Node(SCENTSATIONAL, SCENTSATIONAL_ICON, -5, 4, FIFrameType.GOAL),
-            new Node(SHEARING_IS_CARING, SHEARING_IS_CARING_ICON, 0, 4, FIFrameType.GOAL),
+            new Node(SHEARING_IS_CARING, SHEARING_IS_CARING_ICON, 1, 4, FIFrameType.GOAL),
             new Node(BIRCH_PLEASE, BIRCH_PLEASE_ICON, 5, 4, FIFrameType.GOAL),
             new Node(WILL_IT_CRUSH, WILL_IT_CRUSH_ICON, 15, 5, FIFrameType.GOAL)
     );
@@ -75,7 +77,17 @@ public final class FIAdvancements {
             new Node(STINKY_SITUATION, STINKY_SITUATION_ICON, -5, 6, FIFrameType.CHALLENGE)
     );
 
+    private static final Map<ResourceLocation, Node> NODE_LOOKUP = createNodeLookup();
+
     private FIAdvancements() {
+    }
+
+    public static Node node(ResourceLocation id) {
+        Node node = NODE_LOOKUP.get(id);
+        if (node == null) {
+            throw new IllegalArgumentException("Missing advancement node for id: " + id);
+        }
+        return node;
     }
 
     public record Node(
@@ -85,5 +97,20 @@ public final class FIAdvancements {
             int y,
             FIFrameType frame
     ) {
+    }
+
+    private static Map<ResourceLocation, Node> createNodeLookup() {
+        Map<ResourceLocation, Node> nodes = new LinkedHashMap<>();
+        nodes.put(ROOT_NODE.id(), ROOT_NODE);
+        for (Node node : FIRST_ROW) {
+            nodes.put(node.id(), node);
+        }
+        for (Node node : SECOND_ROW) {
+            nodes.put(node.id(), node);
+        }
+        for (Node node : THIRD_ROW) {
+            nodes.put(node.id(), node);
+        }
+        return Map.copyOf(nodes);
     }
 }
