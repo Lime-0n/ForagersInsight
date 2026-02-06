@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 public final class FIAdvancements {
+    private static final int X_SPACING = 5;
+    private static final int Y_SPACING = 2;
 
     public enum FIFrameType {
         TASK("task"),
@@ -53,28 +55,27 @@ public final class FIAdvancements {
     public static final ResourceLocation SCENTSATIONAL = ForagersInsight.rl("adventure/scentsational");
     public static final ResourceLocation STINKY_SITUATION = ForagersInsight.rl("adventure/stinky_situation");
 
-    public static final Node ROOT_NODE =
-            new Node(ROOT, ROOT_ICON, 0, 0, FIFrameType.TASK);
+    public static final Node ROOT_NODE = node(ROOT, ROOT_ICON, 0, 0, FIFrameType.TASK);
 
     public static final List<Node> FIRST_ROW = List.of(
-            new Node(SPRING_CLEANING, SPRING_CLEANING_ICON, -15, 2, FIFrameType.TASK),
-            new Node(WILD_FLOWERS, WILD_FLOWERS_ICON, -5, 1, FIFrameType.TASK),
-            new Node(GIVING_TREES, GIVING_TREES_ICON, 1, 1, FIFrameType.TASK),
-            new Node(TAP_THAT, TAP_THAT_ICON, 5, 1, FIFrameType.TASK),
-            new Node(STOP_HAMMER_TIME, STOP_HAMMER_TIME_ICON, 15, 2, FIFrameType.TASK)
+            node(SPRING_CLEANING, SPRING_CLEANING_ICON, -3, 1, FIFrameType.TASK),
+            node(WILD_FLOWERS, WILD_FLOWERS_ICON, -1, 1, FIFrameType.TASK),
+            node(GIVING_TREES, GIVING_TREES_ICON, 1, 1, FIFrameType.TASK),
+            node(TAP_THAT, TAP_THAT_ICON, 3, 1, FIFrameType.TASK),
+            node(STOP_HAMMER_TIME, STOP_HAMMER_TIME_ICON, 5, 1, FIFrameType.TASK)
     );
 
     public static final List<Node> SECOND_ROW = List.of(
-            new Node(BRUSH_IT_OFF, BRUSH_IT_OFF_ICON, -15, 5, FIFrameType.GOAL),
-            new Node(SCENTSATIONAL, SCENTSATIONAL_ICON, -5, 4, FIFrameType.GOAL),
-            new Node(SHEARING_IS_CARING, SHEARING_IS_CARING_ICON, 1, 4, FIFrameType.GOAL),
-            new Node(BIRCH_PLEASE, BIRCH_PLEASE_ICON, 5, 4, FIFrameType.GOAL),
-            new Node(WILL_IT_CRUSH, WILL_IT_CRUSH_ICON, 15, 5, FIFrameType.GOAL)
+            node(BRUSH_IT_OFF, BRUSH_IT_OFF_ICON, -3, 2, FIFrameType.GOAL),
+            node(SCENTSATIONAL, SCENTSATIONAL_ICON, -1, 2, FIFrameType.GOAL),
+            node(SHEARING_IS_CARING, SHEARING_IS_CARING_ICON, 1, 2, FIFrameType.GOAL),
+            node(BIRCH_PLEASE, BIRCH_PLEASE_ICON, 3, 2, FIFrameType.GOAL),
+            node(WILL_IT_CRUSH, WILL_IT_CRUSH_ICON, 5, 2, FIFrameType.GOAL)
     );
 
     public static final List<Node> THIRD_ROW = List.of(
-            new Node(RARE_FIND, RARE_FIND_ICON, -15, 6, FIFrameType.CHALLENGE),
-            new Node(STINKY_SITUATION, STINKY_SITUATION_ICON, -5, 6, FIFrameType.CHALLENGE)
+            node(RARE_FIND, RARE_FIND_ICON, -3, 3, FIFrameType.CHALLENGE),
+            node(STINKY_SITUATION, STINKY_SITUATION_ICON, -1, 3, FIFrameType.CHALLENGE)
     );
 
     private static final Map<ResourceLocation, Node> NODE_LOOKUP = createNodeLookup();
@@ -97,6 +98,10 @@ public final class FIAdvancements {
             int y,
             FIFrameType frame
     ) {
+    }
+
+    private static Node node(ResourceLocation id, ResourceLocation icon, int column, int row, FIFrameType frame) {
+        return new Node(id, icon, column * X_SPACING, row * Y_SPACING, frame);
     }
 
     private static Map<ResourceLocation, Node> createNodeLookup() {

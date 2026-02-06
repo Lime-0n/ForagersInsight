@@ -47,9 +47,10 @@ public class FIBlockTags extends BlockTagsProvider {
 
         this.tag(BlockTags.LEAVES).add(BOUNTIFUL_OAK_LEAVES.get(),BOUNTIFUL_DARK_OAK_LEAVES.get(),BOUNTIFUL_SPRUCE_LEAVES.get());
         this.tag(BlockTags.CROPS).add(ROSE_CROP.get(), DANDELION_BUSH.get(), POPPY_BUSH.get(),BOUNTIFUL_DARK_OAK_LEAVES.get(),BOUNTIFUL_OAK_LEAVES.get(),BOUNTIFUL_SPRUCE_TIPS.get(),HANGING_LILAC_LEAVES.get());
-        this.tag(BlockTags.SMALL_FLOWERS).add(DANDELION_BUSH.get(), POPPY_BUSH.get(), ROSE_CROP.get(), BOUNTIFUL_DARK_OAK_LEAVES.get(), BOUNTIFUL_OAK_LEAVES.get(), BOUNTIFUL_SPRUCE_TIPS.get(), ROSE_CROP.get(), STOUT_BEACH_ROSE_BUSH.get());
+        this.tag(BlockTags.SMALL_FLOWERS).add(STOUT_BEACH_ROSE_BUSH.get());
         this.tag(BlockTags.TALL_FLOWERS).add(ROSELLE_BUSH.get(), TALL_BEACH_ROSE_BUSH.get());
-        this.tag(BlockTags.FLOWERS).add(ROSELLE_BUSH.get(), STOUT_BEACH_ROSE_BUSH.get(), TALL_BEACH_ROSE_BUSH.get());
+        this.tag(BlockTags.FLOWERS).add(ROSELLE_BUSH.get(), STOUT_BEACH_ROSE_BUSH.get(), TALL_BEACH_ROSE_BUSH.get(), DANDELION_BUSH.get(),
+        POPPY_BUSH.get(), ROSE_CROP.get(), BOUNTIFUL_DARK_OAK_LEAVES.get(), BOUNTIFUL_OAK_LEAVES.get(), BOUNTIFUL_SPRUCE_TIPS.get());
 
         this.tag(SHEARABLE_CROPS)
                 .add(HANGING_LILAC_LEAVES.get(), BOUNTIFUL_OAK_LEAVES.get(), BOUNTIFUL_DARK_OAK_LEAVES.get(), BOUNTIFUL_SPRUCE_LEAVES.get(), BOUNTIFUL_SPRUCE_TIPS.get())
@@ -75,7 +76,8 @@ public class FIBlockTags extends BlockTagsProvider {
 
     protected void registerMineables() {
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(TAPPER.get(), DIFFUSER.get());
-        this.tag(BlockTags.MINEABLE_WITH_AXE).add(APPLE_CRATE.get(),BLEWIT_CRATE.get(),LILAC_BLOOM_CRATE.get(), SAPPY_BIRCH_LOG.get(), BLEWIT_CRATE.get(), LILAC_LOG.get(), STRIPPED_LILAC_LOG.get(), LILAC_PLANKS.get(), LILAC_STAIRS.get(),
+
+        this.tag(BlockTags.MINEABLE_WITH_AXE).add(APPLE_CRATE.get(), BLEWIT_CRATE.get(), LILAC_BLOOM_CRATE.get(), SAPPY_BIRCH_LOG.get(), LILAC_LOG.get(), STRIPPED_LILAC_LOG.get(), LILAC_PLANKS.get(), LILAC_STAIRS.get(),
                 LILAC_SLAB.get(), LILAC_FENCE.get(), LILAC_FENCE_GATE.get(), LILAC_DOOR.get(), LILAC_TRAPDOOR.get(), LILAC_PRESSURE_PLATE.get(), LILAC_BUTTON.get(),
                 LILAC_SIGN.get(), LILAC_WALL_SIGN.get(), LILAC_HANGING_SIGN.get(), LILAC_WALL_HANGING_SIGN.get(), LILAC_CABINET.get());
         this.tag(BlockTags.MINEABLE_WITH_HOE).add(BOUNTIFUL_OAK_LEAVES.get(),BOUNTIFUL_DARK_OAK_LEAVES.get(),BOUNTIFUL_SPRUCE_LEAVES.get());

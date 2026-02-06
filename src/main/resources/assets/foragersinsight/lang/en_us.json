@@ -204,8 +204,6 @@
   "advancements.foragersinsight.adventure.stop_hammer_time.title": "Stop...Hammer Time",
   "advancements.foragersinsight.adventure.stop_hammer_time.description": "Craft a Mallet to crush certain blocks and items.",
 
-
-
   "advancements.foragersinsight.adventure.brush_it_off.title": "Brush It Off",
   "advancements.foragersinsight.adventure.brush_it_off.description": "Brush away forest litter to reveal an item",
 
@@ -227,8 +225,8 @@
   "advancements.foragersinsight.adventure.tap_that.title": "Tap That",
   "advancements.foragersinsight.adventure.tap_that.description": "Craft a Tapper and begin collecting new ingredients!",
 
-  "advancements.foragersinsight.adventure.birch_please.title": "All That For a Drop Of...",
-  "advancements.foragersinsight.adventure.birch_please.description": "Collect something sticky from the Tapper",
+  "advancements.foragersinsight.adventure.birch_please.title": "All That For a Drop Of Tree Blood?",
+  "advancements.foragersinsight.adventure.birch_please.description": "Use a Bucket on a full Tapper to collect something sticky.",
 
   "itemGroup.foragersinsight": "Forager's Insight"
 }

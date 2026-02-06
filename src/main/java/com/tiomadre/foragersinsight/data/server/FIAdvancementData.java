@@ -1,7 +1,5 @@
 package com.tiomadre.foragersinsight.data.server;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.tiomadre.foragersinsight.core.registry.FIAdvancements;
@@ -17,7 +15,6 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public class FIAdvancementData implements DataProvider {
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private final PackOutput.PathProvider pathProvider;
 
     public FIAdvancementData(GatherDataEvent event) {
@@ -57,8 +54,7 @@ public class FIAdvancementData implements DataProvider {
     private static JsonObject rootAdvancement() {
         JsonObject advancement = baseDisplay(FIAdvancements.node(FIAdvancements.ROOT),
                 "advancements.foragersinsight.adventure.foragers_insight.title",
-                "advancements.foragersinsight.adventure.foragers_insight.description",
-                FIAdvancements.FIFrameType.TASK);
+                "advancements.foragersinsight.adventure.foragers_insight.description");
         advancement.getAsJsonObject("display")
                 .addProperty("background", "foragersinsight:textures/gui/advancements/backgrounds/foraging.png");
 
@@ -73,19 +69,18 @@ public class FIAdvancementData implements DataProvider {
     private static JsonObject brushItOff() {
         JsonObject advancement = childAdvancement(FIAdvancements.BRUSH_IT_OFF, FIAdvancements.SPRING_CLEANING,
                 "advancements.foragersinsight.adventure.brush_it_off.title",
-                "advancements.foragersinsight.adventure.brush_it_off.description",
-                FIAdvancements.FIFrameType.GOAL);
+                "advancements.foragersinsight.adventure.brush_it_off.description");
         JsonObject criteria = new JsonObject();
         criteria.add("brush_suspicious_litter", simpleTrigger("foragersinsight:brush_suspicious_litter"));
         advancement.add("criteria", criteria);
         advancement.add("requirements", requirements("brush_suspicious_litter"));
         return advancement;
     }
+
     private static JsonObject rareFind() {
-        JsonObject advancement = childAdvancement(FIAdvancements.RARE_FIND,FIAdvancements.BRUSH_IT_OFF,
+        JsonObject advancement = childAdvancement(FIAdvancements.RARE_FIND, FIAdvancements.BRUSH_IT_OFF,
                 "advancements.foragersinsight.adventure.rare_find.title",
-                "advancements.foragersinsight.adventure.rare_find.description",
-                FIAdvancements.FIFrameType.CHALLENGE);
+                "advancements.foragersinsight.adventure.rare_find.description");
         JsonObject criteria = new JsonObject();
         criteria.add("find_blewit_mushroom", simpleTrigger("foragersinsight:find_blewit_mushroom"));
         advancement.add("criteria", criteria);
@@ -96,8 +91,7 @@ public class FIAdvancementData implements DataProvider {
     private static JsonObject wildFlowers() {
         JsonObject advancement = childAdvancement(FIAdvancements.WILD_FLOWERS,
                 "advancements.foragersinsight.adventure.wild_flowers.title",
-                "advancements.foragersinsight.adventure.wild_flowers.description",
-                FIAdvancements.FIFrameType.TASK);
+                "advancements.foragersinsight.adventure.wild_flowers.description");
         JsonObject criteria = new JsonObject();
         criteria.add("forage_wild_flower", inventoryChangedWithTag(tagLocation(FITags.ItemTag.WILD_FLOWER_DROPS)));
         advancement.add("criteria", criteria);
@@ -108,8 +102,7 @@ public class FIAdvancementData implements DataProvider {
     private static JsonObject springCleaning() {
         JsonObject advancement = childAdvancement(FIAdvancements.SPRING_CLEANING,
                 "advancements.foragersinsight.adventure.spring_cleaning.title",
-                "advancements.foragersinsight.adventure.spring_cleaning.description",
-                FIAdvancements.FIFrameType.TASK);
+                "advancements.foragersinsight.adventure.spring_cleaning.description");
         JsonObject criteria = new JsonObject();
         criteria.add("pick_up_brush", inventoryChangedWithItem("minecraft:brush"));
         advancement.add("criteria", criteria);
@@ -120,19 +113,18 @@ public class FIAdvancementData implements DataProvider {
     private static JsonObject shearingIsCaring() {
         JsonObject advancement = childAdvancement(FIAdvancements.SHEARING_IS_CARING, FIAdvancements.GIVING_TREES,
                 "advancements.foragersinsight.adventure.shear.title",
-                "advancements.foragersinsight.adventure.shear.description",
-                FIAdvancements.FIFrameType.GOAL);
+                "advancements.foragersinsight.adventure.shear.description");
         JsonObject criteria = new JsonObject();
         criteria.add("shear_bountiful_tree", simpleTrigger("foragersinsight:shear_bountiful_tree"));
         advancement.add("criteria", criteria);
         advancement.add("requirements", requirements("shear_bountiful_tree"));
         return advancement;
     }
+
     private static JsonObject scentsational() {
-        JsonObject advancement = childAdvancement(FIAdvancements.SCENTSATIONAL,FIAdvancements.WILD_FLOWERS,
+        JsonObject advancement = childAdvancement(FIAdvancements.SCENTSATIONAL, FIAdvancements.WILD_FLOWERS,
                 "advancements.foragersinsight.adventure.scentsational.title",
-                "advancements.foragersinsight.adventure.scentsational.description",
-                FIAdvancements.FIFrameType.GOAL);
+                "advancements.foragersinsight.adventure.scentsational.description");
         JsonObject criteria = new JsonObject();
         criteria.add("scentsational", simpleTrigger("foragersinsight:scentsational"));
         advancement.add("criteria", criteria);
@@ -141,10 +133,9 @@ public class FIAdvancementData implements DataProvider {
     }
 
     private static JsonObject stinkySituation() {
-        JsonObject advancement = childAdvancement(FIAdvancements.STINKY_SITUATION,FIAdvancements.SCENTSATIONAL,
+        JsonObject advancement = childAdvancement(FIAdvancements.STINKY_SITUATION, FIAdvancements.SCENTSATIONAL,
                 "advancements.foragersinsight.adventure.stinky_situation.title",
-                "advancements.foragersinsight.adventure.stinky_situation.description",
-                FIAdvancements.FIFrameType.CHALLENGE);
+                "advancements.foragersinsight.adventure.stinky_situation.description");
         JsonObject criteria = new JsonObject();
         criteria.add("stinky_situation", simpleTrigger("foragersinsight:stinky_situation"));
         advancement.add("criteria", criteria);
@@ -155,8 +146,7 @@ public class FIAdvancementData implements DataProvider {
     private static JsonObject tapThat() {
         JsonObject advancement = childAdvancement(FIAdvancements.TAP_THAT,
                 "advancements.foragersinsight.adventure.tap_that.title",
-                "advancements.foragersinsight.adventure.tap_that.description",
-                FIAdvancements.FIFrameType.TASK);
+                "advancements.foragersinsight.adventure.tap_that.description");
         JsonObject criteria = new JsonObject();
         criteria.add("tap_that", simpleTrigger("foragersinsight:tap_that"));
         advancement.add("criteria", criteria);
@@ -165,10 +155,9 @@ public class FIAdvancementData implements DataProvider {
     }
 
     private static JsonObject birchPlease() {
-        JsonObject advancement = childAdvancement(FIAdvancements.BIRCH_PLEASE,FIAdvancements.TAP_THAT,
+        JsonObject advancement = childAdvancement(FIAdvancements.BIRCH_PLEASE, FIAdvancements.TAP_THAT,
                 "advancements.foragersinsight.adventure.birch_please.title",
-                "advancements.foragersinsight.adventure.birch_please.description",
-                FIAdvancements.FIFrameType.GOAL);
+                "advancements.foragersinsight.adventure.birch_please.description");
         JsonObject criteria = new JsonObject();
         criteria.add("birch_please", simpleTrigger("foragersinsight:birch_please"));
         advancement.add("criteria", criteria);
@@ -179,8 +168,7 @@ public class FIAdvancementData implements DataProvider {
     private static JsonObject givingTrees() {
         JsonObject advancement = childAdvancement(FIAdvancements.GIVING_TREES,
                 "advancements.foragersinsight.adventure.giving_trees.title",
-                "advancements.foragersinsight.adventure.giving_trees.description",
-                FIAdvancements.FIFrameType.TASK);
+                "advancements.foragersinsight.adventure.giving_trees.description");
         JsonObject criteria = new JsonObject();
         criteria.add("giving_trees", inventoryChangedWithItems(
                 "foragersinsight:lilac_bloom",
@@ -196,8 +184,7 @@ public class FIAdvancementData implements DataProvider {
     private static JsonObject stopHammerTime() {
         JsonObject advancement = childAdvancement(FIAdvancements.STOP_HAMMER_TIME,
                 "advancements.foragersinsight.adventure.stop_hammer_time.title",
-                "advancements.foragersinsight.adventure.stop_hammer_time.description",
-                FIAdvancements.FIFrameType.TASK);
+                "advancements.foragersinsight.adventure.stop_hammer_time.description");
         JsonObject criteria = new JsonObject();
         criteria.add("pick_up_mallet", inventoryChangedWithTag(tagLocation(FITags.ItemTag.MALLETS)));
         advancement.add("criteria", criteria);
@@ -206,30 +193,28 @@ public class FIAdvancementData implements DataProvider {
     }
 
     private static JsonObject willItCrush() {
-        JsonObject advancement = childAdvancement(FIAdvancements.WILL_IT_CRUSH,FIAdvancements.STOP_HAMMER_TIME,
+        JsonObject advancement = childAdvancement(FIAdvancements.WILL_IT_CRUSH, FIAdvancements.STOP_HAMMER_TIME,
                 "advancements.foragersinsight.adventure.will_it_crush.title",
-                "advancements.foragersinsight.adventure.will_it_crush.description",
-                FIAdvancements.FIFrameType.GOAL);
+                "advancements.foragersinsight.adventure.will_it_crush.description");
         JsonObject criteria = new JsonObject();
         criteria.add("will_it_crush", simpleTrigger("foragersinsight:will_it_crush"));
         advancement.add("criteria", criteria);
         advancement.add("requirements", requirements("will_it_crush"));
         return advancement;
     }
-    private static JsonObject childAdvancement(ResourceLocation id, String titleKey, String descriptionKey,
-                                               FIAdvancements.FIFrameType frame) {
-        return childAdvancement(id, FIAdvancements.ROOT, titleKey, descriptionKey, frame);
+
+    private static JsonObject childAdvancement(ResourceLocation id, String titleKey, String descriptionKey) {
+        return childAdvancement(id, FIAdvancements.ROOT, titleKey, descriptionKey);
     }
 
     private static JsonObject childAdvancement(ResourceLocation id, ResourceLocation parent, String titleKey,
-                                               String descriptionKey, FIAdvancements.FIFrameType frame) {
-        JsonObject advancement = baseDisplay(FIAdvancements.node(id), titleKey, descriptionKey, frame);
+                                               String descriptionKey) {
+        JsonObject advancement = baseDisplay(FIAdvancements.node(id), titleKey, descriptionKey);
         advancement.addProperty("parent", parent.toString());
         return advancement;
     }
 
-    private static JsonObject baseDisplay(FIAdvancements.Node node, String titleKey, String descriptionKey,
-                                          FIAdvancements.FIFrameType frame) {
+    private static JsonObject baseDisplay(FIAdvancements.Node node, String titleKey, String descriptionKey) {
         JsonObject advancement = new JsonObject();
         JsonObject display = new JsonObject();
         JsonObject displayIcon = new JsonObject();
@@ -237,7 +222,7 @@ public class FIAdvancementData implements DataProvider {
         display.add("icon", displayIcon);
         display.add("title", translation(titleKey));
         display.add("description", translation(descriptionKey));
-        display.addProperty("frame", frame.id);
+        display.addProperty("frame", node.frame().id);
         display.addProperty("show_toast", true);
         display.addProperty("announce_to_chat", true);
         display.addProperty("hidden", false);
@@ -246,21 +231,16 @@ public class FIAdvancementData implements DataProvider {
         advancement.add("display", display);
         return advancement;
     }
+
     private static JsonObject inventoryChangedWithItems(String... itemIds) {
-        JsonObject criterion = new JsonObject();
-        criterion.addProperty("trigger", "minecraft:inventory_changed");
-        JsonObject conditions = new JsonObject();
-        JsonArray items = new JsonArray();
-        JsonObject item = new JsonObject();
-        JsonArray itemList = new JsonArray();
+        JsonArray itemIdsJson = new JsonArray();
         for (String itemId : itemIds) {
-            itemList.add(itemId);
+            itemIdsJson.add(itemId);
         }
-        item.add("items", itemList);
-        items.add(item);
-        conditions.add("items", items);
-        criterion.add("conditions", conditions);
-        return criterion;
+
+        JsonObject item = new JsonObject();
+        item.add("items", itemIdsJson);
+        return inventoryChanged(item);
     }
 
     private static JsonObject translation(String key) {
@@ -270,34 +250,34 @@ public class FIAdvancementData implements DataProvider {
     }
 
     private static JsonObject inventoryChangedWithTag(String tag) {
-        JsonObject criterion = new JsonObject();
-        criterion.addProperty("trigger", "minecraft:inventory_changed");
-        JsonObject conditions = new JsonObject();
-        JsonArray items = new JsonArray();
         JsonObject item = new JsonObject();
         item.addProperty("tag", tag);
-        items.add(item);
-        conditions.add("items", items);
-        criterion.add("conditions", conditions);
-        return criterion;
+        return inventoryChanged(item);
     }
+
     private static JsonObject simpleTrigger(String triggerId) {
         JsonObject criterion = new JsonObject();
         criterion.addProperty("trigger", triggerId);
         return criterion;
     }
 
-
     private static JsonObject inventoryChangedWithItem(String itemId) {
-        JsonObject criterion = new JsonObject();
-        criterion.addProperty("trigger", "minecraft:inventory_changed");
-        JsonObject conditions = new JsonObject();
-        JsonArray items = new JsonArray();
-        JsonObject item = new JsonObject();
         JsonArray itemIds = new JsonArray();
         itemIds.add(itemId);
+
+        JsonObject item = new JsonObject();
         item.add("items", itemIds);
+        return inventoryChanged(item);
+    }
+
+    private static JsonObject inventoryChanged(JsonObject item) {
+        JsonObject criterion = new JsonObject();
+        criterion.addProperty("trigger", "minecraft:inventory_changed");
+
+        JsonArray items = new JsonArray();
         items.add(item);
+
+        JsonObject conditions = new JsonObject();
         conditions.add("items", items);
         criterion.add("conditions", conditions);
         return criterion;

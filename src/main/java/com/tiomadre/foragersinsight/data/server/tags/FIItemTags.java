@@ -135,7 +135,7 @@ public class FIItemTags extends ItemTagsProvider {
     }
     protected void registerForgeTags() {
         tag(STORAGE_BLOCK_ROSE_HIP).add(FIBlocks.ROSE_HIP_SACK.get().asItem());
-        tag(STORAGE_BLOCK_ROSE_HIP).add(FIBlocks.ROSELLE_CALYX_SACK.get().asItem());
+        tag(STORAGE_BLOCK_ROSELLE_CALYX).add(FIBlocks.ROSELLE_CALYX_SACK.get().asItem());
         tag(STORAGE_BLOCK_POPPY_SEEDS).add(FIBlocks.POPPY_SEEDS_SACK.get().asItem());
         tag(STORAGE_BLOCK_DANDELION_ROOT).add(FIBlocks.DANDELION_ROOT_SACK.get().asItem());
         tag(STORAGE_BLOCK_SPRUCE_TIPS).add(FIBlocks.SPRUCE_TIPS_SACK.get().asItem());
