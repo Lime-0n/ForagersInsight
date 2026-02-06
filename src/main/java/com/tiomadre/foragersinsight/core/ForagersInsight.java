@@ -9,7 +9,6 @@ import com.tiomadre.foragersinsight.core.registry.*;
 import com.tiomadre.foragersinsight.data.client.FIBlockStates;
 import com.tiomadre.foragersinsight.data.client.FIItemModels;
 import com.tiomadre.foragersinsight.data.client.FIParticles;
-import com.tiomadre.foragersinsight.data.server.FIModAdvance;
 import com.tiomadre.foragersinsight.data.server.FILoot;
 import com.tiomadre.foragersinsight.data.server.FIWorldgen;
 import com.tiomadre.foragersinsight.data.server.recipes.FICraftingRecipes;
@@ -88,7 +87,6 @@ public class ForagersInsight {
 		gen.addProvider(server, new FILoot(event));
 		gen.addProvider(server, new FICraftingRecipes(event));
 		gen.addProvider(server, new FIWorldgen(event));
-		gen.addProvider(server, new FIModAdvance(event));
 		gen.addProvider(server, new FIAdvancementData(event));
 
 

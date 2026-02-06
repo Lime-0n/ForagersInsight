@@ -2,28 +2,61 @@ package com.tiomadre.foragersinsight.data.server;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIAdvancements;
 import com.tiomadre.foragersinsight.data.server.tags.FITags;
+import com.teamabnormals.blueprint.common.advancement.modification.AdvancementModifierProvider;
+import com.teamabnormals.blueprint.common.advancement.modification.modifiers.CriteriaModifier;
+import net.minecraft.advancements.critereon.ConsumeItemTrigger;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.data.event.GatherDataEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public class FIAdvancementData implements DataProvider {
+public class FIAdvancementData extends AdvancementModifierProvider {
     private final PackOutput.PathProvider pathProvider;
 
     public FIAdvancementData(GatherDataEvent event) {
+        super(ForagersInsight.MOD_ID, event.getGenerator().getPackOutput(), event.getLookupProvider());
         this.pathProvider = event.getGenerator().getPackOutput()
                 .createPathProvider(PackOutput.Target.DATA_PACK, "advancements");
     }
 
     @Override
     public CompletableFuture<?> run(CachedOutput output) {
+        return CompletableFuture.allOf(super.run(output), this.runAdvancements(output));
+    }
+
+    @Override
+    protected void registerEntries(HolderLookup.Provider provider) {
+        this.balancedDiet();
+    }
+
+    // Husbandry
+    private void balancedDiet() {
+        CriteriaModifier.Builder builder = CriteriaModifier.builder(this.modId);
+        AtomicInteger counter = new AtomicInteger(0);
+        ForgeRegistries.ITEMS.getValues().stream()
+                .filter(item -> ForgeRegistries.ITEMS.getKey(item).getNamespace().equals(ForagersInsight.MOD_ID))
+                .filter(Item::isEdible)
+                .forEach(item -> builder.addCriterion("%d".formatted(counter.getAndIncrement()),
+                        ConsumeItemTrigger.TriggerInstance.usedItem(ItemPredicate.Builder.item().of(item).build())));
+
+        this.entry("husbandry/balanced_diet").selects("husbandry/balanced_diet").addModifier(builder.build());
+    }
+
+    // Forager advancement tree
+    private CompletableFuture<?> runAdvancements(CachedOutput output) {
         Map<ResourceLocation, JsonObject> advancements = new LinkedHashMap<>();
 
         advancements.put(FIAdvancements.ROOT, rootAdvancement());
