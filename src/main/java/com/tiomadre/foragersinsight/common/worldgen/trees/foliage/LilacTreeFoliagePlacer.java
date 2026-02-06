@@ -25,9 +25,11 @@ public class LilacTreeFoliagePlacer extends FoliagePlacer {
             ".X."
     };
     private static final String[] TOP_MIDDLE_LAYER = {
-            "XXX",
-            "XXX",
-            "XXX"
+            "..X..",
+            ".XXX.",
+            "XXXXX",
+            ".XXX.",
+            "..X.."
     };
     private static final String[] MIDDLE_LAYER = {
             ".XxX.",

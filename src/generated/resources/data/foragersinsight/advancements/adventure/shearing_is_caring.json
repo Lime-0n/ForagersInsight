@@ -2,7 +2,7 @@
   "parent": "foragersinsight:adventure/giving_trees",
   "criteria": {
     "shear_bountiful_tree": {
-      "trigger": "foragersinsight:SG"
+      "trigger": "foragersinsight:shear_bountiful_tree"
     }
   },
   "display": {

@@ -123,7 +123,7 @@ public class FIAdvancementData implements DataProvider {
                 "advancements.foragersinsight.adventure.shear.description",
                 FIAdvancements.FIFrameType.GOAL);
         JsonObject criteria = new JsonObject();
-        criteria.add("shear_bountiful_tree", simpleTrigger("foragersinsight:SG"));
+        criteria.add("shear_bountiful_tree", simpleTrigger("foragersinsight:shear_bountiful_tree"));
         advancement.add("criteria", criteria);
         advancement.add("requirements", requirements("shear_bountiful_tree"));
         return advancement;
