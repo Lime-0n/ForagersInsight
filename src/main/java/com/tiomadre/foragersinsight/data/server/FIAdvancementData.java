@@ -71,7 +71,7 @@ public class FIAdvancementData implements DataProvider {
     }
 
     private static JsonObject brushItOff() {
-        JsonObject advancement = childAdvancement(FIAdvancements.SPRING_CLEANING, FIAdvancements.BRUSH_IT_OFF,
+        JsonObject advancement = childAdvancement(FIAdvancements.BRUSH_IT_OFF, FIAdvancements.SPRING_CLEANING,
                 "advancements.foragersinsight.adventure.brush_it_off.title",
                 "advancements.foragersinsight.adventure.brush_it_off.description",
                 FIAdvancements.FIFrameType.GOAL);
@@ -82,7 +82,7 @@ public class FIAdvancementData implements DataProvider {
         return advancement;
     }
     private static JsonObject rareFind() {
-        JsonObject advancement = childAdvancement(FIAdvancements.BRUSH_IT_OFF, FIAdvancements.RARE_FIND,
+        JsonObject advancement = childAdvancement(FIAdvancements.RARE_FIND,FIAdvancements.BRUSH_IT_OFF,
                 "advancements.foragersinsight.adventure.rare_find.title",
                 "advancements.foragersinsight.adventure.rare_find.description",
                 FIAdvancements.FIFrameType.CHALLENGE);
@@ -118,7 +118,7 @@ public class FIAdvancementData implements DataProvider {
     }
 
     private static JsonObject shearingIsCaring() {
-        JsonObject advancement = childAdvancement(FIAdvancements.GIVING_TREES, FIAdvancements.SHEARING_IS_CARING,
+        JsonObject advancement = childAdvancement(FIAdvancements.SHEARING_IS_CARING, FIAdvancements.GIVING_TREES,
                 "advancements.foragersinsight.adventure.shear.title",
                 "advancements.foragersinsight.adventure.shear.description",
                 FIAdvancements.FIFrameType.GOAL);
@@ -129,7 +129,7 @@ public class FIAdvancementData implements DataProvider {
         return advancement;
     }
     private static JsonObject scentsational() {
-        JsonObject advancement = childAdvancement(FIAdvancements.WILD_FLOWERS, FIAdvancements.SCENTSATIONAL,
+        JsonObject advancement = childAdvancement(FIAdvancements.SCENTSATIONAL,FIAdvancements.WILD_FLOWERS,
                 "advancements.foragersinsight.adventure.scentsational.title",
                 "advancements.foragersinsight.adventure.scentsational.description",
                 FIAdvancements.FIFrameType.GOAL);
@@ -141,7 +141,7 @@ public class FIAdvancementData implements DataProvider {
     }
 
     private static JsonObject stinkySituation() {
-        JsonObject advancement = childAdvancement(FIAdvancements.SCENTSATIONAL, FIAdvancements.STINKY_SITUATION,
+        JsonObject advancement = childAdvancement(FIAdvancements.STINKY_SITUATION,FIAdvancements.SCENTSATIONAL,
                 "advancements.foragersinsight.adventure.stinky_situation.title",
                 "advancements.foragersinsight.adventure.stinky_situation.description",
                 FIAdvancements.FIFrameType.CHALLENGE);
@@ -165,7 +165,7 @@ public class FIAdvancementData implements DataProvider {
     }
 
     private static JsonObject birchPlease() {
-        JsonObject advancement = childAdvancement(FIAdvancements.TAP_THAT, FIAdvancements.BIRCH_PLEASE,
+        JsonObject advancement = childAdvancement(FIAdvancements.BIRCH_PLEASE,FIAdvancements.TAP_THAT,
                 "advancements.foragersinsight.adventure.birch_please.title",
                 "advancements.foragersinsight.adventure.birch_please.description",
                 FIAdvancements.FIFrameType.GOAL);
@@ -206,7 +206,7 @@ public class FIAdvancementData implements DataProvider {
     }
 
     private static JsonObject willItCrush() {
-        JsonObject advancement = childAdvancement(FIAdvancements.STOP_HAMMER_TIME, FIAdvancements.WILL_IT_CRUSH,
+        JsonObject advancement = childAdvancement(FIAdvancements.WILL_IT_CRUSH,FIAdvancements.STOP_HAMMER_TIME,
                 "advancements.foragersinsight.adventure.will_it_crush.title",
                 "advancements.foragersinsight.adventure.will_it_crush.description",
                 FIAdvancements.FIFrameType.GOAL);

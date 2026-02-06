@@ -1,5 +1,5 @@
 {
-  "parent": "foragersinsight:adventure/shearing_is_caring",
+  "parent": "foragersinsight:adventure/giving_trees",
   "criteria": {
     "shear_bountiful_tree": {
       "trigger": "foragersinsight:SG"
@@ -13,14 +13,14 @@
     "frame": "goal",
     "hidden": false,
     "icon": {
-      "item": "minecraft:apple"
+      "item": "foragersinsight:flint_shears"
     },
     "show_toast": true,
     "title": {
       "translate": "advancements.foragersinsight.adventure.shear.title"
     },
     "x": 1,
-    "y": 1
+    "y": 4
   },
   "requirements": [
     [

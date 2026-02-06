@@ -1,5 +1,5 @@
 {
-  "parent": "foragersinsight:adventure/rare_find",
+  "parent": "foragersinsight:adventure/brush_it_off",
   "criteria": {
     "find_blewit_mushroom": {
       "trigger": "foragersinsight:find_blewit_mushroom"
@@ -13,14 +13,14 @@
     "frame": "challenge",
     "hidden": false,
     "icon": {
-      "item": "foragersinsight:suspicious_leaf_litter"
+      "item": "foragersinsight:blewit_mushroom"
     },
     "show_toast": true,
     "title": {
       "translate": "advancements.foragersinsight.adventure.rare_find.title"
     },
     "x": -15,
-    "y": 5
+    "y": 6
   },
   "requirements": [
     [

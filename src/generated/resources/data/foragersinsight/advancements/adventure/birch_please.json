@@ -1,5 +1,5 @@
 {
-  "parent": "foragersinsight:adventure/birch_please",
+  "parent": "foragersinsight:adventure/tap_that",
   "criteria": {
     "birch_please": {
       "trigger": "foragersinsight:birch_please"
@@ -13,14 +13,14 @@
     "frame": "goal",
     "hidden": false,
     "icon": {
-      "item": "foragersinsight:tapper"
+      "item": "foragersinsight:birch_sap_bucket"
     },
     "show_toast": true,
     "title": {
       "translate": "advancements.foragersinsight.adventure.birch_please.title"
     },
     "x": 5,
-    "y": 1
+    "y": 4
   },
   "requirements": [
     [

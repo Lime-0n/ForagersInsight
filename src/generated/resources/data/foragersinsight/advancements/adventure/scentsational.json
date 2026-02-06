@@ -1,5 +1,5 @@
 {
-  "parent": "foragersinsight:adventure/scentsational",
+  "parent": "foragersinsight:adventure/wild_flowers",
   "criteria": {
     "scentsational": {
       "trigger": "foragersinsight:scentsational"
@@ -13,14 +13,14 @@
     "frame": "goal",
     "hidden": false,
     "icon": {
-      "item": "minecraft:rose_bush"
+      "item": "foragersinsight:diffuser"
     },
     "show_toast": true,
     "title": {
       "translate": "advancements.foragersinsight.adventure.scentsational.title"
     },
     "x": -5,
-    "y": 1
+    "y": 4
   },
   "requirements": [
     [

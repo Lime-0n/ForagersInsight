@@ -1,5 +1,5 @@
 {
-  "parent": "foragersinsight:adventure/will_it_crush",
+  "parent": "foragersinsight:adventure/stop_hammer_time",
   "criteria": {
     "will_it_crush": {
       "trigger": "foragersinsight:will_it_crush"
@@ -13,14 +13,14 @@
     "frame": "goal",
     "hidden": false,
     "icon": {
-      "item": "foragersinsight:flint_mallet"
+      "item": "foragersinsight:wheat_flour"
     },
     "show_toast": true,
     "title": {
       "translate": "advancements.foragersinsight.adventure.will_it_crush.title"
     },
     "x": 15,
-    "y": 2
+    "y": 5
   },
   "requirements": [
     [
