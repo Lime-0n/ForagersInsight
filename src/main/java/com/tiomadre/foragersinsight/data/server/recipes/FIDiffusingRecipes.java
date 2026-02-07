@@ -67,7 +67,7 @@ public final class FIDiffusingRecipes {
             0);
 
     public static final Supplier<FIDiffusingRecipes> FLORAL_II = register(
-            "floral_II",
+            "floral_ii",
             List.of(IngredientCount.of(Ingredient.of(FIBlocks.DENSE_ROSE_PETAL_MAT.get()), 1),
                     IngredientCount.of(Ingredient.of(FIBlocks.DENSE_LILAC_BLOOM_MAT.get()), 1),
                     IngredientCount.of(Ingredient.of(FIBlocks.DENSE_ROSELLE_PETAL_MAT.get()), 1)),
