@@ -4,9 +4,11 @@ import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -94,31 +96,15 @@ public class FIItemTags extends ItemTagsProvider {
         ModItems.RICE_PANICLE.get(), ModItems.PUMPKIN_SLICE.get(), ModItems.CABBAGE_LEAF.get(), ModItems.MILK_BOTTLE.get());
 
      //Handbasket
-        this.tag(HANDBASKET_ALLOWED)
-                .addOptionalTag(new ResourceLocation("forge", "raw_meats"))
-                .addOptionalTag(new ResourceLocation("forge", "cooked_meats"))
-                .addOptionalTag(new ResourceLocation("forge", "raw_fishes"))
-                .addOptionalTag(new ResourceLocation("forge", "cooked_fishes"))
-                .addOptionalTag(new ResourceLocation("forge", "eggs"))
-                .addOptionalTag(new ResourceLocation("forge", "leather"))
-                .addOptionalTag(new ResourceLocation("forge", "feathers"))
-                .addOptionalTag(new ResourceLocation("forge", "nuts"))
-                .addOptionalTag(new ResourceLocation("forge", "seeds"))
-                .addOptionalTag(new ResourceLocation("forge", "crops"))
-                .addOptionalTag(new ResourceLocation("forge", "fruits"))
-                .addOptionalTag(new ResourceLocation("forge", "vegetables"))
-                .addOptionalTag(new ResourceLocation("forge", "crops/mushroom"))
-                .addOptionalTag(new ResourceLocation("forge", "flour"))
-                .addOptionalTag(new ResourceLocation("forge", "straw"))
-                .addOptionalTag(new ResourceLocation("forge", "tree_bark"))
-                .addOptionalTag(new ResourceLocation("forge", "ice"))
-                .addOptionalTag(new ResourceLocation("forge", "sugar"))
-                .addOptionalTag(new ResourceLocation("forge", "milk/milk"))
-                .addOptionalTag(new ResourceLocation("forge", "milk/milk_bottle"))
-                .addOptionalTag(new ResourceLocation("forge", "honey_bottle"))
-                .addOptionalTag(new ResourceLocation("minecraft", "flowers"))
-                .addOptionalTag(new ResourceLocation("minecraft", "saplings"))
-                .addTag(HANDBASKET_OTHER);
+        IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> handbasketAllowedTag = this.tag(HANDBASKET_ALLOWED);
+        addOptionalTags(handbasketAllowedTag, "forge",
+                "raw_meats", "cooked_meats", "raw_fishes", "cooked_fishes", "eggs", "leather",
+                "feathers", "nuts", "seeds", "crops", "fruits", "vegetables", "crops/mushroom",
+                "flour", "straw", "tree_bark", "ice", "sugar", "milk/milk", "milk/milk_bottle", "honey_bottle"
+        );
+        addOptionalTags(handbasketAllowedTag, "minecraft", "flowers", "saplings");
+        handbasketAllowedTag.addTag(HANDBASKET_OTHER);
+
         // Mallet
         this.tag(FITags.ItemTag.MALLETS).add(FIItems.FLINT_MALLET.get(),FIItems.IRON_MALLET.get(),
         FIItems.GOLD_MALLET.get(),FIItems.DIAMOND_MALLET.get(),FIItems.NETHERITE_MALLET.get());
@@ -142,6 +128,11 @@ public class FIItemTags extends ItemTagsProvider {
         tag(STORAGE_BLOCK_BLACK_ACORNS).add(FIBlocks.BLACK_ACORN_SACK.get().asItem());
         tag(STORAGE_BLOCK_BLEWIT_MUSHROOM).add(FIBlocks.BLEWIT_CRATE.get().asItem());
         tag(STORAGE_BLOCK_LILAC_BLOOM).add(FIBlocks.LILAC_BLOOM_CRATE.get().asItem());
+    }
+    private void addOptionalTags(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> tagAppender, String namespace, String... paths) {
+        for (String path : paths) {
+            tagAppender.addOptionalTag(new ResourceLocation(namespace, path));
+        }
     }
 
 

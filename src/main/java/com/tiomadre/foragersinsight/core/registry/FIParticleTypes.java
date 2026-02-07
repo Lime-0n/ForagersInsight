@@ -1,18 +1,16 @@
 package com.tiomadre.foragersinsight.core.registry;
 
+import com.tiomadre.foragersinsight.core.ForagersInsight;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.eventbus.api.IEventBus;
-
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public final class FIParticleTypes {
-    public static final String MODID = "foragersinsight";
-
     public static final DeferredRegister<ParticleType<?>> PARTICLES =
-            DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, MODID);
+            DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, ForagersInsight.MOD_ID);
 
     public static final RegistryObject<SimpleParticleType> DRIPPING_SAP =
             PARTICLES.register("dripping_sap", () -> new SimpleParticleType(false));
@@ -32,7 +30,9 @@ public final class FIParticleTypes {
             PARTICLES.register("suspicious_needles", () -> new SimpleParticleType(false));
     public static final RegistryObject<SimpleParticleType> SUSPICIOUS_FLOWER =
             PARTICLES.register("suspicious_flower", () -> new SimpleParticleType(false));
-    private FIParticleTypes() {}
+
+    private FIParticleTypes() {
+    }
 
     public static void register(IEventBus bus) {
         PARTICLES.register(bus);

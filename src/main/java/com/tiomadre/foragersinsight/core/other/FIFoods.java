@@ -6,16 +6,35 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import vectorwing.farmersdelight.common.registry.ModEffects;
 
+import java.util.function.Supplier;
+
 public class FIFoods {
-    public static final FoodProperties ACORN_DOUGH = new FoodProperties.Builder()
-            .nutrition(2).saturationMod(0.3f)
-            .effect(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F).build();
-    public static final FoodProperties SAUCE_BOWLS = new FoodProperties.Builder()
-            .nutrition(2).saturationMod(0.3f).build();
+    private static FoodProperties basicFood(int nutrition, float saturation) {
+        return new FoodProperties.Builder().nutrition(nutrition).saturationMod(saturation).build();
+    }
+
+    private static FoodProperties foodWithEffect(int nutrition, float saturation, Supplier<MobEffectInstance> effect, float chance) {
+        return new FoodProperties.Builder().nutrition(nutrition).saturationMod(saturation).effect(effect, chance).build();
+    }
+
+    private static FoodProperties comfortFood(int nutrition, float saturation, int duration) {
+        return comfortFood(nutrition, saturation, duration, 0);
+    }
+
+    private static FoodProperties comfortFood(int nutrition, float saturation, int duration, int amplifier) {
+        return foodWithEffect(nutrition, saturation, () -> new MobEffectInstance(ModEffects.COMFORT.get(), duration, amplifier), 1);
+    }
+
+    private static FoodProperties nourishmentFood(int nutrition, float saturation, int duration) {
+        return foodWithEffect(nutrition, saturation, () -> new MobEffectInstance(ModEffects.NOURISHMENT.get(), duration), 1);
+    }
+
+    public static final FoodProperties ACORN_DOUGH = foodWithEffect(2, 0.3f,
+            () -> new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F);
+    public static final FoodProperties SAUCE_BOWLS = basicFood(2, 0.3f);
     public static final FoodProperties SEED_MILK_BOTTLE = new FoodProperties.Builder().alwaysEat().build();
     public static final FoodProperties SEED_MILK_BUCKET = new FoodProperties.Builder().build();
-    public static final FoodProperties BIRCH_SYRUP_BOTTLE = new FoodProperties.Builder()
-            .nutrition(5).saturationMod(1.0F).alwaysEat().build();
+    public static final FoodProperties BIRCH_SYRUP_BOTTLE = new FoodProperties.Builder().nutrition(5).saturationMod(1.0F).alwaysEat().build();
 
     //Cuts
     public static final FoodProperties RAW_RABBIT_LEG = new FoodProperties.Builder().meat()
@@ -23,107 +42,72 @@ public class FIFoods {
     public static final FoodProperties COOKED_RABBIT_LEG = new FoodProperties.Builder().meat()
             .nutrition(3).saturationMod(0.6f).build();
     //Crops
-            //This is for Apple Slices/Black Acorns
+    //This is for Apple Slices/Black Acorns
     public static final FoodProperties MID_SAT_MORSELS = new FoodProperties.Builder().fast()
             .nutrition(2).saturationMod(0.3f).build();
-            //This is for Dandelion Root/Roselle Calyx
+    //This is for Dandelion Root/Roselle Calyx
     public static final FoodProperties LOW_SAT_MORSELS = new FoodProperties.Builder().fast()
             .nutrition(1).saturationMod(0.1f).build();
-            //This is for Poppy Seeds/Rose Hips/Spruce Tips/Lilac Bloom
+    //This is for Poppy Seeds/Rose Hips/Spruce Tips/Lilac Bloom
     public static final FoodProperties NO_SAT_MORSELS= new FoodProperties.Builder().fast()
             .nutrition( 1).build();
-            //This is for Blewits
-    public static final FoodProperties BLEWIT = new FoodProperties.Builder()
-            .nutrition(2).saturationMod(0.45f)
-                    .effect(() -> new MobEffectInstance(MobEffects.HUNGER, 200, 0), 0.30f).build();
+    //This is for Blewits
+    public static final FoodProperties BLEWIT = foodWithEffect(2, 0.45f,
+            () -> new MobEffectInstance(MobEffects.HUNGER, 200, 0), 0.30f);
     //DISHES
-        //Comfort
-    public static final FoodProperties BLEWIT_BITES = new FoodProperties.Builder()
-            .nutrition(3).saturationMod(0.3f)
-            .effect(() -> new MobEffectInstance(ModEffects.COMFORT.get(), 700), 1).build();
-    public static final FoodProperties CARROT_POPPY_CHOWDER = new FoodProperties.Builder()
-            .nutrition(8).saturationMod(0.7f)
-            .effect(() -> new MobEffectInstance(ModEffects.COMFORT.get(), 2200, 1), 1).build();
-    public static final FoodProperties COD_AND_PUMPKIN_STEW = new FoodProperties.Builder()
-            .nutrition(10).saturationMod(0.9f)
-            .effect(() -> new MobEffectInstance(ModEffects.COMFORT.get(),2500),1).build();
-    public static final FoodProperties CREAMY_SALMON_BAGEL = new FoodProperties.Builder()
-            .nutrition(4).saturationMod(0.35f)
-            .effect(() -> new MobEffectInstance(ModEffects.COMFORT.get(), 800), 1).build();
-    public static final FoodProperties FORAGERS_GRANOLA = new FoodProperties.Builder()
-            .nutrition(6).saturationMod(0.6f)
-            .effect(() -> new MobEffectInstance(ModEffects.COMFORT.get(), 1500), 1).build();
-    public static final FoodProperties JAMMY_BREAKFAST_SANDWICH = new FoodProperties.Builder()
-            .nutrition(8).saturationMod(0.7f)
-            .effect(() -> new MobEffectInstance(ModEffects.COMFORT.get(), 1700), 1).build();
-    public static final FoodProperties HEARTY_SPRUCE_PILAF = new FoodProperties.Builder()
-            .nutrition(11).saturationMod(1f)
-            .effect(() -> new MobEffectInstance(ModEffects.COMFORT.get(), 2800), 1).build();
-    public static final FoodProperties ROSE_HIP_SOUP = new FoodProperties.Builder()
-            .nutrition(6).saturationMod(0.6f)
-            .effect(() -> new MobEffectInstance(ModEffects.COMFORT.get(), 1400), 1).build();
-    public static final FoodProperties STEAMY_KELP_RICE = new FoodProperties.Builder()
-            .nutrition(6).saturationMod(0.5f)
-            .effect(() -> new MobEffectInstance(ModEffects.COMFORT.get(), 1200), 1).build();
+    //Comfort
+    public static final FoodProperties BLEWIT_BITES = comfortFood(3, 0.3f, 700);
+    public static final FoodProperties CARROT_POPPY_CHOWDER = comfortFood(8, 0.7f, 2200);
+    public static final FoodProperties COD_AND_PUMPKIN_STEW = comfortFood(10, 0.9f, 2500);
+    public static final FoodProperties CREAMY_SALMON_BAGEL = comfortFood(4, 0.35f, 800);
+    public static final FoodProperties FORAGERS_GRANOLA = comfortFood(6, 0.6f, 1500);
+    public static final FoodProperties JAMMY_BREAKFAST_SANDWICH = comfortFood(8, 0.7f, 1700);
+    public static final FoodProperties HEARTY_SPRUCE_PILAF = comfortFood(11, 1f, 2800);
+    public static final FoodProperties ROSE_HIP_SOUP = comfortFood(6, 0.6f, 1400);
+    public static final FoodProperties STEAMY_KELP_RICE = comfortFood(6, 0.5f, 1200);
 
-        //Nourishment
-        public static final FoodProperties ACORN_NOODLES = new FoodProperties.Builder()
-                .nutrition(7).saturationMod(0.6f)
-                .effect(() -> new MobEffectInstance(ModEffects.NOURISHMENT.get(), 1000), 1).build();
-        public static final FoodProperties ROSE_ROASTED_ROOTS = new FoodProperties.Builder()
-                .nutrition(8).saturationMod(0.75f)
-                .effect(() -> new MobEffectInstance(ModEffects.NOURISHMENT.get(), 1800), 1).build();
-        public static final FoodProperties SEASIDE_SIZZLER = new FoodProperties.Builder()
-            .nutrition(9).saturationMod(0.85f)
-            .effect(() -> new MobEffectInstance(ModEffects.NOURISHMENT.get(), 2050), 1).build();
-        public static final FoodProperties SYRUP_TOAST_STACKS = new FoodProperties.Builder()
-            .nutrition(11).saturationMod(1f)
-            .effect(() -> new MobEffectInstance(ModEffects.NOURISHMENT.get(), 2800), 1).build();
-        public static final FoodProperties WOODLAND_PASTA = new FoodProperties.Builder()
-            .nutrition(11).saturationMod(1f)
-            .effect(() -> new MobEffectInstance(ModEffects.NOURISHMENT.get(), 2800), 1).build();
-        public static final FoodProperties GLAZED_PORKCHOP_AND_ACORN_GRITS = new FoodProperties.Builder()
-            .nutrition(12).saturationMod(1.1f)
-            .effect(() -> new MobEffectInstance(ModEffects.NOURISHMENT.get(), 3000), 1).build();
-        public static final FoodProperties TART_WHEAT_PILAF = new FoodProperties.Builder()
-            .nutrition(6).saturationMod(0.6f)
-            .effect(() -> new MobEffectInstance(ModEffects.NOURISHMENT.get(), 1000), 1).build();
-    public static final FoodProperties SAVORY_PASTA_ROLL = new FoodProperties.Builder()
-            .nutrition(10).saturationMod(0.9f)
-            .effect(() -> new MobEffectInstance(ModEffects.NOURISHMENT.get(), 2500), 1).build();
+    //Nourishment
+    public static final FoodProperties ACORN_NOODLES = nourishmentFood(7, 0.6f, 1000);
+    public static final FoodProperties ROSE_ROASTED_ROOTS = nourishmentFood(8, 0.75f, 1800);
+    public static final FoodProperties SEASIDE_SIZZLER = nourishmentFood(9, 0.85f, 2050);
+    public static final FoodProperties SYRUP_TOAST_STACKS = nourishmentFood(11, 1f, 2800);
+    public static final FoodProperties WOODLAND_PASTA = nourishmentFood(11, 1f, 2800);
+    public static final FoodProperties GLAZED_PORKCHOP_AND_ACORN_GRITS = nourishmentFood(12, 1.1f, 3000);
+    public static final FoodProperties TART_WHEAT_PILAF = nourishmentFood(6, 0.6f, 1000);
+    public static final FoodProperties SAVORY_PASTA_ROLL = nourishmentFood(10, 0.9f, 2500);
 
-        //Other
-        public static final FoodProperties AUSPICIOUS_STEW = new FoodProperties.Builder()
-             .nutrition(6).saturationMod(0.6f)
-             .effect(() -> new MobEffectInstance(ModEffects.COMFORT.get(), 500), 1).build();
-        public static final FoodProperties BAKED_GOOD = new FoodProperties.Builder()
-             .nutrition(4).saturationMod(0.3f)
-             .effect(() -> new MobEffectInstance(ModEffects.COMFORT.get(), 500), 1).build();
-        public static final FoodProperties CAKE_SLICE = (new FoodProperties.Builder().fast())
+    //Other
+    public static final FoodProperties AUSPICIOUS_STEW = new FoodProperties.Builder()
+            .nutrition(6).saturationMod(0.6f)
+            .effect(() -> new MobEffectInstance(ModEffects.COMFORT.get(), 500), 1).build();
+    public static final FoodProperties BAKED_GOOD = new FoodProperties.Builder()
+            .nutrition(4).saturationMod(0.3f)
+            .effect(() -> new MobEffectInstance(ModEffects.COMFORT.get(), 500), 1).build();
+    public static final FoodProperties CAKE_SLICE = (new FoodProperties.Builder().fast())
             .nutrition(2).saturationMod(0.1F)
             .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 400, 0, false, false), 1.0F).build();
-        public static final FoodProperties KELP_WRAP = new FoodProperties.Builder()
+    public static final FoodProperties KELP_WRAP = new FoodProperties.Builder()
             .nutrition(8).saturationMod(0.7f).build();
-        public static final FoodProperties SALAD = new FoodProperties.Builder()
+    public static final FoodProperties SALAD = new FoodProperties.Builder()
             .nutrition(6).saturationMod(0.4f)
             .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 100), 1).build();
-        public static final FoodProperties DANDELION_FRIES = new FoodProperties.Builder().fast()
+    public static final FoodProperties DANDELION_FRIES = new FoodProperties.Builder().fast()
             .nutrition(3).saturationMod(0.3f).build();
-        public static final FoodProperties SEED_BUTTER_JAMWICH = (new FoodProperties.Builder())
+    public static final FoodProperties SEED_BUTTER_JAMWICH = (new FoodProperties.Builder())
             .nutrition(8).saturationMod(0.7F).build();
-        public static final FoodProperties SWEET_ROASTED_RABBIT_LEG = (new FoodProperties.Builder()
+    public static final FoodProperties SWEET_ROASTED_RABBIT_LEG = (new FoodProperties.Builder()
             .nutrition(5).saturationMod(0.6f)).build();
-        public static final FoodProperties CANDIED_CALYCES = new FoodProperties.Builder().fast()
-                .nutrition(2).saturationMod(0.2f).build();
+    public static final FoodProperties CANDIED_CALYCES = new FoodProperties.Builder().fast()
+            .nutrition(2).saturationMod(0.2f).build();
     public static final FoodProperties APPLE_DIPPERS = new FoodProperties.Builder()
             .nutrition(3).saturationMod(0.2f).build();
     //DRINKS
-        //Tonics (Medicinal)
+    //Tonics (Medicinal)
     public static final FoodProperties ROSE_CORDIAL = new FoodProperties.Builder().alwaysEat()
             .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 400), 1).build();
     public static final FoodProperties GLOWING_CARROT_JUICE = new FoodProperties.Builder().alwaysEat()
             .effect(() -> new MobEffectInstance(MobEffects.NIGHT_VISION, 750), 1).build();
-     public static final FoodProperties DANDELION_ROOT_TEA = new FoodProperties.Builder().alwaysEat()
+    public static final FoodProperties DANDELION_ROOT_TEA = new FoodProperties.Builder().alwaysEat()
             .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 400, 1), 1).build();
     public static final FoodProperties FOREST_ELIXIR = new FoodProperties.Builder().alwaysEat()
             .effect(() -> new MobEffectInstance( MobEffects.HEALTH_BOOST, 1200, 0), 1.0F).build();

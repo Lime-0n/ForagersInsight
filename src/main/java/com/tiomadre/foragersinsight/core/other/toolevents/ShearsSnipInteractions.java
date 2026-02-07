@@ -51,7 +51,11 @@ public class ShearsSnipInteractions {
         return EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, tool);
     }
 
-   // Each fortune level has 20% to add +1 to total drops */
+    private static boolean isShears(ItemStack stack) {
+        return stack.getItem() instanceof ShearsItem;
+    }
+
+    // Each fortune level has 20% chance to add +1 to total drops.
     private static int rollFortuneExtras(RandomSource rand, int fortuneLevels) {
         int extra = 0;
         for (int i = 0; i < fortuneLevels; i++) {
@@ -67,6 +71,20 @@ public class ShearsSnipInteractions {
     private static void damageTool(ItemStack tool, Player player, InteractionHand hand) {
         tool.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
     }
+
+    private static void triggerTreeShearAdvancement(Player player) {
+        if (player instanceof ServerPlayer serverPlayer) {
+            FIAdvancementCriteria.SHEAR_BOUNTIFUL_TREE.trigger(serverPlayer);
+        }
+    }
+
+    private static void finishCropSnip(Level level, BlockPos pos, ItemStack tool, Player player, InteractionHand hand,
+                                       SoundEvent secondarySound) {
+        play(level, pos, SoundEvents.SHEEP_SHEAR);
+        play(level, pos, secondarySound);
+        damageTool(tool, player, hand);
+    }
+
     private static int harvestVerticalTop(Level level, BlockPos basePos, Predicate<BlockState> isSameCrop, int maxBreak) {
 
         ArrayDeque<BlockPos> stack = new ArrayDeque<>();
@@ -122,7 +140,7 @@ public class ShearsSnipInteractions {
         Player player = event.getEntity();
         InteractionHand hand = event.getHand();
         ItemStack tool = player.getItemInHand(hand);
-        if (!(tool.getItem() instanceof ShearsItem)) return;
+        if (!isShears(tool)) return;
 
         BlockPos pos = event.getPos();
         BlockState state = level.getBlockState(pos);
@@ -140,12 +158,8 @@ public class ShearsSnipInteractions {
 
                 level.setBlock(pos, state.setValue(HangingLilacLeavesBlock.AGE, 0), Block.UPDATE_ALL);
 
-                play(level, pos, SoundEvents.SHEEP_SHEAR);
-                play(level, pos, SoundEvents.FLOWERING_AZALEA_HIT);
-                damageTool(tool, player, hand);
-                if (player instanceof ServerPlayer serverPlayer) {
-                    FIAdvancementCriteria.SHEAR_BOUNTIFUL_TREE.trigger(serverPlayer);
-                }
+                finishCropSnip(level, pos, tool, player, hand, SoundEvents.FLOWERING_AZALEA_HIT);
+                triggerTreeShearAdvancement(player);
                 return;
             }
         }
@@ -166,12 +180,8 @@ public class ShearsSnipInteractions {
                 BlockState updatedState = state.setValue(BountifulLeavesBlock.AGE, 0);
                 level.setBlock(pos, updatedState, Block.UPDATE_CLIENTS);
 
-                play(level, pos, SoundEvents.SHEEP_SHEAR);
-                play(level, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES);
-                damageTool(tool, player, hand);
-                if (player instanceof ServerPlayer serverPlayer) {
-                    FIAdvancementCriteria.SHEAR_BOUNTIFUL_TREE.trigger(serverPlayer);
-                }
+                finishCropSnip(level, pos, tool, player, hand, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES);
+                triggerTreeShearAdvancement(player);
                 return;
             }
         }
@@ -188,12 +198,8 @@ public class ShearsSnipInteractions {
                 dropItemInFront(level, player, drop);
 
                 level.setBlock(pos, state.setValue(SpruceTipBlock.AGE, 0), Block.UPDATE_ALL);
-                play(level, pos, SoundEvents.SHEEP_SHEAR);
-                play(level, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES);
-                damageTool(tool, player, hand);
-                if (player instanceof ServerPlayer serverPlayer) {
-                    FIAdvancementCriteria.SHEAR_BOUNTIFUL_TREE.trigger(serverPlayer);
-                }
+                finishCropSnip(level, pos, tool, player, hand, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES);
+                triggerTreeShearAdvancement(player);
                 return;
 
             }
@@ -216,9 +222,7 @@ public class ShearsSnipInteractions {
                 dropItemInFront(level, player, kelpDrop);
             }
 
-            play(level, pos, SoundEvents.SHEEP_SHEAR);
-            play(level, pos, SoundEvents.WATER_AMBIENT);
-            damageTool(tool, player, hand);
+            finishCropSnip(level, pos, tool, player, hand, SoundEvents.WATER_AMBIENT);
             return;
         }
 
@@ -253,9 +257,7 @@ public class ShearsSnipInteractions {
                 ItemStack drop = new ItemStack(Items.SUGAR_CANE, 1 + extra);
                 dropItemInFront(level, player, drop);
 
-                play(level, pos, SoundEvents.SHEEP_SHEAR);
-                play(level, pos, SoundEvents.CROP_BREAK);
-                damageTool(tool, player, hand);
+                finishCropSnip(level, pos, tool, player, hand, SoundEvents.CROP_BREAK);
             }
             return;
         }
@@ -275,9 +277,7 @@ public class ShearsSnipInteractions {
                     state.setValue(SweetBerryBushBlock.AGE, SweetBerryBushBlock.MAX_AGE - 2),
                     Block.UPDATE_ALL);
 
-            play(level, pos, SoundEvents.SHEEP_SHEAR);
-            play(level, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES);
-            damageTool(tool, player, hand);
+            finishCropSnip(level, pos, tool, player, hand, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES);
             return;
         }
 
@@ -332,7 +332,7 @@ public class ShearsSnipInteractions {
         Player player = event.getEntity();
         InteractionHand hand = event.getHand();
         ItemStack tool = player.getItemInHand(hand);
-        if (!(tool.getItem() instanceof ShearsItem)) return;
+        if (!isShears(tool)) return;
 
         long now = event.getLevel().getGameTime();
         CompoundTag data = chicken.getPersistentData();
@@ -394,7 +394,7 @@ public class ShearsSnipInteractions {
         Player player = event.getEntity();
         InteractionHand hand = event.getHand();
         ItemStack tool = player.getItemInHand(hand);
-        if (!(tool.getItem() instanceof ShearsItem)) return;
+        if (!isShears(tool)) return;
         if (!sheep.isAlive() || sheep.isSheared() || sheep.isBaby()) return;
 
         event.setCanceled(true);
