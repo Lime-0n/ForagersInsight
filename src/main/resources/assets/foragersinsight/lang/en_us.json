@@ -174,12 +174,12 @@
   "foragersinsight.diffuser.foul": "The diffuser is exuding a Foul scent!",
   "foragersinsight.diffuser.rosey.description": "A comforting rosey scent fills the air, granting Regeneration to those near this Diffuser.",
   "foragersinsight.diffuser.coniferous.description": "An invigorating coniferous scent fills the air, giving Resistance to those near this Diffuser.",
-  "foragersinsight.diffuser.floral.description": "A  floral scent fills the air, giving Bloom to those near this Diffuser.",
-  "foragersinsight.diffuser.floral_II.description": "An strong floral scent perfumes the air, giving Bloom II to those near this Diffuser.",
+  "foragersinsight.diffuser.floral.description": "A light floral scent wafts in the air, giving Bloom to those near this Diffuser.",
+  "foragersinsight.diffuser.floral_ii.description": "A strong floral scent perfumes the air, giving Bloom II to those near this Diffuser.",
   "foragersinsight.diffuser.foul.description": "A stinky aroma fills the air, giving Odorous to those near this Diffuser.",
 
   "item.foragersinsight.diffuser.tooltip.remaining_duration": "The scent is paused for %s seconds",
-  "item.foragersinsight.diffuser.tooltip.scent": "Active Scent: %s",
+  "item.foragersinsight.diffuser.tooltip.scent": "Scent: %s",
   "item.foragersinsight.diffuser.tooltip.ingredients": "Ingredients:",
   "item.foragersinsight.diffuser.tooltip.empty_slot": "Empty Slot",
 
@@ -193,42 +193,31 @@
 
   "advancements.foragersinsight.adventure.foragers_insight.title": "Forager's Insight",
   "advancements.foragersinsight.adventure.foragers_insight.description": "Forage delights that are hidden in plain sight!",
-
   "advancements.foragersinsight.adventure.spring_cleaning.title": "Spring Cleaning",
   "advancements.foragersinsight.adventure.spring_cleaning.description": "Craft a Brush and look in forested areas for leaf litter to clean up.",
-
   "advancements.foragersinsight.adventure.wild_flowers.title": "Stop and Stab the Roses?",
   "advancements.foragersinsight.adventure.wild_flowers.description": "Use a knife to forage a unique crop from a wild flower.",
-
   "advancements.foragersinsight.adventure.giving_trees.title": "Giving Tree",
   "advancements.foragersinsight.adventure.giving_trees.description": "Collect the crop of one of the fruiting variants of trees.",
-
   "advancements.foragersinsight.adventure.stop_hammer_time.title": "Stop...Hammer Time",
   "advancements.foragersinsight.adventure.stop_hammer_time.description": "Craft a Mallet to crush certain blocks and items.",
-
   "advancements.foragersinsight.adventure.brush_it_off.title": "Brush It Off",
   "advancements.foragersinsight.adventure.brush_it_off.description": "Brush away forest litter to reveal an item.",
-
   "advancements.foragersinsight.adventure.scentsational.title": "Scentsational.",
   "advancements.foragersinsight.adventure.scentsational.description": "Ignite a Diffuser and take a deep breath!",
-
   "advancements.foragersinsight.adventure.shear.title": "Shearing is Caring",
   "advancements.foragersinsight.adventure.shear.description": "Instead of plucking, snip with Shears to get a little something extra!",
-
   "advancements.foragersinsight.adventure.will_it_crush.title": "Will It Crush?",
   "advancements.foragersinsight.adventure.will_it_crush.description": "Crush an item using a Mallet.",
-
   "advancements.foragersinsight.adventure.rare_find.title": "Choice Edible",
   "advancements.foragersinsight.adventure.rare_find.description": "Find something rare from Suspicious Leaf Litter...",
-
   "advancements.foragersinsight.adventure.stinky_situation.title": "I Hope You Wash That...",
   "advancements.foragersinsight.adventure.stinky_situation.description": "Exude a distasteful scent from the Diffuser.",
-
   "advancements.foragersinsight.adventure.tap_that.title": "Tap That",
   "advancements.foragersinsight.adventure.tap_that.description": "Craft a Tapper and begin collecting new ingredients!",
 
   "advancements.foragersinsight.adventure.birch_please.title": "All That For a Drop Of...",
-  "advancements.foragersinsight.adventure.birch_please.description": "Use a Bucket on a full Tapper to collect something sticky.",
+  "advancements.foragersinsight.adventure.birch_please.description": "Use a Bucket to collect from a full Tapper.",
 
   "itemGroup.foragersinsight": "Forager's Insight"
 }

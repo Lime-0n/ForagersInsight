@@ -56,8 +56,8 @@ public final class FIDiffusingRecipes {
     //FLORAL SCENT RECIPES
     public static final Supplier<FIDiffusingRecipes> FLORAL = register(
             "floral",
-            List.of(IngredientCount.of(Ingredient.of(FIItems.ROSELLE_PETALS.get()), 1),
-                    IngredientCount.of(Ingredient.of(FIItems.ROSE_PETALS.get()), 1),
+            List.of(IngredientCount.of(Ingredient.of(FIItems.LILAC_BLOOM.get()), 1),
+                    IngredientCount.of(Ingredient.of(FIItems.LILAC_BLOOM.get()), 1),
                     IngredientCount.of(Ingredient.of(FIItems.LILAC_BLOOM.get()), 1)),
             ForagersInsight.rl("textures/scents/floral.png"),
             "foragersinsight.diffuser.floral",
@@ -68,13 +68,13 @@ public final class FIDiffusingRecipes {
 
     public static final Supplier<FIDiffusingRecipes> FLORAL_II = register(
             "floral_II",
-            List.of(IngredientCount.of(Ingredient.of(FIItems.LILAC_BLOOM.get()), 1),
-                    IngredientCount.of(Ingredient.of(FIBlocks.LILAC_BLOOM_CRATE.get()), 1),
-                    IngredientCount.of(Ingredient.of(FIItems.LILAC_BLOOM.get()), 1)),
+            List.of(IngredientCount.of(Ingredient.of(FIBlocks.DENSE_ROSE_PETAL_MAT.get()), 1),
+                    IngredientCount.of(Ingredient.of(FIBlocks.DENSE_LILAC_BLOOM_MAT.get()), 1),
+                    IngredientCount.of(Ingredient.of(FIBlocks.DENSE_ROSELLE_PETAL_MAT.get()), 1)),
 
-            ForagersInsight.rl("textures/scents/floral_II.png"),
-            "foragersinsight.diffuser.floral_II",
-            "foragersinsight.diffuser.floral_II.description",
+            ForagersInsight.rl("textures/scents/floral_ii.png"),
+            "foragersinsight.diffuser.floral_ii",
+            "foragersinsight.diffuser.floral_ii.description",
             15.0,
             () -> new MobEffectInstance(FIMobEffects.BLOOM.get(), 2000, 1),
             4);
