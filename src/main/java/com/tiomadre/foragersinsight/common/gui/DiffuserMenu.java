@@ -2,7 +2,6 @@ package com.tiomadre.foragersinsight.common.gui;
 
 import com.tiomadre.foragersinsight.common.block.entity.DiffuserBlockEntity;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
-import com.tiomadre.foragersinsight.core.registry.FIItems;
 import com.tiomadre.foragersinsight.core.registry.FIMenuTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -12,7 +11,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
@@ -91,10 +89,7 @@ public class DiffuserMenu extends AbstractContainerMenu {
             this.addSlot(new Slot(this.diffuserContainer, slot, x, INPUT_SLOT_Y) {
                 @Override
                 public boolean mayPlace(@NotNull ItemStack stack) {
-                    if (DiffuserMenu.this.diffuser.hasActiveScent()) {
-                        return false;
-                    }
-                    return super.mayPlace(stack);
+                    return !DiffuserMenu.this.diffuser.hasActiveScent() && super.mayPlace(stack);
                 }
                 @Override
                 public int getMaxStackSize() {
@@ -105,13 +100,8 @@ public class DiffuserMenu extends AbstractContainerMenu {
         this.addSlot(new Slot(this.diffuserContainer, ENHANCEMENT_SLOT_INDEX, ENHANCEMENT_SLOT_X, ENHANCEMENT_SLOT_Y) {
             @Override
             public boolean mayPlace(@NotNull ItemStack stack) {
-                if (DiffuserMenu.this.diffuser.hasActiveScent()) {
-                    return false;
-                }
-                return stack.is(Items.HONEYCOMB)
-                        || stack.is(Items.HONEYCOMB_BLOCK)
-                        || stack.is(FIItems.BIRCH_SAP_BOTTLE.get())
-                        || stack.is(FIItems.BIRCH_SAP_BUCKET.get());
+                return !DiffuserMenu.this.diffuser.hasActiveScent()
+                        && DiffuserBlockEntity.Enhancement.fromStack(stack) != DiffuserBlockEntity.Enhancement.NONE;
             }
 
             @Override
@@ -164,10 +154,7 @@ public class DiffuserMenu extends AbstractContainerMenu {
                 return ItemStack.EMPTY;
             }
         } else {
-            if (sourceStack.is(Items.HONEYCOMB)
-                    || sourceStack.is(Items.HONEYCOMB_BLOCK)
-                    || sourceStack.is(FIItems.BIRCH_SAP_BOTTLE.get())
-                    || sourceStack.is(FIItems.BIRCH_SAP_BUCKET.get())) {
+            if (DiffuserBlockEntity.Enhancement.fromStack(sourceStack) != DiffuserBlockEntity.Enhancement.NONE) {
                 if (!this.moveItemStackTo(sourceStack, ENHANCEMENT_SLOT_INDEX, ENHANCEMENT_SLOT_INDEX + 1, false)) {
                     return ItemStack.EMPTY;
                 }

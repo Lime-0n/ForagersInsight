@@ -32,10 +32,7 @@ public final class FIDiffusingRecipes {
 
     public static final Supplier<FIDiffusingRecipes> ROSEY = register(
             "rosey",
-            List.of(
-                    IngredientCount.of(Ingredient.of(FIItems.ROSE_PETALS.get()), 1),
-                    IngredientCount.of(Ingredient.of(FIItems.ROSE_PETALS.get()), 1),
-                    IngredientCount.of(Ingredient.of(FIItems.ROSE_PETALS.get()), 1)),
+            repeated(FIItems.ROSE_PETALS, 1, 3),
             ForagersInsight.rl("textures/scents/rosey.png"),
             "foragersinsight.diffuser.rosey",
             "foragersinsight.diffuser.rosey.description",
@@ -45,10 +42,7 @@ public final class FIDiffusingRecipes {
 
     public static final Supplier<FIDiffusingRecipes> CONIFEROUS = register(
             "coniferous",
-            List.of(
-                    IngredientCount.of(Ingredient.of(FIItems.SPRUCE_TIPS.get()), 1),
-                    IngredientCount.of(Ingredient.of(FIItems.SPRUCE_TIPS.get()), 1),
-                    IngredientCount.of(Ingredient.of(FIItems.SPRUCE_TIPS.get()), 1)),
+            repeated(FIItems.SPRUCE_TIPS, 1, 3),
             ForagersInsight.rl("textures/scents/coniferous.png"),
             "foragersinsight.diffuser.coniferous",
             "foragersinsight.diffuser.coniferous.description",
@@ -70,10 +64,7 @@ public final class FIDiffusingRecipes {
 
     public static final Supplier<FIDiffusingRecipes> FOUL = register(
             "foul",
-            List.of(
-                    IngredientCount.of(Ingredient.of(ModItems.ORGANIC_COMPOST.get()), 1),
-                    IngredientCount.of(Ingredient.of(ModItems.ORGANIC_COMPOST.get()), 1),
-                    IngredientCount.of(Ingredient.of(ModItems.ORGANIC_COMPOST.get()), 1)),
+            repeated(ModItems.ORGANIC_COMPOST, 1, 3),
             ForagersInsight.rl("textures/scents/foul.png"),
             "foragersinsight.diffuser.foul",
             "foragersinsight.diffuser.foul.description",
@@ -96,26 +87,35 @@ public final class FIDiffusingRecipes {
     private final int networkId;
 
     private FIDiffusingRecipes(ResourceLocation id, List<IngredientCount> ingredients, ResourceLocation icon,
-    String translationKey, String descriptionKey, double radius, Supplier<MobEffectInstance> effectSupplier, int networkId) {
+                               String translationKey, String descriptionKey, double radius, Supplier<MobEffectInstance> effectSupplier, int networkId) {
 
-    this.id = Objects.requireNonNull(id, "id");
-    this.ingredients = List.copyOf(ingredients);
-    this.icon = Objects.requireNonNull(icon, "icon");
-    this.totalItemCount = this.ingredients.stream().mapToInt(IngredientCount::count).sum();
-    this.translationKey = Objects.requireNonNull(translationKey, "translationKey");
-    this.descriptionKey = Objects.requireNonNull(descriptionKey, "descriptionKey");
-    this.radius = radius;
-    this.effectSupplier = Objects.requireNonNull(effectSupplier, "effectSupplier");
-    this.networkId = networkId;
-    ALL.add(this);
-    BY_ID.put(this.id, this);
+        this.id = Objects.requireNonNull(id, "id");
+        this.ingredients = List.copyOf(ingredients);
+        this.icon = Objects.requireNonNull(icon, "icon");
+        this.totalItemCount = this.ingredients.stream().mapToInt(IngredientCount::count).sum();
+        this.translationKey = Objects.requireNonNull(translationKey, "translationKey");
+        this.descriptionKey = Objects.requireNonNull(descriptionKey, "descriptionKey");
+        this.radius = radius;
+        this.effectSupplier = Objects.requireNonNull(effectSupplier, "effectSupplier");
+        this.networkId = networkId;
+        ALL.add(this);
+        BY_ID.put(this.id, this);
     }
     private static @NotNull Supplier<FIDiffusingRecipes> register(String name, List<IngredientCount> ingredients, ResourceLocation icon,
-    String translationKey, String descriptionKey, double radius, Supplier<MobEffectInstance> effectSupplier, int networkId) {
+                                                                  String translationKey, String descriptionKey, double radius, Supplier<MobEffectInstance> effectSupplier, int networkId) {
 
         Supplier<FIDiffusingRecipes> supplier = Suppliers.memoize(() -> new FIDiffusingRecipes(ForagersInsight.rl(name), ingredients,
-        icon, translationKey, descriptionKey, radius, effectSupplier, networkId));REGISTERED.add(supplier);
+                icon, translationKey, descriptionKey, radius, effectSupplier, networkId));REGISTERED.add(supplier);
         return supplier;
+    }
+
+
+    private static List<IngredientCount> repeated(Supplier<? extends ItemLike> item, int count, int times) {
+        List<IngredientCount> entries = new ArrayList<>(times);
+        for (int i = 0; i < times; i++) {
+            entries.add(IngredientCount.of(item, count));
+        }
+        return List.copyOf(entries);
     }
 
 

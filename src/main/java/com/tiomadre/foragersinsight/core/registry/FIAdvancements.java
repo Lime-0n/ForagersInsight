@@ -58,24 +58,24 @@ public final class FIAdvancements {
     public static final Node ROOT_NODE = node(ROOT, ROOT_ICON, 0, 0, FIFrameType.TASK);
 
     public static final List<Node> FIRST_ROW = List.of(
-            node(SPRING_CLEANING, SPRING_CLEANING_ICON, -3, 1, FIFrameType.TASK),
-            node(WILD_FLOWERS, WILD_FLOWERS_ICON, -1, 1, FIFrameType.TASK),
-            node(GIVING_TREES, GIVING_TREES_ICON, 1, 1, FIFrameType.TASK),
-            node(TAP_THAT, TAP_THAT_ICON, 3, 1, FIFrameType.TASK),
-            node(STOP_HAMMER_TIME, STOP_HAMMER_TIME_ICON, 5, 1, FIFrameType.TASK)
+            node(SPRING_CLEANING, SPRING_CLEANING_ICON, -4, 0, FIFrameType.TASK),
+            node(WILD_FLOWERS, WILD_FLOWERS_ICON, -1, -3, FIFrameType.TASK),
+            node(GIVING_TREES, GIVING_TREES_ICON, -1, -4, FIFrameType.TASK),
+            node(TAP_THAT, TAP_THAT_ICON, 1, 0, FIFrameType.TASK),
+            node(STOP_HAMMER_TIME, STOP_HAMMER_TIME_ICON, -1, 1, FIFrameType.TASK)
     );
 
     public static final List<Node> SECOND_ROW = List.of(
-            node(BRUSH_IT_OFF, BRUSH_IT_OFF_ICON, -3, 2, FIFrameType.GOAL),
-            node(SCENTSATIONAL, SCENTSATIONAL_ICON, -1, 2, FIFrameType.GOAL),
-            node(SHEARING_IS_CARING, SHEARING_IS_CARING_ICON, 1, 2, FIFrameType.GOAL),
-            node(BIRCH_PLEASE, BIRCH_PLEASE_ICON, 3, 2, FIFrameType.GOAL),
-            node(WILL_IT_CRUSH, WILL_IT_CRUSH_ICON, 5, 2, FIFrameType.GOAL)
+            node(BRUSH_IT_OFF, BRUSH_IT_OFF_ICON, -4, -1, FIFrameType.TASK),
+            node(SCENTSATIONAL, SCENTSATIONAL_ICON, 1, -2, FIFrameType.TASK),
+            node(SHEARING_IS_CARING, SHEARING_IS_CARING_ICON, -1, -1, FIFrameType.TASK),
+            node(BIRCH_PLEASE, BIRCH_PLEASE_ICON, 3, 0, FIFrameType.TASK),
+            node(WILL_IT_CRUSH, WILL_IT_CRUSH_ICON, 1, 1, FIFrameType.TASK)
     );
 
     public static final List<Node> THIRD_ROW = List.of(
-            node(RARE_FIND, RARE_FIND_ICON, -3, 3, FIFrameType.CHALLENGE),
-            node(STINKY_SITUATION, STINKY_SITUATION_ICON, -1, 3, FIFrameType.CHALLENGE)
+            node(RARE_FIND, RARE_FIND_ICON, -4, -2, FIFrameType.GOAL),
+            node(STINKY_SITUATION, STINKY_SITUATION_ICON, 3, -2, FIFrameType.CHALLENGE)
     );
 
     private static final Map<ResourceLocation, Node> NODE_LOOKUP = createNodeLookup();

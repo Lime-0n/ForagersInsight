@@ -1,7 +1,12 @@
 {
   "type": "minecraft:tree",
   "config": {
-    "decorators": [],
+    "decorators": [
+      {
+        "type": "foragersinsight:bountiful_spruce_tip_decorator",
+        "count": 6
+      }
+    ],
     "dirt_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {

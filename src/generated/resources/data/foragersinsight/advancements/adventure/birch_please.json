@@ -10,7 +10,7 @@
     "description": {
       "translate": "advancements.foragersinsight.adventure.birch_please.description"
     },
-    "frame": "goal",
+    "frame": "task",
     "hidden": false,
     "icon": {
       "item": "foragersinsight:birch_sap_bucket"
@@ -19,8 +19,8 @@
     "title": {
       "translate": "advancements.foragersinsight.adventure.birch_please.title"
     },
-    "x": 24,
-    "y": 8
+    "x": 16,
+    "y": 0
   },
   "requirements": [
     [

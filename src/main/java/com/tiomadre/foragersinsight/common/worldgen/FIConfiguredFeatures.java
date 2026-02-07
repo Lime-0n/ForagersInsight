@@ -3,6 +3,7 @@ package com.tiomadre.foragersinsight.common.worldgen;
 import com.tiomadre.foragersinsight.common.block.BountifulLeavesBlock;
 import com.tiomadre.foragersinsight.common.block.SuspiciousLitterBlock;
 import com.tiomadre.foragersinsight.common.worldgen.trees.decorator.BountifulOakLeafDecorator;
+import com.tiomadre.foragersinsight.common.worldgen.trees.decorator.BountifulSpruceTipDecorator;
 import com.tiomadre.foragersinsight.common.worldgen.trees.foliage.LilacTreeFoliagePlacer;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
@@ -102,7 +103,7 @@ public class FIConfiguredFeatures {
                 bountifulLeafStateProvider(Blocks.SPRUCE_LEAVES, FIBlocks.BOUNTIFUL_SPRUCE_LEAVES),
                 new SpruceFoliagePlacer(UniformInt.of(2, 3), UniformInt.of(0, 2), UniformInt.of(1, 2)),
                 new TwoLayersFeatureSize(2, 0, 2)
-        ).ignoreVines().build());
+        ).decorators(java.util.List.of(new BountifulSpruceTipDecorator(6))).ignoreVines().build());
 
         register(context, SAPPY_BIRCH_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(Blocks.BIRCH_LOG),
@@ -166,7 +167,7 @@ public class FIConfiguredFeatures {
     private static WeightedStateProvider bountifulLeafStateProvider(Block leaf, Supplier<Block> bountifulLeaf) {
         BlockState bountifulState = bountifulLeaf.get().defaultBlockState();
         if (bountifulState.hasProperty(BountifulLeavesBlock.AGE)) {
-            bountifulState = bountifulState.setValue(BountifulLeavesBlock.AGE, BountifulLeavesBlock.MAX_AGE - 1);
+            bountifulState = bountifulState.setValue(BountifulLeavesBlock.AGE, BountifulLeavesBlock.MAX_AGE);
         }
 
         return new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()

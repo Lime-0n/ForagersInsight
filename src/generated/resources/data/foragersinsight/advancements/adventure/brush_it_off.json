@@ -10,7 +10,7 @@
     "description": {
       "translate": "advancements.foragersinsight.adventure.brush_it_off.description"
     },
-    "frame": "goal",
+    "frame": "task",
     "hidden": false,
     "icon": {
       "item": "foragersinsight:suspicious_leaf_litter"
@@ -19,8 +19,8 @@
     "title": {
       "translate": "advancements.foragersinsight.adventure.brush_it_off.title"
     },
-    "x": -24,
-    "y": 8
+    "x": 0,
+    "y": -4
   },
   "requirements": [
     [

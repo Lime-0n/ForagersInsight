@@ -31,8 +31,8 @@
     "title": {
       "translate": "advancements.foragersinsight.adventure.giving_trees.title"
     },
-    "x": 8,
-    "y": 4
+    "x": -8,
+    "y": -16
   },
   "requirements": [
     [

@@ -686,7 +686,7 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         return enhancement;
     }
 
-    private static boolean isEnhancementItem(ItemStack stack) {
+    public static boolean isEnhancementItem(ItemStack stack) {
         return Enhancement.fromStack(stack) != Enhancement.NONE;
     }
 

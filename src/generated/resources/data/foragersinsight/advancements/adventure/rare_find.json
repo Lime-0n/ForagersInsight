@@ -10,7 +10,7 @@
     "description": {
       "translate": "advancements.foragersinsight.adventure.rare_find.description"
     },
-    "frame": "challenge",
+    "frame": "goal",
     "hidden": false,
     "icon": {
       "item": "foragersinsight:blewit_mushroom"
@@ -19,8 +19,8 @@
     "title": {
       "translate": "advancements.foragersinsight.adventure.rare_find.title"
     },
-    "x": -24,
-    "y": 12
+    "x": 0,
+    "y": -4
   },
   "requirements": [
     [

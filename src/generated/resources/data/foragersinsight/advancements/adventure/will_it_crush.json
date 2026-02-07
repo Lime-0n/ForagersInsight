@@ -10,7 +10,7 @@
     "description": {
       "translate": "advancements.foragersinsight.adventure.will_it_crush.description"
     },
-    "frame": "goal",
+    "frame": "task",
     "hidden": false,
     "icon": {
       "item": "foragersinsight:wheat_flour"
@@ -19,8 +19,8 @@
     "title": {
       "translate": "advancements.foragersinsight.adventure.will_it_crush.title"
     },
-    "x": 40,
-    "y": 8
+    "x": 16,
+    "y": 0
   },
   "requirements": [
     [

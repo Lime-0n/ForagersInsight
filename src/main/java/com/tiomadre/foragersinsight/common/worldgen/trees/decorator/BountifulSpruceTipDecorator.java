@@ -2,7 +2,7 @@ package com.tiomadre.foragersinsight.common.worldgen.trees.decorator;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.tiomadre.foragersinsight.common.block.BountifulLeavesBlock;
+import com.tiomadre.foragersinsight.common.block.SpruceTipBlock;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FITreeDecoratorTypes;
 import net.minecraft.core.BlockPos;
@@ -13,23 +13,26 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorTy
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-public class BountifulOakLeafDecorator extends TreeDecorator {
-    public static final Codec<BountifulOakLeafDecorator> CODEC = RecordCodecBuilder.create(
+public class BountifulSpruceTipDecorator extends TreeDecorator {
+    public static final Codec<BountifulSpruceTipDecorator> CODEC = RecordCodecBuilder.create(
             instance -> instance.group(
                     Codec.INT.fieldOf("count").forGetter(decorator -> decorator.count)
-            ).apply(instance, BountifulOakLeafDecorator::new));
+            ).apply(instance, BountifulSpruceTipDecorator::new)
+    );
 
     private final int count;
 
-    public BountifulOakLeafDecorator(int count) {
+    public BountifulSpruceTipDecorator(int count) {
         this.count = count;
     }
 
     @Override
     protected @NotNull TreeDecoratorType<?> type() {
-        return FITreeDecoratorTypes.BOUNTIFUL_OAK_LEAF_DECORATOR.get();
+        return FITreeDecoratorTypes.BOUNTIFUL_SPRUCE_TIP_DECORATOR.get();
     }
 
     @Override
@@ -43,18 +46,33 @@ public class BountifulOakLeafDecorator extends TreeDecorator {
             return;
         }
 
-        BlockState bountifulState = FIBlocks.BOUNTIFUL_OAK_LEAVES.get().defaultBlockState();
-        if (bountifulState.hasProperty(BountifulLeavesBlock.AGE)) {
-            bountifulState = bountifulState.setValue(BountifulLeavesBlock.AGE, BountifulLeavesBlock.MAX_AGE);
-        }
+        Set<BlockPos> occupiedByTree = new HashSet<>(context.logs());
+        occupiedByTree.addAll(leaves);
+
+        BlockState tipState = FIBlocks.BOUNTIFUL_SPRUCE_TIPS.get().defaultBlockState()
+                .setValue(SpruceTipBlock.AGE, SpruceTipBlock.MAX_AGE);
 
         RandomSource random = context.random();
-        List<BlockPos> candidates = new ArrayList<>(leaves);
+        List<BlockPos> candidates = new ArrayList<>();
+
+        for (BlockPos leafPos : leaves) {
+            BlockPos belowPos = leafPos.below();
+            if (occupiedByTree.contains(belowPos)) {
+                continue;
+            }
+
+            candidates.add(belowPos);
+        }
+
+        if (candidates.isEmpty()) {
+            return;
+        }
+
         int selections = Math.min(this.count, candidates.size());
         for (int i = 0; i < selections; i++) {
             int index = random.nextInt(candidates.size());
             BlockPos chosen = candidates.remove(index);
-            context.setBlock(chosen, bountifulState);
+            context.setBlock(chosen, tipState);
         }
     }
 }

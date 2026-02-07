@@ -40,7 +40,7 @@ public class HangingLilacLeavesBlock extends BushBlock implements BonemealableBl
 
     public HangingLilacLeavesBlock(@NotNull Properties props) {
         super(props);
-        this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0));
+        this.registerDefaultState(this.stateDefinition.any().setValue(AGE, MAX_AGE));
     }
 
     @Override

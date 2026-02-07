@@ -43,13 +43,13 @@ public class ForagersInsight {
 		FIBoatTypes.register();
 		FIAdvancementCriteria.register();
 		FIWoodTypes.register();
-		FIEnchantments.register();
+		FIEnchantments.register(bus);
 		FIBlockEntityTypes.register(bus);
 		FIFoliagePlacerType.FOLIAGE_PLACER_TYPE.register(bus);
 		FILootModifiers.LOOT_MODIFIERS.register(bus);
 		FIMenuTypes.MENUS.register(bus);
 		FIMobEffects.MOB_EFFECTS.register(bus);
-		FIParticleTypes.PARTICLES.register(bus);
+		FIParticleTypes.register(bus);
 		FITabs.TABS.register(bus);
 		FITreeDecoratorTypes.TREE_DECORATOR_TYPES.register(bus);
 
