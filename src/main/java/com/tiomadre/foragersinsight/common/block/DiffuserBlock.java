@@ -244,6 +244,9 @@ public class DiffuserBlock extends BaseEntityBlock implements SimpleWaterloggedB
         if (scent == FIDiffusingRecipes.FLORAL.get()) {
             return FIParticleTypes.FLORAL_SCENT.get();
         }
+        if(scent ==  FIDiffusingRecipes.FLORAL_II.get()) {
+            return FIParticleTypes.FLORAL_II_SCENT.get();
+        }
         if (scent == FIDiffusingRecipes.FOUL.get()) {
             return FIParticleTypes.FOUL_SCENT.get();
         }

@@ -2,6 +2,7 @@ package com.tiomadre.foragersinsight.data.server.recipes;
 
 import com.google.common.base.Suppliers;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
+import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import com.tiomadre.foragersinsight.core.registry.FIMobEffects;
 import net.minecraft.ChatFormatting;
@@ -30,6 +31,7 @@ public final class FIDiffusingRecipes {
     private static final Map<ResourceLocation, FIDiffusingRecipes> BY_ID = new ConcurrentHashMap<>();
     private static final List<Supplier<FIDiffusingRecipes>> REGISTERED = new ArrayList<>();
 
+    //ROSEY SCENT RECIPES
     public static final Supplier<FIDiffusingRecipes> ROSEY = register(
             "rosey",
             repeated(FIItems.ROSE_PETALS, 1, 3),
@@ -40,6 +42,7 @@ public final class FIDiffusingRecipes {
             () -> new MobEffectInstance(MobEffects.REGENERATION, 200, 0),
             0);
 
+    //CONIFEROUS SCENT RECIPES
     public static final Supplier<FIDiffusingRecipes> CONIFEROUS = register(
             "coniferous",
             repeated(FIItems.SPRUCE_TIPS, 1, 3),
@@ -50,6 +53,7 @@ public final class FIDiffusingRecipes {
             () -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 500, 0),
             1);
 
+    //FLORAL SCENT RECIPES
     public static final Supplier<FIDiffusingRecipes> FLORAL = register(
             "floral",
             List.of(IngredientCount.of(Ingredient.of(FIItems.ROSELLE_PETALS.get()), 1),
@@ -62,6 +66,20 @@ public final class FIDiffusingRecipes {
             () -> new MobEffectInstance(FIMobEffects.BLOOM.get(), 1200, 0),
             0);
 
+    public static final Supplier<FIDiffusingRecipes> FLORAL_II = register(
+            "floral_II",
+            List.of(IngredientCount.of(Ingredient.of(FIItems.LILAC_BLOOM.get()), 1),
+                    IngredientCount.of(Ingredient.of(FIBlocks.LILAC_BLOOM_CRATE.get()), 1),
+                    IngredientCount.of(Ingredient.of(FIItems.LILAC_BLOOM.get()), 1)),
+
+            ForagersInsight.rl("textures/scents/floral_II.png"),
+            "foragersinsight.diffuser.floral_II",
+            "foragersinsight.diffuser.floral_II.description",
+            15.0,
+            () -> new MobEffectInstance(FIMobEffects.BLOOM.get(), 2000, 1),
+            4);
+
+    //FOUL SCENT
     public static final Supplier<FIDiffusingRecipes> FOUL = register(
             "foul",
             repeated(ModItems.ORGANIC_COMPOST, 1, 3),

@@ -25,14 +25,19 @@ public class FIParticles implements DataProvider {
     @Override
     public @NotNull CompletableFuture<?> run(@NotNull CachedOutput output) {
         return CompletableFuture.allOf(
+                //tapper drip particles
                 saveParticle(output, FIParticleTypes.DRIPPING_SAP.getId()),
                 saveParticle(output, FIParticleTypes.DRIPPING_SYRUP.getId()),
+                //diffuser scent particles
                 saveParticle(output, FIParticleTypes.ROSE_SCENT.getId()),
                 saveParticle(output, FIParticleTypes.CONIFEROUS_SCENT.getId()),
                 saveParticle(output, FIParticleTypes.FLORAL_SCENT.getId()),
+                saveParticle(output, FIParticleTypes.FLORAL_II_SCENT.getId()),
                 saveParticle(output, FIParticleTypes.FOUL_SCENT.getId()),
+                //suspicious leaf litter brush particles
                 saveParticle(output, FIParticleTypes.SUSPICIOUS_LEAVES.getId()),
-                saveParticle(output, FIParticleTypes.SUSPICIOUS_NEEDLES.getId())
+                saveParticle(output, FIParticleTypes.SUSPICIOUS_NEEDLES.getId()),
+                saveParticle(output, FIParticleTypes.SUSPICIOUS_FLOWER.getId())
         );
     }
 
