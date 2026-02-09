@@ -26,8 +26,8 @@
     "title": {
       "translate": "advancements.foragersinsight.adventure.stop_hammer_time.title"
     },
-    "x": -8,
-    "y": 4
+    "x": 3,
+    "y": 0
   },
   "requirements": [
     [

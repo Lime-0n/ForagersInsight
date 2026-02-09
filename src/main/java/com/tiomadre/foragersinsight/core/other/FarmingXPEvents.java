@@ -6,9 +6,7 @@ import com.tiomadre.foragersinsight.common.block.SpruceTipBlock;
 import com.tiomadre.foragersinsight.common.block.TapperBlock;
 import com.tiomadre.foragersinsight.common.block.entity.suspiciouslitter.SuspiciousLitterLoot;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
-import com.tiomadre.foragersinsight.core.registry.FIBlocks;
-import com.tiomadre.foragersinsight.core.registry.FIConfig;
-import com.tiomadre.foragersinsight.core.registry.FIMobEffects;
+import com.tiomadre.foragersinsight.core.registry.*;
 import com.tiomadre.foragersinsight.data.server.tags.FITags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -74,6 +72,10 @@ public class FarmingXPEvents {
         if (pending == null) return;
         if (pending.player.level() != level) return;
         if (item.getItem().isEmpty()) return;
+        ItemStack drop = item.getItem();
+        if (drop.is(FIItems.ROSE_PETALS.get()) || drop.is(FIItems.ROSELLE_PETALS.get())) {
+            FIAdvancementCriteria.PETAL_TO_THE_METAL.trigger(pending.player);
+        }
 
         awardUnifiedXP(level, pending.player, 0, 2, XPSource.FORAGING, true);
     }

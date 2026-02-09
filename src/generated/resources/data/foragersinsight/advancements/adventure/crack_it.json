@@ -1,30 +1,30 @@
 {
   "parent": "foragersinsight:adventure/stop_hammer_time",
   "criteria": {
-    "will_it_crush": {
-      "trigger": "foragersinsight:will_it_crush"
+    "crack_it": {
+      "trigger": "foragersinsight:crack_it"
     }
   },
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.foragersinsight.adventure.will_it_crush.description"
+      "translate": "advancements.foragersinsight.adventure.crack_it.description"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "foragersinsight:wheat_flour"
+      "item": "minecraft:cracked_stone_bricks"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.foragersinsight.adventure.will_it_crush.title"
+      "translate": "advancements.foragersinsight.adventure.crack_it.title"
     },
-    "x": 0,
+    "x": 1,
     "y": 1
   },
   "requirements": [
     [
-      "will_it_crush"
+      "crack_it"
     ]
   ]
 }

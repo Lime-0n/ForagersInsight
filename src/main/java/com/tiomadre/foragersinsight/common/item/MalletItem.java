@@ -95,6 +95,9 @@ public class MalletItem extends PickaxeItem {
                             state.getValue(HorizontalDirectionalBlock.FACING));
                     level.setBlock(pos, repairedState, 3);
                     level.playSound(null, pos, SoundEvents.ANVIL_USE, SoundSource.BLOCKS, 1.0f, 1.0f);
+                    if (player instanceof ServerPlayer serverPlayer) {
+                        FIAdvancementCriteria.UH_FIX_IT.trigger(serverPlayer);
+                    }
                     return InteractionResult.SUCCESS;
                 }
             }
@@ -105,26 +108,41 @@ public class MalletItem extends PickaxeItem {
             if (block == Blocks.CRACKED_STONE_BRICKS) {
                 stack.hurtAndBreak(2, player, p -> p.broadcastBreakEvent(context.getHand()));
                 level.setBlock(pos, Blocks.STONE_BRICKS.defaultBlockState(), 3);
+                if (player instanceof ServerPlayer serverPlayer) {
+                    FIAdvancementCriteria.CRACK_IT.trigger(serverPlayer);
+                }
                 level.playSound(null, pos, SoundEvents.STONE_PLACE, SoundSource.BLOCKS, 1.0f, 1.0f);
                 return InteractionResult.SUCCESS;
             } else if (block == Blocks.CRACKED_DEEPSLATE_BRICKS) {
                 stack.hurtAndBreak(2, player, p -> p.broadcastBreakEvent(context.getHand()));
                 level.setBlock(pos, Blocks.DEEPSLATE_BRICKS.defaultBlockState(), 3);
+                if (player instanceof ServerPlayer serverPlayer) {
+                    FIAdvancementCriteria.CRACK_IT.trigger(serverPlayer);
+                }
                 level.playSound(null, pos, SoundEvents.STONE_PLACE, SoundSource.BLOCKS, 1.0f, 1.0f);
                 return InteractionResult.SUCCESS;
             } else if (block == Blocks.CRACKED_NETHER_BRICKS) {
                 stack.hurtAndBreak(2, player, p -> p.broadcastBreakEvent(context.getHand()));
                 level.setBlock(pos, Blocks.NETHER_BRICKS.defaultBlockState(), 3);
+                if (player instanceof ServerPlayer serverPlayer) {
+                    FIAdvancementCriteria.CRACK_IT.trigger(serverPlayer);
+                }
                 level.playSound(null, pos, SoundEvents.STONE_PLACE, SoundSource.BLOCKS, 1.0f, 1.0f);
                 return InteractionResult.SUCCESS;
             } else if (block == Blocks.CRACKED_POLISHED_BLACKSTONE_BRICKS) {
                 stack.hurtAndBreak(2, player, p -> p.broadcastBreakEvent(context.getHand()));
                 level.setBlock(pos, Blocks.POLISHED_BLACKSTONE_BRICKS.defaultBlockState(), 3);
+                if (player instanceof ServerPlayer serverPlayer) {
+                    FIAdvancementCriteria.CRACK_IT.trigger(serverPlayer);
+                }
                 level.playSound(null, pos, SoundEvents.STONE_PLACE, SoundSource.BLOCKS, 1.0f, 1.0f);
                 return InteractionResult.SUCCESS;
             } else if (block == Blocks.CRACKED_DEEPSLATE_TILES) {
                 stack.hurtAndBreak(2, player, p -> p.broadcastBreakEvent(context.getHand()));
                 level.setBlock(pos, Blocks.DEEPSLATE_TILES.defaultBlockState(), 3);
+                if (player instanceof ServerPlayer serverPlayer) {
+                    FIAdvancementCriteria.CRACK_IT.trigger(serverPlayer);
+                }
                 level.playSound(null, pos, SoundEvents.STONE_PLACE, SoundSource.BLOCKS, 1.0f, 1.0f);
                 return InteractionResult.SUCCESS;
             }

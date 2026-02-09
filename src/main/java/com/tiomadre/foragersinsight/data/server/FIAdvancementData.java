@@ -72,6 +72,9 @@ public class FIAdvancementData extends AdvancementModifierProvider {
         advancements.put(FIAdvancements.BIRCH_PLEASE, birchPlease());
         advancements.put(FIAdvancements.STOP_HAMMER_TIME, stopHammerTime());
         advancements.put(FIAdvancements.WILL_IT_CRUSH, willItCrush());
+        advancements.put(FIAdvancements.PETAL_TO_THE_METAL, petalToTheMetal());
+        advancements.put(FIAdvancements.CRACK_IT, crackIt());
+        advancements.put(FIAdvancements.UH_FIX_IT, uhFixIt());
 
         CompletableFuture<?>[] writes = advancements.entrySet().stream()
                 .map(entry -> DataProvider.saveStable(output, entry.getValue(), this.pathProvider.json(entry.getKey())))
@@ -107,7 +110,7 @@ public class FIAdvancementData extends AdvancementModifierProvider {
     }
 
     private static JsonObject rareFind() {
-        return singleCriterionAdvancement(FIAdvancements.RARE_FIND, FIAdvancements.BRUSH_IT_OFF,
+        return singleCriterionAdvancement(FIAdvancements.RARE_FIND, FIAdvancements.SPRING_CLEANING,
                 "advancements.foragersinsight.adventure.rare_find.title",
                 "advancements.foragersinsight.adventure.rare_find.description",
                 "find_blewit_mushroom", simpleTrigger("foragersinsight:find_blewit_mushroom"));
@@ -149,7 +152,7 @@ public class FIAdvancementData extends AdvancementModifierProvider {
     }
 
     private static JsonObject tapThat() {
-        return singleCriterionAdvancement(FIAdvancements.TAP_THAT,
+        return singleCriterionAdvancement(FIAdvancements.TAP_THAT, FIAdvancements.GIVING_TREES,
                 "advancements.foragersinsight.adventure.tap_that.title",
                 "advancements.foragersinsight.adventure.tap_that.description",
                 "tap_that", simpleTrigger("foragersinsight:tap_that"));
@@ -186,6 +189,27 @@ public class FIAdvancementData extends AdvancementModifierProvider {
                 "advancements.foragersinsight.adventure.will_it_crush.title",
                 "advancements.foragersinsight.adventure.will_it_crush.description",
                 "will_it_crush", simpleTrigger("foragersinsight:will_it_crush"));
+    }
+
+    private static JsonObject petalToTheMetal() {
+        return singleCriterionAdvancement(FIAdvancements.PETAL_TO_THE_METAL, FIAdvancements.WILD_FLOWERS,
+                "advancements.foragersinsight.adventure.petal_to_the_metal.title",
+                "advancements.foragersinsight.adventure.petal_to_the_metal.description",
+                "petal_to_the_metal", simpleTrigger("foragersinsight:petal_to_the_metal"));
+    }
+
+    private static JsonObject crackIt() {
+        return singleCriterionAdvancement(FIAdvancements.CRACK_IT, FIAdvancements.STOP_HAMMER_TIME,
+                "advancements.foragersinsight.adventure.crack_it.title",
+                "advancements.foragersinsight.adventure.crack_it.description",
+                "crack_it", simpleTrigger("foragersinsight:crack_it"));
+    }
+
+    private static JsonObject uhFixIt() {
+        return singleCriterionAdvancement(FIAdvancements.UH_FIX_IT, FIAdvancements.CRACK_IT,
+                "advancements.foragersinsight.adventure.uh_fix_it.title",
+                "advancements.foragersinsight.adventure.uh_fix_it.description",
+                "uh_fix_it", simpleTrigger("foragersinsight:uh_fix_it"));
     }
 
 

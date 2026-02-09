@@ -1,5 +1,5 @@
 {
-  "parent": "foragersinsight:adventure/brush_it_off",
+  "parent": "foragersinsight:adventure/spring_cleaning",
   "criteria": {
     "find_blewit_mushroom": {
       "trigger": "foragersinsight:find_blewit_mushroom"
@@ -19,8 +19,8 @@
     "title": {
       "translate": "advancements.foragersinsight.adventure.rare_find.title"
     },
-    "x": 0,
-    "y": -4
+    "x": 1,
+    "y": 1
   },
   "requirements": [
     [
