@@ -111,7 +111,7 @@ public class FarmingXPEvents {
         // Gourds attached to stems
         if (block instanceof StemGrownBlock) {
             boolean connectedToStem = isConnectedToStem(level, pos);
-            awardUnifiedXP(level, player, connectedToStem ? 1 : 0, 2, XPSource.CROP, false);
+            awardUnifiedXP(level, player, connectedToStem ? 1 : 0, connectedToStem ? 2 : 0, XPSource.CROP, false);
             return;
         }
 

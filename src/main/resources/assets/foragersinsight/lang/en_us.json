@@ -201,7 +201,7 @@
   "advancements.foragersinsight.adventure.wild_flowers.description": "Use a knife to forage a unique crop from a wild flower.",
 
   "advancements.foragersinsight.adventure.giving_trees.title": "Giving Tree",
-  "advancements.foragersinsight.adventure.giving_trees.description": "Collect the crop of one of the bountiful variants of trees.",
+  "advancements.foragersinsight.adventure.giving_trees.description": "Pluck the leaves of one of the crops of a bountiful tree variant.",
 
   "advancements.foragersinsight.adventure.stop_hammer_time.title": "Stop...Hammer Time",
   "advancements.foragersinsight.adventure.stop_hammer_time.description": "Craft a Mallet to crush certain blocks and items.",
@@ -213,19 +213,19 @@
   "advancements.foragersinsight.adventure.scentsational.description": "Ignite a Diffuser and take a deep breath!",
 
   "advancements.foragersinsight.adventure.petal_to_the_metal.title": "Petal to The Metal",
-  "advancements.foragersinsight.adventure.petal_to_the_metal.description": "Acquire petals from certain flowery crops.",
+  "advancements.foragersinsight.adventure.petal_to_the_metal.description": "Use a Knife to acquire some Petals.",
 
   "advancements.foragersinsight.adventure.shear.title": "Shearing is Caring",
   "advancements.foragersinsight.adventure.shear.description": "Instead of plucking, snip with Shears to get a little something extra!",
 
   "advancements.foragersinsight.adventure.will_it_crush.title": "Crush It!",
-  "advancements.foragersinsight.adventure.will_it_crush.description": "Crush an item using a Mallet.",
+  "advancements.foragersinsight.adventure.will_it_crush.description": "Use a Mallet to crush an item on the Cutting Board.",
 
   "advancements.foragersinsight.adventure.crack_it.title": "Crack It!",
-  "advancements.foragersinsight.adventure.crack_it.description": "Use a Mallet on one of its cracked block interactions.",
+  "advancements.foragersinsight.adventure.crack_it.description": "Use a Mallet to crack certain bricks.",
 
   "advancements.foragersinsight.adventure.uh_fix_it.title": "Fix It?",
-  "advancements.foragersinsight.adventure.uh_fix_it.description": "Acquire a particular enchanted Mallet and use it to repair an Anvil.",
+  "advancements.foragersinsight.adventure.uh_fix_it.description": "Use a Mallet with Mending to repair an Anvil.",
 
   "advancements.foragersinsight.adventure.rare_find.title": "Choice Edible",
   "advancements.foragersinsight.adventure.rare_find.description": "Find something rare from Suspicious Leaf Litter...",

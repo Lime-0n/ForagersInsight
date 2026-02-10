@@ -38,7 +38,7 @@ public class SpruceTipBlock extends BushBlock implements BonemealableBlock {
     };
     public SpruceTipBlock(@NotNull Properties props) {
         super(props);
-        this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0));
+        this.registerDefaultState(this.stateDefinition.any().setValue(AGE, MAX_AGE));
     }
 
     @Override

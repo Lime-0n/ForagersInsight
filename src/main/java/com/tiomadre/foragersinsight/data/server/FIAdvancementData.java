@@ -74,7 +74,7 @@ public class FIAdvancementData extends AdvancementModifierProvider {
         advancements.put(FIAdvancements.WILL_IT_CRUSH, willItCrush());
         advancements.put(FIAdvancements.PETAL_TO_THE_METAL, petalToTheMetal());
         advancements.put(FIAdvancements.CRACK_IT, crackIt());
-        advancements.put(FIAdvancements.UH_FIX_IT, uhFixIt());
+        advancements.put(FIAdvancements.UH_FIX_IT, FixIt());
 
         CompletableFuture<?>[] writes = advancements.entrySet().stream()
                 .map(entry -> DataProvider.saveStable(output, entry.getValue(), this.pathProvider.json(entry.getKey())))
@@ -205,7 +205,7 @@ public class FIAdvancementData extends AdvancementModifierProvider {
                 "crack_it", simpleTrigger("foragersinsight:crack_it"));
     }
 
-    private static JsonObject uhFixIt() {
+    private static JsonObject FixIt() {
         return singleCriterionAdvancement(FIAdvancements.UH_FIX_IT, FIAdvancements.CRACK_IT,
                 "advancements.foragersinsight.adventure.uh_fix_it.title",
                 "advancements.foragersinsight.adventure.uh_fix_it.description",

@@ -69,7 +69,7 @@ public final class FIAdvancements {
     );
     public static final List<Node> SECOND_ROW = List.of(
             node(SCENTSATIONAL, SCENTSATIONAL_ICON, -4, 1, FIFrameType.TASK),
-            node(PETAL_TO_THE_METAL, PETAL_TO_THE_METAL_ICON, -3, 1, FIFrameType.TASK),
+            node(PETAL_TO_THE_METAL, PETAL_TO_THE_METAL_ICON, -3, 1, FIFrameType.GOAL),
             node(BRUSH_IT_OFF, BRUSH_IT_OFF_ICON, -1, 1, FIFrameType.TASK),
             node(RARE_FIND, RARE_FIND_ICON, 0, 1, FIFrameType.GOAL),
             node(TAP_THAT, TAP_THAT_ICON, 1, 1, FIFrameType.TASK),
@@ -81,7 +81,7 @@ public final class FIAdvancements {
     public static final List<Node> THIRD_ROW = List.of(
             node(STINKY_SITUATION, STINKY_SITUATION_ICON, -4, 2, FIFrameType.CHALLENGE),
             node(BIRCH_PLEASE, BIRCH_PLEASE_ICON, 1, 2, FIFrameType.TASK),
-            node(UH_FIX_IT, UH_FIX_IT_ICON, 4, 2, FIFrameType.GOAL)
+            node(UH_FIX_IT, UH_FIX_IT_ICON, 4, 2, FIFrameType.CHALLENGE)
     );
 
 

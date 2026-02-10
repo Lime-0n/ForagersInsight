@@ -10,7 +10,7 @@
     "description": {
       "translate": "advancements.foragersinsight.adventure.petal_to_the_metal.description"
     },
-    "frame": "task",
+    "frame": "goal",
     "hidden": false,
     "icon": {
       "item": "foragersinsight:rose_petals"
