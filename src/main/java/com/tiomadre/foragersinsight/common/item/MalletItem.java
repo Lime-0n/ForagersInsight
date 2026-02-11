@@ -35,7 +35,9 @@ import static com.tiomadre.foragersinsight.core.other.toolevents.ShearsSnipInter
 
 public class MalletItem extends PickaxeItem {
     private static final Map<Block, CrushResult> CRUSH_RESULTS = new HashMap<>();
+    private static final Map<Block, Block> CRUSH_TRANSFORM_RESULTS = new HashMap<>();
     private static final Map<Block, Block> CRACKED_TO_NORMAL_BLOCKS = Map.of(
+
             Blocks.CRACKED_STONE_BRICKS, Blocks.STONE_BRICKS,
             Blocks.CRACKED_DEEPSLATE_BRICKS, Blocks.DEEPSLATE_BRICKS,
             Blocks.CRACKED_NETHER_BRICKS, Blocks.NETHER_BRICKS,
@@ -62,12 +64,12 @@ public class MalletItem extends PickaxeItem {
         addCrushResult(Blocks.GLASS, Blocks.SAND, 1);
         addCrushResult(Blocks.SANDSTONE, Blocks.SAND, 1);
         // Cracked Stone and Bricks
-        addCrushResult(Blocks.STONE, Blocks.COBBLESTONE, 1);
-        addCrushResult(Blocks.STONE_BRICKS, Blocks.CRACKED_STONE_BRICKS, 1);
-        addCrushResult(Blocks.DEEPSLATE_BRICKS, Blocks.CRACKED_DEEPSLATE_BRICKS, 1);
-        addCrushResult(Blocks.NETHER_BRICKS, Blocks.CRACKED_NETHER_BRICKS, 1);
-        addCrushResult(Blocks.POLISHED_BLACKSTONE_BRICKS, Blocks.CRACKED_POLISHED_BLACKSTONE_BRICKS, 1);
-        addCrushResult(Blocks.DEEPSLATE_TILES, Blocks.CRACKED_DEEPSLATE_TILES, 1);
+        addCrushTransformResult(Blocks.STONE, Blocks.COBBLESTONE);
+        addCrushTransformResult(Blocks.STONE_BRICKS, Blocks.CRACKED_STONE_BRICKS);
+        addCrushTransformResult(Blocks.DEEPSLATE_BRICKS, Blocks.CRACKED_DEEPSLATE_BRICKS);
+        addCrushTransformResult(Blocks.NETHER_BRICKS, Blocks.CRACKED_NETHER_BRICKS);
+        addCrushTransformResult(Blocks.POLISHED_BLACKSTONE_BRICKS, Blocks.CRACKED_POLISHED_BLACKSTONE_BRICKS);
+        addCrushTransformResult(Blocks.DEEPSLATE_TILES, Blocks.CRACKED_DEEPSLATE_TILES);
         // Fruit and Grain
         addCrushResult(Blocks.PUMPKIN, Items.PUMPKIN_SEEDS, 2);
         addCrushResult(Blocks.MELON, Items.MELON_SEEDS, 2);
@@ -78,6 +80,9 @@ public class MalletItem extends PickaxeItem {
 
     private static void addCrushResult(Block block, ItemLike item, int baseAmount) {
         CRUSH_RESULTS.put(block, new CrushResult(item, baseAmount));
+    }
+    private static void addCrushTransformResult(Block sourceBlock, Block targetBlock) {
+        CRUSH_TRANSFORM_RESULTS.put(sourceBlock, targetBlock);
     }
 
     private record CrushResult(ItemLike item, int baseAmount) {
@@ -159,6 +164,28 @@ public class MalletItem extends PickaxeItem {
         }
 
         // Squish Noises & Crushing
+        Block transformedBlock = CRUSH_TRANSFORM_RESULTS.get(block);
+        if (transformedBlock != null) {
+            if (player == null) return InteractionResult.PASS;
+
+            stack.hurtAndBreak(2, player, p -> p.broadcastBreakEvent(context.getHand()));
+
+            float hardness = state.getDestroySpeed(level, pos);
+            int baseTicks = (int) (hardness * 1.5f * 20f);
+            int crushTicks = Math.max(1, (int) (baseTicks * 0.6f));
+            player.getCooldowns().addCooldown(this, crushTicks);
+
+            level.setBlock(pos, transformedBlock.defaultBlockState(), 3);
+            level.playSound(null, pos, SoundEvents.STONE_BREAK, SoundSource.BLOCKS, 1.0f, 1.0f);
+
+            if (player instanceof ServerPlayer serverPlayer) {
+                FIAdvancementCriteria.WILL_IT_CRUSH.trigger(serverPlayer);
+                if (CRACK_IT_SOURCE_BLOCKS.contains(block)) {
+                    FIAdvancementCriteria.CRACK_IT.trigger(serverPlayer);
+                }
+            }
+            return InteractionResult.SUCCESS;
+        }
         CrushResult crushResult = CRUSH_RESULTS.get(block);
         if (crushResult != null) {
             if (player == null) return InteractionResult.PASS;

@@ -91,6 +91,9 @@
   "block.foragersinsight.roselle_bush": "Roselle Bush",
   "block.foragersinsight.stout_beach_rose_bush": "Stout Beach Rose Bush",
   "block.foragersinsight.tall_beach_rose_bush": "Tall Beach Rose Bush",
+  "item.foragersinsight.roselle_bush": "Roselle Bush",
+  "item.foragersinsight.stout_beach_rose_bush": "Stout Beach Rose Bush",
+  "item.foragersinsight.tall_beach_rose_bush": "Tall Beach Rose Bush",
   "block.foragersinsight.bountiful_dark_oak_leaves": "Bountiful Dark Oak Leaves",
   "block.foragersinsight.bountiful_oak_leaves": "Bountiful Oak Leaves",
   "block.foragersinsight.bountiful_spruce_leaves": "Bountiful Spruce Leaves",
@@ -124,6 +127,7 @@
 
   "block.foragersinsight.apple_crate": "Crate of Apples",
   "block.foragersinsight.blewit_mushroom_crate": "Blewit Mushroom Crate",
+  "block.foragersinsight.lilac_crate": "Crate of Lilac Blooms",
   "block.foragersinsight.dandelion_root_sack": "Sack of Dandelion Roots",
   "block.foragersinsight.black_acorn_sack": "Sack of Black Acorns",
   "block.foragersinsight.poppy_seeds_sack": "Sack of Poppy Seeds",

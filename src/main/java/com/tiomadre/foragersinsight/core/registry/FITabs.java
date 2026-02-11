@@ -39,6 +39,7 @@ public class FITabs {
             FIBlocks.LILAC_LEAVES,
             FIBlocks.APPLE_CRATE,
             FIBlocks.BLEWIT_CRATE,
+            FIBlocks.LILAC_BLOOM_CRATE,
             FIBlocks.BLACK_ACORN_SACK,
             FIBlocks.DANDELION_ROOT_SACK,
             FIBlocks.POPPY_SEEDS_SACK,
