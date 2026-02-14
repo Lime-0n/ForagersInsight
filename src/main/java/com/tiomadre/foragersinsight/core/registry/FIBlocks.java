@@ -40,7 +40,7 @@ public class FIBlocks {
 
     //Mushrooms
     public static final RegistryObject<Block> BLEWIT_MUSHROOM_COLONY = HELPER.createBlock("blewit_mushroom_colony", () ->
-             new MushroomColonyBlock(Block.Properties.copy(FIBlocks.BLEWIT_MUSHROOM.get()), FIItems.BLEWIT_MUSHROOM));
+            new MushroomColonyBlock(copy(Blocks.RED_MUSHROOM), FIItems.BLEWIT_MUSHROOM));
 
     public static final RegistryObject<Block> BLEWIT_MUSHROOM = HELPER.createBlockNoItem("blewit_mushroom", () ->
             new WildMushroomBlock(copy(Blocks.RED_MUSHROOM), BLEWIT_MUSHROOM_COLONY));
