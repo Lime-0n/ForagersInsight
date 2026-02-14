@@ -10,10 +10,8 @@ import com.teamabnormals.blueprint.common.block.LogBlock;
 import com.teamabnormals.blueprint.core.util.registry.BlockSubRegistryHelper;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.common.block.CabinetBlock;
@@ -41,13 +39,11 @@ public class FIBlocks {
             copy(Blocks.WHEAT), 3));
 
     //Mushrooms
-    public static final RegistryObject<Block> BLEWIT_MUSHROOM = HELPER.createBlockNoItem("blewit_mushroom", () ->
-            new WildMushroomBlock(copy(Blocks.RED_MUSHROOM)));
-
     public static final RegistryObject<Block> BLEWIT_MUSHROOM_COLONY = HELPER.createBlock("blewit_mushroom_colony", () ->
-            new MushroomColonyBlock(copy(Blocks.RED_MUSHROOM), FIItems.BLEWIT_MUSHROOM) {@Override
-            public BlockState getStateForPlacement(BlockPlaceContext context) {BlockState state = super.getStateForPlacement(context);
-                    if (state == null) {return null;}int maxAge = MushroomColonyBlock.COLONY_AGE.getPossibleValues().size() - 1;return state.setValue(MushroomColonyBlock.COLONY_AGE, maxAge);}});
+             new MushroomColonyBlock(Block.Properties.copy(FIBlocks.BLEWIT_MUSHROOM.get()), FIItems.BLEWIT_MUSHROOM));
+
+    public static final RegistryObject<Block> BLEWIT_MUSHROOM = HELPER.createBlockNoItem("blewit_mushroom", () ->
+            new WildMushroomBlock(copy(Blocks.RED_MUSHROOM), BLEWIT_MUSHROOM_COLONY));
     //Trees
     //Oak
     public static final RegistryObject<Block> BOUNTIFUL_OAK_LEAVES = HELPER.createBlock("bountiful_oak_leaves", () ->
