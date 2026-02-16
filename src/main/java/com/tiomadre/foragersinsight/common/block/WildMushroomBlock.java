@@ -6,7 +6,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.MushroomBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import vectorwing.farmersdelight.common.block.MushroomColonyBlock;
 
 import java.util.function.Supplier;
 
@@ -31,11 +30,6 @@ public class WildMushroomBlock extends MushroomBlock {
         }
 
         BlockState colonyState = colony.defaultBlockState();
-        if (colonyState.hasProperty(MushroomColonyBlock.COLONY_AGE)) {
-            int maxAge = MushroomColonyBlock.COLONY_AGE.getPossibleValues().size() - 1;
-            colonyState = colonyState.setValue(MushroomColonyBlock.COLONY_AGE, maxAge);
-        }
-
         if (colonyState.canSurvive(level, pos)) {
             level.setBlock(pos, colonyState, Block.UPDATE_ALL);
         }

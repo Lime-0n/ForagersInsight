@@ -79,6 +79,11 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .requires(DANDELION).requires(DANDELION)
                 .requires(BOWL)
                 .unlockedBy("has_poppy_seed", has(POPPY_SEEDS.get())).save(consumer);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, LILAC_SALAD.get())
+                .requires(LILAC_BLOOM.get()).requires(LILAC_BLOOM.get())
+                .requires(LILAC_BLOOM.get()).requires(LILAC_BLOOM.get())
+                .requires(BOWL)
+                .unlockedBy("has_lilac_bloom", has(LILAC_BLOOM.get())).save(consumer);
         //Sandwiches + Finger Foods
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, KELP_WRAP.get())
                 .requires(KELP).requires(INK_SAC).requires(ForgeTags.CROPS_TOMATO)
@@ -222,13 +227,15 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .unlockedBy("has_diamond", has(DIAMOND))
                 .save(consumer);
         SmithingTransformRecipeBuilder.smithing(
-                Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
-                Ingredient.of(DIAMOND_MALLET.get()),
-                Ingredient.of(NETHERITE_INGOT),
-                RecipeCategory.TOOLS, NETHERITE_MALLET.get())
+                        Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
+                        Ingredient.of(DIAMOND_MALLET.get()),
+                        Ingredient.of(NETHERITE_INGOT),
+                        RecipeCategory.TOOLS, NETHERITE_MALLET.get())
                 .unlocks("has_diamond_mallet", has(DIAMOND_MALLET.get()))
                 .unlocks("has_netherite_ingot", has(NETHERITE_INGOT))
-                .unlocks("has_smiting_template", has(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE));
+                .unlocks("has_smiting_template", has(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE))
+                .save(consumer, ForagersInsight.rl("netherite_mallet_smithing"));
+
         //Diffuser
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, FIItems.DIFFUSER.get())
                 .pattern("BCB")
@@ -427,6 +434,7 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
         this.storageRecipes(consumer, RecipeCategory.FOOD, SPRUCE_TIPS.get(), RecipeCategory.DECORATIONS, SPRUCE_TIPS_SACK.get());
         this.storageRecipes(consumer, RecipeCategory.FOOD, ROSELLE_CALYX.get(), RecipeCategory.DECORATIONS, ROSELLE_CALYX_SACK.get());
         this.storageRecipes(consumer, RecipeCategory.FOOD, FIItems.BLEWIT_MUSHROOM.get(), RecipeCategory.DECORATIONS, FIBlocks.BLEWIT_CRATE.get());
+        this.storageRecipes(consumer, RecipeCategory.FOOD, LILAC_BLOOM.get(), RecipeCategory.DECORATIONS, LILAC_BLOOM_CRATE.get());
 
         FICookingRecipes.buildRecipes(consumer);
         FICrushandCutRecipes.buildRecipes(consumer);
