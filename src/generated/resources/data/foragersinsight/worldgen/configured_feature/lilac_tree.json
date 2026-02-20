@@ -44,11 +44,7 @@
       "state": {
         "Name": "foragersinsight:lilac_log",
         "Properties": {
-          "axis": "y",
-          "east": "false",
-          "north": "false",
-          "south": "false",
-          "west": "false"
+          "axis": "y"
         }
       }
     }
