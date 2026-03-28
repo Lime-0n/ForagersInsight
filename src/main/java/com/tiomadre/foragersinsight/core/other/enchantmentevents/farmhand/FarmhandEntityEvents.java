@@ -1,23 +1,25 @@
 package com.tiomadre.foragersinsight.core.other.enchantmentevents.farmhand;
 
+import com.tiomadre.foragersinsight.common.item.HandbasketItem;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIEnchantments;
-import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.animal.Sheep;
+import net.minecraft.world.entity.Shearable;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ShearsItem;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteractSpecific;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.items.IItemHandler;
+
+import java.util.Optional;
 
 @Mod.EventBusSubscriber(modid = ForagersInsight.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class FarmhandEntityEvents {
@@ -34,43 +36,82 @@ public class FarmhandEntityEvents {
         if (tool.getEnchantmentLevel(FIEnchantments.FARMHAND.get()) <= 0) return;
 
         Entity target = event.getTarget();
+        if (!(target instanceof Shearable shearable)) return;
+        if (!shearable.readyForShearing()) return;
 
-        // Sheep shearing
-        if (target instanceof Sheep sheep) {
-            if (sheep.isSheared() || sheep.isBaby()) return;
-            event.setCanceled(true);
-            sheep.setSheared(true);
-            int woolCount = 1 + level.random.nextInt(3);
-            DyeColor color = sheep.getColor();
-            Item woolItem = getWoolForColor(color);
-            for (int i = 0; i < woolCount; i++) {
-                ItemStack wool = new ItemStack(woolItem);
-                if (!player.getInventory().add(wool)) player.drop(wool, false);
+        event.setCanceled(true);
+
+        shearable.shear(SoundSource.PLAYERS);
+
+        for (ItemEntity dropEntity : level.getEntitiesOfClass(ItemEntity.class, target.getBoundingBox().inflate(1.5D))) {
+            if (!dropEntity.isAlive()) continue;
+            ItemStack drop = dropEntity.getItem().copy();
+            if (!tryInsertToHandbasket(player, drop)) {
+                if (!player.getInventory().add(drop)) {
+                    player.drop(drop, false);
+                }
             }
-            BlockPos pos = sheep.blockPosition();
-            level.playSound(null, pos, SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 1.0f, 1.0f);
-            tool.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
+            dropEntity.discard();
         }
+
+        tool.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
     }
 
-    private static Item getWoolForColor(DyeColor color) {
-        return switch (color) {
-            case ORANGE    -> Items.ORANGE_WOOL;
-            case MAGENTA   -> Items.MAGENTA_WOOL;
-            case LIGHT_BLUE-> Items.LIGHT_BLUE_WOOL;
-            case YELLOW    -> Items.YELLOW_WOOL;
-            case LIME      -> Items.LIME_WOOL;
-            case PINK      -> Items.PINK_WOOL;
-            case GRAY      -> Items.GRAY_WOOL;
-            case LIGHT_GRAY-> Items.LIGHT_GRAY_WOOL;
-            case CYAN      -> Items.CYAN_WOOL;
-            case PURPLE    -> Items.PURPLE_WOOL;
-            case BLUE      -> Items.BLUE_WOOL;
-            case BROWN     -> Items.BROWN_WOOL;
-            case GREEN     -> Items.GREEN_WOOL;
-            case RED       -> Items.RED_WOOL;
-            case BLACK     -> Items.BLACK_WOOL;
-            default        -> Items.WHITE_WOOL;
-        };
+    //Insert into Handbasket
+    private static boolean tryInsertToHandbasket(Player player, ItemStack drop) {
+        IItemHandler selectedHandler = null;
+        int selectedUsedSlots = -1;
+        boolean selectedHasItems = false;
+
+        for (ItemStack invStack : player.getInventory().items) {
+            if (!(invStack.getItem() instanceof HandbasketItem)) {
+                continue;
+            }
+            LazyOptional<IItemHandler> cap = invStack.getCapability(ForgeCapabilities.ITEM_HANDLER);
+            Optional<IItemHandler> resolved = cap.resolve();
+            if (resolved.isEmpty()) {
+                continue;
+            }
+            IItemHandler handler = resolved.get();
+            int totalSlots = handler.getSlots();
+            int usedSlots = 0;
+            for (int slot = 0; slot < totalSlots; slot++) {
+                if (!handler.getStackInSlot(slot).isEmpty()) {
+                    usedSlots++;
+                }
+            }
+            if (usedSlots >= totalSlots) {
+                continue;
+            }
+
+            boolean hasItems = usedSlots > 0;
+            if (selectedHandler == null
+                    || (hasItems && !selectedHasItems)
+                    || (hasItems == selectedHasItems && usedSlots > selectedUsedSlots)) {
+                selectedHandler = handler;
+                selectedUsedSlots = usedSlots;
+                selectedHasItems = hasItems;
+            }
+        }
+
+        if (selectedHandler == null) {
+            return false;
+        }
+
+        ItemStack remainder = drop.copy();
+        for (int slot = 0; slot < selectedHandler.getSlots(); slot++) {
+            remainder = selectedHandler.insertItem(slot, remainder, true);
+            if (remainder.isEmpty()) break;
+        }
+        if (!remainder.isEmpty()) {
+            return false;
+        }
+
+        ItemStack toInsert = drop.copy();
+        for (int slot = 0; slot < selectedHandler.getSlots(); slot++) {
+            toInsert = selectedHandler.insertItem(slot, toInsert, false);
+            if (toInsert.isEmpty()) break;
+        }
+        return true;
     }
 }

@@ -112,7 +112,7 @@ public class SuspiciousLitterBlock extends CarpetBlock implements EntityBlock {
 
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if (blockEntity instanceof SuspiciousLitterBlockEntity litterBlockEntity) {
-            litterBlockEntity.startBrushing(player);
+            litterBlockEntity.startBrushing(player, player.getItemInHand(hand));
         }
         player.startUsingItem(hand);
         return InteractionResult.CONSUME;

@@ -152,7 +152,7 @@ public class FIItems {
     public static final RegistryObject<Item> SEED_MILK_BOTTLE = HELPER.createItem("seed_milk_bottle", () -> new MilkBottleItem(
             new Item.Properties().stacksTo(16).food(FIFoods.SEED_MILK_BOTTLE).craftRemainder(Items.GLASS_BOTTLE)));
     public static final RegistryObject<Item> SEED_MILK_BUCKET = HELPER.createItem("seed_milk_bucket", () -> new MilkBucketItem(
-            new Item.Properties().stacksTo(16).food(FIFoods.SEED_MILK_BUCKET)));
+            new Item.Properties().stacksTo(16).food(FIFoods.SEED_MILK_BUCKET).craftRemainder(Items.BUCKET)));
 
         //Tonics (Medicinal)
     public static final RegistryObject<Item> ROSE_CORDIAL = HELPER.createItem("rose_cordial", () -> new TonicItem(new Item.Properties()

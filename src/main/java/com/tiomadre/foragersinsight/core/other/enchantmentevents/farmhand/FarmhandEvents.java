@@ -10,6 +10,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -125,7 +127,7 @@ public class FarmhandEvents {
         event.setCanceled(true);
 
         ServerLevel server = (ServerLevel) level;
-        List<ItemStack> drops = Block.getDrops(state, server, pos, server.getBlockEntity(pos));
+        List<ItemStack> drops = Block.getDrops(state, server, pos, server.getBlockEntity(pos), player, tool);
 
         // *yoinks drops directly into inventory* 👌😊👉🎒
         for (ItemStack drop : drops) {
@@ -176,7 +178,8 @@ public class FarmhandEvents {
 
         event.setCanceled(true);
         ServerLevel server = (ServerLevel) level;
-        Collection<ItemStack> drops = shearable.onSheared(player, tool, server, pos, 0);
+        int fortuneLevel = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, tool);
+        Collection<ItemStack> drops = shearable.onSheared(player, tool, server, pos, fortuneLevel);
 
         server.destroyBlock(pos, false);
         for (ItemStack drop : drops) {
@@ -194,7 +197,6 @@ public class FarmhandEvents {
     public static void onShearRight(RightClickBlock event) {
         Player player = event.getEntity();
         ItemStack tool = player.getMainHandItem();
-        if (!(tool.getItem() instanceof ShearsItem)) return;
         if (tool.getEnchantmentLevel(FIEnchantments.FARMHAND.get()) <= 0) return;
 
         Level level = event.getLevel();
@@ -203,6 +205,12 @@ public class FarmhandEvents {
         BlockPos pos = event.getPos();
         BlockState state = level.getBlockState(pos);
         Block block = state.getBlock();
+        if (!(tool.getItem() instanceof ShearsItem)) {
+            if (HarvestAndReplant(level, player, tool, pos, state, block)) {
+                event.setCanceled(true);
+            }
+            return;
+        }
 
         // Bountiful Leaves
         if (block instanceof BountifulLeavesBlock bountiful && state.getValue(BountifulLeavesBlock.AGE) >= BountifulLeavesBlock.MAX_AGE) {
@@ -247,4 +255,43 @@ public class FarmhandEvents {
             tool.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(InteractionHand.MAIN_HAND));
         }
     }
+    //replant logic
+    private static boolean HarvestAndReplant(Level level, Player player, ItemStack tool, BlockPos pos, BlockState state, Block block) {
+        Optional<IntegerProperty> agePropOpt = state.getProperties().stream()
+                .filter(p -> p.getName().equals("age") && p instanceof IntegerProperty)
+                .map(p -> (IntegerProperty) p)
+                .findFirst();
+        if (agePropOpt.isEmpty()) return false;
+
+        IntegerProperty ageProp = agePropOpt.get();
+        int currentAge = state.getValue(ageProp);
+        int maxAge = ageProp.getPossibleValues().stream().max(Integer::compareTo).orElse(currentAge);
+        if (currentAge < maxAge) return false;
+
+        ServerLevel server = (ServerLevel) level;
+        List<ItemStack> drops = Block.getDrops(state, server, pos, server.getBlockEntity(pos), player, tool);
+        for (ItemStack drop : drops) {
+            if (!tryInsertToHandbasket(player, drop)) {
+                if (!player.getInventory().add(drop)) {
+                    player.drop(drop, false);
+                }
+            }
+        }
+
+        BlockState replanted;
+        if (block instanceof RoseCropBlock roseCropBlock) {
+            replanted = roseCropBlock.getStateForAge(0).setValue(RoseCropBlock.HALF, DoubleBlockHalf.LOWER);
+        } else {
+            replanted = state.setValue(ageProp, 0);
+            if (replanted.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF)) {
+                replanted = replanted.setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER);
+            }
+        }
+
+        level.setBlock(pos, replanted, Block.UPDATE_ALL);
+        level.playSound(null, pos, SoundEvents.CROP_BREAK, SoundSource.BLOCKS, 0.8f, 1.0f);
+        tool.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(InteractionHand.MAIN_HAND));
+        return true;
+    }
+
 }

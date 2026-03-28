@@ -23,6 +23,13 @@ import static net.minecraft.world.level.block.state.BlockBehaviour.Properties.co
 @Mod.EventBusSubscriber(modid = ForagersInsight.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class FIBlocks {
     public static final BlockSubRegistryHelper HELPER = ForagersInsight.REGISTRY_HELPER.getBlockSubHelper();
+    private static BlockBehaviour.Properties vanillaLeafProperties(Block vanillaLeaf) {
+        return copy(vanillaLeaf)
+                .noOcclusion()
+                .isValidSpawn((state, level, pos, type) -> false)
+                .isSuffocating((state, level, pos) -> false)
+                .isViewBlocking((state, level, pos) -> false);
+    }
 
     //Cakes and Feasts
     public static final RegistryObject<Block> ACORN_CARROT_CAKE = HELPER.createBlockNoItem("acorn_carrot_cake",
@@ -47,13 +54,13 @@ public class FIBlocks {
     //Trees
     //Oak
     public static final RegistryObject<Block> BOUNTIFUL_OAK_LEAVES = HELPER.createBlock("bountiful_oak_leaves", () ->
-            new BountifulLeavesBlock(copy(Blocks.OAK_LEAVES), () -> Items.APPLE));
+            new BountifulLeavesBlock(vanillaLeafProperties(Blocks.OAK_LEAVES), () -> Items.APPLE));
     //Dark Oak
     public static final RegistryObject<Block> BOUNTIFUL_DARK_OAK_LEAVES = HELPER.createBlock("bountiful_dark_oak_leaves", () ->
-            new BountifulLeavesBlock(copy(Blocks.DARK_OAK_LEAVES), BLACK_ACORN));
+            new BountifulLeavesBlock(vanillaLeafProperties(Blocks.DARK_OAK_LEAVES), BLACK_ACORN));
     //Spruce
     public static final RegistryObject<Block> BOUNTIFUL_SPRUCE_LEAVES = HELPER.createBlock("bountiful_spruce_leaves", () ->
-            new BountifulSpruceLeavesBlock(copy(Blocks.SPRUCE_LEAVES)));
+            new BountifulSpruceLeavesBlock(vanillaLeafProperties(Blocks.SPRUCE_LEAVES)));
     public static final RegistryObject<Block> BOUNTIFUL_SPRUCE_TIPS = HELPER.createBlockNoItem("bountiful_spruce_tips", () ->
             new SpruceTipBlock(copy(Blocks.SWEET_BERRY_BUSH).noCollission()));
     //Birch
@@ -61,9 +68,9 @@ public class FIBlocks {
             new LogBlock(() -> Blocks.STRIPPED_BIRCH_LOG, copy(Blocks.BIRCH_LOG)), 300);
     //Lilac
     public static final RegistryObject<Block> LILAC_LEAVES = HELPER.createBlock("lilac_leaves", () ->
-            new LeavesBlock(copy(Blocks.AZALEA_LEAVES)));
+            new LeavesBlock(vanillaLeafProperties(Blocks.AZALEA_LEAVES)));
     public static final RegistryObject<Block> BLOSSOMING_LILAC_LEAVES = HELPER.createBlock("blossoming_lilac_leaves", () ->
-            new BlossomingLilacLeavesBlock(copy(Blocks.FLOWERING_AZALEA_LEAVES)));
+            new BlossomingLilacLeavesBlock(vanillaLeafProperties(Blocks.FLOWERING_AZALEA_LEAVES)));
     public static final RegistryObject<Block> HANGING_LILAC_LEAVES = HELPER.createBlockNoItem("hanging_lilac_leaves", () ->
             new HangingLilacLeavesBlock(copy(Blocks.AZALEA_LEAVES).noCollission()));
     public static final RegistryObject<Block> LILAC_LOG = HELPER.createFuelBlock("lilac_log", () ->

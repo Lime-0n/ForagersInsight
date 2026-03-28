@@ -30,26 +30,34 @@ import org.jetbrains.annotations.Nullable;
 import java.util.UUID;
 
 public class SuspiciousLitterBlockEntity extends BlockEntity {
-    private static final int BRUSH_DURATION_TICKS = 60;
+    private static final int BRUSH_DURATION_TICKS = 100;
+    private static final int BRUSH_STEP_TICKS = 10;
+    private static final int BRUSH_COOLDOWN_TICKS = 10;
+    private static final int BRUSH_RESET_DELAY_TICKS = 40;
+    private static final int BRUSH_DECAY_INTERVAL_TICKS = 4;
     private static final double MAX_DISTANCE_SQR = 9.0D;
     private static final String NBT_BRUSHER = "Brusher";
     private static final String NBT_BRUSH_TICKS = "BrushTicks";
     private static final String NBT_REVEALED_ITEM = "RevealedItem";
     private static final String NBT_LUCK_OF_THE_TREES = "LuckOfTheTrees";
+    private static final String NBT_COOLDOWN_ENDS = "CooldownEndsAt";
+    private static final String NBT_RESET_AT = "BrushResetsAt";
 
     private UUID brusher;
     private int brushTicks;
     private ItemStack revealedItem = ItemStack.EMPTY;
     private int luckOfTheTreesLevel;
+    private long cooldownEndsAtTick;
+    private long brushResetsAtTick;
 
     public SuspiciousLitterBlockEntity(BlockPos pos, BlockState state) {
         super(FIBlockEntityTypes.SUSPICIOUS_LEAF_LITTER.get(), pos, state);
     }
 
-    public void startBrushing(Player player) {
+    public void startBrushing(Player player, ItemStack brushStack) {
         this.brusher = player.getUUID();
         this.luckOfTheTreesLevel = EnchantmentHelper.getItemEnchantmentLevel(
-                FIEnchantments.LUCK_OF_THE_TREES.get(), player.getUseItem());
+                FIEnchantments.LUCK_OF_THE_TREES.get(), brushStack);
         if (this.level instanceof ServerLevel serverLevel) {
             resolveRevealedItem(serverLevel, getBlockState());
             sync();
@@ -65,33 +73,39 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
             return;
         }
         if (blockEntity.brusher == null) {
+            blockEntity.tryAcquireBrusher(serverLevel, state);
+            blockEntity.tryDecayBrushProgress(serverLevel.getGameTime());
             return;
         }
 
         Player player = serverLevel.getPlayerByUUID(blockEntity.brusher);
         if (player == null) {
-            blockEntity.brusher = null;
-            blockEntity.luckOfTheTreesLevel = 0;
+            blockEntity.clearBrusher();
             return;
         }
 
         if (Vec3.atCenterOf(pos).distanceToSqr(player.position()) > getReachDistanceSqr(player)) {
-            blockEntity.brusher = null;
-            blockEntity.luckOfTheTreesLevel = 0;
+            blockEntity.clearBrusher();
             return;
         }
 
         if (!isBrushing(player)) {
+            blockEntity.tryDecayBrushProgress(serverLevel.getGameTime());
             return;
         }
         if (!blockEntity.isTargetingThisBlock(player)) {
-            blockEntity.brusher = null;
-            blockEntity.luckOfTheTreesLevel = 0;
+            blockEntity.clearBrusher();
             return;
         }
 
+        if (serverLevel.getGameTime() < blockEntity.cooldownEndsAtTick) {
+            return;
+        }
+
+        blockEntity.cooldownEndsAtTick = serverLevel.getGameTime() + BRUSH_COOLDOWN_TICKS;
+        blockEntity.brushResetsAtTick = serverLevel.getGameTime() + BRUSH_RESET_DELAY_TICKS;
         blockEntity.resolveRevealedItem(serverLevel, state);
-        blockEntity.brushTicks++;
+        blockEntity.brushTicks = Math.min(BRUSH_DURATION_TICKS, blockEntity.brushTicks + BRUSH_STEP_TICKS);
         blockEntity.spawnBreakParticles(serverLevel, state);
         blockEntity.sync();
         if (blockEntity.brushTicks >= BRUSH_DURATION_TICKS) {
@@ -127,11 +141,46 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
 
 
     private void resetProgress() {
-        this.brusher = null;
+        clearBrusher();
         this.brushTicks = 0;
         this.revealedItem = ItemStack.EMPTY;
-        this.luckOfTheTreesLevel = 0;
+        this.cooldownEndsAtTick = 0L;
+        this.brushResetsAtTick = 0L;
         sync();
+    }
+
+    private void clearBrusher() {
+        this.brusher = null;
+        this.luckOfTheTreesLevel = 0;
+    }
+
+    private void tryDecayBrushProgress(long gameTime) {
+        if (this.brushTicks <= 0 || gameTime < this.brushResetsAtTick) {
+            return;
+        }
+        this.brushTicks = Math.max(0, this.brushTicks - BRUSH_STEP_TICKS);
+        this.brushResetsAtTick = gameTime + BRUSH_DECAY_INTERVAL_TICKS;
+        sync();
+    }
+
+    private void tryAcquireBrusher(ServerLevel level, BlockState state) {
+        for (ServerPlayer player : level.players()) {
+            if (!isBrushing(player)) {
+                continue;
+            }
+            if (Vec3.atCenterOf(this.worldPosition).distanceToSqr(player.position()) > getReachDistanceSqr(player)) {
+                continue;
+            }
+            if (!isTargetingThisBlock(player)) {
+                continue;
+            }
+            this.brusher = player.getUUID();
+            this.luckOfTheTreesLevel = EnchantmentHelper.getItemEnchantmentLevel(
+                    FIEnchantments.LUCK_OF_THE_TREES.get(), player.getUseItem());
+            resolveRevealedItem(level, state);
+            sync();
+            return;
+        }
     }
 
     private void resolveRevealedItem(ServerLevel level, BlockState state) {
@@ -180,6 +229,8 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
         }
         tag.putInt(NBT_BRUSH_TICKS, this.brushTicks);
         tag.putInt(NBT_LUCK_OF_THE_TREES, this.luckOfTheTreesLevel);
+        tag.putLong(NBT_COOLDOWN_ENDS, this.cooldownEndsAtTick);
+        tag.putLong(NBT_RESET_AT, this.brushResetsAtTick);
         if (!this.revealedItem.isEmpty()) {
             tag.put(NBT_REVEALED_ITEM, this.revealedItem.save(new CompoundTag()));
         }
@@ -191,6 +242,8 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
         this.brusher = tag.hasUUID(NBT_BRUSHER) ? tag.getUUID(NBT_BRUSHER) : null;
         this.brushTicks = tag.getInt(NBT_BRUSH_TICKS);
         this.luckOfTheTreesLevel = tag.getInt(NBT_LUCK_OF_THE_TREES);
+        this.cooldownEndsAtTick = tag.getLong(NBT_COOLDOWN_ENDS);
+        this.brushResetsAtTick = tag.getLong(NBT_RESET_AT);
         if (tag.contains(NBT_REVEALED_ITEM)) {
             this.revealedItem = ItemStack.of(tag.getCompound(NBT_REVEALED_ITEM));
         } else {

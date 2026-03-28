@@ -13,6 +13,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.animal.Sheep;
@@ -107,6 +108,7 @@ public class FarmingXPEvents {
         Block block = state.getBlock();
 
         if (block instanceof MushroomColonyBlock) return;
+        if (!isCropBlock(state)) return;
 
         // Gourds attached to stems
         if (block instanceof StemGrownBlock) {
@@ -121,6 +123,14 @@ public class FarmingXPEvents {
             if (!isIntactDoublePlant(level, pos, state)) return;
             awardUnifiedXP(level, player, 1, 3, XPSource.CROP, false); // 1–2
         }
+    }
+
+    private static boolean isCropBlock(BlockState state) {
+        Block block = state.getBlock();
+        if (block == Blocks.BAMBOO) {
+            return false;
+        }
+        return block instanceof CropBlock || block instanceof StemGrownBlock || state.is(BlockTags.CROPS);
     }
     // Right-Click Harvests
     @SubscribeEvent
