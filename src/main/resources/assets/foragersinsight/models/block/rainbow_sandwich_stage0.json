@@ -1,4 +1,5 @@
 {
+  "render_type": "cutout",
   "textures": {
     "0": "foragersinsight:block/breb",
     "1": "foragersinsight:block/bred_bottom",

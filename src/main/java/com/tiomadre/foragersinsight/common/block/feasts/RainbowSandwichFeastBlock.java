@@ -22,12 +22,16 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.tag.ModTags;
-
 import java.util.function.Supplier;
 
 public class RainbowSandwichFeastBlock extends Block {
     public static final IntegerProperty BITES = IntegerProperty.create("bites", 0, 3);
-    private static final VoxelShape FEAST_SHAPE = Block.box(1.5D, 0.0D, 1.0D, 14.5D, 6.0D, 15.0D);
+    private static final VoxelShape[] FEAST_SHAPES = new VoxelShape[]{
+            Block.box(1.5D, 0.0D, 1.0D, 14.5D, 6.0D, 15.0D),
+            Block.box(1.5D, 0.0D, 1.0D, 14.5D, 6.0D, 12.0D),
+            Block.box(1.5D, 0.0D, 1.0D, 14.5D, 6.0D, 9.0D),
+            Block.box(1.5D, 0.0D, 1.0D, 14.5D, 6.0D, 6.0D)
+    };
 
     private final Supplier<Item> servingItem;
 
@@ -39,7 +43,7 @@ public class RainbowSandwichFeastBlock extends Block {
 
     @Override
     public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-        return FEAST_SHAPE;
+        return FEAST_SHAPES[state.getValue(BITES)];
     }
 
     @Override

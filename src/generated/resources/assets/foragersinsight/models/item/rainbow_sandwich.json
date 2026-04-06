@@ -1,3 +1,6 @@
 {
-  "parent": "foragersinsight:block/rainbow_sandwich_stage0"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "foragersinsight:item/rainbow_sandwich"
+  }
 }
