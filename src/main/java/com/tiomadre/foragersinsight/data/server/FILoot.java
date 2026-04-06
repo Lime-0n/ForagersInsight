@@ -118,8 +118,11 @@ public class FILoot extends LootTableProvider {
             this.createFlowerBushDrops(POPPY_BUSH, POPPY_SEEDS, Items.RED_DYE, PoppyBushBlock.AGE, PoppyBushBlock.MAX_AGE);
 
             //BLOCK LOOT STUFF
-                //Storage
+                //Feasts
+            this.dropSelf(RAINBOW_SANDWICH.get());
             this.dropSelf(ACORN_CARROT_CAKE.get());
+                //Storage
+
             this.dropSelf(ROSE_HIP_SACK.get());
             this.dropSelf(APPLE_CRATE.get());
             this.dropSelf(BLACK_ACORN_SACK.get());

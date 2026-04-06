@@ -75,7 +75,8 @@
                 "condition": "minecraft:match_tool",
                 "predicate": {
                   "items": [
-                    "minecraft:shears"
+                    "minecraft:shears",
+                    "foragersinsight:flint_shears"
                   ]
                 }
               },
@@ -143,7 +144,8 @@
                 "condition": "minecraft:match_tool",
                 "predicate": {
                   "items": [
-                    "minecraft:shears"
+                    "minecraft:shears",
+                    "foragersinsight:flint_shears"
                   ]
                 }
               },

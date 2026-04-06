@@ -82,7 +82,13 @@ public class FIItems {
             new Item.Properties().food(FIFoods.CANDIED_CALYCES)));
     public static final RegistryObject<Item> APPLE_DIPPERS = HELPER.createItem("apple_dippers", () -> new ConsumableItem(
             new Item.Properties().food(FIFoods.APPLE_DIPPERS)));
-        //Cakes and Slices
+        //Feasts and Servings
+    public static final RegistryObject<Item> RAINBOW_SANDWICH_ITEM = HELPER.createItem("rainbow_sandwich", () ->
+            new BlockItem(FIBlocks.RAINBOW_SANDWICH.get(), basicItem()));
+    public static final RegistryObject<Item> SLICE_OF_RAINBOW_SANDWICH = HELPER.createItem("slice_of_rainbow_sandwich", () -> new ConsumableItem(
+            new Item.Properties().food(FIFoods.RAINBOW_SANDWICH_SLICE)));
+
+            //Cakes and Slices
     public static final RegistryObject<Item> ACORN_CARROT_CAKE_ITEM = HELPER.createItem("acorn_carrot_cake", () ->
             new BlockItem(FIBlocks.ACORN_CARROT_CAKE.get(), basicItem()));
     public static final RegistryObject<Item> SLICE_OF_ACORN_CARROT_CAKE = HELPER.createItem("slice_of_acorn_carrot_cake", () -> new ConsumableItem(

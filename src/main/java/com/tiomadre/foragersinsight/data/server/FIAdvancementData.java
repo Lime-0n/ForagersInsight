@@ -75,6 +75,7 @@ public class FIAdvancementData extends AdvancementModifierProvider {
         advancements.put(FIAdvancements.PETAL_TO_THE_METAL, petalToTheMetal());
         advancements.put(FIAdvancements.CRACK_IT, crackIt());
         advancements.put(FIAdvancements.UH_FIX_IT, FixIt());
+        advancements.put(FIAdvancements.TASTE_THE_RAINBOW_MOTHA, tasteTheRainbowMotha());
 
         CompletableFuture<?>[] writes = advancements.entrySet().stream()
                 .map(entry -> DataProvider.saveStable(output, entry.getValue(), this.pathProvider.json(entry.getKey())))
@@ -211,6 +212,17 @@ public class FIAdvancementData extends AdvancementModifierProvider {
                 "advancements.foragersinsight.adventure.uh_fix_it.description",
                 "uh_fix_it", simpleTrigger("foragersinsight:uh_fix_it"));
     }
+    private static JsonObject tasteTheRainbowMotha() {
+        JsonObject advancement = baseDisplay(FIAdvancements.node(FIAdvancements.TASTE_THE_RAINBOW_MOTHA),
+                "advancements.foragersinsight.taste_the_rainbow_motha.title",
+                "advancements.foragersinsight.taste_the_rainbow_motha.description");
+        JsonObject criteria = new JsonObject();
+        criteria.add("eat_slice_of_rainbow_sandwich", consumeItem("foragersinsight:slice_of_rainbow_sandwich"));
+        advancement.add("criteria", criteria);
+        advancement.add("requirements", requirements("eat_slice_of_rainbow_sandwich"));
+        return advancement;
+    }
+
 
 
     private static JsonObject singleCriterionAdvancement(ResourceLocation id, String titleKey, String descriptionKey,
@@ -313,7 +325,20 @@ public class FIAdvancementData extends AdvancementModifierProvider {
         criterion.add("conditions", conditions);
         return criterion;
     }
+    private static JsonObject consumeItem(String itemId) {
+        JsonObject criterion = new JsonObject();
+        criterion.addProperty("trigger", "minecraft:consume_item");
 
+        JsonArray itemIds = new JsonArray();
+        itemIds.add(itemId);
+        JsonObject item = new JsonObject();
+        item.add("items", itemIds);
+
+        JsonObject conditions = new JsonObject();
+        conditions.add("item", item);
+        criterion.add("conditions", conditions);
+        return criterion;
+    }
     private static JsonArray requirements(String criterion) {
         JsonArray requirements = new JsonArray();
         JsonArray group = new JsonArray();

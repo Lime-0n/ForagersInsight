@@ -29,8 +29,7 @@ public class FIFoods {
         return foodWithEffect(nutrition, saturation, () -> new MobEffectInstance(ModEffects.NOURISHMENT.get(), duration), 1);
     }
 
-    public static final FoodProperties ACORN_DOUGH = foodWithEffect(2, 0.3f,
-            () -> new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F);
+    public static final FoodProperties ACORN_DOUGH = foodWithEffect(2, 0.3f, () -> new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F);
     public static final FoodProperties SAUCE_BOWLS = basicFood(2, 0.3f);
     public static final FoodProperties SEED_MILK_BOTTLE = new FoodProperties.Builder().alwaysEat().build();
     public static final FoodProperties SEED_MILK_BUCKET = new FoodProperties.Builder().build();
@@ -75,6 +74,8 @@ public class FIFoods {
     public static final FoodProperties GLAZED_PORKCHOP_AND_ACORN_GRITS = nourishmentFood(12, 1.1f, 3000);
     public static final FoodProperties TART_WHEAT_PILAF = nourishmentFood(6, 0.6f, 1000);
     public static final FoodProperties SAVORY_PASTA_ROLL = nourishmentFood(10, 0.9f, 2500);
+        //Feast Servings
+        public static final FoodProperties RAINBOW_SANDWICH_SLICE = nourishmentFood(4, 0.45f, 800);
 
     //Other
     public static final FoodProperties AUSPICIOUS_STEW = new FoodProperties.Builder()

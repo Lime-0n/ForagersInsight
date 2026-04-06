@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "bites=0": {
+      "model": "foragersinsight:block/rainbow_sandwich_stage0"
+    },
+    "bites=1": {
+      "model": "foragersinsight:block/rainbow_sandwich_stage1"
+    },
+    "bites=2": {
+      "model": "foragersinsight:block/rainbow_sandwich_stage2"
+    },
+    "bites=3": {
+      "model": "foragersinsight:block/rainbow_sandwich_stage3"
+    }
+  }
+}

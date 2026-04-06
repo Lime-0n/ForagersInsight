@@ -36,6 +36,8 @@ public class FIItemModels extends BlueprintItemModelProvider {
                 CARROT_POPPY_CHOWDER,
                     //Finger Foods
                 SWEET_ROASTED_RABBIT_LEG,
+                    //Feasts and Servings
+                SLICE_OF_RAINBOW_SANDWICH,RAINBOW_SANDWICH_ITEM,
                     //Nourishment
                 ACORN_NOODLES,GLAZED_PORKCHOP_AND_ACORN_GRITS,ROSE_ROASTED_ROOTS,SEASIDE_SIZZLER,SYRUP_TOAST_STACKS,
                 TART_WHEAT_PILAF,WOODLAND_PASTA,SAVORY_PASTA_ROLL,

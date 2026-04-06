@@ -313,6 +313,17 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .requires(SUGAR).requires(ForgeTags.EGGS).requires(SUGAR)
                 .requires(ForgeTags.MILK).requires(ForgeTags.MILK).requires(ForgeTags.MILK)
                 .unlockedBy("has_black_acorn", has(BLACK_ACORN.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, RAINBOW_SANDWICH_ITEM.get())
+                .pattern("BTC")
+                .pattern("KVK")
+                .pattern("CTB")
+                .define('B', BREAD)
+                .define('T', Ingredient.of(ModItems.TOMATO.get(), BEETROOT))
+                .define('C', Ingredient.of(CARROT, DANDELION_ROOT.get(), POTATO))
+                .define('K', Ingredient.of(ModItems.CABBAGE_LEAF.get(), KELP))
+                .define('V', FITags.ItemTag.VEGETABLES)
+                .unlockedBy("has_bread", has(BREAD))
+                .save(consumer);
         //Other
         //Wood Stuff
         ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, LILAC_PLANKS.get(), 2)

@@ -5,6 +5,7 @@ import com.teamabnormals.blueprint.common.block.sign.BlueprintStandingSignBlock;
 import com.teamabnormals.blueprint.common.block.sign.BlueprintWallHangingSignBlock;
 import com.teamabnormals.blueprint.common.block.sign.BlueprintWallSignBlock;
 import com.tiomadre.foragersinsight.common.block.*;
+import com.tiomadre.foragersinsight.common.block.feasts.RainbowSandwichFeastBlock;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.teamabnormals.blueprint.common.block.LogBlock;
 import com.teamabnormals.blueprint.core.util.registry.BlockSubRegistryHelper;
@@ -34,6 +35,8 @@ public class FIBlocks {
     //Cakes and Feasts
     public static final RegistryObject<Block> ACORN_CARROT_CAKE = HELPER.createBlockNoItem("acorn_carrot_cake",
             () -> new SliceableCakeBlock(copy(Blocks.CAKE), FIItems.SLICE_OF_ACORN_CARROT_CAKE));
+    public static final RegistryObject<Block> RAINBOW_SANDWICH = HELPER.createBlockNoItem("rainbow_sandwich",
+            () -> new RainbowSandwichFeastBlock(copy(Blocks.CAKE).noOcclusion(), FIItems.SLICE_OF_RAINBOW_SANDWICH));
     //Crops
         //Flower
     public static final RegistryObject<Block> POPPY_BUSH = HELPER.createBlockNoItem("poppy_bush", () ->

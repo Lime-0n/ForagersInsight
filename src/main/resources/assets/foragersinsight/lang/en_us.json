@@ -72,6 +72,9 @@
   "item.foragersinsight.slice_of_acorn_carrot_cake": "Slice of Acorn Carrot Cake",
   "item.foragersinsight.acorn_carrot_cake": "Acorn Carrot Cake",
   "block.foragersinsight.acorn_carrot_cake": "Acorn Carrot Cake",
+  "item.foragersinsight.rainbow_sandwich": "Rainbow Sandwich",
+  "item.foragersinsight.slice_of_rainbow_sandwich": "Slice of Rainbow Sandwich",
+  "block.foragersinsight.rainbow_sandwich": "Rainbow Sandwich",
 
   "item.foragersinsight.diffuser": "Diffuser",
   "block.foragersinsight.diffuser": "Diffuser",
@@ -125,15 +128,15 @@
   "block.foragersinsight.lilac_wall_hanging_sign": "Lilac Wall Hanging Sign",
   "block.foragersinsight.lilac_cabinet": "Lilac Cabinet",
 
-  "block.foragersinsight.apple_crate": "Crate of Apples",
-  "block.foragersinsight.blewit_mushroom_crate": "Blewit Mushroom Crate",
-  "block.foragersinsight.lilac_crate": "Crate of Lilac Blooms",
-  "block.foragersinsight.dandelion_root_sack": "Sack of Dandelion Roots",
-  "block.foragersinsight.black_acorn_sack": "Sack of Black Acorns",
-  "block.foragersinsight.poppy_seeds_sack": "Sack of Poppy Seeds",
-  "block.foragersinsight.rose_hip_sack": "Sack of Rose Hips",
-  "block.foragersinsight.roselle_calyx_sack": "Sack of Roselle Calyces",
-  "block.foragersinsight.spruce_tips_sack": "Sack of Spruce Tips",
+  "block.foragersinsight.apple_crate": "Apple Crate",
+  "block.foragersinsight.blewit_mushroom_crate": "Blewit Crate",
+  "block.foragersinsight.lilac_crate": "Lilac Bloom Crate",
+  "block.foragersinsight.dandelion_root_sack": "Bag of Dandelion Roots",
+  "block.foragersinsight.black_acorn_sack": "Bag of Black Acorns",
+  "block.foragersinsight.poppy_seeds_sack": "Bag of Poppy Seeds",
+  "block.foragersinsight.rose_hip_sack": "Bag of Rose Hips",
+  "block.foragersinsight.roselle_calyx_sack": "Bag of Roselle Calyces",
+  "block.foragersinsight.spruce_tips_sack": "Bag of Spruce Tips",
 
   "block.foragersinsight.dense_rose_petals": "Dense Rose Petals",
   "block.foragersinsight.dense_roselle_petals": "Dense Roselle Petals",
@@ -187,7 +190,7 @@
   "item.foragersinsight.diffuser.tooltip.ingredients": "Ingredients:",
   "item.foragersinsight.diffuser.tooltip.empty_slot": "Empty Slot",
 
-  "gui.foragersinsight.diffuser.extinguish": "Stop Scent",
+  "gui.foragersinsight.diffuser.extinguish": "Extinguish Scent",
   "gui.foragersinsight.diffuser.tooltip.radius": "Radius: %s blocks",
   "gui.foragersinsight.diffuser.tooltip.duration": "Duration: %s seconds",
   "gui.foragersinsight.diffuser.tooltip.enhanced_radius": " + Honeycomb (+20% radius)",
@@ -242,6 +245,9 @@
 
   "advancements.foragersinsight.adventure.birch_please.title": "All That For a Drop Of...",
   "advancements.foragersinsight.adventure.birch_please.description": "Use a Bucket to collect from a full Tapper.",
+
+  "advancements.foragersinsight.taste_the_rainbow_motha.title": "Taste the Rainbow Motha-",
+  "advancements.foragersinsight.taste_the_rainbow_motha.description": "Consume the whole visible spectrum in a convenient edible form!",
 
   "itemGroup.foragersinsight": "Forager's Insight"
 }

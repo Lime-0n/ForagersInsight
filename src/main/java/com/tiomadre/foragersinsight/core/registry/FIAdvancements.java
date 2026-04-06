@@ -34,6 +34,8 @@ public final class FIAdvancements {
     public static final ResourceLocation CRACK_IT = ForagersInsight.rl("adventure/crack_it");
     public static final ResourceLocation PETAL_TO_THE_METAL = ForagersInsight.rl("adventure/petal_to_the_metal");
     public static final ResourceLocation UH_FIX_IT = ForagersInsight.rl("adventure/uh_fix_it");
+    public static final ResourceLocation TASTE_THE_RAINBOW_MOTHA = ForagersInsight.rl("adventure/taste_the_rainbow_motha");
+    public static final ResourceLocation TASTE_THE_RAINBOW_MOTHA_ICON = ForagersInsight.rl("slice_of_rainbow_sandwich");
 
     public static final ResourceLocation ROOT_ICON = ForagersInsight.rl("handbasket");
     public static final ResourceLocation SPRING_CLEANING_ICON = new ResourceLocation("minecraft", "brush");
@@ -84,7 +86,9 @@ public final class FIAdvancements {
             node(UH_FIX_IT, UH_FIX_IT_ICON, 4, 2, FIFrameType.CHALLENGE)
     );
 
-
+    public static final List<Node> STANDALONE = List.of(
+            node(TASTE_THE_RAINBOW_MOTHA, TASTE_THE_RAINBOW_MOTHA_ICON, 0, 0, FIFrameType.GOAL)
+    );
 
     private static final Map<ResourceLocation, Node> NODE_LOOKUP = createNodeLookup();
 
@@ -122,6 +126,9 @@ public final class FIAdvancements {
             nodes.put(node.id(), node);
         }
         for (Node node : THIRD_ROW) {
+            nodes.put(node.id(), node);
+        }
+        for (Node node : STANDALONE) {
             nodes.put(node.id(), node);
         }
         return Map.copyOf(nodes);

@@ -103,6 +103,8 @@ public class FITabs {
             FIItems.LILAC_TEACAKE,
             FIItems.SLICE_OF_ACORN_CARROT_CAKE,
             FIItems.ACORN_CARROT_CAKE_ITEM,
+            FIItems.SLICE_OF_RAINBOW_SANDWICH,
+            FIItems.RAINBOW_SANDWICH_ITEM,
             FIItems.APPLE_DIPPERS,
             FIItems.CANDIED_CALYCES,
             FIItems.ACORN_NOODLES,
