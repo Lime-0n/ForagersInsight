@@ -9,6 +9,7 @@ import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.common.worldgen.trees.decorator.SappyBirchLogDecorator;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -24,8 +25,10 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
+import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.world.level.levelgen.feature.featuresize.ThreeLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
@@ -48,9 +51,11 @@ public class FIConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> APPLE_TREE_KEY = registerKey("apple_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ACORN_TREE_KEY = registerKey("acorn_dark_oak");
     public static final ResourceKey<ConfiguredFeature<?, ?>> YOUNG_ACORN_TREE_KEY = registerKey("young_acorn_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> YOUNG_DARK_OAK_TREE_KEY = registerKey("young_dark_oak_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> LILAC_TREE_KEY = registerKey("lilac_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SPRUCE_TIP_TREE_KEY = registerKey("spruce_tip_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SAPPY_BIRCH_TREE_KEY = registerKey("sappy_birch_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> DARK_WOODLANDS_TREES_KEY = registerKey("dark_woodlands_trees");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ROSELLE_BUSH_PATCH_KEY = registerKey("patch_roselle_bush");
     public static final ResourceKey<ConfiguredFeature<?, ?>> BEACH_ROSE_PATCH_KEY = registerKey("patch_beach_rose");
     public static final ResourceKey<ConfiguredFeature<?, ?>> OAK_SUSPICIOUS_LEAF_LITTER_PATCH_KEY = registerKey("oak_suspicious_leaf_litter_patch");
@@ -64,6 +69,7 @@ public class FIConfiguredFeatures {
     }
 
     public static void bootstap(BootstapContext<ConfiguredFeature<?, ?>> context) {
+        HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
         //Tree Stuff
         register(context, APPLE_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(Blocks.OAK_LOG),
@@ -77,6 +83,14 @@ public class FIConfiguredFeatures {
                 BlockStateProvider.simple(Blocks.DARK_OAK_LOG),
                 new StraightTrunkPlacer(5, 2, 1),
                 bountifulLeafStateProvider(Blocks.DARK_OAK_LEAVES, FIBlocks.BOUNTIFUL_DARK_OAK_LEAVES),
+                new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
+                new TwoLayersFeatureSize(1, 0, 1)
+        ).ignoreVines().build());
+
+        register(context, YOUNG_DARK_OAK_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
+                BlockStateProvider.simple(Blocks.DARK_OAK_LOG),
+                new StraightTrunkPlacer(5, 2, 1),
+                youngDarkOakLeafStateProvider(),
                 new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
                 new TwoLayersFeatureSize(1, 0, 1)
         ).ignoreVines().build());
@@ -112,6 +126,11 @@ public class FIConfiguredFeatures {
                 new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
                 new TwoLayersFeatureSize(1, 0, 1)
         ).decorators(java.util.List.of(new SappyBirchLogDecorator(1.0F))).ignoreVines().build());
+
+        register(context, DARK_WOODLANDS_TREES_KEY, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(java.util.List.of(
+                new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(YOUNG_DARK_OAK_TREE_KEY)), 0.82F),
+                new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(TreeFeatures.OAK)), 0.12F)),
+                PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(TreeFeatures.OAK))));
 
         //Wild Flowers
         WeightedStateProvider rosellePatchProvider = new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
@@ -157,6 +176,7 @@ public class FIConfiguredFeatures {
 
     }
 
+
     private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstapContext<ConfiguredFeature<?, ?>> context,
                                                                                           ResourceKey<ConfiguredFeature<?, ?>> key,
                                                                                           F feature,
@@ -183,6 +203,16 @@ public class FIConfiguredFeatures {
                         BlockPredicate.replaceable(),
                         BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.DIRT))));
         return new RandomPatchConfiguration(35, 5, 2, placedFeature);
+    }
+    private static WeightedStateProvider youngDarkOakLeafStateProvider() {
+        BlockState bountifulDarkOak = FIBlocks.BOUNTIFUL_DARK_OAK_LEAVES.get().defaultBlockState();
+        if (bountifulDarkOak.hasProperty(BountifulLeavesBlock.AGE)) {
+            bountifulDarkOak = bountifulDarkOak.setValue(BountifulLeavesBlock.AGE, BountifulLeavesBlock.MAX_AGE);
+        }
+
+        return new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                .add(Blocks.DARK_OAK_LEAVES.defaultBlockState(), 7)
+                .add(bountifulDarkOak, 1));
     }
 
 

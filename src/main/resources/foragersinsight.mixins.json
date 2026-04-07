@@ -6,6 +6,7 @@
   "mixins": [
     "RichSoilSaplingMixin",
     "RichSoilTreeMixin",
+    "SingleSaplingMixin",
     "lilac.BoneMealLilacMixin",
     "shears_fortune.FortuneApplyAnvilMixin",
     "shears_fortune.ShearsFortuneMixin"

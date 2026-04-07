@@ -198,6 +198,8 @@
   "gui.foragersinsight.diffuser.tooltip.enhanced_duration": " + Birch Sap Bottle (+20% duration)",
   "gui.foragersinsight.diffuser.tooltip.enhanced_duration_bucket": " + Birch Sap Bucket (+85% duration)",
 
+  "biome.foragersinsight.dark_woodlands": "Dark Woodlands",
+
   "advancements.foragersinsight.adventure.foragers_insight.title": "Forager's Insight",
   "advancements.foragersinsight.adventure.foragers_insight.description": "Forage delights that are hidden in plain sight!",
 
@@ -246,7 +248,7 @@
   "advancements.foragersinsight.adventure.birch_please.title": "All That For a Drop Of...",
   "advancements.foragersinsight.adventure.birch_please.description": "Use a Bucket to collect from a full Tapper.",
 
-  "advancements.foragersinsight.taste_the_rainbow_motha.title": "§4T§ca§6s§et§ae §bt§9h§de §4R§ca§6i§en§ab§bo§9w §dM§4o§ct§6h§ea§a-",
+  "advancements.foragersinsight.taste_the_rainbow_motha.title": "§4T§ca§6s§et§ae §bt§9h§de §4R§ca§6i§en§ab§bo§9w§d!",
   "advancements.foragersinsight.taste_the_rainbow_motha.description": "Consume the whole visible spectrum in a convenient edible form!",
 
   "itemGroup.foragersinsight": "Forager's Insight"

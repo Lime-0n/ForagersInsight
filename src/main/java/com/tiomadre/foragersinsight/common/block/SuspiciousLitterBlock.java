@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.common.block;
 
 import com.tiomadre.foragersinsight.common.block.entity.suspiciouslitter.SuspiciousLitterBlockEntity;
+import com.tiomadre.foragersinsight.common.worldgen.FIBiomes;
 import com.tiomadre.foragersinsight.core.registry.FIBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -190,6 +191,9 @@ public class SuspiciousLitterBlock extends CarpetBlock implements EntityBlock {
 
         public static FoliageType fromBiome(@Nullable ResourceKey<Biome> biome) {
             if (biome == null) return OAK;
+            if (biome.equals(FIBiomes.DARK_WOODLANDS)) {
+                return DARK_OAK;
+            }
             for (FoliageType type : values()) {
                 if (type.biome().equals(biome)) return type;
             }

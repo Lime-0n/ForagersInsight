@@ -30,14 +30,17 @@ public class FIPlacedFeatures {
     public static final ResourceKey<PlacedFeature> LILAC_TREE_PLACED_KEY = registerKey("lilac_tree_placed");
     public static final ResourceKey<PlacedFeature> SPRUCE_TIP_TREE_PLACED_KEY = registerKey("spruce_tip_tree_placed");
     public static final ResourceKey<PlacedFeature> SAPPY_BIRCH_TREE_PLACED_KEY = registerKey("sappy_birch_tree_placed");
+
     public static final ResourceKey<PlacedFeature> ROSELLE_PATCH_PLACED_KEY = registerKey("roselle_patch_placed");
     public static final ResourceKey<PlacedFeature> BEACH_ROSE_PATCH_PLACED_KEY = registerKey("beach_rose_patch_placed");
+
     public static final ResourceKey<PlacedFeature> OAK_SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY = registerKey("oak_suspicious_leaf_litter_patch_placed");
     public static final ResourceKey<PlacedFeature> BIRCH_SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY = registerKey("birch_suspicious_leaf_litter_patch_placed");
     public static final ResourceKey<PlacedFeature> SPRUCE_SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY = registerKey("spruce_suspicious_leaf_litter_patch_placed");
     public static final ResourceKey<PlacedFeature> DARK_OAK_SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY = registerKey("dark_oak_suspicious_leaf_litter_patch_placed");
     public static final ResourceKey<PlacedFeature> FLOWER_SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY = registerKey("flower_suspicious_leaf_litter_patch_placed");
 
+    public static final ResourceKey<PlacedFeature> DARK_WOODLANDS_TREES_PLACED_KEY = registerKey("dark_woodlands_trees_placed");
 
     public static ResourceKey<PlacedFeature> registerKey(String name) {
         return ResourceKey.create(Registries.PLACED_FEATURE, ForagersInsight.rl(name));
@@ -56,6 +59,10 @@ public class FIPlacedFeatures {
                 VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.2f, 1), Blocks.SPRUCE_SAPLING));
         register(context, SAPPY_BIRCH_TREE_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.SAPPY_BIRCH_TREE_KEY),
                 VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.2f, 1), Blocks.BIRCH_SAPLING));
+        //Biomes
+        register(context, DARK_WOODLANDS_TREES_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.DARK_WOODLANDS_TREES_KEY),
+                VegetationPlacements.treePlacement(PlacementUtils.countExtra(0, 0.2f, 1), Blocks.DARK_OAK_SAPLING));
+
         //Wild Flower
         register(context, ROSELLE_PATCH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.ROSELLE_BUSH_PATCH_KEY),
                 List.of(RarityFilter.onAverageOnceEvery(65), InSquarePlacement.spread(), HeightmapPlacement
