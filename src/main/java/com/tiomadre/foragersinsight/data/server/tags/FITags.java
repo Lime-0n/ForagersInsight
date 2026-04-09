@@ -111,6 +111,7 @@ public class FITags {
         public static final TagKey<Biome> HAS_SPRUCE_FOREST_LITTER = hasFeature("spruce_forest_litter");
         public static final TagKey<Biome> HAS_DARK_OAK_FOREST_LITTER = hasFeature("dark_oak_forest_litter");
         public static final TagKey<Biome> HAS_FLOWER_FOREST_LITTER = hasFeature("flower_forest_litter");
+        public static final TagKey<Biome> HAS_OAK_FERNS = hasFeature("oak_ferns");
 
         private static TagKey<Biome> modTag(String namespace) {
             return TagUtil.biomeTag(ForagersInsight.MOD_ID, namespace);

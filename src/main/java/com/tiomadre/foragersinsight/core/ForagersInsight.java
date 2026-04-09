@@ -44,6 +44,7 @@ public class ForagersInsight {
 		FIAdvancementCriteria.register();
 		FIWoodTypes.register();
 		FIEnchantments.register(bus);
+		FIBiomeFeatures.register(bus);
 		FIBlockEntityTypes.register(bus);
 		FIFoliagePlacerType.FOLIAGE_PLACER_TYPE.register(bus);
 		FILootModifiers.LOOT_MODIFIERS.register(bus);

@@ -26,7 +26,6 @@ public class FIBiomes {
         MobSpawnSettings.Builder spawnSettings = new MobSpawnSettings.Builder();
         BiomeDefaultFeatures.farmAnimals(spawnSettings);
         BiomeDefaultFeatures.commonSpawns(spawnSettings);
-
         BiomeGenerationSettings.Builder generationSettings = new BiomeGenerationSettings.Builder(placedFeatures, configuredCarvers);
         BiomeDefaultFeatures.addDefaultCarversAndLakes(generationSettings);
         BiomeDefaultFeatures.addDefaultCrystalFormations(generationSettings);
@@ -34,17 +33,22 @@ public class FIBiomes {
         BiomeDefaultFeatures.addDefaultUndergroundVariety(generationSettings);
         BiomeDefaultFeatures.addDefaultSprings(generationSettings);
         BiomeDefaultFeatures.addSurfaceFreezing(generationSettings);
-        BiomeDefaultFeatures.addMossyStoneBlock(generationSettings);
-
         BiomeDefaultFeatures.addDefaultOres(generationSettings);
         BiomeDefaultFeatures.addDefaultSoftDisks(generationSettings);
 
-        BiomeDefaultFeatures.addForestFlowers(generationSettings);
-        BiomeDefaultFeatures.addDefaultFlowers(generationSettings);
+
+        BiomeDefaultFeatures.addDefaultExtraVegetation(generationSettings);
         BiomeDefaultFeatures.addForestGrass(generationSettings);
         BiomeDefaultFeatures.addDefaultMushrooms(generationSettings);
+        BiomeDefaultFeatures.addGroveTrees(generationSettings);
+        generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION,
+                placedFeatures.getOrThrow(FIPlacedFeatures.DARK_WOODLANDS_FALLEN_TREES_PLACED_KEY));
+        generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION,
+                placedFeatures.getOrThrow(FIPlacedFeatures.WOODLANDS_PATCH_PLACED_KEY));
         generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION,
                 placedFeatures.getOrThrow(FIPlacedFeatures.DARK_WOODLANDS_TREES_PLACED_KEY));
+        generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION,
+                placedFeatures.getOrThrow(FIPlacedFeatures.DARK_OAK_BUSH_PLACED_KEY));
         generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION,
                 placedFeatures.getOrThrow(VegetationPlacements.PATCH_TALL_GRASS));
         generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION,

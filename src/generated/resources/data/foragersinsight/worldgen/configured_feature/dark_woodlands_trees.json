@@ -2,21 +2,28 @@
   "type": "minecraft:random_selector",
   "config": {
     "default": {
-      "feature": "minecraft:oak",
+      "feature": "foragersinsight:young_dark_oak_tree",
       "placement": []
     },
     "features": [
       {
-        "chance": 0.82,
+        "chance": 0.68,
         "feature": {
           "feature": "foragersinsight:young_dark_oak_tree",
           "placement": []
         }
       },
       {
-        "chance": 0.12,
+        "chance": 0.2,
         "feature": {
-          "feature": "minecraft:oak",
+          "feature": "foragersinsight:young_acorn_tree",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.08,
+        "feature": {
+          "feature": "foragersinsight:woodlands_dark_oak_tree",
           "placement": []
         }
       }

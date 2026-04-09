@@ -33,6 +33,7 @@ public class FIPlacedFeatures {
 
     public static final ResourceKey<PlacedFeature> ROSELLE_PATCH_PLACED_KEY = registerKey("roselle_patch_placed");
     public static final ResourceKey<PlacedFeature> BEACH_ROSE_PATCH_PLACED_KEY = registerKey("beach_rose_patch_placed");
+    public static final ResourceKey<PlacedFeature> OAK_FERN_PATCH_PLACED_KEY = registerKey("oak_fern_patch_placed");
 
     public static final ResourceKey<PlacedFeature> OAK_SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY = registerKey("oak_suspicious_leaf_litter_patch_placed");
     public static final ResourceKey<PlacedFeature> BIRCH_SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY = registerKey("birch_suspicious_leaf_litter_patch_placed");
@@ -41,6 +42,10 @@ public class FIPlacedFeatures {
     public static final ResourceKey<PlacedFeature> FLOWER_SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY = registerKey("flower_suspicious_leaf_litter_patch_placed");
 
     public static final ResourceKey<PlacedFeature> DARK_WOODLANDS_TREES_PLACED_KEY = registerKey("dark_woodlands_trees_placed");
+    public static final ResourceKey<PlacedFeature> DARK_OAK_BUSH_PLACED_KEY = registerKey("dark_oak_bush_placed");
+    public static final ResourceKey<PlacedFeature> DARK_WOODLANDS_FALLEN_TREES_PLACED_KEY = registerKey("dark_woodlands_fallen_trees_placed");
+    public static final ResourceKey<PlacedFeature> WOODLANDS_PATCH_PLACED_KEY = registerKey("woodlands_patch_placed");
+
 
     public static ResourceKey<PlacedFeature> registerKey(String name) {
         return ResourceKey.create(Registries.PLACED_FEATURE, ForagersInsight.rl(name));
@@ -52,7 +57,7 @@ public class FIPlacedFeatures {
         register(context, APPLE_TREE_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.APPLE_TREE_KEY),
                 VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.2f, 1), Blocks.OAK_SAPLING));
         register(context, ACORN_DARK_OAK_TREE_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.ACORN_TREE_KEY),
-                VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.2f, 1), Blocks.DARK_OAK_SAPLING));
+                VegetationPlacements.treePlacement(PlacementUtils.countExtra(0, 0.1f, 1), Blocks.DARK_OAK_SAPLING));
         register(context, LILAC_TREE_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.LILAC_TREE_KEY),
                 VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.1f, 1), Blocks.LILAC));
         register(context, SPRUCE_TIP_TREE_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.SPRUCE_TIP_TREE_KEY),
@@ -61,15 +66,28 @@ public class FIPlacedFeatures {
                 VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.2f, 1), Blocks.BIRCH_SAPLING));
         //Biomes
         register(context, DARK_WOODLANDS_TREES_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.DARK_WOODLANDS_TREES_KEY),
-                VegetationPlacements.treePlacement(PlacementUtils.countExtra(0, 0.2f, 1), Blocks.DARK_OAK_SAPLING));
+                VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.2f, 1), Blocks.DARK_OAK_SAPLING));
+        register(context, DARK_OAK_BUSH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.DARK_OAK_BUSH_KEY),
+                List.of(RarityFilter.onAverageOnceEvery(50), InSquarePlacement.spread(),
+                        HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING),
+                        BiomeFilter.biome()));
+        register(context, DARK_WOODLANDS_FALLEN_TREES_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.DARK_WOODLANDS_FALLEN_TREES_KEY),
+                List.of(RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(), HeightmapPlacement
+                        .onHeightmap(Heightmap.Types.MOTION_BLOCKING), BiomeFilter.biome()));
+        register(context, WOODLANDS_PATCH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.WOODLANDS_PATCH_KEY),
+                List.of(RarityFilter.onAverageOnceEvery(25), InSquarePlacement.spread(), HeightmapPlacement
+                        .onHeightmap(Heightmap.Types.MOTION_BLOCKING), BiomeFilter.biome()));
 
-        //Wild Flower
+        //Wild Flower + Plants
         register(context, ROSELLE_PATCH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.ROSELLE_BUSH_PATCH_KEY),
                 List.of(RarityFilter.onAverageOnceEvery(65), InSquarePlacement.spread(), HeightmapPlacement
                         .onHeightmap(Heightmap.Types.MOTION_BLOCKING), BiomeFilter.biome(), BiomeTagFilter.biomeIsInTag(BiomeTags.IS_OVERWORLD)));
         register(context, BEACH_ROSE_PATCH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.BEACH_ROSE_PATCH_KEY),
                 List.of(RarityFilter.onAverageOnceEvery(70), InSquarePlacement.spread(), HeightmapPlacement
                         .onHeightmap(Heightmap.Types.MOTION_BLOCKING), BiomeFilter.biome(), BiomeTagFilter.biomeIsInTag(FITags.BiomeTag.HAS_BEACH_ROSES)));
+        register(context, OAK_FERN_PATCH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.OAK_FERN_PATCH_KEY),
+                List.of(RarityFilter.onAverageOnceEvery(12), InSquarePlacement.spread(), HeightmapPlacement
+                        .onHeightmap(Heightmap.Types.MOTION_BLOCKING), BiomeFilter.biome(), BiomeTagFilter.biomeIsInTag(FITags.BiomeTag.HAS_OAK_FERNS)));
         //Forest Litter
         register(context, OAK_SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.OAK_SUSPICIOUS_LEAF_LITTER_PATCH_KEY),
                 List.of(RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(), HeightmapPlacement

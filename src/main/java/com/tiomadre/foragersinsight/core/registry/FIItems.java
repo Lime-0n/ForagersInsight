@@ -185,6 +185,8 @@ public class FIItems {
             new BlockItem(FIBlocks.STOUT_BEACH_ROSE_BUSH.get(),basicItem()));
     public static final RegistryObject<Item> TALL_BEACH_ROSE_BUSH_ITEM = HELPER.createItem("tall_beach_rose_bush", () ->
             new BlockItem(FIBlocks.TALL_BEACH_ROSE_BUSH.get(),basicItem()));
+    public static final RegistryObject<Item> OAK_FERN_ITEM = HELPER.createItem("oak_fern", () ->
+            new BlockItem(FIBlocks.OAK_FERN.get(), basicItem()));
     //Foraged
     public static final RegistryObject<Item> BLEWIT_MUSHROOM = HELPER.createItem("blewit_mushroom",  () ->
             new ModerateFoodBlockItem(FIBlocks.BLEWIT_MUSHROOM.get(), new Item.Properties().food(FIFoods.BLEWIT)));

@@ -8,6 +8,8 @@ import com.tiomadre.foragersinsight.common.worldgen.trees.foliage.LilacTreeFolia
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.common.worldgen.trees.decorator.SappyBirchLogDecorator;
+import com.tiomadre.foragersinsight.core.registry.FIBiomeFeatures;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -20,6 +22,7 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
@@ -28,7 +31,6 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
-import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.world.level.levelgen.feature.featuresize.ThreeLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
@@ -52,10 +54,16 @@ public class FIConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ACORN_TREE_KEY = registerKey("acorn_dark_oak");
     public static final ResourceKey<ConfiguredFeature<?, ?>> YOUNG_ACORN_TREE_KEY = registerKey("young_acorn_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> YOUNG_DARK_OAK_TREE_KEY = registerKey("young_dark_oak_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> WOODLANDS_DARK_OAK_TREE_KEY = registerKey("woodlands_dark_oak_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> LILAC_TREE_KEY = registerKey("lilac_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SPRUCE_TIP_TREE_KEY = registerKey("spruce_tip_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SAPPY_BIRCH_TREE_KEY = registerKey("sappy_birch_tree");
+
     public static final ResourceKey<ConfiguredFeature<?, ?>> DARK_WOODLANDS_TREES_KEY = registerKey("dark_woodlands_trees");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> DARK_OAK_BUSH_KEY = registerKey("dark_oak_bush");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> DARK_WOODLANDS_FALLEN_TREES_KEY = registerKey("dark_woodlands_fallen_trees");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> WOODLANDS_PATCH_KEY = registerKey("woodlands_patch");
+
     public static final ResourceKey<ConfiguredFeature<?, ?>> ROSELLE_BUSH_PATCH_KEY = registerKey("patch_roselle_bush");
     public static final ResourceKey<ConfiguredFeature<?, ?>> BEACH_ROSE_PATCH_KEY = registerKey("patch_beach_rose");
     public static final ResourceKey<ConfiguredFeature<?, ?>> OAK_SUSPICIOUS_LEAF_LITTER_PATCH_KEY = registerKey("oak_suspicious_leaf_litter_patch");
@@ -63,6 +71,7 @@ public class FIConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> SPRUCE_SUSPICIOUS_LEAF_LITTER_PATCH_KEY = registerKey("spruce_suspicious_leaf_litter_patch");
     public static final ResourceKey<ConfiguredFeature<?, ?>> DARK_OAK_SUSPICIOUS_LEAF_LITTER_PATCH_KEY = registerKey("dark_oak_suspicious_leaf_litter_patch");
     public static final ResourceKey<ConfiguredFeature<?, ?>> FLOWER_SUSPICIOUS_LEAF_LITTER_PATCH_KEY = registerKey("flower_suspicious_leaf_litter_patch");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> OAK_FERN_PATCH_KEY = registerKey("patch_oak_fern");
 
     public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, ForagersInsight.rl(name));
@@ -126,11 +135,33 @@ public class FIConfiguredFeatures {
                 new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
                 new TwoLayersFeatureSize(1, 0, 1)
         ).decorators(java.util.List.of(new SappyBirchLogDecorator(1.0F))).ignoreVines().build());
-
+    //Biome Specific
+        //Dark Woodlands
+        register(context, WOODLANDS_DARK_OAK_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
+                BlockStateProvider.simple(Blocks.DARK_OAK_LOG),
+                new StraightTrunkPlacer(7, 3, 1),
+                youngDarkOakLeafStateProvider(),
+                new DarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
+                new ThreeLayersFeatureSize(1, 1, 0, 1, 1, OptionalInt.empty())
+        ).ignoreVines().build());
         register(context, DARK_WOODLANDS_TREES_KEY, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(java.util.List.of(
-                new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(YOUNG_DARK_OAK_TREE_KEY)), 0.82F),
-                new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(TreeFeatures.OAK)), 0.12F)),
-                PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(TreeFeatures.OAK))));
+                new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(YOUNG_DARK_OAK_TREE_KEY)), 0.68F),
+                new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(YOUNG_ACORN_TREE_KEY)), 0.20F),
+                new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(WOODLANDS_DARK_OAK_TREE_KEY)), 0.08F)),
+                PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(YOUNG_DARK_OAK_TREE_KEY))));
+        Holder<PlacedFeature> oakFernPatch = PlacementUtils.inlinePlaced(
+                Feature.SIMPLE_BLOCK,
+                new SimpleBlockConfiguration(BlockStateProvider.simple(FIBlocks.OAK_FERN.get().defaultBlockState())),
+                BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
+                        BlockPredicate.replaceable(),
+                        BlockPredicate.not(BlockPredicate.matchesFluids(Fluids.WATER)),
+                        BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.DIRT))));
+        register(context, OAK_FERN_PATCH_KEY, Feature.RANDOM_PATCH,
+                new RandomPatchConfiguration(48, 7, 3, oakFernPatch));
+        register(context, DARK_OAK_BUSH_KEY, FIBiomeFeatures.DARK_OAK_BUSH.get(), NoneFeatureConfiguration.INSTANCE);
+        //Dark Woodlands Features
+        register(context, DARK_WOODLANDS_FALLEN_TREES_KEY, FIBiomeFeatures.FALLEN_TREES.get(), NoneFeatureConfiguration.INSTANCE);
+        register(context, WOODLANDS_PATCH_KEY, Feature.RANDOM_PATCH, woodlandsPatchConfiguration());
 
         //Wild Flowers
         WeightedStateProvider rosellePatchProvider = new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
@@ -215,5 +246,36 @@ public class FIConfiguredFeatures {
                 .add(bountifulDarkOak, 1));
     }
 
+    private static RandomPatchConfiguration fallenTreePatchConfiguration() {
+        Holder<PlacedFeature> placedFeature = PlacementUtils.inlinePlaced(
+                Feature.SIMPLE_BLOCK,
+                new SimpleBlockConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                        .add(Blocks.DARK_OAK_LOG.defaultBlockState().setValue(RotatedPillarBlock.AXIS, Direction.Axis.X), 4)
+                        .add(Blocks.DARK_OAK_LOG.defaultBlockState().setValue(RotatedPillarBlock.AXIS, Direction.Axis.Z), 4)
+                        .add(Blocks.GRASS.defaultBlockState(), 1)
+                        .build())),
+                BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
+                        BlockPredicate.replaceable(),
+                        BlockPredicate.not(BlockPredicate.matchesFluids(Fluids.WATER)),
+                        BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.DIRT))));
+        return new RandomPatchConfiguration(3, 2, 1, placedFeature);
+    }
+
+    private static RandomPatchConfiguration woodlandsPatchConfiguration() {
+        Holder<PlacedFeature> placedFeature = PlacementUtils.inlinePlaced(
+                Feature.SIMPLE_BLOCK,
+                new SimpleBlockConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                        .add(Blocks.GRASS.defaultBlockState(), 60)
+                        .add(Blocks.TALL_GRASS.defaultBlockState().setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 25)
+                        .add(Blocks.RED_TULIP.defaultBlockState(), 10)
+                        .add(Blocks.ROSE_BUSH.defaultBlockState().setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 5)
+                        .build())),
+                BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
+                        BlockPredicate.replaceable(),
+                        BlockPredicate.replaceable(BlockPos.ZERO.above()),
+                        BlockPredicate.not(BlockPredicate.matchesFluids(Fluids.WATER)),
+                        BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.DIRT))));
+        return new RandomPatchConfiguration(96, 7, 4, placedFeature);
+    }
 
 }

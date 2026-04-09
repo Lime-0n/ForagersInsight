@@ -137,6 +137,8 @@ public class FIBlocks {
             new SandyFlowerBlock(() -> MobEffects.REGENERATION, 5, copy(Blocks.ROSE_BUSH)));
     public static final RegistryObject<Block> TALL_BEACH_ROSE_BUSH = HELPER.createBlockNoItem("tall_beach_rose_bush", () ->
             new TallSandyFlowerBlock(copy(Blocks.ROSE_BUSH)));
+    public static final RegistryObject<Block> OAK_FERN = HELPER.createBlockNoItem("oak_fern", () ->
+            new OakFernBlock(copy(Blocks.FERN)));
         //Other
     public static final RegistryObject<Block> SUSPICIOUS_LEAF_LITTER = HELPER.createBlock("suspicious_leaf_litter", SuspiciousLitterBlock::new);
     //STORAGE

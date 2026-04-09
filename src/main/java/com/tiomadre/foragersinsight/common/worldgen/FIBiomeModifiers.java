@@ -21,6 +21,7 @@ public class FIBiomeModifiers {
     public static final ResourceKey<BiomeModifier> ADD_SAPPY_BIRCH_TREES = registerKey("add_sappy_birch_trees");
     public static final ResourceKey<BiomeModifier> ADD_ROSELLE_BUSHES = registerKey("add_roselle_bushes");
     public static final ResourceKey<BiomeModifier> ADD_BEACH_ROSES = registerKey("add_beach_roses");
+    public static final ResourceKey<BiomeModifier> ADD_OAK_FERNS = registerKey("add_oak_ferns");
     public static final ResourceKey<BiomeModifier> ADD_OAK_SUSPICIOUS_LEAF_LITTER = registerKey("add_oak_suspicious_leaf_litter");
     public static final ResourceKey<BiomeModifier> ADD_BIRCH_SUSPICIOUS_LEAF_LITTER = registerKey("add_birch_suspicious_leaf_litter");
     public static final ResourceKey<BiomeModifier> ADD_SPRUCE_SUSPICIOUS_LEAF_LITTER = registerKey("add_spruce_suspicious_leaf_litter");
@@ -93,6 +94,11 @@ public class FIBiomeModifiers {
         context.register(ADD_FLOWER_SUSPICIOUS_LEAF_LITTER, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
                 tagSet(biomes, FITags.BiomeTag.HAS_FLOWER_FOREST_LITTER),
                 HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.FLOWER_SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY)),
+                GenerationStep.Decoration.VEGETAL_DECORATION)
+        );
+        context.register(ADD_OAK_FERNS, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                tagSet(biomes, FITags.BiomeTag.HAS_OAK_FERNS),
+                HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.OAK_FERN_PATCH_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION)
         );
     }
