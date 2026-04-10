@@ -104,9 +104,7 @@ public class ClientSetup {
                     }
                     int grass = BiomeColors.getAverageGrassColor(level, pos);
                     int foliage = BiomeColors.getAverageFoliageColor(level, pos);
-                    float temperature = level.getBiome(pos).value().getBaseTemperature();
-                    float blend = Mth.clamp((temperature + 0.7F) / 1.7F, 0.0F, 1.0F);
-
+                    float blend = 0.5F;
                     int r = Mth.floor(Mth.lerp(blend, (grass >> 16) & 255, (foliage >> 16) & 255));
                     int g = Mth.floor(Mth.lerp(blend, (grass >> 8) & 255, (foliage >> 8) & 255));
                     int b = Mth.floor(Mth.lerp(blend, grass & 255, foliage & 255));

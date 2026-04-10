@@ -1,9 +1,9 @@
 {
-  "feature": "foragersinsight:dark_oak_bush",
+  "feature": "foragersinsight:patch_oak_fern",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 50
+      "chance": 12
     },
     {
       "type": "minecraft:in_square"
@@ -14,6 +14,10 @@
     },
     {
       "type": "minecraft:biome"
+    },
+    {
+      "type": "farmersdelight:biome_tag",
+      "tag": "foragersinsight:has_feature/oak_ferns"
     }
   ]
 }
