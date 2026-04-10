@@ -53,7 +53,8 @@ public class FIBiomes {
                 placedFeatures.getOrThrow(VegetationPlacements.PATCH_TALL_GRASS));
         generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION,
                 placedFeatures.getOrThrow(VegetationPlacements.PATCH_GRASS_NORMAL));
-
+        generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION,
+                placedFeatures.getOrThrow(FIPlacedFeatures.DARK_WOODLANDS_SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY));
         context.register(DARK_WOODLANDS, new Biome.BiomeBuilder()
                 .hasPrecipitation(true)
                 .temperature(0.7F)

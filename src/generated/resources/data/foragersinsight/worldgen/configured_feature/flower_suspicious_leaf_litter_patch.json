@@ -6,13 +6,24 @@
         "type": "minecraft:simple_block",
         "config": {
           "to_place": {
-            "type": "minecraft:simple_state_provider",
-            "state": {
-              "Name": "foragersinsight:suspicious_leaf_litter",
-              "Properties": {
-                "foliage": "flower"
+            "type": "minecraft:weighted_state_provider",
+            "entries": [
+              {
+                "data": {
+                  "Name": "minecraft:grass"
+                },
+                "weight": 6
+              },
+              {
+                "data": {
+                  "Name": "foragersinsight:suspicious_leaf_litter",
+                  "Properties": {
+                    "foliage": "flower"
+                  }
+                },
+                "weight": 2
               }
-            }
+            ]
           }
         }
       },

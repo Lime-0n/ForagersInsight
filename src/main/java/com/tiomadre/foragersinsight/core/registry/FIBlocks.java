@@ -141,6 +141,8 @@ public class FIBlocks {
             new OakFernBlock(copy(Blocks.FERN)));
         //Other
     public static final RegistryObject<Block> SUSPICIOUS_LEAF_LITTER = HELPER.createBlock("suspicious_leaf_litter", SuspiciousLitterBlock::new);
+    public static final RegistryObject<Block> HOLLOW_LOG = HELPER.createFuelBlock("hollow_log", () ->
+            new HollowLogBlock(copy(Blocks.OAK_LOG).noOcclusion()), 300);
     //STORAGE
         //Crop Crates and Sacks
     public static final RegistryObject<Block> APPLE_CRATE = HELPER.createBlock("apple_crate", () ->

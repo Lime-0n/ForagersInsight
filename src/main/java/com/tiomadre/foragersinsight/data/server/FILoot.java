@@ -122,7 +122,6 @@ public class FILoot extends LootTableProvider {
             this.dropSelf(RAINBOW_SANDWICH.get());
             this.dropSelf(ACORN_CARROT_CAKE.get());
                 //Storage
-
             this.dropSelf(ROSE_HIP_SACK.get());
             this.dropSelf(APPLE_CRATE.get());
             this.dropSelf(BLACK_ACORN_SACK.get());
@@ -151,6 +150,12 @@ public class FILoot extends LootTableProvider {
                             .withPool(this.applyExplosionCondition(block,
                                             LootPool.lootPool())));
             this.dropSelf(OAK_FERN.get());
+            //Other
+            this.add(HOLLOW_LOG.get(), block -> this.applyExplosionDecay(block, LootTable.lootTable()
+                    .withPool(LootPool.lootPool()
+                            .add(LootItem.lootTableItem(vectorwing.farmersdelight.common.registry.ModItems.TREE_BARK.get())
+                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F)))))));
+
                 //Decorative
             this.dropSelf(SCATTERED_LILAC_BLOOM_MAT.get());
             this.dropSelf(SCATTERED_ROSE_PETAL_MAT.get());

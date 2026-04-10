@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.common.worldgen.feature;
 
 import com.mojang.serialization.Codec;
+import com.tiomadre.foragersinsight.common.block.HollowLogBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -13,6 +14,7 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 
 public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
     public FallenTreeFeature(Codec<NoneFeatureConfiguration> codec) {
@@ -28,7 +30,7 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
         Direction direction = random.nextBoolean() ? Direction.EAST : Direction.NORTH;
         Direction sideA = direction.getClockWise();
         Direction sideB = direction.getCounterClockWise();
-        int logLength = 2 + random.nextInt(2);
+        int logLength = 3 + random.nextInt(2);
 
         for (int i = 0; i < logLength; i++) {
             BlockPos logPos = origin.relative(direction, i);
@@ -36,9 +38,9 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
                 return false;
             }
         }
-
-        BlockState fallenLogState = Blocks.DARK_OAK_LOG.defaultBlockState()
-                .setValue(RotatedPillarBlock.AXIS, direction.getAxis());
+        BlockState fallenLogState = FIBlocks.HOLLOW_LOG.get().defaultBlockState()
+                .setValue(RotatedPillarBlock.AXIS, direction.getAxis())
+                .setValue(HollowLogBlock.LOG_TEXTURE, HollowLogBlock.LogTexture.DARK_OAK);
         boolean placed = false;
         for (int i = 0; i < logLength; i++) {
             BlockPos logPos = origin.relative(direction, i);

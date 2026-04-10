@@ -1,9 +1,9 @@
 {
-  "feature": "foragersinsight:woodlands_patch",
+  "feature": "foragersinsight:dark_oak_suspicious_leaf_litter_patch",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 50
+      "chance": 8
     },
     {
       "type": "minecraft:in_square"

@@ -151,7 +151,7 @@ public class FIConfiguredFeatures {
                 PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(YOUNG_DARK_OAK_TREE_KEY))));
         Holder<PlacedFeature> oakFernPatch = PlacementUtils.inlinePlaced(
                 Feature.SIMPLE_BLOCK,
-                new SimpleBlockConfiguration(BlockStateProvider.simple(FIBlocks.OAK_FERN.get().defaultBlockState())),
+                new SimpleBlockConfiguration(weightedGrassPatchProvider(FIBlocks.OAK_FERN.get().defaultBlockState(), 2)),
                 BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
                         BlockPredicate.replaceable(),
                         BlockPredicate.not(BlockPredicate.matchesFluids(Fluids.WATER)),
@@ -164,10 +164,8 @@ public class FIConfiguredFeatures {
         register(context, WOODLANDS_PATCH_KEY, Feature.RANDOM_PATCH, woodlandsPatchConfiguration());
 
         //Wild Flowers
-        WeightedStateProvider rosellePatchProvider = new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-                .add(Blocks.GRASS.defaultBlockState(), 6)
-                .add(FIBlocks.ROSELLE_BUSH.get().defaultBlockState()
-                        .setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 2));
+        WeightedStateProvider rosellePatchProvider = weightedGrassPatchProvider(
+                FIBlocks.ROSELLE_BUSH.get().defaultBlockState().setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 2);
         Holder<PlacedFeature> roselleBush = PlacementUtils.inlinePlaced(
                 Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(rosellePatchProvider),
 
@@ -207,7 +205,6 @@ public class FIConfiguredFeatures {
 
     }
 
-
     private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstapContext<ConfiguredFeature<?, ?>> context,
                                                                                           ResourceKey<ConfiguredFeature<?, ?>> key,
                                                                                           F feature,
@@ -215,37 +212,40 @@ public class FIConfiguredFeatures {
         context.register(key, new ConfiguredFeature<>(feature, configuration));
     }
 
-    private static WeightedStateProvider bountifulLeafStateProvider(Block leaf, Supplier<Block> bountifulLeaf) {
-        BlockState bountifulState = bountifulLeaf.get().defaultBlockState();
-        if (bountifulState.hasProperty(BountifulLeavesBlock.AGE)) {
-            bountifulState = bountifulState.setValue(BountifulLeavesBlock.AGE, BountifulLeavesBlock.MAX_AGE);
-        }
-
-        return new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-                .add(leaf.defaultBlockState(), 3)
-                .add(bountifulState, 1));
-    }
+    //Patch defs + weighted grass generation for Patches
     private static RandomPatchConfiguration suspiciousLitterPatchConfiguration(SuspiciousLitterBlock.FoliageType foliageType) {
         BlockState state = FIBlocks.SUSPICIOUS_LEAF_LITTER.get().defaultBlockState().setValue(SuspiciousLitterBlock.FOLIAGE, foliageType);
         Holder<PlacedFeature> placedFeature = PlacementUtils.inlinePlaced(
                 Feature.SIMPLE_BLOCK,
-                new SimpleBlockConfiguration(BlockStateProvider.simple(state)),
+                new SimpleBlockConfiguration(weightedGrassPatchProvider(state, 2)),
                 BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
                         BlockPredicate.replaceable(),
                         BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.DIRT))));
         return new RandomPatchConfiguration(35, 5, 2, placedFeature);
     }
-    private static WeightedStateProvider youngDarkOakLeafStateProvider() {
-        BlockState bountifulDarkOak = FIBlocks.BOUNTIFUL_DARK_OAK_LEAVES.get().defaultBlockState();
-        if (bountifulDarkOak.hasProperty(BountifulLeavesBlock.AGE)) {
-            bountifulDarkOak = bountifulDarkOak.setValue(BountifulLeavesBlock.AGE, BountifulLeavesBlock.MAX_AGE);
-        }
-
+    private static WeightedStateProvider weightedGrassPatchProvider(BlockState patchState, int patchWeight) {
         return new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-                .add(Blocks.DARK_OAK_LEAVES.defaultBlockState(), 7)
-                .add(bountifulDarkOak, 1));
+                .add(Blocks.GRASS.defaultBlockState(), 6)
+                .add(patchState, patchWeight));
     }
-
+    //unique to Dark Woodlands
+    private static RandomPatchConfiguration woodlandsPatchConfiguration() {
+        Holder<PlacedFeature> placedFeature = PlacementUtils.inlinePlaced(
+                Feature.SIMPLE_BLOCK,
+                new SimpleBlockConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                        .add(Blocks.GRASS.defaultBlockState(), 50)
+                        .add(Blocks.TALL_GRASS.defaultBlockState().setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 25)
+                        .add(Blocks.RED_TULIP.defaultBlockState(), 15)
+                        .add(Blocks.ROSE_BUSH.defaultBlockState().setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 5)
+                        .add(Blocks.RED_MUSHROOM.defaultBlockState(), 5)
+                        .build())),
+                BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
+                        BlockPredicate.replaceable(),
+                        BlockPredicate.replaceable(BlockPos.ZERO.above()),
+                        BlockPredicate.not(BlockPredicate.matchesFluids(Fluids.WATER)),
+                        BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.DIRT))));
+        return new RandomPatchConfiguration(96, 7, 4, placedFeature);
+    }
     private static RandomPatchConfiguration fallenTreePatchConfiguration() {
         Holder<PlacedFeature> placedFeature = PlacementUtils.inlinePlaced(
                 Feature.SIMPLE_BLOCK,
@@ -260,22 +260,27 @@ public class FIConfiguredFeatures {
                         BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.DIRT))));
         return new RandomPatchConfiguration(3, 2, 1, placedFeature);
     }
+    //Tree Foliage shizz
+    private static WeightedStateProvider youngDarkOakLeafStateProvider() {
+        BlockState bountifulDarkOak = FIBlocks.BOUNTIFUL_DARK_OAK_LEAVES.get().defaultBlockState();
+        if (bountifulDarkOak.hasProperty(BountifulLeavesBlock.AGE)) {
+            bountifulDarkOak = bountifulDarkOak.setValue(BountifulLeavesBlock.AGE, BountifulLeavesBlock.MAX_AGE);
+        }
 
-    private static RandomPatchConfiguration woodlandsPatchConfiguration() {
-        Holder<PlacedFeature> placedFeature = PlacementUtils.inlinePlaced(
-                Feature.SIMPLE_BLOCK,
-                new SimpleBlockConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-                        .add(Blocks.GRASS.defaultBlockState(), 60)
-                        .add(Blocks.TALL_GRASS.defaultBlockState().setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 25)
-                        .add(Blocks.RED_TULIP.defaultBlockState(), 10)
-                        .add(Blocks.ROSE_BUSH.defaultBlockState().setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 5)
-                        .build())),
-                BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
-                        BlockPredicate.replaceable(),
-                        BlockPredicate.replaceable(BlockPos.ZERO.above()),
-                        BlockPredicate.not(BlockPredicate.matchesFluids(Fluids.WATER)),
-                        BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.DIRT))));
-        return new RandomPatchConfiguration(96, 7, 4, placedFeature);
+        return new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                .add(Blocks.DARK_OAK_LEAVES.defaultBlockState(), 7)
+                .add(bountifulDarkOak, 1));
+    }
+
+    private static WeightedStateProvider bountifulLeafStateProvider(Block leaf, Supplier<Block> bountifulLeaf) {
+        BlockState bountifulState = bountifulLeaf.get().defaultBlockState();
+        if (bountifulState.hasProperty(BountifulLeavesBlock.AGE)) {
+            bountifulState = bountifulState.setValue(BountifulLeavesBlock.AGE, BountifulLeavesBlock.MAX_AGE);
+        }
+
+        return new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                .add(leaf.defaultBlockState(), 3)
+                .add(bountifulState, 1));
     }
 
 }
