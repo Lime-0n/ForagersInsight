@@ -1,0 +1,9 @@
+{
+  "parent": "foragersinsight:block/hollow_log",
+  "textures": {
+    "1": "minecraft:block/dark_oak_log",
+    "2": "minecraft:block/dark_oak_log_top",
+    "5": "minecraft:block/stripped_dark_oak_log",
+    "particle": "minecraft:block/dark_oak_log"
+  }
+}

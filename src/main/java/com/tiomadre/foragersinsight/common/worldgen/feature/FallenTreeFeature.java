@@ -5,6 +5,7 @@ import com.tiomadre.foragersinsight.common.block.HollowLogBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
+import com.tiomadre.foragersinsight.data.server.tags.FITags;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
@@ -38,9 +39,11 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
                 return false;
             }
         }
+
+        HollowLogBlock.LogTexture biomeTexture = getBiomeLogTexture(level, origin);
         BlockState fallenLogState = FIBlocks.HOLLOW_LOG.get().defaultBlockState()
                 .setValue(RotatedPillarBlock.AXIS, direction.getAxis())
-                .setValue(HollowLogBlock.LOG_TEXTURE, HollowLogBlock.LogTexture.DARK_OAK);
+                .setValue(HollowLogBlock.LOG_TEXTURE, biomeTexture);
         boolean placed = false;
         for (int i = 0; i < logLength; i++) {
             BlockPos logPos = origin.relative(direction, i);
@@ -80,5 +83,19 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
         return level.getBlockState(pos).canBeReplaced()
                 && level.getBlockState(pos.above()).canBeReplaced()
                 && level.getBlockState(belowPos).isFaceSturdy(level, belowPos, Direction.UP);
+    }
+
+    private static HollowLogBlock.LogTexture getBiomeLogTexture(WorldGenLevel level, BlockPos pos) {
+        var biome = level.getBiome(pos);
+        if (biome.is(FITags.BiomeTag.HAS_BIRCH_FOREST_LITTER)) {
+            return HollowLogBlock.LogTexture.BIRCH;
+        }
+        if (biome.is(FITags.BiomeTag.HAS_SPRUCE_FOREST_LITTER)) {
+            return HollowLogBlock.LogTexture.SPRUCE;
+        }
+        if (biome.is(FITags.BiomeTag.HAS_DARK_OAK_FOREST_LITTER) || biome.is(FITags.BiomeTag.HAS_FLOWER_FOREST_LITTER)) {
+            return HollowLogBlock.LogTexture.DARK_OAK;
+        }
+        return HollowLogBlock.LogTexture.OAK;
     }
 }

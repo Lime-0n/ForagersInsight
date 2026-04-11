@@ -1,99 +1,99 @@
 {
   "variants": {
     "axis=x,log_texture=acacia": {
-      "model": "foragersinsight:block/hollow_log",
+      "model": "foragersinsight:block/hollow_log_acacia",
       "x": 90,
       "y": 90
     },
     "axis=x,log_texture=birch": {
-      "model": "foragersinsight:block/hollow_log",
+      "model": "foragersinsight:block/hollow_log_birch",
       "x": 90,
       "y": 90
     },
     "axis=x,log_texture=cherry": {
-      "model": "foragersinsight:block/hollow_log",
+      "model": "foragersinsight:block/hollow_log_cherry",
       "x": 90,
       "y": 90
     },
     "axis=x,log_texture=dark_oak": {
-      "model": "foragersinsight:block/hollow_log",
+      "model": "foragersinsight:block/hollow_log_dark_oak",
       "x": 90,
       "y": 90
     },
     "axis=x,log_texture=jungle": {
-      "model": "foragersinsight:block/hollow_log",
+      "model": "foragersinsight:block/hollow_log_jungle",
       "x": 90,
       "y": 90
     },
     "axis=x,log_texture=mangrove": {
-      "model": "foragersinsight:block/hollow_log",
+      "model": "foragersinsight:block/hollow_log_mangrove",
       "x": 90,
       "y": 90
     },
     "axis=x,log_texture=oak": {
-      "model": "foragersinsight:block/hollow_log",
+      "model": "foragersinsight:block/hollow_log_oak",
       "x": 90,
       "y": 90
     },
     "axis=x,log_texture=spruce": {
-      "model": "foragersinsight:block/hollow_log",
+      "model": "foragersinsight:block/hollow_log_spruce",
       "x": 90,
       "y": 90
     },
     "axis=y,log_texture=acacia": {
-      "model": "foragersinsight:block/hollow_log"
+      "model": "foragersinsight:block/hollow_log_acacia"
     },
     "axis=y,log_texture=birch": {
-      "model": "foragersinsight:block/hollow_log"
+      "model": "foragersinsight:block/hollow_log_birch"
     },
     "axis=y,log_texture=cherry": {
-      "model": "foragersinsight:block/hollow_log"
+      "model": "foragersinsight:block/hollow_log_cherry"
     },
     "axis=y,log_texture=dark_oak": {
-      "model": "foragersinsight:block/hollow_log"
+      "model": "foragersinsight:block/hollow_log_dark_oak"
     },
     "axis=y,log_texture=jungle": {
-      "model": "foragersinsight:block/hollow_log"
+      "model": "foragersinsight:block/hollow_log_jungle"
     },
     "axis=y,log_texture=mangrove": {
-      "model": "foragersinsight:block/hollow_log"
+      "model": "foragersinsight:block/hollow_log_mangrove"
     },
     "axis=y,log_texture=oak": {
-      "model": "foragersinsight:block/hollow_log"
+      "model": "foragersinsight:block/hollow_log_oak"
     },
     "axis=y,log_texture=spruce": {
-      "model": "foragersinsight:block/hollow_log"
+      "model": "foragersinsight:block/hollow_log_spruce"
     },
     "axis=z,log_texture=acacia": {
-      "model": "foragersinsight:block/hollow_log",
+      "model": "foragersinsight:block/hollow_log_acacia",
       "x": 90
     },
     "axis=z,log_texture=birch": {
-      "model": "foragersinsight:block/hollow_log",
+      "model": "foragersinsight:block/hollow_log_birch",
       "x": 90
     },
     "axis=z,log_texture=cherry": {
-      "model": "foragersinsight:block/hollow_log",
+      "model": "foragersinsight:block/hollow_log_cherry",
       "x": 90
     },
     "axis=z,log_texture=dark_oak": {
-      "model": "foragersinsight:block/hollow_log",
+      "model": "foragersinsight:block/hollow_log_dark_oak",
       "x": 90
     },
     "axis=z,log_texture=jungle": {
-      "model": "foragersinsight:block/hollow_log",
+      "model": "foragersinsight:block/hollow_log_jungle",
       "x": 90
     },
     "axis=z,log_texture=mangrove": {
-      "model": "foragersinsight:block/hollow_log",
+      "model": "foragersinsight:block/hollow_log_mangrove",
       "x": 90
     },
     "axis=z,log_texture=oak": {
-      "model": "foragersinsight:block/hollow_log",
+      "model": "foragersinsight:block/hollow_log_oak",
       "x": 90
     },
     "axis=z,log_texture=spruce": {
-      "model": "foragersinsight:block/hollow_log",
+      "model": "foragersinsight:block/hollow_log_spruce",
       "x": 90
     }
   }

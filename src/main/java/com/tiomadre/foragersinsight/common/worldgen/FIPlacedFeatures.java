@@ -69,7 +69,7 @@ public class FIPlacedFeatures {
         register(context, DARK_WOODLANDS_TREES_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.DARK_WOODLANDS_TREES_KEY),
                 VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.2f, 1), Blocks.DARK_OAK_SAPLING));
         register(context, DARK_OAK_BUSH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.DARK_OAK_BUSH_KEY),
-                List.of(RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(),
+                List.of(RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(),
                         HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING),
                         BiomeFilter.biome()));
         register(context, DARK_WOODLANDS_FALLEN_TREES_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.DARK_WOODLANDS_FALLEN_TREES_KEY),

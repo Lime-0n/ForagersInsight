@@ -1,0 +1,9 @@
+{
+  "parent": "foragersinsight:block/hollow_log",
+  "textures": {
+    "1": "minecraft:block/mangrove_log",
+    "2": "minecraft:block/mangrove_log_top",
+    "5": "minecraft:block/stripped_mangrove_log",
+    "particle": "minecraft:block/mangrove_log"
+  }
+}

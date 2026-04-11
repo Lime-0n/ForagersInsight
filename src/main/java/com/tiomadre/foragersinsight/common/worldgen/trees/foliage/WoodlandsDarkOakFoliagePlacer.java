@@ -30,9 +30,10 @@ public class WoodlandsDarkOakFoliagePlacer extends FoliagePlacer {
                                  @NotNull TreeConfiguration config, int maxFreeTreeHeight, @NotNull FoliageAttachment attachment,
                                  int foliageHeight, int radius, int offset) {
         BlockPos center = attachment.pos();
-        placeLeavesRow(level, setter, random, config, center, 1, 0, false); // 3x3
+        placeLeavesRow(level, setter, random, config, center, 2, 0, false); // 5x5
         placeLeavesRow(level, setter, random, config, center, 3, -1, false); // 7x7
-        placeLeavesRow(level, setter, random, config, center, 2, -2, false); // 5x5
+        placeLeavesRow(level, setter, random, config, center, 1, -2, false); // 3x3
+
     }
 
     @Override
@@ -42,6 +43,13 @@ public class WoodlandsDarkOakFoliagePlacer extends FoliagePlacer {
 
     @Override
     protected boolean shouldSkipLocation(@NotNull RandomSource random, int localX, int localY, int localZ, int range, boolean large) {
+        if (Math.abs(localX) == range && Math.abs(localZ) == range) {
+            return random.nextFloat() < 0.5F;
+        }
+        if (Math.abs(localX) == range || Math.abs(localZ) == range) {
+            return random.nextFloat() < 0.1F;
+        }
         return false;
     }
+
 }
