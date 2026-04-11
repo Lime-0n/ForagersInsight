@@ -1,9 +1,6 @@
 package com.tiomadre.foragersinsight.core.registry;
 
-import com.tiomadre.foragersinsight.common.worldgen.trees.foliage.AcornTreeFoliagePlacer;
-import com.tiomadre.foragersinsight.common.worldgen.trees.foliage.AppleTreeFoliagePlacer;
-import com.tiomadre.foragersinsight.common.worldgen.trees.foliage.LilacTreeFoliagePlacer;
-import com.tiomadre.foragersinsight.common.worldgen.trees.foliage.SpruceTipTreeFoliagePlacer;
+import com.tiomadre.foragersinsight.common.worldgen.trees.foliage.*;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraftforge.registries.DeferredRegister;
@@ -29,4 +26,8 @@ public class FIFoliagePlacerType {
     public static final RegistryObject<FoliagePlacerType<LilacTreeFoliagePlacer>> LILAC_FOLIAGE_PLACER =
             FOLIAGE_PLACER_TYPE.register("lilac_tree_foliage_placer", () ->
                     new FoliagePlacerType<>(LilacTreeFoliagePlacer.CODEC));
+
+    public static final RegistryObject<FoliagePlacerType<WoodlandsDarkOakFoliagePlacer>> WOODLANDS_DARK_OAK_FOLIAGE_PLACER =
+            FOLIAGE_PLACER_TYPE.register("woodlands_dark_oak_foliage_placer", () ->
+                    new FoliagePlacerType<>(WoodlandsDarkOakFoliagePlacer.CODEC));
 }

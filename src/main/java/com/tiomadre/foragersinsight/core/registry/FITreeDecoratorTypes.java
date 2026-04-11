@@ -3,6 +3,7 @@ package com.tiomadre.foragersinsight.core.registry;
 import com.tiomadre.foragersinsight.common.worldgen.trees.decorator.BountifulOakLeafDecorator;
 import com.tiomadre.foragersinsight.common.worldgen.trees.decorator.SappyBirchLogDecorator;
 import com.tiomadre.foragersinsight.common.worldgen.trees.decorator.BountifulSpruceTipDecorator;
+import com.tiomadre.foragersinsight.common.worldgen.trees.decorator.WoodlandsDarkOakStemDecorator;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 
@@ -25,4 +26,8 @@ public class FITreeDecoratorTypes {
     public static final RegistryObject<TreeDecoratorType<BountifulSpruceTipDecorator>> BOUNTIFUL_SPRUCE_TIP_DECORATOR =
             TREE_DECORATOR_TYPES.register("bountiful_spruce_tip_decorator",
                     () -> new TreeDecoratorType<>(BountifulSpruceTipDecorator.CODEC));
+
+    public static final RegistryObject<TreeDecoratorType<WoodlandsDarkOakStemDecorator>> WOODLANDS_DARK_OAK_STEM_DECORATOR =
+            TREE_DECORATOR_TYPES.register("woodlands_dark_oak_stem_decorator",
+                    () -> new TreeDecoratorType<>(WoodlandsDarkOakStemDecorator.CODEC));
 }

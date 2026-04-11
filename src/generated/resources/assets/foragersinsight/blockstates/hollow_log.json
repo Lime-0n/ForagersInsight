@@ -1,0 +1,100 @@
+{
+  "variants": {
+    "axis=x,log_texture=acacia": {
+      "model": "foragersinsight:block/hollow_log",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,log_texture=birch": {
+      "model": "foragersinsight:block/hollow_log",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,log_texture=cherry": {
+      "model": "foragersinsight:block/hollow_log",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,log_texture=dark_oak": {
+      "model": "foragersinsight:block/hollow_log",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,log_texture=jungle": {
+      "model": "foragersinsight:block/hollow_log",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,log_texture=mangrove": {
+      "model": "foragersinsight:block/hollow_log",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,log_texture=oak": {
+      "model": "foragersinsight:block/hollow_log",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,log_texture=spruce": {
+      "model": "foragersinsight:block/hollow_log",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,log_texture=acacia": {
+      "model": "foragersinsight:block/hollow_log"
+    },
+    "axis=y,log_texture=birch": {
+      "model": "foragersinsight:block/hollow_log"
+    },
+    "axis=y,log_texture=cherry": {
+      "model": "foragersinsight:block/hollow_log"
+    },
+    "axis=y,log_texture=dark_oak": {
+      "model": "foragersinsight:block/hollow_log"
+    },
+    "axis=y,log_texture=jungle": {
+      "model": "foragersinsight:block/hollow_log"
+    },
+    "axis=y,log_texture=mangrove": {
+      "model": "foragersinsight:block/hollow_log"
+    },
+    "axis=y,log_texture=oak": {
+      "model": "foragersinsight:block/hollow_log"
+    },
+    "axis=y,log_texture=spruce": {
+      "model": "foragersinsight:block/hollow_log"
+    },
+    "axis=z,log_texture=acacia": {
+      "model": "foragersinsight:block/hollow_log",
+      "x": 90
+    },
+    "axis=z,log_texture=birch": {
+      "model": "foragersinsight:block/hollow_log",
+      "x": 90
+    },
+    "axis=z,log_texture=cherry": {
+      "model": "foragersinsight:block/hollow_log",
+      "x": 90
+    },
+    "axis=z,log_texture=dark_oak": {
+      "model": "foragersinsight:block/hollow_log",
+      "x": 90
+    },
+    "axis=z,log_texture=jungle": {
+      "model": "foragersinsight:block/hollow_log",
+      "x": 90
+    },
+    "axis=z,log_texture=mangrove": {
+      "model": "foragersinsight:block/hollow_log",
+      "x": 90
+    },
+    "axis=z,log_texture=oak": {
+      "model": "foragersinsight:block/hollow_log",
+      "x": 90
+    },
+    "axis=z,log_texture=spruce": {
+      "model": "foragersinsight:block/hollow_log",
+      "x": 90
+    }
+  }
+}

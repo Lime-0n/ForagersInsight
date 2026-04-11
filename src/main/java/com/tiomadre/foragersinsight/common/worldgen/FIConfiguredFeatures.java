@@ -4,7 +4,9 @@ import com.tiomadre.foragersinsight.common.block.BountifulLeavesBlock;
 import com.tiomadre.foragersinsight.common.block.SuspiciousLitterBlock;
 import com.tiomadre.foragersinsight.common.worldgen.trees.decorator.BountifulOakLeafDecorator;
 import com.tiomadre.foragersinsight.common.worldgen.trees.decorator.BountifulSpruceTipDecorator;
+import com.tiomadre.foragersinsight.common.worldgen.trees.decorator.WoodlandsDarkOakStemDecorator;
 import com.tiomadre.foragersinsight.common.worldgen.trees.foliage.LilacTreeFoliagePlacer;
+import com.tiomadre.foragersinsight.common.worldgen.trees.foliage.WoodlandsDarkOakFoliagePlacer;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.common.worldgen.trees.decorator.SappyBirchLogDecorator;
@@ -99,7 +101,7 @@ public class FIConfiguredFeatures {
         register(context, YOUNG_DARK_OAK_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(Blocks.DARK_OAK_LOG),
                 new StraightTrunkPlacer(5, 2, 1),
-                youngDarkOakLeafStateProvider(),
+                BlockStateProvider.simple(Blocks.DARK_OAK_LEAVES),
                 new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
                 new TwoLayersFeatureSize(1, 0, 1)
         ).ignoreVines().build());
@@ -139,11 +141,11 @@ public class FIConfiguredFeatures {
         //Dark Woodlands
         register(context, WOODLANDS_DARK_OAK_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(Blocks.DARK_OAK_LOG),
-                new StraightTrunkPlacer(7, 3, 1),
-                youngDarkOakLeafStateProvider(),
-                new DarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
-                new ThreeLayersFeatureSize(1, 1, 0, 1, 1, OptionalInt.empty())
-        ).ignoreVines().build());
+                new StraightTrunkPlacer(5, 1, 0),
+                BlockStateProvider.simple(Blocks.DARK_OAK_LEAVES),
+                new WoodlandsDarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
+                new TwoLayersFeatureSize(1, 0, 1)
+        ).decorators(java.util.List.of(new WoodlandsDarkOakStemDecorator())).ignoreVines().build());
         register(context, DARK_WOODLANDS_TREES_KEY, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(java.util.List.of(
                 new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(YOUNG_DARK_OAK_TREE_KEY)), 0.68F),
                 new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(YOUNG_ACORN_TREE_KEY)), 0.20F),
@@ -261,16 +263,6 @@ public class FIConfiguredFeatures {
         return new RandomPatchConfiguration(3, 2, 1, placedFeature);
     }
     //Tree Foliage shizz
-    private static WeightedStateProvider youngDarkOakLeafStateProvider() {
-        BlockState bountifulDarkOak = FIBlocks.BOUNTIFUL_DARK_OAK_LEAVES.get().defaultBlockState();
-        if (bountifulDarkOak.hasProperty(BountifulLeavesBlock.AGE)) {
-            bountifulDarkOak = bountifulDarkOak.setValue(BountifulLeavesBlock.AGE, BountifulLeavesBlock.MAX_AGE);
-        }
-
-        return new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-                .add(Blocks.DARK_OAK_LEAVES.defaultBlockState(), 7)
-                .add(bountifulDarkOak, 1));
-    }
 
     private static WeightedStateProvider bountifulLeafStateProvider(Block leaf, Supplier<Block> bountifulLeaf) {
         BlockState bountifulState = bountifulLeaf.get().defaultBlockState();
