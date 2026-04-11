@@ -4,9 +4,12 @@ import com.mojang.serialization.Codec;
 import com.tiomadre.foragersinsight.common.block.HollowLogBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import com.tiomadre.foragersinsight.data.server.tags.FITags;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -18,6 +21,9 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 
 public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
+    private static final float MUSHROOM_ON_LOG_CHANCE = 0.18F;
+    private static final float MUSHROOM_COLONY_CHANCE = 0.03F;
+
     public FallenTreeFeature(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
     }
@@ -50,6 +56,7 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
             this.setBlock(level, logPos, fallenLogState);
             placed = true;
 
+            placeMushroomOnLog(level, random, logPos.above());
             placeGrassNextToLog(level, random, logPos.relative(sideA));
             placeGrassNextToLog(level, random, logPos.relative(sideB));
         }
@@ -76,6 +83,32 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
         }
 
         level.setBlock(pos, Blocks.GRASS.defaultBlockState(), 2);
+    }
+
+    private static void placeMushroomOnLog(WorldGenLevel level, RandomSource random, BlockPos pos) {
+        if (random.nextFloat() > MUSHROOM_ON_LOG_CHANCE || !level.getBlockState(pos).canBeReplaced() || !level.getFluidState(pos).isEmpty()) {
+            return;
+        }
+
+        BlockState mushroomState = random.nextBoolean() ? Blocks.RED_MUSHROOM.defaultBlockState() : Blocks.BROWN_MUSHROOM.defaultBlockState();
+        BlockState colonyState = getOptionalColonyState(random);
+
+        if (colonyState != null && random.nextFloat() < MUSHROOM_COLONY_CHANCE && colonyState.canSurvive(level, pos)) {
+            level.setBlock(pos, colonyState, 2);
+            return;
+        }
+
+        if (mushroomState.canSurvive(level, pos)) {
+            level.setBlock(pos, mushroomState, 2);
+        }
+    }
+
+    private static BlockState getOptionalColonyState(RandomSource random) {
+        ResourceLocation colonyId = random.nextBoolean()
+                ? new ResourceLocation("farmersdelight", "red_mushroom_colony")
+                : new ResourceLocation("farmersdelight", "brown_mushroom_colony");
+        Block colony = BuiltInRegistries.BLOCK.getOptional(colonyId).orElse(null);
+        return colony != null ? colony.defaultBlockState() : null;
     }
 
     private static boolean canPlaceDoublePlant(WorldGenLevel level, BlockPos pos) {

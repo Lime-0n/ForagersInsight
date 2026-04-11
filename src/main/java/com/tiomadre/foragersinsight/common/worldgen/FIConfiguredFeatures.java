@@ -141,7 +141,7 @@ public class FIConfiguredFeatures {
         //Dark Woodlands
         register(context, WOODLANDS_DARK_OAK_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(Blocks.DARK_OAK_LOG),
-                new StraightTrunkPlacer(5, 1, 0),
+                new StraightTrunkPlacer(7, 2, 1),
                 BlockStateProvider.simple(Blocks.DARK_OAK_LEAVES),
                 new WoodlandsDarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
                 new TwoLayersFeatureSize(1, 0, 1)

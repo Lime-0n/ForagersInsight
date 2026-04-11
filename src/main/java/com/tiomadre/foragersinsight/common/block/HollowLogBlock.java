@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.common.block;
 
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -22,6 +23,19 @@ public class HollowLogBlock extends RotatedPillarBlock {
     protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<net.minecraft.world.level.block.Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(LOG_TEXTURE);
+    }
+
+    public static boolean supportsMushroomOnFace(BlockState state, Direction face) {
+        if (!(state.getBlock() instanceof HollowLogBlock)) {
+            return false;
+        }
+
+        Direction.Axis axis = state.getValue(AXIS);
+        if (axis == Direction.Axis.Y) {
+            return face == Direction.UP;
+        }
+
+        return face.getAxis() != axis;
     }
 
     public enum LogTexture implements StringRepresentable {

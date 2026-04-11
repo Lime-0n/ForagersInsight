@@ -1,4 +1,6 @@
 {
+	"ambientocclusion": false,
+	"gui_light": "front",
 	"textures": {
 		"0": "foragersinsight:block/oak_fern",
 		"particle": "foragersinsight:block/oak_fern"
