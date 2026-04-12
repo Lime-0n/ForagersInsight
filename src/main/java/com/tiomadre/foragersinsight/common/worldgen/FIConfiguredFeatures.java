@@ -237,9 +237,9 @@ public class FIConfiguredFeatures {
                 new SimpleBlockConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                         .add(Blocks.GRASS.defaultBlockState(), 50)
                         .add(Blocks.TALL_GRASS.defaultBlockState().setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 25)
-                        .add(Blocks.RED_TULIP.defaultBlockState(), 15)
-                        .add(Blocks.ROSE_BUSH.defaultBlockState().setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 5)
-                        .add(Blocks.RED_MUSHROOM.defaultBlockState(), 5)
+                        .add(Blocks.RED_TULIP.defaultBlockState(), 20)
+                        .add(Blocks.ROSE_BUSH.defaultBlockState().setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 10)
+                        .add(Blocks.RED_MUSHROOM.defaultBlockState(), 7)
                         .build())),
                 BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
                         BlockPredicate.replaceable(),

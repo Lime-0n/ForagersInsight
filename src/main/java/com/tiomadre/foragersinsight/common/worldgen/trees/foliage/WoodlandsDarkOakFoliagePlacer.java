@@ -43,7 +43,6 @@ public class WoodlandsDarkOakFoliagePlacer extends FoliagePlacer {
 
     @Override
     protected boolean shouldSkipLocation(@NotNull RandomSource random, int localX, int localY, int localZ, int range, boolean large) {
-        return range >= 2 && Math.abs(localX) == range;
+        return false;
     }
-
 }

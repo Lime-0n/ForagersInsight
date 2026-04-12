@@ -7,7 +7,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
-import com.tiomadre.foragersinsight.data.server.tags.FITags;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -85,20 +84,21 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
         level.setBlock(pos, Blocks.GRASS.defaultBlockState(), 2);
     }
 
-    private static void placeMushroomOnLog(WorldGenLevel level, RandomSource random, BlockPos pos) {
+   private static void placeMushroomOnLog(WorldGenLevel level, RandomSource random, BlockPos pos) {
         if (random.nextFloat() > MUSHROOM_ON_LOG_CHANCE || !level.getBlockState(pos).canBeReplaced() || !level.getFluidState(pos).isEmpty()) {
             return;
         }
 
+        boolean hasHollowLogSupport = HollowLogBlock.supportsMushroomOnFace(level.getBlockState(pos.below()), Direction.UP);
         BlockState mushroomState = random.nextBoolean() ? Blocks.RED_MUSHROOM.defaultBlockState() : Blocks.BROWN_MUSHROOM.defaultBlockState();
         BlockState colonyState = getOptionalColonyState(random);
 
-        if (colonyState != null && random.nextFloat() < MUSHROOM_COLONY_CHANCE && colonyState.canSurvive(level, pos)) {
+        if (colonyState != null && random.nextFloat() < MUSHROOM_COLONY_CHANCE && (colonyState.canSurvive(level, pos) || hasHollowLogSupport)) {
             level.setBlock(pos, colonyState, 2);
             return;
         }
 
-        if (mushroomState.canSurvive(level, pos)) {
+        if (mushroomState.canSurvive(level, pos) || hasHollowLogSupport) {
             level.setBlock(pos, mushroomState, 2);
         }
     }
@@ -119,16 +119,6 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
     }
 
     private static HollowLogBlock.LogTexture getBiomeLogTexture(WorldGenLevel level, BlockPos pos) {
-        var biome = level.getBiome(pos);
-        if (biome.is(FITags.BiomeTag.HAS_BIRCH_FOREST_LITTER)) {
-            return HollowLogBlock.LogTexture.BIRCH;
-        }
-        if (biome.is(FITags.BiomeTag.HAS_SPRUCE_FOREST_LITTER)) {
-            return HollowLogBlock.LogTexture.SPRUCE;
-        }
-        if (biome.is(FITags.BiomeTag.HAS_DARK_OAK_FOREST_LITTER) || biome.is(FITags.BiomeTag.HAS_FLOWER_FOREST_LITTER)) {
-            return HollowLogBlock.LogTexture.DARK_OAK;
-        }
-        return HollowLogBlock.LogTexture.OAK;
+        return HollowLogBlock.getDominantBiomeTexture(level.getBiome(pos));
     }
 }
