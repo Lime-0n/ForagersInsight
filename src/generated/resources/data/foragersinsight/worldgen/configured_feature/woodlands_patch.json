@@ -12,7 +12,7 @@
                 "data": {
                   "Name": "minecraft:grass"
                 },
-                "weight": 50
+                "weight": 6
               },
               {
                 "data": {
@@ -21,13 +21,19 @@
                     "half": "lower"
                   }
                 },
-                "weight": 25
+                "weight": 3
               },
               {
                 "data": {
                   "Name": "minecraft:red_tulip"
                 },
-                "weight": 20
+                "weight": 2
+              },
+              {
+                "data": {
+                  "Name": "minecraft:poppy"
+                },
+                "weight": 2
               },
               {
                 "data": {
@@ -36,13 +42,7 @@
                     "half": "lower"
                   }
                 },
-                "weight": 10
-              },
-              {
-                "data": {
-                  "Name": "minecraft:red_mushroom"
-                },
-                "weight": 7
+                "weight": 1
               }
             ]
           }

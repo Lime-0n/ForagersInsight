@@ -30,4 +30,8 @@ public class FIFoliagePlacerType {
     public static final RegistryObject<FoliagePlacerType<WoodlandsDarkOakFoliagePlacer>> WOODLANDS_DARK_OAK_FOLIAGE_PLACER =
             FOLIAGE_PLACER_TYPE.register("woodlands_dark_oak_foliage_placer", () ->
                     new FoliagePlacerType<>(WoodlandsDarkOakFoliagePlacer.CODEC));
+
+    public static final RegistryObject<FoliagePlacerType<WoodlandsOakShrubFoliagePlacer>> WOODLANDS_OAK_SHRUB_FOLIAGE_PLACER =
+            FOLIAGE_PLACER_TYPE.register("woodlands_oak_shrub_foliage_placer", () ->
+                    new FoliagePlacerType<>(WoodlandsOakShrubFoliagePlacer.CODEC));
 }

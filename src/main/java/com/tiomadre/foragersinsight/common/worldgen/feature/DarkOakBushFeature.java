@@ -38,7 +38,11 @@ public class DarkOakBushFeature extends Feature<NoneFeatureConfiguration> {
                 origin.above().north(),
                 origin.above().south(),
                 origin.above().east(),
-                origin.above().west()
+                origin.above().west(),
+                origin.above().north().east(),
+                origin.above().north().west(),
+                origin.above().south().east(),
+                origin.above().south().west()
         };
 
         for (BlockPos pos : topLayer) {

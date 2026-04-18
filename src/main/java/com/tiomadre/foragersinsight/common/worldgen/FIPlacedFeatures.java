@@ -69,14 +69,14 @@ public class FIPlacedFeatures {
         register(context, DARK_WOODLANDS_TREES_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.DARK_WOODLANDS_TREES_KEY),
                 VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.2f, 1), Blocks.DARK_OAK_SAPLING));
         register(context, DARK_OAK_BUSH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.DARK_OAK_BUSH_KEY),
-                List.of(RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(),
-                        HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING),
+                List.of(RarityFilter.onAverageOnceEvery(1), InSquarePlacement.spread(),
+                        HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
                         BiomeFilter.biome()));
         register(context, DARK_WOODLANDS_FALLEN_TREES_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.DARK_WOODLANDS_FALLEN_TREES_KEY),
                 List.of(RarityFilter.onAverageOnceEvery(35), InSquarePlacement.spread(), HeightmapPlacement
                         .onHeightmap(Heightmap.Types.MOTION_BLOCKING), BiomeFilter.biome()));
         register(context, WOODLANDS_PATCH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.WOODLANDS_PATCH_KEY),
-                List.of(RarityFilter.onAverageOnceEvery(25), InSquarePlacement.spread(), HeightmapPlacement
+                List.of(RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(), HeightmapPlacement
                         .onHeightmap(Heightmap.Types.MOTION_BLOCKING), BiomeFilter.biome()));
 
         //Wild Flower + Plants

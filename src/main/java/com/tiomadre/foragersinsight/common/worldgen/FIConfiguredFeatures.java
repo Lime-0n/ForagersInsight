@@ -7,6 +7,7 @@ import com.tiomadre.foragersinsight.common.worldgen.trees.decorator.BountifulSpr
 import com.tiomadre.foragersinsight.common.worldgen.trees.decorator.WoodlandsDarkOakStemDecorator;
 import com.tiomadre.foragersinsight.common.worldgen.trees.foliage.LilacTreeFoliagePlacer;
 import com.tiomadre.foragersinsight.common.worldgen.trees.foliage.WoodlandsDarkOakFoliagePlacer;
+import com.tiomadre.foragersinsight.common.worldgen.trees.foliage.WoodlandsOakShrubFoliagePlacer;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.common.worldgen.trees.decorator.SappyBirchLogDecorator;
@@ -63,6 +64,7 @@ public class FIConfiguredFeatures {
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> DARK_WOODLANDS_TREES_KEY = registerKey("dark_woodlands_trees");
     public static final ResourceKey<ConfiguredFeature<?, ?>> DARK_OAK_BUSH_KEY = registerKey("dark_oak_bush");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> WOODLANDS_OAK_SHRUB_KEY = registerKey("woodlands_oak_shrub");
     public static final ResourceKey<ConfiguredFeature<?, ?>> DARK_WOODLANDS_FALLEN_TREES_KEY = registerKey("dark_woodlands_fallen_trees");
     public static final ResourceKey<ConfiguredFeature<?, ?>> WOODLANDS_PATCH_KEY = registerKey("woodlands_patch");
 
@@ -139,18 +141,27 @@ public class FIConfiguredFeatures {
         ).decorators(java.util.List.of(new SappyBirchLogDecorator(1.0F))).ignoreVines().build());
     //Biome Specific
         //Dark Woodlands
+        register(context, WOODLANDS_OAK_SHRUB_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
+                BlockStateProvider.simple(Blocks.OAK_LOG),
+                new StraightTrunkPlacer(3, 1, 0),
+                BlockStateProvider.simple(Blocks.OAK_LEAVES),
+                new WoodlandsOakShrubFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
+                new TwoLayersFeatureSize(1, 0, 1)
+        ).ignoreVines().build());
         register(context, WOODLANDS_DARK_OAK_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(Blocks.DARK_OAK_LOG),
-                new StraightTrunkPlacer(7, 2, 1),
+                new StraightTrunkPlacer(8, 2, 1),
                 BlockStateProvider.simple(Blocks.DARK_OAK_LEAVES),
                 new WoodlandsDarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
                 new TwoLayersFeatureSize(1, 0, 1)
         ).decorators(java.util.List.of(new WoodlandsDarkOakStemDecorator())).ignoreVines().build());
         register(context, DARK_WOODLANDS_TREES_KEY, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(java.util.List.of(
-                new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(YOUNG_DARK_OAK_TREE_KEY)), 0.68F),
-                new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(YOUNG_ACORN_TREE_KEY)), 0.20F),
-                new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(WOODLANDS_DARK_OAK_TREE_KEY)), 0.08F)),
+                new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(YOUNG_DARK_OAK_TREE_KEY)), 0.60F),
+                new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(YOUNG_ACORN_TREE_KEY)), 0.15F),
+                new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(WOODLANDS_DARK_OAK_TREE_KEY)), 0.13F),
+                new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(WOODLANDS_OAK_SHRUB_KEY)), 0.12F)),
                 PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(YOUNG_DARK_OAK_TREE_KEY))));
+
         Holder<PlacedFeature> oakFernPatch = PlacementUtils.inlinePlaced(
                 Feature.SIMPLE_BLOCK,
                 new SimpleBlockConfiguration(weightedGrassPatchProvider(FIBlocks.OAK_FERN.get().defaultBlockState(), 2)),
@@ -235,11 +246,11 @@ public class FIConfiguredFeatures {
         Holder<PlacedFeature> placedFeature = PlacementUtils.inlinePlaced(
                 Feature.SIMPLE_BLOCK,
                 new SimpleBlockConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-                        .add(Blocks.GRASS.defaultBlockState(), 50)
-                        .add(Blocks.TALL_GRASS.defaultBlockState().setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 25)
-                        .add(Blocks.RED_TULIP.defaultBlockState(), 20)
-                        .add(Blocks.ROSE_BUSH.defaultBlockState().setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 10)
-                        .add(Blocks.RED_MUSHROOM.defaultBlockState(), 7)
+                        .add(Blocks.GRASS.defaultBlockState(), 6)
+                        .add(Blocks.TALL_GRASS.defaultBlockState().setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 3)
+                        .add(Blocks.RED_TULIP.defaultBlockState(), 2)
+                        .add(Blocks.POPPY.defaultBlockState(), 2)
+                        .add(Blocks.ROSE_BUSH.defaultBlockState().setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 1)
                         .build())),
                 BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
                         BlockPredicate.replaceable(),
