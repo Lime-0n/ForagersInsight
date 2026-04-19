@@ -67,7 +67,7 @@ public class FIPlacedFeatures {
                 VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.2f, 1), Blocks.BIRCH_SAPLING));
         //Biomes
         register(context, DARK_WOODLANDS_TREES_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.DARK_WOODLANDS_TREES_KEY),
-                VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.2f, 1), Blocks.DARK_OAK_SAPLING));
+                VegetationPlacements.treePlacement(PlacementUtils.countExtra(2, 0.35f, 2), Blocks.DARK_OAK_SAPLING));
         register(context, DARK_OAK_BUSH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.DARK_OAK_BUSH_KEY),
                 List.of(RarityFilter.onAverageOnceEvery(1), InSquarePlacement.spread(),
                         HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),

@@ -42,6 +42,15 @@ public class WoodlandsOakShrubFoliagePlacer extends FoliagePlacer {
 
     @Override
     protected boolean shouldSkipLocation(@NotNull RandomSource random, int localX, int localY, int localZ, int range, boolean large) {
-        return false;
+        int distance = Math.abs(localX) + Math.abs(localZ);
+        if (distance > range + 1) {
+            return true;
+        }
+
+        if (distance == range + 1) {
+            return random.nextBoolean();
+        }
+
+        return distance == range && localY != 0 && random.nextInt(4) == 0;
     }
 }

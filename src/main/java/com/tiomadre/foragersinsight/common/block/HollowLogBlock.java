@@ -7,27 +7,35 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.LevelAccessor;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.NotNull;
 
-public class HollowLogBlock extends RotatedPillarBlock {
+public class HollowLogBlock extends RotatedPillarBlock implements SimpleWaterloggedBlock {
     public static final EnumProperty<LogTexture> LOG_TEXTURE = EnumProperty.create("log_texture", LogTexture.class);
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public HollowLogBlock(BlockBehaviour.Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(AXIS, net.minecraft.core.Direction.Axis.Y)
-                .setValue(LOG_TEXTURE, LogTexture.OAK));
+                .setValue(LOG_TEXTURE, LogTexture.OAK)
+                .setValue(WATERLOGGED, false));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<net.minecraft.world.level.block.Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
-        builder.add(LOG_TEXTURE);
+        builder.add(LOG_TEXTURE, WATERLOGGED);
     }
 
     @Override
@@ -37,7 +45,23 @@ public class HollowLogBlock extends RotatedPillarBlock {
             return null;
         }
 
-        return baseState.setValue(LOG_TEXTURE, getDominantBiomeTexture(context.getLevel().getBiome(context.getClickedPos())));
+        boolean isWaterlogged = context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
+        return baseState
+                .setValue(LOG_TEXTURE, getDominantBiomeTexture(context.getLevel().getBiome(context.getClickedPos())))
+                .setValue(WATERLOGGED, isWaterlogged);
+    }
+
+    @Override
+    public @NotNull BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull net.minecraft.core.BlockPos currentPos, @NotNull net.minecraft.core.BlockPos neighborPos) {
+        if (state.getValue(WATERLOGGED)) {
+            level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+        }
+        return super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
+    }
+
+    @Override
+    public @NotNull FluidState getFluidState(@NotNull BlockState state) {
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     public static boolean supportsMushroomOnFace(BlockState state, Direction face) {

@@ -412,5 +412,5 @@
 			]
 		}
 	},
-	"ambientocclusion": false
+	"ambientocclusion": true
 }

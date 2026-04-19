@@ -5,12 +5,17 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
 public class DarkOakBushFeature extends Feature<NoneFeatureConfiguration> {
+    private static final BlockState DARK_OAK_BUSH_LEAVES = Blocks.DARK_OAK_LEAVES.defaultBlockState()
+            .setValue(LeavesBlock.PERSISTENT, true)
+            .setValue(LeavesBlock.DISTANCE, 1);
+
     public DarkOakBushFeature(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
     }
@@ -38,11 +43,7 @@ public class DarkOakBushFeature extends Feature<NoneFeatureConfiguration> {
                 origin.above().north(),
                 origin.above().south(),
                 origin.above().east(),
-                origin.above().west(),
-                origin.above().north().east(),
-                origin.above().north().west(),
-                origin.above().south().east(),
-                origin.above().south().west()
+                origin.above().west()
         };
 
         for (BlockPos pos : topLayer) {
@@ -54,13 +55,13 @@ public class DarkOakBushFeature extends Feature<NoneFeatureConfiguration> {
         for (int x = -1; x <= 1; x++) {
             for (int z = -1; z <= 1; z++) {
                 BlockPos pos = origin.offset(x, 0, z);
-                BlockState state = (x == 0 && z == 0) ? Blocks.DARK_OAK_LOG.defaultBlockState() : Blocks.DARK_OAK_LEAVES.defaultBlockState();
+                BlockState state = (x == 0 && z == 0) ? Blocks.DARK_OAK_LOG.defaultBlockState() : DARK_OAK_BUSH_LEAVES;
                 setBlock(level, pos, state);
             }
         }
 
         for (BlockPos pos : topLayer) {
-            setBlock(level, pos, Blocks.DARK_OAK_LEAVES.defaultBlockState());
+            setBlock(level, pos, DARK_OAK_BUSH_LEAVES);
         }
 
         return true;

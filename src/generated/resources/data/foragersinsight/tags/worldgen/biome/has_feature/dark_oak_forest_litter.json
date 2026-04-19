@@ -1,5 +1,9 @@
 {
   "values": [
-    "minecraft:dark_forest"
+    "minecraft:dark_forest",
+    {
+      "id": "foragersinsight:dark_woodlands",
+      "required": false
+    }
   ]
 }
