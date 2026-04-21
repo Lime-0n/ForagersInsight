@@ -29,9 +29,11 @@ public class WoodlandsDarkOakStemDecorator extends TreeDecorator {
         BlockPos topLog = logs.stream().max(Comparator.comparingInt(BlockPos::getY)).orElse(null);
         if (topLog == null) return;
 
+        BlockPos stemTop = logs.contains(topLog.below()) ? topLog.below() : topLog;
+
         RandomSource random = context.random();
         Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-        BlockPos sidePos = topLog.relative(direction);
+        BlockPos sidePos = stemTop.relative(direction);
 
         if (!context.isAir(sidePos)) return;
 

@@ -178,7 +178,7 @@ public class FIItems {
     public static final RegistryObject<Item> BIRCH_SAP_BOTTLE = HELPER.createItem("birch_sap_bottle", () ->
             new Item(new Item.Properties().stacksTo(16).craftRemainder(Items.GLASS_BOTTLE)));
 
-    //Wildflowers
+    //Wildflowers + Flora
     public static final RegistryObject<Item> ROSELLE_BUSH_ITEM = HELPER.createItem("roselle_bush", () ->
             new BlockItem(FIBlocks.ROSELLE_BUSH.get(),basicItem()));
     public static final RegistryObject<Item> STOUT_BEACH_ROSE_BUSH_ITEM = HELPER.createItem("stout_beach_rose_bush", () ->
@@ -187,6 +187,8 @@ public class FIItems {
             new BlockItem(FIBlocks.TALL_BEACH_ROSE_BUSH.get(),basicItem()));
     public static final RegistryObject<Item> OAK_FERN_ITEM = HELPER.createItem("oak_fern", () ->
             new BlockItem(FIBlocks.OAK_FERN.get(), basicItem()));
+    public static final RegistryObject<Item> GHOST_PIPE_ITEM = HELPER.createItem("ghost_pipe", () ->
+            new BlockItem(FIBlocks.GHOST_PIPE.get(), basicItem()));
     //Foraged
     public static final RegistryObject<Item> BLEWIT_MUSHROOM = HELPER.createItem("blewit_mushroom",  () ->
             new ModerateFoodBlockItem(FIBlocks.BLEWIT_MUSHROOM.get(), new Item.Properties().food(FIFoods.BLEWIT)));

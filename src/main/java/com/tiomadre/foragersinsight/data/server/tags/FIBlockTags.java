@@ -47,9 +47,9 @@ public class FIBlockTags extends BlockTagsProvider {
 
         this.tag(BlockTags.LEAVES).add(BOUNTIFUL_OAK_LEAVES.get(),BOUNTIFUL_DARK_OAK_LEAVES.get(),BOUNTIFUL_SPRUCE_LEAVES.get());
         this.tag(BlockTags.CROPS).add(ROSE_CROP.get(), DANDELION_BUSH.get(), POPPY_BUSH.get(),BOUNTIFUL_DARK_OAK_LEAVES.get(),BOUNTIFUL_OAK_LEAVES.get(),BOUNTIFUL_SPRUCE_TIPS.get(),HANGING_LILAC_LEAVES.get());
-        this.tag(BlockTags.SMALL_FLOWERS).add(STOUT_BEACH_ROSE_BUSH.get());
+        this.tag(BlockTags.SMALL_FLOWERS).add(STOUT_BEACH_ROSE_BUSH.get(), GHOST_PIPE.get());
         this.tag(BlockTags.TALL_FLOWERS).add(ROSELLE_BUSH.get(), TALL_BEACH_ROSE_BUSH.get());
-        this.tag(BlockTags.FLOWERS).add(ROSELLE_BUSH.get(), STOUT_BEACH_ROSE_BUSH.get(), TALL_BEACH_ROSE_BUSH.get(), DANDELION_BUSH.get(),
+        this.tag(BlockTags.FLOWERS).add(ROSELLE_BUSH.get(), STOUT_BEACH_ROSE_BUSH.get(), TALL_BEACH_ROSE_BUSH.get(), GHOST_PIPE.get(), DANDELION_BUSH.get(),
         POPPY_BUSH.get(), ROSE_CROP.get(), BOUNTIFUL_DARK_OAK_LEAVES.get(), BOUNTIFUL_OAK_LEAVES.get(), BOUNTIFUL_SPRUCE_TIPS.get());
 
         this.tag(SHEARABLE_CROPS)

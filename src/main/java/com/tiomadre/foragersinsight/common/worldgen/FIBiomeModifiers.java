@@ -22,6 +22,8 @@ public class FIBiomeModifiers {
     public static final ResourceKey<BiomeModifier> ADD_ROSELLE_BUSHES = registerKey("add_roselle_bushes");
     public static final ResourceKey<BiomeModifier> ADD_BEACH_ROSES = registerKey("add_beach_roses");
     public static final ResourceKey<BiomeModifier> ADD_OAK_FERNS = registerKey("add_oak_ferns");
+    public static final ResourceKey<BiomeModifier> ADD_GHOST_PIPE = registerKey("add_ghost_pipe");
+
     public static final ResourceKey<BiomeModifier> ADD_OAK_SUSPICIOUS_LEAF_LITTER = registerKey("add_oak_suspicious_leaf_litter");
     public static final ResourceKey<BiomeModifier> ADD_BIRCH_SUSPICIOUS_LEAF_LITTER = registerKey("add_birch_suspicious_leaf_litter");
     public static final ResourceKey<BiomeModifier> ADD_SPRUCE_SUSPICIOUS_LEAF_LITTER = registerKey("add_spruce_suspicious_leaf_litter");
@@ -71,6 +73,7 @@ public class FIBiomeModifiers {
                 HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.BEACH_ROSE_PATCH_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION)
         );
+            //Suspicious Litter Patches
         context.register(ADD_OAK_SUSPICIOUS_LEAF_LITTER, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
                 tagSet(biomes, FITags.BiomeTag.HAS_OAK_FOREST_LITTER),
                 HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.OAK_SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY)),
@@ -96,9 +99,15 @@ public class FIBiomeModifiers {
                 HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.FLOWER_SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION)
         );
+                //Other Flora Patchers
         context.register(ADD_OAK_FERNS, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
                 tagSet(biomes, FITags.BiomeTag.HAS_OAK_FERNS),
                 HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.OAK_FERN_PATCH_PLACED_KEY)),
+                GenerationStep.Decoration.VEGETAL_DECORATION)
+        );
+        context.register(ADD_GHOST_PIPE, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                tagSet(biomes, FITags.BiomeTag.HAS_GHOST_PIPE),
+                HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.GHOST_PIPE_PATCH_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION)
         );
     }

@@ -150,6 +150,7 @@ public class FILoot extends LootTableProvider {
                             .withPool(this.applyExplosionCondition(block,
                                             LootPool.lootPool())));
             this.dropSelf(OAK_FERN.get());
+            this.dropSelf(GHOST_PIPE.get());
             //Other
             this.add(HOLLOW_LOG.get(), block -> this.applyExplosionDecay(block, LootTable.lootTable()
                     .withPool(LootPool.lootPool()

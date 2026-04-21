@@ -6,10 +6,21 @@
         "type": "minecraft:simple_block",
         "config": {
           "to_place": {
-            "type": "minecraft:simple_state_provider",
-            "state": {
-              "Name": "foragersinsight:oak_fern"
-            }
+            "type": "minecraft:weighted_state_provider",
+            "entries": [
+              {
+                "data": {
+                  "Name": "minecraft:grass"
+                },
+                "weight": 6
+              },
+              {
+                "data": {
+                  "Name": "foragersinsight:ghost_pipe"
+                },
+                "weight": 1
+              }
+            ]
           }
         }
       },
@@ -43,8 +54,8 @@
         }
       ]
     },
-    "tries": 48,
-    "xz_spread": 7,
-    "y_spread": 3
+    "tries": 18,
+    "xz_spread": 6,
+    "y_spread": 2
   }
 }

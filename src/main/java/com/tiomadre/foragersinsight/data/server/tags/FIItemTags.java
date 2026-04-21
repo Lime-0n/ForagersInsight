@@ -34,9 +34,9 @@ public class FIItemTags extends ItemTagsProvider {
         this.tag(SEEDS).add(FIItems.POPPY_SEEDS.get());
         this.tag(MILK_BUCKET).add(FIItems.SEED_MILK_BUCKET.get());
         this.tag(MILK_BOTTLE).add(FIItems.SEED_MILK_BOTTLE.get());
-        this.tag(ItemTags.SMALL_FLOWERS).add(FIBlocks.STOUT_BEACH_ROSE_BUSH.get().asItem());
+        this.tag(ItemTags.SMALL_FLOWERS).add(FIBlocks.STOUT_BEACH_ROSE_BUSH.get().asItem(), FIBlocks.GHOST_PIPE.get().asItem());
         this.tag(ItemTags.TALL_FLOWERS).add(FIBlocks.ROSELLE_BUSH.get().asItem(), FIBlocks.TALL_BEACH_ROSE_BUSH.get().asItem());
-        this.tag(ItemTags.FLOWERS).add(FIBlocks.ROSELLE_BUSH.get().asItem(), FIBlocks.STOUT_BEACH_ROSE_BUSH.get().asItem(), FIBlocks.TALL_BEACH_ROSE_BUSH.get().asItem());
+        this.tag(ItemTags.FLOWERS).add(FIBlocks.ROSELLE_BUSH.get().asItem(), FIBlocks.STOUT_BEACH_ROSE_BUSH.get().asItem(), FIBlocks.TALL_BEACH_ROSE_BUSH.get().asItem(), FIBlocks.GHOST_PIPE.get().asItem());
         this.tag(WOLF_PREY).add(FIItems.RAW_RABBIT_LEG.get());
 
         this.tag(WILD_FLOWER_DROPS).add(FIItems.ROSE_HIP.get(), FIItems.LILAC_BLOOM.get(), FIItems.POPPY_SEEDS.get(), FIItems.DANDELION_ROOT.get(), FIItems.ROSELLE_CALYX.get());

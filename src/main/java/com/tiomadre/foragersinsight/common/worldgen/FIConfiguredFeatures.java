@@ -76,6 +76,7 @@ public class FIConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> DARK_OAK_SUSPICIOUS_LEAF_LITTER_PATCH_KEY = registerKey("dark_oak_suspicious_leaf_litter_patch");
     public static final ResourceKey<ConfiguredFeature<?, ?>> FLOWER_SUSPICIOUS_LEAF_LITTER_PATCH_KEY = registerKey("flower_suspicious_leaf_litter_patch");
     public static final ResourceKey<ConfiguredFeature<?, ?>> OAK_FERN_PATCH_KEY = registerKey("patch_oak_fern");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> GHOST_PIPE_PATCH_KEY = registerKey("patch_ghost_pipe");
 
     public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, ForagersInsight.rl(name));
@@ -155,23 +156,34 @@ public class FIConfiguredFeatures {
                 new WoodlandsDarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
                 new TwoLayersFeatureSize(1, 0, 1)
         ).decorators(java.util.List.of(new WoodlandsDarkOakStemDecorator())).ignoreVines().build());
+        register(context, DARK_OAK_BUSH_KEY, FIBiomeFeatures.DARK_OAK_BUSH.get(), NoneFeatureConfiguration.INSTANCE);
         register(context, DARK_WOODLANDS_TREES_KEY, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(java.util.List.of(
                 new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(YOUNG_DARK_OAK_TREE_KEY)), 0.60F),
                 new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(YOUNG_ACORN_TREE_KEY)), 0.15F),
                 new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(WOODLANDS_DARK_OAK_TREE_KEY)), 0.13F),
                 new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(WOODLANDS_OAK_SHRUB_KEY)), 0.12F)),
                 PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(YOUNG_DARK_OAK_TREE_KEY))));
-
+    //Other
         Holder<PlacedFeature> oakFernPatch = PlacementUtils.inlinePlaced(
                 Feature.SIMPLE_BLOCK,
-                new SimpleBlockConfiguration(weightedGrassPatchProvider(FIBlocks.OAK_FERN.get().defaultBlockState(), 2)),
+                new SimpleBlockConfiguration(BlockStateProvider.simple(FIBlocks.OAK_FERN.get().defaultBlockState())),
                 BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
                         BlockPredicate.replaceable(),
                         BlockPredicate.not(BlockPredicate.matchesFluids(Fluids.WATER)),
                         BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.DIRT))));
         register(context, OAK_FERN_PATCH_KEY, Feature.RANDOM_PATCH,
                 new RandomPatchConfiguration(48, 7, 3, oakFernPatch));
-        register(context, DARK_OAK_BUSH_KEY, FIBiomeFeatures.DARK_OAK_BUSH.get(), NoneFeatureConfiguration.INSTANCE);
+
+        Holder<PlacedFeature> ghostPipePatch = PlacementUtils.inlinePlaced(
+                Feature.SIMPLE_BLOCK,
+                new SimpleBlockConfiguration(weightedGrassPatchProvider(FIBlocks.GHOST_PIPE.get().defaultBlockState(), 1)),
+                BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
+                        BlockPredicate.replaceable(),
+                        BlockPredicate.not(BlockPredicate.matchesFluids(Fluids.WATER)),
+                        BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.DIRT))));
+        register(context, GHOST_PIPE_PATCH_KEY, Feature.RANDOM_PATCH,
+                new RandomPatchConfiguration(18, 6, 2, ghostPipePatch));
+
         //Dark Woodlands Features
         register(context, DARK_WOODLANDS_FALLEN_TREES_KEY, FIBiomeFeatures.FALLEN_TREES.get(), NoneFeatureConfiguration.INSTANCE);
         register(context, WOODLANDS_PATCH_KEY, Feature.RANDOM_PATCH, woodlandsPatchConfiguration());
@@ -215,6 +227,7 @@ public class FIConfiguredFeatures {
                 suspiciousLitterPatchConfiguration(SuspiciousLitterBlock.FoliageType.DARK_OAK));
         register(context, FLOWER_SUSPICIOUS_LEAF_LITTER_PATCH_KEY, Feature.RANDOM_PATCH,
                 suspiciousLitterPatchConfiguration(SuspiciousLitterBlock.FoliageType.FLOWER));
+
 
     }
 

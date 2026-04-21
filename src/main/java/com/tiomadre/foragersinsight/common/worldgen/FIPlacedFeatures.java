@@ -34,6 +34,7 @@ public class FIPlacedFeatures {
     public static final ResourceKey<PlacedFeature> ROSELLE_PATCH_PLACED_KEY = registerKey("roselle_patch_placed");
     public static final ResourceKey<PlacedFeature> BEACH_ROSE_PATCH_PLACED_KEY = registerKey("beach_rose_patch_placed");
     public static final ResourceKey<PlacedFeature> OAK_FERN_PATCH_PLACED_KEY = registerKey("oak_fern_patch_placed");
+    public static final ResourceKey<PlacedFeature> GHOST_PIPE_PATCH_PLACED_KEY = registerKey("ghost_pipe_patch_placed");
 
     public static final ResourceKey<PlacedFeature> OAK_SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY = registerKey("oak_suspicious_leaf_litter_patch_placed");
     public static final ResourceKey<PlacedFeature> BIRCH_SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY = registerKey("birch_suspicious_leaf_litter_patch_placed");
@@ -67,7 +68,7 @@ public class FIPlacedFeatures {
                 VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.2f, 1), Blocks.BIRCH_SAPLING));
         //Biomes
         register(context, DARK_WOODLANDS_TREES_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.DARK_WOODLANDS_TREES_KEY),
-                VegetationPlacements.treePlacement(PlacementUtils.countExtra(2, 0.35f, 2), Blocks.DARK_OAK_SAPLING));
+                VegetationPlacements.treePlacement(PlacementUtils.countExtra(2, 0.25f, 2), Blocks.DARK_OAK_SAPLING));
         register(context, DARK_OAK_BUSH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.DARK_OAK_BUSH_KEY),
                 List.of(RarityFilter.onAverageOnceEvery(1), InSquarePlacement.spread(),
                         HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
@@ -89,6 +90,9 @@ public class FIPlacedFeatures {
         register(context, OAK_FERN_PATCH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.OAK_FERN_PATCH_KEY),
                 List.of(RarityFilter.onAverageOnceEvery(12), InSquarePlacement.spread(), HeightmapPlacement
                         .onHeightmap(Heightmap.Types.MOTION_BLOCKING), BiomeFilter.biome(), BiomeTagFilter.biomeIsInTag(FITags.BiomeTag.HAS_OAK_FERNS)));
+        register(context, GHOST_PIPE_PATCH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.GHOST_PIPE_PATCH_KEY),
+                List.of(RarityFilter.onAverageOnceEvery(95), InSquarePlacement.spread(), HeightmapPlacement
+                        .onHeightmap(Heightmap.Types.MOTION_BLOCKING), BiomeFilter.biome(), BiomeTagFilter.biomeIsInTag(FITags.BiomeTag.HAS_GHOST_PIPE)));
 
         //Forest Litter
         register(context, OAK_SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.OAK_SUSPICIOUS_LEAF_LITTER_PATCH_KEY),

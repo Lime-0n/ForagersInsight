@@ -130,7 +130,7 @@ public class FIBlocks {
     public static final RegistryObject<Block> DENSE_SPRUCE_TIP_MAT = HELPER.createBlock("dense_spruce_tips", FoliageMatBlock::new);
     public static final RegistryObject<Block> DENSE_ROSELLE_PETAL_MAT = HELPER.createBlock("dense_roselle_petals", FoliageMatBlock::new);
     public static final RegistryObject<Block> DENSE_ROSE_PETAL_MAT = HELPER.createBlock("dense_rose_petals", FoliageMatBlock::new);
-        //Wildflowers
+        //Wildflowers + Flora
     public static final RegistryObject<Block> ROSELLE_BUSH = HELPER.createBlockNoItem("roselle_bush", () ->
           new TallFlowerBlock(copy(Blocks.LILAC)));
     public static final RegistryObject<Block> STOUT_BEACH_ROSE_BUSH = HELPER.createBlockNoItem("stout_beach_rose_bush", () ->
@@ -139,10 +139,13 @@ public class FIBlocks {
             new TallSandyFlowerBlock(copy(Blocks.ROSE_BUSH)));
     public static final RegistryObject<Block> OAK_FERN = HELPER.createBlockNoItem("oak_fern", () ->
             new OakFernBlock(copy(Blocks.FERN)));
+    public static final RegistryObject<Block> GHOST_PIPE = HELPER.createBlockNoItem("ghost_pipe", () ->
+            new BushBlock(copy(Blocks.ALLIUM).lightLevel(state -> 5).noCollission()));
         //Other
     public static final RegistryObject<Block> SUSPICIOUS_LEAF_LITTER = HELPER.createBlock("suspicious_leaf_litter", SuspiciousLitterBlock::new);
     public static final RegistryObject<Block> HOLLOW_LOG = HELPER.createFuelBlock("hollow_log", () ->
             new HollowLogBlock(copy(Blocks.OAK_LOG).noOcclusion()), 300);
+
     //STORAGE
         //Crop Crates and Sacks
     public static final RegistryObject<Block> APPLE_CRATE = HELPER.createBlock("apple_crate", () ->

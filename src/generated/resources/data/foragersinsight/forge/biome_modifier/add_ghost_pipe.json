@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#foragersinsight:has_feature/ghost_pipe",
+  "features": "foragersinsight:ghost_pipe_patch_placed",
+  "step": "vegetal_decoration"
+}

@@ -13,6 +13,28 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerTy
 import org.jetbrains.annotations.NotNull;
 
 public class WoodlandsDarkOakFoliagePlacer extends FoliagePlacer {
+    private static final String[] CROSS_LAYER = {
+            ".X.",
+            "XXX",
+            ".X."
+    };
+    private static final String[] SECOND_LAYER = {
+            "..XXX..",
+            ".XXXXX.",
+            "XXXXXXX",
+            "XXXXXXX",
+            "XXXXXXX",
+            ".XXXXX.",
+            "..XXX.."
+    };
+    private static final String[] THIRD_LAYER = {
+            "..XXX..",
+            ".XXXXX.",
+            ".XXXXX.",
+            ".XXXXX.",
+            "..XXX.."
+    };
+
     public static final Codec<WoodlandsDarkOakFoliagePlacer> CODEC = RecordCodecBuilder.create(instance ->
             foliagePlacerParts(instance).apply(instance, WoodlandsDarkOakFoliagePlacer::new));
 
@@ -30,10 +52,30 @@ public class WoodlandsDarkOakFoliagePlacer extends FoliagePlacer {
                                  @NotNull TreeConfiguration config, int maxFreeTreeHeight, @NotNull FoliageAttachment attachment,
                                  int foliageHeight, int radius, int offset) {
         BlockPos center = attachment.pos();
-        placeLeavesRow(level, setter, random, config, center, 2, 0, false); // 5x5
-        placeLeavesRow(level, setter, random, config, center, 3, -1, false); // 7x7
-        placeLeavesRow(level, setter, random, config, center, 1, -2, false); // 3x3
+        placeLayerPattern(level, setter, random, config, center, offset - 1, CROSS_LAYER);
+        placeLayerPattern(level, setter, random, config, center, offset, SECOND_LAYER);
+        placeLayerPattern(level, setter, random, config, center, offset + 1, THIRD_LAYER);
+        placeLayerPattern(level, setter, random, config, center, offset + 2, CROSS_LAYER);
+    }
 
+    private void placeLayerPattern(@NotNull LevelSimulatedReader level, @NotNull FoliageSetter setter,
+                                   @NotNull RandomSource random, @NotNull TreeConfiguration config,
+                                   @NotNull BlockPos center, int localY, String[] pattern) {
+        int halfWidth = pattern[0].length() / 2;
+        int halfDepth = pattern.length / 2;
+        BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
+
+        for (int z = 0; z < pattern.length; z++) {
+            String row = pattern[z];
+            for (int x = 0; x < row.length(); x++) {
+                if (row.charAt(x) != 'X') {
+                    continue;
+                }
+
+                mutablePos.setWithOffset(center, x - halfWidth, localY, z - halfDepth);
+                tryPlaceLeaf(level, setter, random, config, mutablePos);
+            }
+        }
     }
 
     @Override

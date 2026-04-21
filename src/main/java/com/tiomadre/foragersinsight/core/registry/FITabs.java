@@ -61,6 +61,7 @@ public class FITabs {
             FIItems.STOUT_BEACH_ROSE_BUSH_ITEM,
             FIItems.TALL_BEACH_ROSE_BUSH_ITEM,
             FIItems.OAK_FERN_ITEM,
+            FIItems.GHOST_PIPE_ITEM,
             FIBlocks.BLEWIT_MUSHROOM,
             FIBlocks.BLEWIT_MUSHROOM_COLONY
     );
