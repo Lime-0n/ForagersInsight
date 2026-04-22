@@ -6,6 +6,8 @@ import net.minecraft.util.StringRepresentable;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -64,7 +66,7 @@ public class HollowLogBlock extends RotatedPillarBlock implements SimpleWaterlog
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
-    public static boolean supportsMushroomOnFace(BlockState state, Direction face) {
+    public static boolean MushroomPlacement(BlockState state, Direction face) {
         if (!(state.getBlock() instanceof HollowLogBlock)) {
             return false;
         }
@@ -76,6 +78,21 @@ public class HollowLogBlock extends RotatedPillarBlock implements SimpleWaterlog
 
         return face.getAxis() != axis;
     }
+    public static boolean canSupportMushroomAt(LevelReader level, BlockPos mushroomPos) {
+        if (MushroomPlacement(level.getBlockState(mushroomPos.below()), Direction.UP)) {
+            return true;
+        }
+
+        for (Direction direction : Direction.Plane.HORIZONTAL) {
+            BlockState supportState = level.getBlockState(mushroomPos.relative(direction));
+            if (MushroomPlacement(supportState, direction.getOpposite())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 
     public static LogTexture getDominantBiomeTexture(Holder<Biome> biome) {
         if (biome.is(FITags.BiomeTag.HAS_BIRCH_FOREST_LITTER)) {

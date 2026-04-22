@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "foragersinsight:lilac_hanging_sign"
+        "recipe": "foragersinsight:hollow_log"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "foragersinsight:lilac_hanging_sign"
+      "foragersinsight:hollow_log"
     ]
   },
   "sends_telemetry_event": false

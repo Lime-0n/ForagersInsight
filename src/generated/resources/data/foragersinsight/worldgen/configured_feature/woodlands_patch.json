@@ -25,15 +25,21 @@
               },
               {
                 "data": {
-                  "Name": "minecraft:red_tulip"
+                  "Name": "minecraft:lilac",
+                  "Properties": {
+                    "half": "lower"
+                  }
                 },
-                "weight": 2
+                "weight": 1
               },
               {
                 "data": {
-                  "Name": "minecraft:poppy"
+                  "Name": "minecraft:peony",
+                  "Properties": {
+                    "half": "lower"
+                  }
                 },
-                "weight": 2
+                "weight": 1
               },
               {
                 "data": {

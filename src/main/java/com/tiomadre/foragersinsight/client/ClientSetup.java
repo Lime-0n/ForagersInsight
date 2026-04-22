@@ -67,7 +67,7 @@ public class ClientSetup {
                     RenderType.cutout()
             );
             ItemBlockRenderTypes.setRenderLayer(
-                    FIBlocks.OAK_FERN.get(),
+                    FIBlocks.WOODLAND_FERN.get(),
                     RenderType.cutout()
             );
 
@@ -110,7 +110,7 @@ public class ClientSetup {
                     int b = Mth.floor(Mth.lerp(blend, grass & 255, foliage & 255));
                     return (r << 16) | (g << 8) | b;
                 },
-                FIBlocks.OAK_FERN.get()
+                FIBlocks.WOODLAND_FERN.get()
         );
     }
 
@@ -135,6 +135,6 @@ public class ClientSetup {
                 },
                 FIBlocks.SUSPICIOUS_LEAF_LITTER.get()
         );
-        event.register((stack, tintIndex) -> FoliageColor.getDefaultColor(), FIBlocks.OAK_FERN.get());
+        event.register((stack, tintIndex) -> FoliageColor.getDefaultColor(), FIBlocks.WOODLAND_FERN.get());
     }
 }

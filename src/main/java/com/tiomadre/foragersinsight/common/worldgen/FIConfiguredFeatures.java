@@ -166,7 +166,7 @@ public class FIConfiguredFeatures {
     //Other
         Holder<PlacedFeature> oakFernPatch = PlacementUtils.inlinePlaced(
                 Feature.SIMPLE_BLOCK,
-                new SimpleBlockConfiguration(BlockStateProvider.simple(FIBlocks.OAK_FERN.get().defaultBlockState())),
+                new SimpleBlockConfiguration(BlockStateProvider.simple(FIBlocks.WOODLAND_FERN.get().defaultBlockState())),
                 BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
                         BlockPredicate.replaceable(),
                         BlockPredicate.not(BlockPredicate.matchesFluids(Fluids.WATER)),
@@ -261,8 +261,8 @@ public class FIConfiguredFeatures {
                 new SimpleBlockConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                         .add(Blocks.GRASS.defaultBlockState(), 6)
                         .add(Blocks.TALL_GRASS.defaultBlockState().setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 3)
-                        .add(Blocks.RED_TULIP.defaultBlockState(), 2)
-                        .add(Blocks.POPPY.defaultBlockState(), 2)
+                        .add(Blocks.LILAC.defaultBlockState().setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 1)
+                        .add(Blocks.PEONY.defaultBlockState().setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 1)
                         .add(Blocks.ROSE_BUSH.defaultBlockState().setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 1)
                         .build())),
                 BlockPredicateFilter.forPredicate(BlockPredicate.allOf(

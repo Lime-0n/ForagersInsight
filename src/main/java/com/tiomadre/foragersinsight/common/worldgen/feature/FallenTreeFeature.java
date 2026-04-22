@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
@@ -24,9 +25,9 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 
 public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
-    private static final float SINGLE_MUSHROOM_LOG_CHANCE = 0.20F;
-    private static final float GROWING_COLONY_AND_MUSHROOM_LOG_CHANCE = 0.01F;
-    private static final float COLONY_AND_MUSHROOM_LOG_CHANCE = 0.025F;
+    private static final float SINGLE_MUSHROOM_LOG_CHANCE = 0.50F;
+    private static final float GROWING_COLONY_AND_MUSHROOM_LOG_CHANCE = 0.30F;
+    private static final float COLONY_AND_MUSHROOM_LOG_CHANCE = 0.15F;
 
     public FallenTreeFeature(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
@@ -55,6 +56,7 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
                 .setValue(RotatedPillarBlock.AXIS, direction.getAxis())
                 .setValue(HollowLogBlock.LOG_TEXTURE, biomeTexture);
         List<BlockPos> logTopPositions = new ArrayList<>();
+        List<BlockPos> sidePositions = new ArrayList<>();
         boolean placed = false;
         for (int i = 0; i < logLength; i++) {
             BlockPos logPos = origin.relative(direction, i);
@@ -62,11 +64,21 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
             placed = true;
 
             logTopPositions.add(logPos.above());
-            placeGrassNextToLog(level, random, logPos.relative(sideA));
-            placeGrassNextToLog(level, random, logPos.relative(sideB));
+            sidePositions.add(logPos.relative(sideA));
+            sidePositions.add(logPos.relative(sideB));
         }
 
-        placeMushroomDecorations(level, random, logTopPositions);
+        List<BlockPos> placedGrassPositions = new ArrayList<>();
+        for (BlockPos sidePosition : sidePositions) {
+            BlockPos grassPos = placeGrassNextToLog(level, random, sidePosition);
+            if (grassPos != null) {
+                placedGrassPositions.add(grassPos);
+            }
+        }
+
+        boolean placedColonyAndMushroom = placeMushroomDecorations(level, random, logTopPositions);
+        int ghostPipeReplacements = placedColonyAndMushroom ? 3 : 1;
+        replaceGrassWithGhostPipe(level, random, placedGrassPositions, ghostPipeReplacements);
         return placed;
     }
 
@@ -77,23 +89,45 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
                 && level.getBlockState(belowPos).isFaceSturdy(level, belowPos, Direction.UP);
     }
 
-    private static void placeGrassNextToLog(WorldGenLevel level, RandomSource random, BlockPos pos) {
+    private static BlockPos placeGrassNextToLog(WorldGenLevel level, RandomSource random, BlockPos pos) {
         if (random.nextFloat() > 0.45F || !canPlaceOnGround(level, pos)) {
-            return;
+            return null;
         }
 
         if (random.nextFloat() < 0.35F && canPlaceDoublePlant(level, pos)) {
             level.setBlock(pos, Blocks.TALL_GRASS.defaultBlockState().setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 2);
             level.setBlock(pos.above(), Blocks.TALL_GRASS.defaultBlockState().setValue(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER), 2);
-            return;
+            return null;
         }
 
         level.setBlock(pos, Blocks.GRASS.defaultBlockState(), 2);
+        return pos;
     }
 
-    private static void placeMushroomDecorations(WorldGenLevel level, RandomSource random, List<BlockPos> logTopPositions) {
-        if (logTopPositions.isEmpty()) {
+    private static void replaceGrassWithGhostPipe(WorldGenLevel level, RandomSource random, List<BlockPos> grassPositions, int replacements) {
+        if (grassPositions.isEmpty() || replacements <= 0) {
             return;
+        }
+
+        List<BlockPos> shuffledGrassPositions = new ArrayList<>(grassPositions);
+        Collections.shuffle(shuffledGrassPositions, new java.util.Random(random.nextLong()));
+
+        BlockState ghostPipeState = FIBlocks.GHOST_PIPE.get().defaultBlockState();
+        int replaced = 0;
+        for (BlockPos grassPos : shuffledGrassPositions) {
+            if (replaced >= replacements) {
+                return;
+            }
+            if (level.getBlockState(grassPos).is(Blocks.GRASS) && ghostPipeState.canSurvive(level, grassPos)) {
+                level.setBlock(grassPos, ghostPipeState, 2);
+                replaced++;
+            }
+        }
+    }
+
+    private static boolean placeMushroomDecorations(WorldGenLevel level, RandomSource random, List<BlockPos> logTopPositions) {
+        if (logTopPositions.isEmpty()) {
+            return false;
         }
 
         BlockState colonyState = getOptionalColonyState(random);
@@ -110,7 +144,7 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
                 boolean colonyPlaced = placeColony(level, colonyPos, growingColonyState);
                 boolean mushroomPlaced = placeSmallMushroom(level, mushroomPos, random);
                 if (colonyPlaced || mushroomPlaced) {
-                    return;
+                    return colonyPlaced && mushroomPlaced;
                 }
             }
 
@@ -118,7 +152,7 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
                 boolean colonyPlaced = placeColony(level, colonyPos, colonyState);
                 boolean mushroomPlaced = placeSmallMushroom(level, mushroomPos, random);
                 if (colonyPlaced || mushroomPlaced) {
-                    return;
+                    return colonyPlaced && mushroomPlaced;
                 }
             }
         }
@@ -127,6 +161,8 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
             BlockPos mushroomPos = logTopPositions.get(random.nextInt(logTopPositions.size()));
             placeSmallMushroom(level, mushroomPos, random);
         }
+
+        return false;
     }
 
     private static boolean placeColony(WorldGenLevel level, BlockPos pos, BlockState colonyState) {
@@ -134,7 +170,7 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
             return false;
         }
 
-        boolean hasHollowLogSupport = HollowLogBlock.supportsMushroomOnFace(level.getBlockState(pos.below()), Direction.UP);
+        boolean hasHollowLogSupport = HollowLogBlock.MushroomPlacement(level.getBlockState(pos.below()), Direction.UP);
         if (colonyState.canSurvive(level, pos) || hasHollowLogSupport) {
             level.setBlock(pos, colonyState, 2);
             return true;
@@ -148,7 +184,7 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
             return false;
         }
 
-        boolean hasHollowLogSupport = HollowLogBlock.supportsMushroomOnFace(level.getBlockState(pos.below()), Direction.UP);
+        boolean hasHollowLogSupport = HollowLogBlock.MushroomPlacement(level.getBlockState(pos.below()), Direction.UP);
         BlockState mushroomState = random.nextBoolean() ? Blocks.RED_MUSHROOM.defaultBlockState() : Blocks.BROWN_MUSHROOM.defaultBlockState();
         if (mushroomState.canSurvive(level, pos) || hasHollowLogSupport) {
             level.setBlock(pos, mushroomState, 2);

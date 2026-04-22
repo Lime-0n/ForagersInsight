@@ -325,6 +325,14 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .unlockedBy("has_bread", has(BREAD))
                 .save(consumer);
         //Other
+        //Hollow Log
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, HOLLOW_LOG.get(), 6)
+                .pattern("TTT")
+                .pattern("T T")
+                .pattern("TTT")
+                .define('T', ModItems.TREE_BARK.get())
+                .unlockedBy("has_tree_bark", has(ModItems.TREE_BARK.get()))
+                .save(consumer);
         //Wood Stuff
         ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, LILAC_PLANKS.get(), 2)
                 .requires(LILAC_LOG.get(), 1)
@@ -446,6 +454,7 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
         this.storageRecipes(consumer, RecipeCategory.FOOD, ROSELLE_CALYX.get(), RecipeCategory.DECORATIONS, ROSELLE_CALYX_SACK.get());
         this.storageRecipes(consumer, RecipeCategory.FOOD, FIItems.BLEWIT_MUSHROOM.get(), RecipeCategory.DECORATIONS, FIBlocks.BLEWIT_CRATE.get());
         this.storageRecipes(consumer, RecipeCategory.FOOD, LILAC_BLOOM.get(), RecipeCategory.DECORATIONS, LILAC_BLOOM_CRATE.get());
+
 
         FICookingRecipes.buildRecipes(consumer);
         FICrushandCutRecipes.buildRecipes(consumer);

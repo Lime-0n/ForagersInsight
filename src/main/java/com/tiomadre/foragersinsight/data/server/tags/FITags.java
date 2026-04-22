@@ -29,6 +29,7 @@ public class FITags {
         public static final TagKey<Item> TREE_BARK = TagUtil.itemTag("forge", "tree_bark");
         public static final TagKey<Item> DOUGH = TagUtil.itemTag("forge", "dough");
         public static final TagKey<Item> WOLF_PREY = TagUtil.itemTag("forge", "wolf_prey");
+        public static final TagKey<Item> SHEARS = TagUtil.itemTag("forge", "tools/shears");
 
         //Mallet
         public static final TagKey<net.minecraft.world.item.Item> MALLETS = TagUtil.itemTag("forge", "tools/mallets");

@@ -109,7 +109,7 @@ public class FIItemTags extends ItemTagsProvider {
         this.tag(FITags.ItemTag.MALLETS).add(FIItems.FLINT_MALLET.get(),FIItems.IRON_MALLET.get(),
         FIItems.GOLD_MALLET.get(),FIItems.DIAMOND_MALLET.get(),FIItems.NETHERITE_MALLET.get());
         //Shears
-        //this.tag(Tags.Items.TOOLS_SHEAR).add(FIItems.FLINT_SHEARS.get()); reenable when using newer FD version that uses tag
+        this.tag(SHEARS).add(FIItems.FLINT_SHEARS.get());
 
         //Wood
         this.tag(ItemTags.SIGNS).add(FIItems.LILAC_SIGN.get());

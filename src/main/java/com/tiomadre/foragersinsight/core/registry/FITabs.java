@@ -56,14 +56,17 @@ public class FITabs {
             FIBlocks.SCATTERED_ROSELLE_PETAL_MAT,
             FIBlocks.SCATTERED_SPRUCE_TIP_MAT,
             FIBlocks.SCATTERED_STRAW_MAT,
+            FIBlocks.HOLLOW_LOG,
             FIBlocks.SUSPICIOUS_LEAF_LITTER,
+            FIBlocks.BLEWIT_MUSHROOM,
+            FIBlocks.BLEWIT_MUSHROOM_COLONY,
             FIItems.ROSELLE_BUSH_ITEM,
             FIItems.STOUT_BEACH_ROSE_BUSH_ITEM,
             FIItems.TALL_BEACH_ROSE_BUSH_ITEM,
-            FIItems.OAK_FERN_ITEM,
             FIItems.GHOST_PIPE_ITEM,
-            FIBlocks.BLEWIT_MUSHROOM,
-            FIBlocks.BLEWIT_MUSHROOM_COLONY
+            FIItems.OAK_FERN_ITEM
+
+
     );
 
     private static final List<RegistryObject<? extends ItemLike>> INGREDIENT_ENTRIES = List.of(

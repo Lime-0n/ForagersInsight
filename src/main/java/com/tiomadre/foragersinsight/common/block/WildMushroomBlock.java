@@ -1,7 +1,6 @@
 package com.tiomadre.foragersinsight.common.block;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelReader;
@@ -47,8 +46,6 @@ public class WildMushroomBlock extends MushroomBlock {
     }
 
     private boolean canUseHollowLogSupport(LevelReader level, BlockPos pos) {
-        BlockPos supportPos = pos.below();
-        BlockState supportState = level.getBlockState(supportPos);
-        return HollowLogBlock.supportsMushroomOnFace(supportState, Direction.UP);
+        return HollowLogBlock.canSupportMushroomAt(level, pos);
     }
 }

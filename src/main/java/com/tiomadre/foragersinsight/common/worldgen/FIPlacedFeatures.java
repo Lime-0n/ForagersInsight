@@ -12,12 +12,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraft.world.level.levelgen.placement.PlacementModifier;
-import net.minecraft.world.level.levelgen.placement.BiomeFilter;
-import net.minecraft.world.level.levelgen.placement.HeightmapPlacement;
-import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
-import net.minecraft.world.level.levelgen.placement.RarityFilter;
+import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraft.tags.BiomeTags;
 
 import java.util.List;
@@ -47,6 +42,7 @@ public class FIPlacedFeatures {
     public static final ResourceKey<PlacedFeature> DARK_OAK_BUSH_PLACED_KEY = registerKey("dark_oak_bush_placed");
     public static final ResourceKey<PlacedFeature> DARK_WOODLANDS_FALLEN_TREES_PLACED_KEY = registerKey("dark_woodlands_fallen_trees_placed");
     public static final ResourceKey<PlacedFeature> WOODLANDS_PATCH_PLACED_KEY = registerKey("woodlands_patch_placed");
+    public static final ResourceKey<PlacedFeature> DARK_WOODLANDS_GHOST_PIPE_PATCH_PLACED_KEY = registerKey("dark_woodlands_ghost_pipe_patch_placed");
 
 
     public static ResourceKey<PlacedFeature> registerKey(String name) {
@@ -70,14 +66,17 @@ public class FIPlacedFeatures {
         register(context, DARK_WOODLANDS_TREES_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.DARK_WOODLANDS_TREES_KEY),
                 VegetationPlacements.treePlacement(PlacementUtils.countExtra(2, 0.25f, 2), Blocks.DARK_OAK_SAPLING));
         register(context, DARK_OAK_BUSH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.DARK_OAK_BUSH_KEY),
-                List.of(RarityFilter.onAverageOnceEvery(1), InSquarePlacement.spread(),
+                List.of(CountPlacement.of(3), InSquarePlacement.spread(),
                         HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
                         BiomeFilter.biome()));
         register(context, DARK_WOODLANDS_FALLEN_TREES_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.DARK_WOODLANDS_FALLEN_TREES_KEY),
-                List.of(RarityFilter.onAverageOnceEvery(35), InSquarePlacement.spread(), HeightmapPlacement
-                        .onHeightmap(Heightmap.Types.MOTION_BLOCKING), BiomeFilter.biome()));
+                List.of(RarityFilter.onAverageOnceEvery(25), InSquarePlacement.spread(), HeightmapPlacement
+                        .onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES), BiomeFilter.biome()));
         register(context, WOODLANDS_PATCH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.WOODLANDS_PATCH_KEY),
                 List.of(RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(), HeightmapPlacement
+                        .onHeightmap(Heightmap.Types.MOTION_BLOCKING), BiomeFilter.biome()));
+        register(context, DARK_WOODLANDS_GHOST_PIPE_PATCH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.GHOST_PIPE_PATCH_KEY),
+                List.of(RarityFilter.onAverageOnceEvery(30), InSquarePlacement.spread(), HeightmapPlacement
                         .onHeightmap(Heightmap.Types.MOTION_BLOCKING), BiomeFilter.biome()));
 
         //Wild Flower + Plants
