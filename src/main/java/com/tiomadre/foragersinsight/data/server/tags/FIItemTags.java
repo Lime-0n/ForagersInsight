@@ -116,6 +116,35 @@ public class FIItemTags extends ItemTagsProvider {
         this.tag(ItemTags.HANGING_SIGNS).add(FIItems.LILAC_HANGING_SIGN.get());
         this.tag(ItemTags.BOATS).add(FIItems.LILAC_BOAT.get());
         this.tag(ItemTags.CHEST_BOATS).add(FIItems.LILAC_CHEST_BOAT.get());
+        this.tag(ItemTags.PLANKS).add(
+                FIBlocks.LILAC_PLANKS.get().asItem(),
+                FIBlocks.SEALED_OAK_PLANKS.get().asItem(),
+                FIBlocks.SEALED_SPRUCE_PLANKS.get().asItem(),
+                FIBlocks.SEALED_BIRCH_PLANKS.get().asItem(),
+                FIBlocks.SEALED_JUNGLE_PLANKS.get().asItem(),
+                FIBlocks.SEALED_ACACIA_PLANKS.get().asItem(),
+                FIBlocks.SEALED_DARK_OAK_PLANKS.get().asItem(),
+                FIBlocks.SEALED_MANGROVE_PLANKS.get().asItem(),
+                FIBlocks.SEALED_CHERRY_PLANKS.get().asItem(),
+                FIBlocks.SEALED_BAMBOO_PLANKS.get().asItem(),
+                FIBlocks.SEALED_CRIMSON_PLANKS.get().asItem(),
+                FIBlocks.SEALED_WARPED_PLANKS.get().asItem(),
+                FIBlocks.SEALED_LILAC_PLANKS.get().asItem()
+        );
+        this.tag(net.minecraft.tags.ItemTags.create(ForagersInsight.rl("sealed_planks"))).add(
+                FIBlocks.SEALED_OAK_PLANKS.get().asItem(),
+                FIBlocks.SEALED_SPRUCE_PLANKS.get().asItem(),
+                FIBlocks.SEALED_BIRCH_PLANKS.get().asItem(),
+                FIBlocks.SEALED_JUNGLE_PLANKS.get().asItem(),
+                FIBlocks.SEALED_ACACIA_PLANKS.get().asItem(),
+                FIBlocks.SEALED_DARK_OAK_PLANKS.get().asItem(),
+                FIBlocks.SEALED_MANGROVE_PLANKS.get().asItem(),
+                FIBlocks.SEALED_CHERRY_PLANKS.get().asItem(),
+                FIBlocks.SEALED_BAMBOO_PLANKS.get().asItem(),
+                FIBlocks.SEALED_CRIMSON_PLANKS.get().asItem(),
+                FIBlocks.SEALED_WARPED_PLANKS.get().asItem(),
+                FIBlocks.SEALED_LILAC_PLANKS.get().asItem()
+        );
 
         registerForgeTags();
     }

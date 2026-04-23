@@ -176,7 +176,10 @@ public class FIItems {
     public static final RegistryObject<Item> BIRCH_SAP_BUCKET = HELPER.createItem("birch_sap_bucket", () ->
             new Item(new Item.Properties().stacksTo(1).craftRemainder(Items.BUCKET)));
     public static final RegistryObject<Item> BIRCH_SAP_BOTTLE = HELPER.createItem("birch_sap_bottle", () ->
-            new Item(new Item.Properties().stacksTo(16).craftRemainder(Items.GLASS_BOTTLE)));
+            new BirchSapBottleItem(new Item.Properties().stacksTo(1).durability(4)));
+    public static final RegistryObject<Item> SAPPY_BRUSH = HELPER.createItem("sappy_brush", () ->
+            new Item(new Item.Properties().stacksTo(1).durability(4)));
+
 
     //Wildflowers + Flora
     public static final RegistryObject<Item> ROSELLE_BUSH_ITEM = HELPER.createItem("roselle_bush", () ->

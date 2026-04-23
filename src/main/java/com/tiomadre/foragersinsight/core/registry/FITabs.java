@@ -96,7 +96,9 @@ public class FITabs {
             FIItems.BIRCH_SYRUP_BUCKET,
             FIItems.BIRCH_SYRUP_BOTTLE,
             FIItems.BIRCH_SAP_BUCKET,
-            FIItems.BIRCH_SAP_BOTTLE
+            FIItems.BIRCH_SAP_BOTTLE,
+            FIItems.BIRCH_SAP_BOTTLE,
+            FIItems.SAPPY_BRUSH
     );
 
     private static final List<RegistryObject<? extends ItemLike>> CUISINE_ENTRIES = List.of(
@@ -174,7 +176,19 @@ public class FITabs {
             FIItems.LILAC_HANGING_SIGN,
             FIBlocks.LILAC_CABINET,
             FIItems.LILAC_BOAT,
-            FIItems.LILAC_CHEST_BOAT
+            FIItems.LILAC_CHEST_BOAT,
+            FIBlocks.SEALED_OAK_PLANKS,
+            FIBlocks.SEALED_SPRUCE_PLANKS,
+            FIBlocks.SEALED_BIRCH_PLANKS,
+            FIBlocks.SEALED_JUNGLE_PLANKS,
+            FIBlocks.SEALED_ACACIA_PLANKS,
+            FIBlocks.SEALED_DARK_OAK_PLANKS,
+            FIBlocks.SEALED_MANGROVE_PLANKS,
+            FIBlocks.SEALED_CHERRY_PLANKS,
+            FIBlocks.SEALED_BAMBOO_PLANKS,
+            FIBlocks.SEALED_CRIMSON_PLANKS,
+            FIBlocks.SEALED_WARPED_PLANKS,
+            FIBlocks.SEALED_LILAC_PLANKS
     );
     private static final List<Supplier<MobEffect>> AUSPICIOUS_STEW_EFFECTS = List.of(
             () -> MobEffects.REGENERATION,

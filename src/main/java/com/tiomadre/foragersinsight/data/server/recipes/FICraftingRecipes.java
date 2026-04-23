@@ -428,7 +428,19 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .define('T', LILAC_TRAPDOOR.get())
                 .unlockedBy("has_lilac_planks", has(LILAC_PLANKS.get()))
                 .save(consumer);
-
+        //Sealed Planks
+        addSealedPlankRecipes(consumer, OAK_PLANKS, SEALED_OAK_PLANKS.get(), "oak");
+        addSealedPlankRecipes(consumer, SPRUCE_PLANKS, SEALED_SPRUCE_PLANKS.get(), "spruce");
+        addSealedPlankRecipes(consumer, BIRCH_PLANKS, SEALED_BIRCH_PLANKS.get(), "birch");
+        addSealedPlankRecipes(consumer, JUNGLE_PLANKS, SEALED_JUNGLE_PLANKS.get(), "jungle");
+        addSealedPlankRecipes(consumer, ACACIA_PLANKS, SEALED_ACACIA_PLANKS.get(), "acacia");
+        addSealedPlankRecipes(consumer, DARK_OAK_PLANKS, SEALED_DARK_OAK_PLANKS.get(), "dark_oak");
+        addSealedPlankRecipes(consumer, MANGROVE_PLANKS, SEALED_MANGROVE_PLANKS.get(), "mangrove");
+        addSealedPlankRecipes(consumer, CHERRY_PLANKS, SEALED_CHERRY_PLANKS.get(), "cherry");
+        addSealedPlankRecipes(consumer, BAMBOO_PLANKS, SEALED_BAMBOO_PLANKS.get(), "bamboo");
+        addSealedPlankRecipes(consumer, CRIMSON_PLANKS, SEALED_CRIMSON_PLANKS.get(), "crimson");
+        addSealedPlankRecipes(consumer, WARPED_PLANKS, SEALED_WARPED_PLANKS.get(), "warped");
+        addSealedPlankRecipes(consumer, LILAC_PLANKS.get().asItem(), SEALED_LILAC_PLANKS.get(), "lilac");
         //Alternate Recipes using Rabbit Hide
         //Book
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BOOK)
@@ -459,9 +471,23 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
         this.storageRecipes(consumer, RecipeCategory.FOOD, FIItems.BLEWIT_MUSHROOM.get(), RecipeCategory.DECORATIONS, FIBlocks.BLEWIT_CRATE.get());
         this.storageRecipes(consumer, RecipeCategory.FOOD, LILAC_BLOOM.get(), RecipeCategory.DECORATIONS, LILAC_BLOOM_CRATE.get());
 
-
         FICookingRecipes.buildRecipes(consumer);
         FICrushandCutRecipes.buildRecipes(consumer);
+    }
+
+    private void addSealedPlankRecipes(Consumer<FinishedRecipe> consumer, ItemLike plank, ItemLike sealedPlank, String woodType) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, sealedPlank, 8)
+                .pattern("PPP")
+                .pattern("PSP")
+                .pattern("PPP")
+                .define('P', plank)
+                .define('S', BIRCH_SAP_BOTTLE.get())
+                .unlockedBy("has_birch_sap_bottle", has(BIRCH_SAP_BOTTLE.get()))
+                .save(consumer, ForagersInsight.rl("sealed_" + woodType + "_planks"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, plank)
+                .requires(sealedPlank)
+                .unlockedBy("has_sealed_" + woodType + "_planks", has(sealedPlank))
+                .save(consumer, ForagersInsight.rl(woodType + "_planks_from_sealed"));
     }
     private void addVanillaOverrides(Consumer<FinishedRecipe> consumer) {
         //Book

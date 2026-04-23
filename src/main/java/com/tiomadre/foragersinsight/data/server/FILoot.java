@@ -194,6 +194,19 @@ public class FILoot extends LootTableProvider {
             this.add(LILAC_HANGING_SIGN.get(), block -> createSingleItemTable(FIItems.LILAC_HANGING_SIGN.get()));
             this.add(LILAC_WALL_HANGING_SIGN.get(), block -> createSingleItemTable(FIItems.LILAC_HANGING_SIGN.get()));
             this.dropSelf(LILAC_CABINET.get());
+                //Sealed Planks
+            this.dropSelf(SEALED_OAK_PLANKS.get());
+            this.dropSelf(SEALED_SPRUCE_PLANKS.get());
+            this.dropSelf(SEALED_BIRCH_PLANKS.get());
+            this.dropSelf(SEALED_JUNGLE_PLANKS.get());
+            this.dropSelf(SEALED_ACACIA_PLANKS.get());
+            this.dropSelf(SEALED_DARK_OAK_PLANKS.get());
+            this.dropSelf(SEALED_MANGROVE_PLANKS.get());
+            this.dropSelf(SEALED_CHERRY_PLANKS.get());
+            this.dropSelf(SEALED_BAMBOO_PLANKS.get());
+            this.dropSelf(SEALED_CRIMSON_PLANKS.get());
+            this.dropSelf(SEALED_WARPED_PLANKS.get());
+            this.dropSelf(SEALED_LILAC_PLANKS.get());
             
                 //Tools + Workstations
             this.add(FIBlocks.DIFFUSER.get(), block -> createSingleItemTable(FIItems.DIFFUSER.get()));
