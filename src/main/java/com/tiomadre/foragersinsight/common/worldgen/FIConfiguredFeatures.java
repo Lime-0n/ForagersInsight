@@ -76,7 +76,6 @@ public class FIConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> DARK_OAK_SUSPICIOUS_LEAF_LITTER_PATCH_KEY = registerKey("dark_oak_suspicious_leaf_litter_patch");
     public static final ResourceKey<ConfiguredFeature<?, ?>> FLOWER_SUSPICIOUS_LEAF_LITTER_PATCH_KEY = registerKey("flower_suspicious_leaf_litter_patch");
     public static final ResourceKey<ConfiguredFeature<?, ?>> OAK_FERN_PATCH_KEY = registerKey("patch_oak_fern");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> GHOST_PIPE_PATCH_KEY = registerKey("patch_ghost_pipe");
 
     public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, ForagersInsight.rl(name));
@@ -173,16 +172,6 @@ public class FIConfiguredFeatures {
                         BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.DIRT))));
         register(context, OAK_FERN_PATCH_KEY, Feature.RANDOM_PATCH,
                 new RandomPatchConfiguration(48, 7, 3, oakFernPatch));
-
-        Holder<PlacedFeature> ghostPipePatch = PlacementUtils.inlinePlaced(
-                Feature.SIMPLE_BLOCK,
-                new SimpleBlockConfiguration(weightedGrassPatchProvider(FIBlocks.GHOST_PIPE.get().defaultBlockState(), 1)),
-                BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
-                        BlockPredicate.replaceable(),
-                        BlockPredicate.not(BlockPredicate.matchesFluids(Fluids.WATER)),
-                        BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.DIRT))));
-        register(context, GHOST_PIPE_PATCH_KEY, Feature.RANDOM_PATCH,
-                new RandomPatchConfiguration(18, 6, 2, ghostPipePatch));
 
         //Dark Woodlands Features
         register(context, DARK_WOODLANDS_FALLEN_TREES_KEY, FIBiomeFeatures.FALLEN_TREES.get(), NoneFeatureConfiguration.INSTANCE);

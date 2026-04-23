@@ -105,11 +105,6 @@ public class FIBiomeModifiers {
                 HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.OAK_FERN_PATCH_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION)
         );
-        context.register(ADD_GHOST_PIPE, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-                tagSet(biomes, FITags.BiomeTag.HAS_GHOST_PIPE),
-                HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.GHOST_PIPE_PATCH_PLACED_KEY)),
-                GenerationStep.Decoration.VEGETAL_DECORATION)
-        );
     }
 
     public static ResourceKey<BiomeModifier> registerKey(String name) {
