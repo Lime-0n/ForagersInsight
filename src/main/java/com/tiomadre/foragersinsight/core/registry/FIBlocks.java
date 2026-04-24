@@ -68,7 +68,9 @@ public class FIBlocks {
             new SpruceTipBlock(copy(Blocks.SWEET_BERRY_BUSH).noCollission()));
     //Birch
     public static final RegistryObject<Block> SAPPY_BIRCH_LOG = HELPER.createFuelBlock("sappy_birch_log", () ->
-            new LogBlock(() -> Blocks.STRIPPED_BIRCH_LOG, copy(Blocks.BIRCH_LOG)), 300);
+            new LogBlock(FIBlocks.STRIPPED_SAPPY_BIRCH_LOG, copy(Blocks.BIRCH_LOG)), 300);
+    public static final RegistryObject<Block> STRIPPED_SAPPY_BIRCH_LOG = HELPER.createFuelBlock("stripped_sappy_birch_log", () ->
+            new RotatedPillarBlock(copy(Blocks.STRIPPED_BIRCH_LOG)), 300);
     //Lilac
     public static final RegistryObject<Block> LILAC_LEAVES = HELPER.createBlock("lilac_leaves", () ->
             new LeavesBlock(vanillaLeafProperties(Blocks.AZALEA_LEAVES)));

@@ -25,9 +25,9 @@ public class FIBlockTags extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.@NotNull Provider provider) {
-        this.tag(BlockTags.LOGS).add(SAPPY_BIRCH_LOG.get(), HOLLOW_LOG.get(), LILAC_LOG.get(), STRIPPED_LILAC_LOG.get());
+        this.tag(BlockTags.LOGS).add(SAPPY_BIRCH_LOG.get(), STRIPPED_SAPPY_BIRCH_LOG.get(), HOLLOW_LOG.get(), LILAC_LOG.get(), STRIPPED_LILAC_LOG.get());
 
-        this.tag(BlockTags.LOGS_THAT_BURN).add(SAPPY_BIRCH_LOG.get(), HOLLOW_LOG.get(), LILAC_LOG.get(), STRIPPED_LILAC_LOG.get());
+        this.tag(BlockTags.LOGS_THAT_BURN).add(SAPPY_BIRCH_LOG.get(), STRIPPED_SAPPY_BIRCH_LOG.get(), HOLLOW_LOG.get(), LILAC_LOG.get(), STRIPPED_LILAC_LOG.get());
 
         this.tag(BlockTags.PLANKS).add(LILAC_PLANKS.get());
         this.tag(BlockTags.WOODEN_STAIRS).add(LILAC_STAIRS.get());
@@ -76,7 +76,7 @@ public class FIBlockTags extends BlockTagsProvider {
 
     protected void registerMineables() {
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(TAPPER.get(), DIFFUSER.get());
-        this.tag(BlockTags.MINEABLE_WITH_AXE).add(APPLE_CRATE.get(), BLEWIT_CRATE.get(), LILAC_BLOOM_CRATE.get(), SAPPY_BIRCH_LOG.get(), LILAC_LOG.get(), STRIPPED_LILAC_LOG.get(), LILAC_PLANKS.get(), LILAC_STAIRS.get(),
+        this.tag(BlockTags.MINEABLE_WITH_AXE).add(APPLE_CRATE.get(), BLEWIT_CRATE.get(), LILAC_BLOOM_CRATE.get(), SAPPY_BIRCH_LOG.get(),STRIPPED_SAPPY_BIRCH_LOG.get(),  LILAC_LOG.get(), STRIPPED_LILAC_LOG.get(), LILAC_PLANKS.get(), LILAC_STAIRS.get(),
                 LILAC_SLAB.get(), LILAC_FENCE.get(), LILAC_FENCE_GATE.get(), LILAC_DOOR.get(), LILAC_TRAPDOOR.get(), LILAC_PRESSURE_PLATE.get(), LILAC_BUTTON.get(),
                 LILAC_SIGN.get(), LILAC_WALL_SIGN.get(), LILAC_HANGING_SIGN.get(), LILAC_WALL_HANGING_SIGN.get(), LILAC_CABINET.get(),
                 SEALED_OAK_PLANKS.get(), SEALED_SPRUCE_PLANKS.get(), SEALED_BIRCH_PLANKS.get(), SEALED_JUNGLE_PLANKS.get(),

@@ -171,6 +171,7 @@ public class FILoot extends LootTableProvider {
                 //Leaves and Tree Stuff
             this.add(BOUNTIFUL_SPRUCE_TIPS.get(), LootTable.lootTable().setParamSet(LootContextParamSets.BLOCK));
             this.add(FIBlocks.SAPPY_BIRCH_LOG.get(), block -> createSilkTouchDispatchTable(block, LootItem.lootTableItem(Blocks.BIRCH_LOG)));
+            this.add(STRIPPED_SAPPY_BIRCH_LOG.get(), block -> createSilkTouchDispatchTable(block, LootItem.lootTableItem(Blocks.STRIPPED_BIRCH_LOG)));
             this.dropSelf(LILAC_LOG.get());
             this.dropSelf(STRIPPED_LILAC_LOG.get());
             this.add(BOUNTIFUL_OAK_LEAVES.get(), this.createBountifulLeavesDrops(BOUNTIFUL_OAK_LEAVES, Blocks.OAK_SAPLING));

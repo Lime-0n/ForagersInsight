@@ -62,7 +62,9 @@ public class TapperItem extends Item {
         }
 
         // must click a sappy birch
-        if (!level.getBlockState(logPos).is(FIBlocks.SAPPY_BIRCH_LOG.get()) || face.getAxis().isVertical()) {
+        BlockState logState = level.getBlockState(logPos);
+        if (!(logState.is(FIBlocks.SAPPY_BIRCH_LOG.get()) || logState.is(FIBlocks.STRIPPED_SAPPY_BIRCH_LOG.get()))
+                || face.getAxis().isVertical()) {
             return InteractionResult.PASS;
         }
 

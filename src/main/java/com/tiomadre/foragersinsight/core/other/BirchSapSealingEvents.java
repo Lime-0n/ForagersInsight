@@ -13,25 +13,8 @@ import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.Map;
-
 @Mod.EventBusSubscriber(modid = ForagersInsight.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class BirchSapSealingEvents {
-    private static final Map<Block, Block> SEALED_PLANKS = Map.ofEntries(
-            Map.entry(Blocks.OAK_PLANKS, FIBlocks.SEALED_OAK_PLANKS.get()),
-            Map.entry(Blocks.SPRUCE_PLANKS, FIBlocks.SEALED_SPRUCE_PLANKS.get()),
-            Map.entry(Blocks.BIRCH_PLANKS, FIBlocks.SEALED_BIRCH_PLANKS.get()),
-            Map.entry(Blocks.JUNGLE_PLANKS, FIBlocks.SEALED_JUNGLE_PLANKS.get()),
-            Map.entry(Blocks.ACACIA_PLANKS, FIBlocks.SEALED_ACACIA_PLANKS.get()),
-            Map.entry(Blocks.DARK_OAK_PLANKS, FIBlocks.SEALED_DARK_OAK_PLANKS.get()),
-            Map.entry(Blocks.MANGROVE_PLANKS, FIBlocks.SEALED_MANGROVE_PLANKS.get()),
-            Map.entry(Blocks.CHERRY_PLANKS, FIBlocks.SEALED_CHERRY_PLANKS.get()),
-            Map.entry(Blocks.BAMBOO_PLANKS, FIBlocks.SEALED_BAMBOO_PLANKS.get()),
-            Map.entry(Blocks.CRIMSON_PLANKS, FIBlocks.SEALED_CRIMSON_PLANKS.get()),
-            Map.entry(Blocks.WARPED_PLANKS, FIBlocks.SEALED_WARPED_PLANKS.get()),
-            Map.entry(FIBlocks.LILAC_PLANKS.get(), FIBlocks.SEALED_LILAC_PLANKS.get())
-    );
-
     @SubscribeEvent
     public static void onBrushSapRightClick(PlayerInteractEvent.RightClickBlock event) {
         if (event.getHand() != InteractionHand.MAIN_HAND) {
@@ -63,7 +46,7 @@ public class BirchSapSealingEvents {
         }
 
         Block target = event.getLevel().getBlockState(event.getPos()).getBlock();
-        Block sealed = SEALED_PLANKS.get(target);
+        Block sealed = getSealedVariant(target);
         if (sealed == null) {
             return;
         }
@@ -87,6 +70,22 @@ public class BirchSapSealingEvents {
         )) {
             event.setBurnTime(600);
         }
+    }
+
+    private static Block getSealedVariant(Block target) {
+        if (target == Blocks.OAK_PLANKS) return FIBlocks.SEALED_OAK_PLANKS.get();
+        if (target == Blocks.SPRUCE_PLANKS) return FIBlocks.SEALED_SPRUCE_PLANKS.get();
+        if (target == Blocks.BIRCH_PLANKS) return FIBlocks.SEALED_BIRCH_PLANKS.get();
+        if (target == Blocks.JUNGLE_PLANKS) return FIBlocks.SEALED_JUNGLE_PLANKS.get();
+        if (target == Blocks.ACACIA_PLANKS) return FIBlocks.SEALED_ACACIA_PLANKS.get();
+        if (target == Blocks.DARK_OAK_PLANKS) return FIBlocks.SEALED_DARK_OAK_PLANKS.get();
+        if (target == Blocks.MANGROVE_PLANKS) return FIBlocks.SEALED_MANGROVE_PLANKS.get();
+        if (target == Blocks.CHERRY_PLANKS) return FIBlocks.SEALED_CHERRY_PLANKS.get();
+        if (target == Blocks.BAMBOO_PLANKS) return FIBlocks.SEALED_BAMBOO_PLANKS.get();
+        if (target == Blocks.CRIMSON_PLANKS) return FIBlocks.SEALED_CRIMSON_PLANKS.get();
+        if (target == Blocks.WARPED_PLANKS) return FIBlocks.SEALED_WARPED_PLANKS.get();
+        if (target == FIBlocks.LILAC_PLANKS.get()) return FIBlocks.SEALED_LILAC_PLANKS.get();
+        return null;
     }
 
     private static void damageSapBottle(ItemStack sapBottle, net.minecraft.world.entity.player.Player player) {

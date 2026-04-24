@@ -160,6 +160,7 @@ public class FITabs {
     private static final List<RegistryObject<? extends ItemLike>> WOODEN_ENTRIES = List.of(
             //SPRUCE
             FIBlocks.SAPPY_BIRCH_LOG,
+            FIBlocks.STRIPPED_SAPPY_BIRCH_LOG,
             //LILAC
             FIBlocks.LILAC_LOG,
             FIBlocks.STRIPPED_LILAC_LOG,

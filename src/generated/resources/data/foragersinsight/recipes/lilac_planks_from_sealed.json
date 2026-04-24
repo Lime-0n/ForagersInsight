@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "foragersinsight:sealed_lilac_planks"
+    }
+  ],
+  "result": {
+    "item": "foragersinsight:lilac_planks"
+  }
+}

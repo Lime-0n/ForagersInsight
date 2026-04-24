@@ -114,8 +114,7 @@ public class TapperBlock extends HorizontalDirectionalBlock implements EntityBlo
         BlockState logState = level.getBlockState(logPos);
 
         // place on a Sappy Birch Log to begin harvest
-        if (!logState.is(FIBlocks.SAPPY_BIRCH_LOG.get()) ||
-                logState.getValue(RotatedPillarBlock.AXIS) != Direction.Axis.Y) {
+        if (!(logState.is(FIBlocks.SAPPY_BIRCH_LOG.get()) || logState.is(FIBlocks.STRIPPED_SAPPY_BIRCH_LOG.get())) || logState.getValue(RotatedPillarBlock.AXIS) != Direction.Axis.Y) {
             return null;
         }
         return defaultBlockState()
@@ -129,7 +128,7 @@ public class TapperBlock extends HorizontalDirectionalBlock implements EntityBlo
     public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader world, @NotNull BlockPos pos) {
         Direction attachDir = state.getValue(FACING).getOpposite();
         BlockState logState = world.getBlockState(pos.relative(attachDir));
-        return logState.is(FIBlocks.SAPPY_BIRCH_LOG.get()) &&
+        return (logState.is(FIBlocks.SAPPY_BIRCH_LOG.get()) || logState.is(FIBlocks.STRIPPED_SAPPY_BIRCH_LOG.get())) &&
                 logState.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y;
     }
     @Override
