@@ -330,7 +330,7 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .save(consumer);
         //Other
         //Hollow Log
-        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, HOLLOW_LOG.get(), 6)
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, HOLLOW_LOG.get(), 1)
                 .pattern("TTT")
                 .pattern("T T")
                 .pattern("TTT")

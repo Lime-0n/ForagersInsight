@@ -188,7 +188,7 @@ public class FIItems {
             new BlockItem(FIBlocks.STOUT_BEACH_ROSE_BUSH.get(),basicItem()));
     public static final RegistryObject<Item> TALL_BEACH_ROSE_BUSH_ITEM = HELPER.createItem("tall_beach_rose_bush", () ->
             new BlockItem(FIBlocks.TALL_BEACH_ROSE_BUSH.get(),basicItem()));
-    public static final RegistryObject<Item> OAK_FERN_ITEM = HELPER.createItem("oak_fern", () ->
+    public static final RegistryObject<Item> WOODLAND_FERN_ITEM = HELPER.createItem("woodland_fern", () ->
             new BlockItem(FIBlocks.WOODLAND_FERN.get(), basicItem()));
     public static final RegistryObject<Item> GHOST_PIPE_ITEM = HELPER.createItem("ghost_pipe", () ->
             new BlockItem(FIBlocks.GHOST_PIPE.get(), basicItem()));

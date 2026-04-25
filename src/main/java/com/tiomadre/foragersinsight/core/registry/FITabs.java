@@ -64,7 +64,7 @@ public class FITabs {
             FIItems.STOUT_BEACH_ROSE_BUSH_ITEM,
             FIItems.TALL_BEACH_ROSE_BUSH_ITEM,
             FIItems.GHOST_PIPE_ITEM,
-            FIItems.OAK_FERN_ITEM
+            FIItems.WOODLAND_FERN_ITEM
 
 
     );
