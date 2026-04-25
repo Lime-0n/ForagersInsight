@@ -112,7 +112,7 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
             serverLevel.playSound(null, pos, SoundEvents.CHERRY_LEAVES_BREAK, SoundSource.BLOCKS, 1.0F, 0.5F);
             serverLevel.playSound(null, pos, SoundEvents.ROOTED_DIRT_BREAK, SoundSource.BLOCKS, 0.75F, 2.0F);
             ItemStack drop = blockEntity.revealedItem.isEmpty()
-                    ? SuspiciousLitterLoot.chooseLoot(state, serverLevel.random)
+                    ? SuspiciousLitterLoot.chooseLoot(serverLevel, pos, state)
                     : blockEntity.revealedItem;
             SuspiciousLitterLoot.dropLoot(serverLevel, pos, state, drop);
             if (player instanceof ServerPlayer serverPlayer) {
@@ -185,7 +185,7 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
 
     private void resolveRevealedItem(ServerLevel level, BlockState state) {
         if (this.revealedItem.isEmpty()) {
-            this.revealedItem = SuspiciousLitterLoot.chooseLoot(state, level.random, this.luckOfTheTreesLevel);
+            this.revealedItem = SuspiciousLitterLoot.chooseLoot(level, this.worldPosition, state, this.luckOfTheTreesLevel);
             sync();
         }
     }

@@ -4,7 +4,6 @@ import com.tiomadre.foragersinsight.common.block.BountifulLeavesBlock;
 import com.tiomadre.foragersinsight.common.block.HangingLilacLeavesBlock;
 import com.tiomadre.foragersinsight.common.block.SpruceTipBlock;
 import com.tiomadre.foragersinsight.common.block.TapperBlock;
-import com.tiomadre.foragersinsight.common.block.entity.suspiciouslitter.SuspiciousLitterLoot;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.*;
 import com.tiomadre.foragersinsight.data.server.tags.FITags;
@@ -80,20 +79,10 @@ public class FarmingXPEvents {
 
         awardUnifiedXP(level, pending.player, 0, 2, XPSource.FORAGING, true);
     }
+    //Suspicious Leaf Litter XP
     public static void awardSuspiciousLitterXP(ServerLevel level, ServerPlayer player, BlockState state, ItemStack drop) {
         if (!state.is(FIBlocks.SUSPICIOUS_LEAF_LITTER.get())) return;
-
-        int min = 1;
-        int max = 3;
-
-        OptionalInt weight = SuspiciousLitterLoot.getBaseDropWeight(state, drop);
-        if (weight.isPresent()) {
-            int rareBoost = Math.max(0, 5 - weight.getAsInt());
-            min += rareBoost;
-            max += rareBoost;
-        }
-
-        awardUnifiedXP(level, player, min, max, XPSource.FORAGING, true);
+        awardUnifiedXP(level, player, 1, 3, XPSource.FORAGING, true);
     }
 
 
