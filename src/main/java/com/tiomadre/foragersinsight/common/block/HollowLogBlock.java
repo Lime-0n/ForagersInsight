@@ -101,9 +101,10 @@ public class HollowLogBlock extends RotatedPillarBlock implements SimpleWaterlog
         if (biome.is(FITags.BiomeTag.HAS_SPRUCE_FOREST_LITTER)) {
             return LogTexture.SPRUCE;
         }
-        if (biome.is(FITags.BiomeTag.HAS_DARK_OAK_FOREST_LITTER) || biome.is(FITags.BiomeTag.HAS_FLOWER_FOREST_LITTER)) {
+        if (biome.is(FITags.BiomeTag.HAS_DARK_OAK_FOREST_LITTER)) {
             return LogTexture.DARK_OAK;
         }
+        biome.is(FITags.BiomeTag.HAS_FLOWER_FOREST_LITTER);
         return LogTexture.OAK;
     }
 

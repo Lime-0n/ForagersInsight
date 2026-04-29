@@ -21,7 +21,7 @@ public class FIBiomeModifiers {
     public static final ResourceKey<BiomeModifier> ADD_SAPPY_BIRCH_TREES = registerKey("add_sappy_birch_trees");
     public static final ResourceKey<BiomeModifier> ADD_ROSELLE_BUSHES = registerKey("add_roselle_bushes");
     public static final ResourceKey<BiomeModifier> ADD_BEACH_ROSES = registerKey("add_beach_roses");
-    public static final ResourceKey<BiomeModifier> ADD_OAK_FERNS = registerKey("add_oak_ferns");
+    public static final ResourceKey<BiomeModifier> ADD_WOODLAND_FERNS = registerKey("add_woodland_ferns");
     public static final ResourceKey<BiomeModifier> ADD_GHOST_PIPE = registerKey("add_ghost_pipe");
 
     public static final ResourceKey<BiomeModifier> ADD_OAK_SUSPICIOUS_LEAF_LITTER = registerKey("add_oak_suspicious_leaf_litter");
@@ -29,6 +29,12 @@ public class FIBiomeModifiers {
     public static final ResourceKey<BiomeModifier> ADD_SPRUCE_SUSPICIOUS_LEAF_LITTER = registerKey("add_spruce_suspicious_leaf_litter");
     public static final ResourceKey<BiomeModifier> ADD_DARK_OAK_SUSPICIOUS_LEAF_LITTER = registerKey("add_dark_oak_suspicious_leaf_litter");
     public static final ResourceKey<BiomeModifier> ADD_FLOWER_SUSPICIOUS_LEAF_LITTER = registerKey("add_flower_suspicious_leaf_litter");
+
+    public static final ResourceKey<BiomeModifier> ADD_OAK_FALLEN_TREES = registerKey("add_oak_fallen_trees");
+    public static final ResourceKey<BiomeModifier> ADD_BIRCH_FALLEN_TREES = registerKey("add_birch_fallen_trees");
+    public static final ResourceKey<BiomeModifier> ADD_SPRUCE_FALLEN_TREES = registerKey("add_spruce_fallen_trees");
+    public static final ResourceKey<BiomeModifier> ADD_DARK_OAK_FALLEN_TREES = registerKey("add_dark_oak_fallen_trees");
+    public static final ResourceKey<BiomeModifier> ADD_FLOWER_FALLEN_TREES = registerKey("add_flower_fallen_trees");
 
     public static void bootstap(BootstapContext<BiomeModifier> context) {
         var placedFeatures = context.lookup(Registries.PLACED_FEATURE);
@@ -100,12 +106,39 @@ public class FIBiomeModifiers {
                 GenerationStep.Decoration.VEGETAL_DECORATION)
         );
                 //Other Flora Patchers
-        context.register(ADD_OAK_FERNS, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+        context.register(ADD_WOODLAND_FERNS, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
                 tagSet(biomes, FITags.BiomeTag.HAS_OAK_FERNS),
-                HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.OAK_FERN_PATCH_PLACED_KEY)),
+                HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.WOODLAND_FERN_PATCH_PLACED_KEY)),
+                GenerationStep.Decoration.VEGETAL_DECORATION)
+                //Fallen Trees
+        );
+        context.register(ADD_OAK_FALLEN_TREES, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                tagSet(biomes, FITags.BiomeTag.HAS_OAK_FOREST_LITTER),
+                HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.OAK_FALLEN_TREES_PLACED_KEY)),
+                GenerationStep.Decoration.VEGETAL_DECORATION)
+        );
+        context.register(ADD_BIRCH_FALLEN_TREES, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                tagSet(biomes, FITags.BiomeTag.HAS_BIRCH_FOREST_LITTER),
+                HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.BIRCH_FALLEN_TREES_PLACED_KEY)),
+                GenerationStep.Decoration.VEGETAL_DECORATION)
+        );
+        context.register(ADD_SPRUCE_FALLEN_TREES, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                tagSet(biomes, FITags.BiomeTag.HAS_SPRUCE_FOREST_LITTER),
+                HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.SPRUCE_FALLEN_TREES_PLACED_KEY)),
+                GenerationStep.Decoration.VEGETAL_DECORATION)
+        );
+        context.register(ADD_DARK_OAK_FALLEN_TREES, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                tagSet(biomes, FITags.BiomeTag.HAS_DARK_OAK_FOREST_LITTER),
+                HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.DARK_OAK_FALLEN_TREES_PLACED_KEY)),
+                GenerationStep.Decoration.VEGETAL_DECORATION)
+        );
+        context.register(ADD_FLOWER_FALLEN_TREES, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                tagSet(biomes, FITags.BiomeTag.HAS_FLOWER_FOREST_LITTER),
+                HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.OAK_FALLEN_TREES_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION)
         );
     }
+
 
     public static ResourceKey<BiomeModifier> registerKey(String name) {
         return ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, ForagersInsight.rl(name));

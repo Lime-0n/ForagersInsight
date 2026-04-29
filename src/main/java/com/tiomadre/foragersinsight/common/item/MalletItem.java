@@ -2,6 +2,7 @@ package com.tiomadre.foragersinsight.common.item;
 
 import com.tiomadre.foragersinsight.common.utility.TextUtils;
 import com.tiomadre.foragersinsight.core.registry.FIAdvancementCriteria;
+import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
@@ -63,6 +64,9 @@ public class MalletItem extends PickaxeItem {
         // Sand and Glass
         addCrushResult(Blocks.GLASS, Blocks.SAND, 1);
         addCrushResult(Blocks.SANDSTONE, Blocks.SAND, 1);
+        //Condensed Blocks
+        addCrushTransformResult(Blocks.DIRT, FIBlocks.CONDENSED_DIRT.get());
+        addCrushTransformResult(Blocks.SAND, FIBlocks.CONDENSED_SAND.get());
         // Cracked Stone and Bricks
         addCrushTransformResult(Blocks.STONE, Blocks.COBBLESTONE);
         addCrushTransformResult(Blocks.STONE_BRICKS, Blocks.CRACKED_STONE_BRICKS);

@@ -15,7 +15,6 @@ import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.loot.LootTableProvider;
-import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.data.loot.packs.VanillaBlockLoot;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.flag.FeatureFlags;
@@ -54,7 +53,6 @@ import vectorwing.farmersdelight.common.tag.ModTags;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -76,7 +74,7 @@ public class FILoot extends LootTableProvider {
     public FILoot(GatherDataEvent e) {
         super(e.getGenerator().getPackOutput(), BuiltInLootTables.all(), ImmutableList.of(
                 new LootTableProvider.SubProviderEntry(FIBlockLoot::new, LootContextParamSets.BLOCK),
-                new LootTableProvider.SubProviderEntry(FIForagingFinds::new, LootContextParamSets.ARCHAEOLOGY)));
+                new LootTableProvider.SubProviderEntry(FIForageLoot.FIForagingFinds::new, LootContextParamSets.ARCHAEOLOGY)));
 
     }
 
@@ -161,7 +159,9 @@ public class FILoot extends LootTableProvider {
                     .withPool(LootPool.lootPool()
                             .add(LootItem.lootTableItem(vectorwing.farmersdelight.common.registry.ModItems.TREE_BARK.get())
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F)))))));
-
+                //Condensed
+            this.add(CONDENSED_DIRT.get(), block -> createSilkTouchDispatchTable(block, LootItem.lootTableItem(Blocks.DIRT)));
+            this.add(CONDENSED_SAND.get(), block -> createSilkTouchDispatchTable(block, LootItem.lootTableItem(Blocks.SAND)));
                 //Decorative
             this.dropSelf(SCATTERED_LILAC_BLOOM_MAT.get());
             this.dropSelf(SCATTERED_ROSE_PETAL_MAT.get());
@@ -320,77 +320,6 @@ public class FILoot extends LootTableProvider {
         @Override
         public @NotNull Iterable<Block> getKnownBlocks() {
             return ForgeRegistries.BLOCKS.getValues().stream().filter(block -> Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getNamespace().equals(ForagersInsight.MOD_ID)).collect(Collectors.toSet());
-        }
-    }
-    //Suspicious Litter Loot
-    private static class FIForagingFinds implements LootTableSubProvider {
-
-        @Override
-        public void generate(BiConsumer<ResourceLocation, LootTable.Builder> output) {
-            output.accept(FIForageLoot.SUSPICIOUS_LEAF_LITTER_OAK, suspiciousLitterOak());
-            output.accept(FIForageLoot.SUSPICIOUS_LEAF_LITTER_BIRCH, suspiciousLitterBirch());
-            output.accept(FIForageLoot.SUSPICIOUS_LEAF_LITTER_SPRUCE, suspiciousLitterSpruce());
-            output.accept(FIForageLoot.SUSPICIOUS_LEAF_LITTER_DARK_OAK, suspiciousLitterDarkOak());
-            output.accept(FIForageLoot.SUSPICIOUS_LEAF_LITTER_FLOWER, suspiciousLitterFlower());
-        }
-
-        private static LootTable.Builder suspiciousLitterOak() {
-            return baseSuspiciousLitterBuilder()
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1))
-                            .add(LootItem.lootTableItem(Items.APPLE).setWeight(7).setQuality(-1))
-                            .add(LootItem.lootTableItem(ROSE_HIP.get()).setWeight(6))
-                            .add(LootItem.lootTableItem(Items.EGG).setWeight(4).setQuality(1)));
-        }
-
-        private static LootTable.Builder suspiciousLitterFlower() {
-            return baseSuspiciousLitterBuilder()
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1))
-                            .add(LootItem.lootTableItem(LILAC_BLOOM.get()).setWeight(7).setQuality(-1))
-                            .add(LootItem.lootTableItem(ROSE_HIP.get()).setWeight(6))
-                            .add(LootItem.lootTableItem(Items.HONEYCOMB).setWeight(5).setQuality(1)));
-        }
-
-        private static LootTable.Builder suspiciousLitterBirch() {
-            return baseSuspiciousLitterBuilder()
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1))
-                            .add(LootItem.lootTableItem(ROSE_HIP.get()).setWeight(6))
-                            .add(LootItem.lootTableItem(Items.HONEYCOMB).setWeight(4).setQuality(1)));
-        }
-
-        private static LootTable.Builder suspiciousLitterSpruce() {
-            return baseSuspiciousLitterBuilder()
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1))
-                            .add(LootItem.lootTableItem(Items.FERN).setWeight(8).setQuality(-1))
-                            .add(LootItem.lootTableItem(SPRUCE_TIPS.get()).setWeight(7))
-                            .add(LootItem.lootTableItem(Items.SWEET_BERRIES).setWeight(6)));
-        }
-
-        private static LootTable.Builder suspiciousLitterDarkOak() {
-            return baseSuspiciousLitterBuilder()
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1))
-                            .add(LootItem.lootTableItem(BLACK_ACORN.get()).setWeight(7))
-                            .add(LootItem.lootTableItem(ROSE_HIP.get()).setWeight(6))
-                            .add(LootItem.lootTableItem(Items.STRING).setWeight(5).setQuality(1)));
-        }
-
-        private static LootTable.Builder baseSuspiciousLitterBuilder() {
-            return LootTable.lootTable()
-                    .setParamSet(LootContextParamSets.ARCHAEOLOGY)
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1))
-                            .add(LootItem.lootTableItem(Items.STICK).setWeight(8).setQuality(-1))
-                            .add(LootItem.lootTableItem(vectorwing.farmersdelight.common.registry.ModItems.TREE_BARK.get()).setWeight(7))
-                            .add(LootItem.lootTableItem(Items.FEATHER).setWeight(6))
-                            .add(LootItem.lootTableItem(DANDELION_ROOT.get()).setWeight(6))
-                            .add(LootItem.lootTableItem(POPPY_SEEDS.get()).setWeight(6))
-                            .add(LootItem.lootTableItem(Items.RED_MUSHROOM).setWeight(5).setQuality(1))
-                            .add(LootItem.lootTableItem(Items.BROWN_MUSHROOM).setWeight(5).setQuality(1))
-                            .add(LootItem.lootTableItem(BLEWIT_MUSHROOM.get()).setWeight(2).setQuality(2)));
         }
     }
 }

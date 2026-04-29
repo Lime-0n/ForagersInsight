@@ -172,6 +172,10 @@ public class FIBlocks {
     public static final RegistryObject<Block> SUSPICIOUS_LEAF_LITTER = HELPER.createBlock("suspicious_leaf_litter", SuspiciousLitterBlock::new);
     public static final RegistryObject<Block> HOLLOW_LOG = HELPER.createFuelBlock("hollow_log", () ->
             new HollowLogBlock(copy(Blocks.OAK_LOG).noOcclusion()), 300);
+    public static final RegistryObject<Block> CONDENSED_DIRT = HELPER.createBlock("condensed_dirt", () ->
+            new ShallowBlock(copy(Blocks.DIRT).noOcclusion()));
+    public static final RegistryObject<Block> CONDENSED_SAND = HELPER.createBlock("condensed_sand", () ->
+            new ShallowBlock(copy(Blocks.SAND).noOcclusion()));
 
 
     //STORAGE
