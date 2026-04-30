@@ -1,0 +1,7 @@
+{
+  "parent": "foragersinsight:block/shallow_block",
+  "textures": {
+    "all": "minecraft:block/sand",
+    "particle": "minecraft:block/sand"
+  }
+}
