@@ -29,6 +29,7 @@ public class FIPlacedFeatures {
     public static final ResourceKey<PlacedFeature> ROSELLE_PATCH_PLACED_KEY = registerKey("roselle_patch_placed");
     public static final ResourceKey<PlacedFeature> BEACH_ROSE_PATCH_PLACED_KEY = registerKey("beach_rose_patch_placed");
     public static final ResourceKey<PlacedFeature> WOODLAND_FERN_PATCH_PLACED_KEY = registerKey("woodland_fern_patch_placed");
+    public static final ResourceKey<PlacedFeature> PHLOX_PATCH_PLACED_KEY = registerKey("phlox_patch_placed");
 
     public static final ResourceKey<PlacedFeature> OAK_SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY = registerKey("oak_suspicious_leaf_litter_patch_placed");
     public static final ResourceKey<PlacedFeature> BIRCH_SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY = registerKey("birch_suspicious_leaf_litter_patch_placed");
@@ -86,6 +87,9 @@ public class FIPlacedFeatures {
         register(context, WOODLAND_FERN_PATCH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.OAK_FERN_PATCH_KEY),
                 List.of(RarityFilter.onAverageOnceEvery(12), InSquarePlacement.spread(), HeightmapPlacement
                         .onHeightmap(Heightmap.Types.MOTION_BLOCKING), BiomeFilter.biome(), BiomeTagFilter.biomeIsInTag(FITags.BiomeTag.HAS_OAK_FERNS)));
+        register(context, PHLOX_PATCH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.PHLOX_PATCH_KEY),
+                List.of(RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(), HeightmapPlacement
+                        .onHeightmap(Heightmap.Types.MOTION_BLOCKING), BiomeFilter.biome()));
 
         //Forest Litter
         register(context, OAK_SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.OAK_SUSPICIOUS_LEAF_LITTER_PATCH_KEY),

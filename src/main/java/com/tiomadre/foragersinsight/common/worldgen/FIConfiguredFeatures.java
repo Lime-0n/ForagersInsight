@@ -48,6 +48,7 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlac
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
+import net.minecraft.world.level.block.PinkPetalsBlock;
 
 import java.util.OptionalInt;
 import java.util.function.Supplier;
@@ -70,6 +71,8 @@ public class FIConfiguredFeatures {
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> ROSELLE_BUSH_PATCH_KEY = registerKey("patch_roselle_bush");
     public static final ResourceKey<ConfiguredFeature<?, ?>> BEACH_ROSE_PATCH_KEY = registerKey("patch_beach_rose");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PHLOX_PATCH_KEY = registerKey("patch_phlox");
+
     public static final ResourceKey<ConfiguredFeature<?, ?>> OAK_SUSPICIOUS_LEAF_LITTER_PATCH_KEY = registerKey("oak_suspicious_leaf_litter_patch");
     public static final ResourceKey<ConfiguredFeature<?, ?>> BIRCH_SUSPICIOUS_LEAF_LITTER_PATCH_KEY = registerKey("birch_suspicious_leaf_litter_patch");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SPRUCE_SUSPICIOUS_LEAF_LITTER_PATCH_KEY = registerKey("spruce_suspicious_leaf_litter_patch");
@@ -162,7 +165,7 @@ public class FIConfiguredFeatures {
                 new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(WOODLANDS_DARK_OAK_TREE_KEY)), 0.13F),
                 new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(WOODLANDS_OAK_SHRUB_KEY)), 0.12F)),
                 PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(YOUNG_DARK_OAK_TREE_KEY))));
-    //Other
+        //Other Patches
         Holder<PlacedFeature> oakFernPatch = PlacementUtils.inlinePlaced(
                 Feature.SIMPLE_BLOCK,
                 new SimpleBlockConfiguration(BlockStateProvider.simple(FIBlocks.WOODLAND_FERN.get().defaultBlockState())),
@@ -205,6 +208,21 @@ public class FIConfiguredFeatures {
                         BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.SAND))));
         register(context, BEACH_ROSE_PATCH_KEY, Feature.RANDOM_PATCH,
                 new RandomPatchConfiguration(48, 5, 2, beachRosePatch));
+
+        Holder<PlacedFeature> phloxPatch = PlacementUtils.inlinePlaced(
+                Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                        .add(FIBlocks.PHLOX.get().defaultBlockState().setValue(PinkPetalsBlock.AMOUNT, 1), 1)
+                        .add(FIBlocks.PHLOX.get().defaultBlockState().setValue(PinkPetalsBlock.AMOUNT, 2), 1)
+                        .add(FIBlocks.PHLOX.get().defaultBlockState().setValue(PinkPetalsBlock.AMOUNT, 3), 1)
+                        .add(FIBlocks.PHLOX.get().defaultBlockState().setValue(PinkPetalsBlock.AMOUNT, 4), 1)
+                        .build())),
+                BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
+                        BlockPredicate.replaceable(),
+                        BlockPredicate.not(BlockPredicate.matchesFluids(Fluids.WATER)),
+                        BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.DIRT))));
+        register(context, PHLOX_PATCH_KEY, Feature.RANDOM_PATCH,
+                new RandomPatchConfiguration(48, 7, 3, phloxPatch));
+
         //Suspicious Litter
         register(context, OAK_SUSPICIOUS_LEAF_LITTER_PATCH_KEY, Feature.RANDOM_PATCH,
                 suspiciousLitterPatchConfiguration(SuspiciousLitterBlock.FoliageType.OAK));

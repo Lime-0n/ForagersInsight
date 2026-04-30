@@ -154,6 +154,8 @@ public class FILoot extends LootTableProvider {
                                             LootPool.lootPool())));
             this.dropSelf(WOODLAND_FERN.get());
             this.dropSelf(GHOST_PIPE.get());
+            this.dropSelf(PHLOX.get());
+
             //Other
             this.add(HOLLOW_LOG.get(), block -> this.applyExplosionDecay(block, LootTable.lootTable()
                     .withPool(LootPool.lootPool()

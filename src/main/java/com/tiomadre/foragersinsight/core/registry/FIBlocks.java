@@ -47,6 +47,8 @@ public class FIBlocks {
             copy(Blocks.WHEAT), 3));
     public static final RegistryObject<Block> ROSELLE_CROP = HELPER.createBlockNoItem("roselle_crop", () -> new RoselleCropBlock(
             copy(Blocks.WHEAT), 3));
+    public static final RegistryObject<Block> PHLOX = HELPER.createBlock("phlox", () ->
+            new PinkPetalsBlock(copy(Blocks.PINK_PETALS)));
 
     //Mushrooms
     public static final RegistryObject<Block> BLEWIT_MUSHROOM_COLONY = HELPER.createBlock("blewit_mushroom_colony", () ->

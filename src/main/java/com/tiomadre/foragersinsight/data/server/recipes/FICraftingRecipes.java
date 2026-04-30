@@ -133,6 +133,10 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .requires(GHOST_PIPE_ITEM.get())
                 .unlockedBy("has_rose_petals", has(GHOST_PIPE_ITEM.get()))
                 .save(consumer, ForagersInsight.rl("white_dye_from_ghost_pipe"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.LIGHT_BLUE_DYE)
+                .requires(FIBlocks.PHLOX.get())
+                .unlockedBy("has_phlox", has(FIBlocks.PHLOX.get()))
+                .save(consumer, ForagersInsight.rl("light_blue_dye_from_phlox"));
         //Seed Milk
             //Bucket of Seed Milk -> Bottles
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, SEED_MILK_BOTTLE.get(),4)
