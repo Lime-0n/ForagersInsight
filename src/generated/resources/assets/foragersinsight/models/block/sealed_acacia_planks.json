@@ -78,6 +78,7 @@
       ]
     }
   ],
+  "render_type": "minecraft:translucent",
   "textures": {
     "all": "minecraft:block/acacia_planks",
     "overlay": "foragersinsight:block/overlay/birch_sap_planks_overlay"

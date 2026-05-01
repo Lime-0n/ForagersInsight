@@ -78,6 +78,7 @@
       ]
     }
   ],
+  "render_type": "minecraft:translucent",
   "textures": {
     "all": "minecraft:block/bamboo_planks",
     "overlay": "foragersinsight:block/overlay/birch_sap_bamboo_overlay"

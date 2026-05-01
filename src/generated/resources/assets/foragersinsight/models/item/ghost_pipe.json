@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "foragersinsight:block/ghost_pipe"
+    "layer0": "foragersinsight:item/ghost_pipe"
   }
 }

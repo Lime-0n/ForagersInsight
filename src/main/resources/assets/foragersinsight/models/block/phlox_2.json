@@ -1,8 +1,7 @@
 {
-	"format_version": "1.9.0",
-	"credit": "Made with Blockbench",
+	"render_type": "cutout",
 	"textures": {
-		"1": "phlox"
+		"1": "foragersinsight:block/phlox"
 	},
 	"elements": [
 		{

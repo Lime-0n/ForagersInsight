@@ -2,7 +2,6 @@ package com.tiomadre.foragersinsight.core.mixin;
 
 import com.tiomadre.foragersinsight.common.block.HollowLogBlock;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -43,7 +42,7 @@ public class MushroomOnHollowLogMixin {
     }
 
     private static boolean foragersInsight$canUseHollowLogSupport(LevelReader level, BlockPos pos) {
-        return HollowLogBlock.MushroomPlacement(level.getBlockState(pos.below()), Direction.UP);
+        return HollowLogBlock.canSupportMushroomAt(level, pos);
     }
 
     private static BlockState foragersInsight$getColonyState(BlockState mushroomState) {

@@ -3,6 +3,8 @@ package com.tiomadre.foragersinsight.core.other;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -50,9 +52,11 @@ public class BirchSapSealingEvents {
         if (sealed == null) {
             return;
         }
+        event.getEntity().swing(InteractionHand.MAIN_HAND, true);
 
         if (!event.getLevel().isClientSide) {
             event.getLevel().setBlock(event.getPos(), sealed.defaultBlockState(), 3);
+            event.getLevel().playSound(null, event.getPos(), SoundEvents.BEEHIVE_DRIP, SoundSource.BLOCKS, 1.1F, 0.0001F);
             mainHand.hurtAndBreak(1, event.getEntity(), p -> p.broadcastBreakEvent(InteractionHand.MAIN_HAND));
             if (mainHand.isEmpty()) {
                 event.getEntity().setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.BRUSH));

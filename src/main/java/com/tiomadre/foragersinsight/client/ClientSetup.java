@@ -15,7 +15,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 import net.minecraft.world.level.FoliageColor;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraftforge.api.distmarker.Dist;
@@ -102,13 +101,7 @@ public class ClientSetup {
                     if (level == null || pos == null) {
                         return FoliageColor.getDefaultColor();
                     }
-                    int grass = BiomeColors.getAverageGrassColor(level, pos);
-                    int foliage = BiomeColors.getAverageFoliageColor(level, pos);
-                    float blend = 0.5F;
-                    int r = Mth.floor(Mth.lerp(blend, (grass >> 16) & 255, (foliage >> 16) & 255));
-                    int g = Mth.floor(Mth.lerp(blend, (grass >> 8) & 255, (foliage >> 8) & 255));
-                    int b = Mth.floor(Mth.lerp(blend, grass & 255, foliage & 255));
-                    return (r << 16) | (g << 8) | b;
+                    return BiomeColors.getAverageGrassColor(level, pos);
                 },
                 FIBlocks.WOODLAND_FERN.get()
         );
