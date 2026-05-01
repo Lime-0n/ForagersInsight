@@ -27,6 +27,7 @@ public class FIClientCompat {
         List<RegistryObject<Block>> genericFoliage = new ArrayList<>();
         genericFoliage.add(FIBlocks.BOUNTIFUL_OAK_LEAVES);
         genericFoliage.add(FIBlocks.BOUNTIFUL_DARK_OAK_LEAVES);
+        genericFoliage.add(FIBlocks.WOODLAND_FERN);
 
         List<RegistryObject<Block>> lilacLeaves = new ArrayList<>();
         lilacLeaves.add(FIBlocks.LILAC_LEAVES);
