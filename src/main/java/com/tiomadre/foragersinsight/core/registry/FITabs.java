@@ -37,6 +37,7 @@ public class FITabs {
             FIBlocks.BOUNTIFUL_SPRUCE_LEAVES,
             FIBlocks.BLOSSOMING_LILAC_LEAVES,
             FIBlocks.LILAC_LEAVES,
+
             FIBlocks.APPLE_CRATE,
             FIBlocks.BLEWIT_CRATE,
             FIBlocks.LILAC_BLOOM_CRATE,
@@ -46,6 +47,7 @@ public class FITabs {
             FIBlocks.ROSE_HIP_SACK,
             FIBlocks.ROSELLE_CALYX_SACK,
             FIBlocks.SPRUCE_TIPS_SACK,
+
             FIBlocks.DENSE_LILAC_BLOOM_MAT,
             FIBlocks.DENSE_ROSE_PETAL_MAT,
             FIBlocks.DENSE_ROSELLE_PETAL_MAT,
@@ -56,15 +58,19 @@ public class FITabs {
             FIBlocks.SCATTERED_ROSELLE_PETAL_MAT,
             FIBlocks.SCATTERED_SPRUCE_TIP_MAT,
             FIBlocks.SCATTERED_STRAW_MAT,
-            FIBlocks.HOLLOW_LOG,
-            FIBlocks.SUSPICIOUS_LEAF_LITTER,
+
             FIBlocks.BLEWIT_MUSHROOM,
             FIBlocks.BLEWIT_MUSHROOM_COLONY,
+            FIItems.GHOST_PIPE_ITEM,
             FIItems.ROSELLE_BUSH_ITEM,
             FIItems.STOUT_BEACH_ROSE_BUSH_ITEM,
             FIItems.TALL_BEACH_ROSE_BUSH_ITEM,
-            FIItems.GHOST_PIPE_ITEM,
-            FIItems.WOODLAND_FERN_ITEM
+            FIItems.WOODLAND_FERN_ITEM,
+
+            FIBlocks.CONDENSED_DIRT,
+            FIBlocks.CONDENSED_SAND,
+            FIBlocks.HOLLOW_LOG,
+            FIBlocks.SUSPICIOUS_LEAF_LITTER
 
 
     );

@@ -41,16 +41,37 @@ public class MushroomOnHollowLogMixin {
         ci.cancel();
     }
 
+    @Inject(method = "randomTick", at = @At("HEAD"))
+    private void foragersInsight$naturalColonyProgressionOnHollowLogs(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo ci) {
+        if (!foragersInsight$canUseHollowLogSupport(level, pos)) {
+            return;
+        }
+
+        BlockState colonyState = foragersInsight$getColonyState(state);
+        if (colonyState == null || !colonyState.canSurvive(level, pos)) {
+            return;
+        }
+
+        level.setBlock(pos, colonyState, Block.UPDATE_ALL);
+    }
+
     private static boolean foragersInsight$canUseHollowLogSupport(LevelReader level, BlockPos pos) {
         return HollowLogBlock.canSupportMushroomAt(level, pos);
     }
 
     private static BlockState foragersInsight$getColonyState(BlockState mushroomState) {
+        ResourceLocation mushroomId = BuiltInRegistries.BLOCK.getKey(mushroomState.getBlock());
+        if (mushroomId == null) {
+            return null;
+        }
+
         ResourceLocation colonyId;
         if (mushroomState.is(Blocks.RED_MUSHROOM)) {
             colonyId = new ResourceLocation("farmersdelight", "red_mushroom_colony");
         } else if (mushroomState.is(Blocks.BROWN_MUSHROOM)) {
             colonyId = new ResourceLocation("farmersdelight", "brown_mushroom_colony");
+        } else if (mushroomId.getPath().endsWith("_mushroom")) {
+            colonyId = new ResourceLocation(mushroomId.getNamespace(), mushroomId.getPath() + "_colony");
         } else {
             return null;
         }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cross",
-  "render_type": "minecraft:translucent",
+  "render_type": "minecraft:cutout_mipped",
   "textures": {
     "cross": "foragersinsight:block/ghost_pipe"
   }
