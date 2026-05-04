@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_sealed_mangrove_planks": {
+    "has_birch_sap_bottle": {
       "conditions": {
         "items": [
           {
             "items": [
-              "foragersinsight:sealed_mangrove_planks"
+              "foragersinsight:birch_sap_bottle"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "foragersinsight:mangrove_planks_from_sealed"
+        "recipe": "foragersinsight:sealed_planks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_sealed_mangrove_planks",
+      "has_birch_sap_bottle",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "foragersinsight:mangrove_planks_from_sealed"
+      "foragersinsight:sealed_planks"
     ]
   },
   "sends_telemetry_event": false

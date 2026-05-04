@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "foragersinsight:block/sealed_bamboo_planks"
+    "all": "foragersinsight:block/sealed_planks"
   }
 }

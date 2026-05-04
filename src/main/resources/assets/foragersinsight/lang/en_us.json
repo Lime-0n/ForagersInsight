@@ -136,18 +136,9 @@
   "block.foragersinsight.lilac_hanging_sign": "Lilac Hanging Sign",
   "block.foragersinsight.lilac_wall_hanging_sign": "Lilac Wall Hanging Sign",
   "block.foragersinsight.lilac_cabinet": "Lilac Cabinet",
-  "block.foragersinsight.sealed_oak_planks": "Sealed Oak Planks",
-  "block.foragersinsight.sealed_spruce_planks": "Sealed Spruce Planks",
-  "block.foragersinsight.sealed_birch_planks": "Sealed Birch Planks",
-  "block.foragersinsight.sealed_jungle_planks": "Sealed Jungle Planks",
-  "block.foragersinsight.sealed_acacia_planks": "Sealed Acacia Planks",
-  "block.foragersinsight.sealed_dark_oak_planks": "Sealed Dark Oak Planks",
-  "block.foragersinsight.sealed_mangrove_planks": "Sealed Mangrove Planks",
-  "block.foragersinsight.sealed_cherry_planks": "Sealed Cherry Planks",
+  "block.foragersinsight.sealed_planks": "Sealed Planks",
   "block.foragersinsight.sealed_bamboo_planks": "Sealed Bamboo Planks",
-  "block.foragersinsight.sealed_crimson_planks": "Sealed Crimson Planks",
-  "block.foragersinsight.sealed_warped_planks": "Sealed Warped Planks",
-  "block.foragersinsight.sealed_lilac_planks": "Sealed Lilac Planks",
+
 
   "block.foragersinsight.apple_crate": "Apple Crate",
   "block.foragersinsight.blewit_mushroom_crate": "Blewit Crate",
@@ -169,12 +160,6 @@
   "block.foragersinsight.scattered_roselle_petals": "Scattered Roselle Petals",
   "block.foragersinsight.scattered_lilac_blooms": "Scattered Lilac Blooms",
   "block.foragersinsight.scattered_spruce_tips": "Scattered Spruce Tips",
-
-  "foragersinsight.flavortext.dandelion_root_tea": "A curative tisane made from dandelion roots.",
-  "foragersinsight.flavortext.forest_elixir": "A coniferous drink made of syrup and spruce tips.",
-  "foragersinsight.flavortext.rose_cordial": "A healing tea made from floral rose petals.",
-  "foragersinsight.flavortext.roselle_juice": "A tart infusion reminiscent of sour fruits.",
-  "foragersinsight.flavortext.seed_milk_bucket": "A bucket of milk derived from various seeds.",
 
   "effect.foragersinsight.bloom": "Bloom",
   "effect.foragersinsight.chilled": "Chilled",

@@ -9,7 +9,6 @@ public class FIConfig {
     public static class Common {
 
         @ConfigKey("config")
-        public final ForgeConfigSpec.BooleanValue enableFlavorText;
         public final ForgeConfigSpec.DoubleValue xpGlobalMultiplier;
         public final ForgeConfigSpec.BooleanValue enableCropHarvestXP;
         public final ForgeConfigSpec.BooleanValue enableForagingXP;
@@ -20,13 +19,6 @@ public class FIConfig {
 
 
         public Common(ForgeConfigSpec.Builder builder) {
-
-
-            // Flavor Text Tooltips
-            builder.push("Flavor Text");
-            this.enableFlavorText = builder.comment("Enable Flavor Text tooltips.")
-                    .define("Flavor Text", false);
-            builder.pop();
 
             // Farming + Foraging Multiplier
             builder.push("Farming & Foraging XP");
@@ -78,7 +70,4 @@ public class FIConfig {
         COMMON = pair.getLeft();
     }
 
-    public static boolean isFlavorTextEnabled() {
-        return COMMON.enableFlavorText.get();
-    }
 }

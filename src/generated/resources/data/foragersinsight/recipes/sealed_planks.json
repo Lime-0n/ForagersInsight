@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "P": {
-      "item": "minecraft:jungle_planks"
+      "tag": "minecraft:planks"
     },
     "S": {
       "item": "foragersinsight:birch_sap_bottle"
@@ -16,7 +16,7 @@
   ],
   "result": {
     "count": 8,
-    "item": "foragersinsight:sealed_jungle_planks"
+    "item": "foragersinsight:sealed_planks"
   },
   "show_notification": true
 }

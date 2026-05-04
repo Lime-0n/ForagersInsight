@@ -4,9 +4,7 @@ import com.tiomadre.foragersinsight.common.block.BountifulLeavesBlock;
 import com.tiomadre.foragersinsight.common.block.SuspiciousLitterBlock;
 import com.tiomadre.foragersinsight.common.worldgen.trees.decorator.BountifulOakLeafDecorator;
 import com.tiomadre.foragersinsight.common.worldgen.trees.decorator.BountifulSpruceTipDecorator;
-import com.tiomadre.foragersinsight.common.worldgen.trees.decorator.WoodlandsDarkOakStemDecorator;
 import com.tiomadre.foragersinsight.common.worldgen.trees.foliage.LilacTreeFoliagePlacer;
-import com.tiomadre.foragersinsight.common.worldgen.trees.foliage.WoodlandsDarkOakFoliagePlacer;
 import com.tiomadre.foragersinsight.common.worldgen.trees.foliage.WoodlandsOakShrubFoliagePlacer;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
@@ -17,6 +15,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.random.SimpleWeightedRandomList;
@@ -58,7 +57,6 @@ public class FIConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ACORN_TREE_KEY = registerKey("acorn_dark_oak");
     public static final ResourceKey<ConfiguredFeature<?, ?>> YOUNG_ACORN_TREE_KEY = registerKey("young_acorn_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> YOUNG_DARK_OAK_TREE_KEY = registerKey("young_dark_oak_tree");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> WOODLANDS_DARK_OAK_TREE_KEY = registerKey("woodlands_dark_oak_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> LILAC_TREE_KEY = registerKey("lilac_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SPRUCE_TIP_TREE_KEY = registerKey("spruce_tip_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SAPPY_BIRCH_TREE_KEY = registerKey("sappy_birch_tree");
@@ -151,18 +149,11 @@ public class FIConfiguredFeatures {
                 new WoodlandsOakShrubFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
                 new TwoLayersFeatureSize(1, 0, 1)
         ).ignoreVines().build());
-        register(context, WOODLANDS_DARK_OAK_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
-                BlockStateProvider.simple(Blocks.DARK_OAK_LOG),
-                new StraightTrunkPlacer(6, 2, 1),
-                BlockStateProvider.simple(Blocks.DARK_OAK_LEAVES),
-                new WoodlandsDarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
-                new TwoLayersFeatureSize(1, 0, 1)
-        ).decorators(java.util.List.of(new WoodlandsDarkOakStemDecorator())).ignoreVines().build());
         register(context, DARK_OAK_BUSH_KEY, FIBiomeFeatures.DARK_OAK_BUSH.get(), NoneFeatureConfiguration.INSTANCE);
         register(context, DARK_WOODLANDS_TREES_KEY, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(java.util.List.of(
-                new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(YOUNG_DARK_OAK_TREE_KEY)), 0.60F),
+                new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(YOUNG_DARK_OAK_TREE_KEY)), 0.66F),
                 new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(YOUNG_ACORN_TREE_KEY)), 0.15F),
-                new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(WOODLANDS_DARK_OAK_TREE_KEY)), 0.13F),
+                new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(TreeFeatures.DARK_OAK)), 0.07F),
                 new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(WOODLANDS_OAK_SHRUB_KEY)), 0.12F)),
                 PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(YOUNG_DARK_OAK_TREE_KEY))));
         //Other Patches

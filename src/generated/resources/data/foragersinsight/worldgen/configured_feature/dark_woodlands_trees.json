@@ -7,7 +7,7 @@
     },
     "features": [
       {
-        "chance": 0.6,
+        "chance": 0.66,
         "feature": {
           "feature": "foragersinsight:young_dark_oak_tree",
           "placement": []
@@ -21,9 +21,9 @@
         }
       },
       {
-        "chance": 0.13,
+        "chance": 0.07,
         "feature": {
-          "feature": "foragersinsight:woodlands_dark_oak_tree",
+          "feature": "minecraft:dark_oak",
           "placement": []
         }
       },

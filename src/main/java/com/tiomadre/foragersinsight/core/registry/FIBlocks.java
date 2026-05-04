@@ -115,30 +115,10 @@ public class FIBlocks {
     public static final RegistryObject<CabinetBlock> LILAC_CABINET = HELPER.createBlock("lilac_cabinet", () ->
             new CabinetBlock(copy(ModBlocks.OAK_CABINET.get())));
         //Sealed Planks
-    public static final RegistryObject<Block> SEALED_OAK_PLANKS = HELPER.createBlock("sealed_oak_planks", () ->
-                new Block(copy(Blocks.OAK_PLANKS)));
-    public static final RegistryObject<Block> SEALED_SPRUCE_PLANKS = HELPER.createBlock("sealed_spruce_planks", () ->
-            new Block(copy(Blocks.SPRUCE_PLANKS)));
-    public static final RegistryObject<Block> SEALED_BIRCH_PLANKS = HELPER.createBlock("sealed_birch_planks", () ->
-            new Block(copy(Blocks.BIRCH_PLANKS)));
-    public static final RegistryObject<Block> SEALED_JUNGLE_PLANKS = HELPER.createBlock("sealed_jungle_planks", () ->
-            new Block(copy(Blocks.JUNGLE_PLANKS)));
-    public static final RegistryObject<Block> SEALED_ACACIA_PLANKS = HELPER.createBlock("sealed_acacia_planks", () ->
-            new Block(copy(Blocks.ACACIA_PLANKS)));
-    public static final RegistryObject<Block> SEALED_DARK_OAK_PLANKS = HELPER.createBlock("sealed_dark_oak_planks", () ->
-            new Block(copy(Blocks.DARK_OAK_PLANKS)));
-    public static final RegistryObject<Block> SEALED_MANGROVE_PLANKS = HELPER.createBlock("sealed_mangrove_planks", () ->
-            new Block(copy(Blocks.MANGROVE_PLANKS)));
-    public static final RegistryObject<Block> SEALED_CHERRY_PLANKS = HELPER.createBlock("sealed_cherry_planks", () ->
-            new Block(copy(Blocks.CHERRY_PLANKS)));
+        public static final RegistryObject<Block> SEALED_PLANKS = HELPER.createBlock("sealed_planks", () ->
+                new Block(copy(Blocks.OAK_PLANKS).ignitedByLava()));
     public static final RegistryObject<Block> SEALED_BAMBOO_PLANKS = HELPER.createBlock("sealed_bamboo_planks", () ->
-            new Block(copy(Blocks.BAMBOO_PLANKS)));
-    public static final RegistryObject<Block> SEALED_CRIMSON_PLANKS = HELPER.createBlock("sealed_crimson_planks", () ->
-            new Block(copy(Blocks.CRIMSON_PLANKS)));
-    public static final RegistryObject<Block> SEALED_WARPED_PLANKS = HELPER.createBlock("sealed_warped_planks", () ->
-            new Block(copy(Blocks.WARPED_PLANKS)));
-    public static final RegistryObject<Block> SEALED_LILAC_PLANKS = HELPER.createBlock("sealed_lilac_planks", () ->
-            new Block(copy(Blocks.OAK_PLANKS)));
+            new Block(copy(Blocks.BAMBOO_PLANKS).ignitedByLava()));
 
 
         //Syrup Tap

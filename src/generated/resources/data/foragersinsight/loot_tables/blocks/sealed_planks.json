@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "foragersinsight:sealed_spruce_planks"
+          "name": "foragersinsight:sealed_planks"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "foragersinsight:blocks/sealed_spruce_planks"
+  "random_sequence": "foragersinsight:blocks/sealed_planks"
 }
