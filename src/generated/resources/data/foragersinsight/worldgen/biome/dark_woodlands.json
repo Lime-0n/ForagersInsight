@@ -86,7 +86,8 @@
       "minecraft:patch_tall_grass",
       "minecraft:patch_grass_normal",
       "foragersinsight:dark_woodlands_suspicious_leaf_litter_patch_placed",
-      "foragersinsight:phlox_patch_placed"
+      "foragersinsight:phlox_patch_placed",
+      "minecraft:forest_flowers"
     ],
     [
       "minecraft:freeze_top_layer"

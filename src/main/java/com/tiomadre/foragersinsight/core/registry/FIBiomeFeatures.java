@@ -2,6 +2,7 @@ package com.tiomadre.foragersinsight.core.registry;
 
 import com.tiomadre.foragersinsight.common.worldgen.feature.DarkOakBushFeature;
 import com.tiomadre.foragersinsight.common.worldgen.feature.FallenTreeFeature;
+import com.tiomadre.foragersinsight.common.worldgen.feature.PuddleFeature;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
@@ -19,6 +20,10 @@ public class FIBiomeFeatures {
 
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> FALLEN_TREES =
             FEATURES.register("fallen_trees", () -> new FallenTreeFeature(NoneFeatureConfiguration.CODEC));
+
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> PUDDLE =
+            FEATURES.register("puddle", () -> new PuddleFeature(NoneFeatureConfiguration.CODEC));
+
 
     public static void register(IEventBus bus) {
         FEATURES.register(bus);

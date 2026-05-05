@@ -2,6 +2,7 @@ package com.tiomadre.foragersinsight.common.worldgen.feature;
 
 import com.mojang.serialization.Codec;
 import com.tiomadre.foragersinsight.common.block.HollowLogBlock;
+import com.tiomadre.foragersinsight.common.worldgen.FIBiomes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -77,6 +78,7 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
         }
 
         boolean placedColonyAndMushroom = placeMushroomDecorations(level, random, logTopPositions);
+        replaceGrassWithWoodlandFern(level, random, origin, placedGrassPositions);
         int ghostPipeReplacements = placedColonyAndMushroom ? 3 : 1;
         replaceGrassWithGhostPipe(level, random, placedGrassPositions, ghostPipeReplacements);
         return placed;
@@ -121,6 +123,22 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
             if (level.getBlockState(grassPos).is(Blocks.GRASS) && ghostPipeState.canSurvive(level, grassPos)) {
                 level.setBlock(grassPos, ghostPipeState, 2);
                 replaced++;
+            }
+        }
+    }
+    private static void replaceGrassWithWoodlandFern(WorldGenLevel level, RandomSource random, BlockPos origin, List<BlockPos> grassPositions) {
+        if (grassPositions.isEmpty() || !level.getBiome(origin).is(FIBiomes.DARK_WOODLANDS) || random.nextFloat() >= 0.40F) {
+            return;
+        }
+
+        List<BlockPos> shuffledGrassPositions = new ArrayList<>(grassPositions);
+        Collections.shuffle(shuffledGrassPositions, new java.util.Random(random.nextLong()));
+
+        BlockState woodlandFernState = FIBlocks.WOODLAND_FERN.get().defaultBlockState();
+        for (BlockPos grassPos : shuffledGrassPositions) {
+            if (level.getBlockState(grassPos).is(Blocks.GRASS) && woodlandFernState.canSurvive(level, grassPos)) {
+                level.setBlock(grassPos, woodlandFernState, 2);
+                return;
             }
         }
     }

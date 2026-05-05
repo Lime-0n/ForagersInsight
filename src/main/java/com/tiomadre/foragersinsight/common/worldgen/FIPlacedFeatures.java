@@ -48,6 +48,8 @@ public class FIPlacedFeatures {
     public static final ResourceKey<PlacedFeature> SPRUCE_FALLEN_TREES_PLACED_KEY = registerKey("spruce_fallen_trees_placed");
     public static final ResourceKey<PlacedFeature> DARK_OAK_FALLEN_TREES_PLACED_KEY = registerKey("dark_oak_fallen_trees_placed");
 
+    public static final ResourceKey<PlacedFeature> PUDDLE_PLACED_KEY = registerKey("puddle_placed");
+
 
     public static ResourceKey<PlacedFeature> registerKey(String name) {
         return ResourceKey.create(Registries.PLACED_FEATURE, ForagersInsight.rl(name));
@@ -84,8 +86,8 @@ public class FIPlacedFeatures {
         register(context, BEACH_ROSE_PATCH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.BEACH_ROSE_PATCH_KEY),
                 List.of(RarityFilter.onAverageOnceEvery(70), InSquarePlacement.spread(), HeightmapPlacement
                         .onHeightmap(Heightmap.Types.MOTION_BLOCKING), BiomeFilter.biome(), BiomeTagFilter.biomeIsInTag(FITags.BiomeTag.HAS_BEACH_ROSES)));
-        register(context, WOODLAND_FERN_PATCH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.OAK_FERN_PATCH_KEY),
-                List.of(RarityFilter.onAverageOnceEvery(12), InSquarePlacement.spread(), HeightmapPlacement
+        register(context, WOODLAND_FERN_PATCH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.WOODLAND_FERN_PATCH_KEY),
+                List.of(RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(), HeightmapPlacement
                         .onHeightmap(Heightmap.Types.MOTION_BLOCKING), BiomeFilter.biome(), BiomeTagFilter.biomeIsInTag(FITags.BiomeTag.HAS_OAK_FERNS)));
         register(context, PHLOX_PATCH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.PHLOX_PATCH_KEY),
                 List.of(RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(), HeightmapPlacement
@@ -126,6 +128,10 @@ public class FIPlacedFeatures {
         register(context, DARK_OAK_FALLEN_TREES_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.DARK_WOODLANDS_FALLEN_TREES_KEY),
                 List.of(RarityFilter.onAverageOnceEvery(32), InSquarePlacement.spread(), HeightmapPlacement
                         .onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES), BiomeFilter.biome(), BiomeTagFilter.biomeIsInTag(FITags.BiomeTag.HAS_DARK_OAK_FOREST_LITTER)));
+
+        register(context, PUDDLE_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.PUDDLE_KEY),
+                List.of(RarityFilter.onAverageOnceEvery(9), InSquarePlacement.spread(), HeightmapPlacement
+                        .onHeightmap(Heightmap.Types.MOTION_BLOCKING), BiomeFilter.biome(), BiomeTagFilter.biomeIsInTag(FITags.BiomeTag.HAS_PUDDLES)));
 
     }
 

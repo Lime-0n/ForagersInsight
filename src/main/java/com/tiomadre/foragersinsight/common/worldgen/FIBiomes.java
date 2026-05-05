@@ -57,6 +57,8 @@ public class FIBiomes {
                 placedFeatures.getOrThrow(FIPlacedFeatures.DARK_WOODLANDS_SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY));
         generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION,
                 placedFeatures.getOrThrow(FIPlacedFeatures.PHLOX_PATCH_PLACED_KEY));
+        generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION,
+                placedFeatures.getOrThrow(VegetationPlacements.FOREST_FLOWERS));
         context.register(DARK_WOODLANDS, new Biome.BiomeBuilder()
                 .hasPrecipitation(true)
                 .temperature(0.7F)

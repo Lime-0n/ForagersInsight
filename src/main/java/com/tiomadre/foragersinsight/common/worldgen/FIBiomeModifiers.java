@@ -36,6 +36,8 @@ public class FIBiomeModifiers {
     public static final ResourceKey<BiomeModifier> ADD_DARK_OAK_FALLEN_TREES = registerKey("add_dark_oak_fallen_trees");
     public static final ResourceKey<BiomeModifier> ADD_FLOWER_FALLEN_TREES = registerKey("add_flower_fallen_trees");
 
+    public static final ResourceKey<BiomeModifier> ADD_PUDDLES = registerKey("add_puddles");
+
     public static void bootstap(BootstapContext<BiomeModifier> context) {
         var placedFeatures = context.lookup(Registries.PLACED_FEATURE);
         var biomes = context.lookup(Registries.BIOME);
@@ -136,7 +138,13 @@ public class FIBiomeModifiers {
                 tagSet(biomes, FITags.BiomeTag.HAS_FLOWER_FOREST_LITTER),
                 HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.OAK_FALLEN_TREES_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION)
+        );  //Other
+        context.register(ADD_PUDDLES, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                tagSet(biomes, FITags.BiomeTag.HAS_PUDDLES),
+                HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.PUDDLE_PLACED_KEY)),
+                GenerationStep.Decoration.VEGETAL_DECORATION)
         );
+
     }
 
 

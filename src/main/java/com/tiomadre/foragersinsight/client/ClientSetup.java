@@ -2,6 +2,7 @@ package com.tiomadre.foragersinsight.client;
 
 import com.tiomadre.foragersinsight.client.render.blockentity.SuspiciousLitterRenderer;
 import com.tiomadre.foragersinsight.common.block.SuspiciousLitterBlock;
+import com.tiomadre.foragersinsight.common.worldgen.FIBiomes;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIBlockEntityTypes;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
@@ -17,6 +18,8 @@ import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.FoliageColor;
 import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -104,6 +107,30 @@ public class ClientSetup {
                     return BiomeColors.getAverageGrassColor(level, pos);
                 },
                 FIBlocks.WOODLAND_FERN.get()
+        );
+        event.register(
+                (state, level, pos, tintIndex) -> {
+                    if (level == null || pos == null) {
+                        return FoliageColor.getDefaultColor();
+                    }
+
+                    int grassColor = BiomeColors.getAverageGrassColor(level, pos);
+                    if (!(level instanceof LevelReader levelReader) || !levelReader.getBiome(pos).is(FIBiomes.DARK_WOODLANDS)) {
+                        return grassColor;
+                    }
+
+                    int red = (grassColor >> 16) & 0xFF;
+                    int green = (grassColor >> 8) & 0xFF;
+                    int blue = grassColor & 0xFF;
+
+                    red = (int) (red * 0.85F);
+                    green = (int) (green * 0.85F);
+                    blue = (int) (blue * 0.85F);
+
+                    return (red << 16) | (green << 8) | blue;
+                },
+                Blocks.GRASS,
+                Blocks.TALL_GRASS
         );
     }
 

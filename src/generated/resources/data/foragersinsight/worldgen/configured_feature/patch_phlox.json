@@ -16,7 +16,7 @@
                     "flower_amount": "1"
                   }
                 },
-                "weight": 1
+                "weight": 2
               },
               {
                 "data": {
@@ -44,6 +44,15 @@
                   "Properties": {
                     "facing": "north",
                     "flower_amount": "4"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "foragersinsight:woodland_fern",
+                  "Properties": {
+                    "snowy": "false"
                   }
                 },
                 "weight": 1
@@ -82,7 +91,7 @@
         }
       ]
     },
-    "tries": 48,
+    "tries": 64,
     "xz_spread": 7,
     "y_spread": 3
   }
