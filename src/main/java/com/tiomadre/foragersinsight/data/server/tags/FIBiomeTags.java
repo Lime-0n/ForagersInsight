@@ -22,10 +22,9 @@ public class FIBiomeTags extends BiomeTagsProvider {
         this.tag(FITags.BiomeTag.HAS_ROSELLE_BUSHES).add(Biomes.SAVANNA,Biomes.SAVANNA_PLATEAU,Biomes.WINDSWEPT_SAVANNA);
         this.tag(FITags.BiomeTag.HAS_BEACH_ROSES).add(Biomes.BEACH);
         this.tag(FITags.BiomeTag.HAS_OAK_FERNS).add(Biomes.FOREST, Biomes.DARK_FOREST).addOptional(ForagersInsight.rl("dark_woodlands"));
-        this.tag(FITags.BiomeTag.HAS_GHOST_PIPE).addOptional(ForagersInsight.rl("dark_woodlands"));
         this.tag(FITags.BiomeTag.HAS_PUDDLES).addOptional(ForagersInsight.rl("dark_woodlands"));
 
-        //Suspicious Litter + Fallen Logs (since they use the same tag for biome relevance)
+        //Suspicious Litter + Fallen Logs
         this.tag(FITags.BiomeTag.HAS_OAK_FOREST_LITTER).add(Biomes.FOREST);
         this.tag(FITags.BiomeTag.HAS_BIRCH_FOREST_LITTER).add(Biomes.BIRCH_FOREST,Biomes.OLD_GROWTH_BIRCH_FOREST);
         this.tag(FITags.BiomeTag.HAS_SPRUCE_FOREST_LITTER).add(Biomes.TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA);

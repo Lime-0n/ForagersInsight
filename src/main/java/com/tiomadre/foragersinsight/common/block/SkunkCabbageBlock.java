@@ -1,0 +1,39 @@
+package com.tiomadre.foragersinsight.common.block;
+
+import com.tiomadre.foragersinsight.core.registry.FIMobEffects;
+import com.tiomadre.foragersinsight.core.registry.FIParticleTypes;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.state.BlockState;
+
+public class SkunkCabbageBlock extends BushBlock {
+    private static final int ODOROUS_DURATION_TICKS = 80;
+
+    public SkunkCabbageBlock(Properties properties) {
+        super(properties);
+    }
+
+    @Override
+    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+        super.entityInside(state, level, pos, entity);
+        if (!(entity instanceof LivingEntity livingEntity) || level.isClientSide()) {
+            return;
+        }
+
+        livingEntity.addEffect(new MobEffectInstance(FIMobEffects.ODOROUS.get(), ODOROUS_DURATION_TICKS, 0, false, true, true));
+
+        if (level instanceof ServerLevel serverLevel) {
+            RandomSource random = serverLevel.random;
+            double x = pos.getX() + 0.5D + (random.nextDouble() - 0.5D) * 0.4D;
+            double y = pos.getY() + 0.2D + random.nextDouble() * 0.5D;
+            double z = pos.getZ() + 0.5D + (random.nextDouble() - 0.5D) * 0.4D;
+            serverLevel.sendParticles(FIParticleTypes.FOUL_SCENT.get(), x, y, z, 2, 0.05D, 0.08D, 0.05D, 0.01D);
+        }
+    }
+}

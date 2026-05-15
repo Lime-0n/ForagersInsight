@@ -66,6 +66,7 @@ public class FITabs {
             FIItems.STOUT_BEACH_ROSE_BUSH_ITEM,
             FIItems.TALL_BEACH_ROSE_BUSH_ITEM,
             FIItems.WOODLAND_FERN_ITEM,
+            FIItems.SKUNK_CABBAGE_ITEM,
 
             FIBlocks.CONDENSED_DIRT,
             FIBlocks.CONDENSED_SAND,

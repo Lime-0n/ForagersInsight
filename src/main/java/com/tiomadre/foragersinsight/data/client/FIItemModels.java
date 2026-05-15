@@ -56,7 +56,7 @@ public class FIItemModels extends BlueprintItemModelProvider {
                 //Foraged
                 BLEWIT_MUSHROOM,
                 //Wildflowers + Plants
-                ROSELLE_BUSH_ITEM,STOUT_BEACH_ROSE_BUSH_ITEM,TALL_BEACH_ROSE_BUSH_ITEM, WOODLAND_FERN_ITEM,
+                ROSELLE_BUSH_ITEM,STOUT_BEACH_ROSE_BUSH_ITEM,TALL_BEACH_ROSE_BUSH_ITEM, WOODLAND_FERN_ITEM, SKUNK_CABBAGE_ITEM,
                 //Tools and Workstations
                 HANDBASKET, FLINT_MALLET, IRON_MALLET, GOLD_MALLET, DIAMOND_MALLET, NETHERITE_MALLET, FLINT_SHEARS, TAPPER, SAPPY_BRUSH,
                 //Wood Items

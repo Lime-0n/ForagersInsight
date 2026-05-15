@@ -25,26 +25,24 @@ public class PuddleFeature extends Feature<NoneFeatureConfiguration> {
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
         WorldGenLevel level = context.level();
         RandomSource random = context.random();
-        BlockPos origin = context.origin();
-
-        int radiusX = 2 + random.nextInt(3);
-        int radiusZ = 2 + random.nextInt(3);
-        float edgeNoise = 0.70F + (random.nextFloat() * 0.40F);
+        BlockPos origin = context.origin().below();
 
         List<BlockPos> puddleBlocks = new ArrayList<>();
-        List<BlockPos> perimeter = new ArrayList<>();
+        List<BlockPos> borderBlocks = new ArrayList<>();
 
-        for (int x = -radiusX - 1; x <= radiusX + 1; x++) {
-            for (int z = -radiusZ - 1; z <= radiusZ + 1; z++) {
-                float normX = (float) x / radiusX;
-                float normZ = (float) z / radiusZ;
-                float dist = (normX * normX) + (normZ * normZ);
-
-                float noise = (Math.abs((x * 31 + z * 17) % 11) / 20.0F) + (random.nextFloat() * 0.18F);
-                boolean inside = dist <= (edgeNoise + noise);
-
+        for (int x = -2; x <= 1; x++) {
+            for (int z = -2; z <= 1; z++) {
                 BlockPos currentPos = origin.offset(x, 0, z);
-                if (inside && canPlacePuddle(level, currentPos)) {
+                if (!canPlacePuddle(level, currentPos)) {
+                    return false;
+                }
+
+                float normX = (x + 0.5F) / 1.6F;
+                float normZ = (z + 0.5F) / 1.6F;
+                float distance = (normX * normX) + (normZ * normZ);
+                float noise = random.nextFloat() * 0.35F;
+
+                if (distance <= 0.95F + noise) {
                     puddleBlocks.add(currentPos);
                 }
             }
@@ -54,27 +52,38 @@ public class PuddleFeature extends Feature<NoneFeatureConfiguration> {
             return false;
         }
 
-        BlockState puddleState = FIBlocks.CONDENSED_DIRT.get().defaultBlockState().setValue(ShallowBlock.WATERLOGGED, true);
-        for (BlockPos puddlePos : puddleBlocks) {
-            level.setBlock(puddlePos, puddleState, 2);
+        for (int x = -3; x <= 2; x++) {
+            for (int z = -3; z <= 2; z++) {
+                BlockPos currentPos = origin.offset(x, 0, z);
+                if (puddleBlocks.contains(currentPos) || !canPlacePuddle(level, currentPos)) {
+                    continue;
+                }
 
-            for (Direction direction : Direction.Plane.HORIZONTAL) {
-                BlockPos sidePos = puddlePos.relative(direction);
-                if (!puddleBlocks.contains(sidePos) && canPlacePerimeterFlora(level, sidePos)) {
-                    perimeter.add(sidePos);
+                for (Direction direction : Direction.Plane.HORIZONTAL) {
+                    if (puddleBlocks.contains(currentPos.relative(direction))) {
+                        borderBlocks.add(currentPos);
+                        break;
+                    }
                 }
             }
         }
 
-        for (BlockPos edgePos : perimeter) {
-            if (random.nextFloat() < 0.50F) {
-                BlockState floraState = random.nextFloat() < 0.65F
-                        ? Blocks.GRASS.defaultBlockState()
-                        : FIBlocks.WOODLAND_FERN.get().defaultBlockState();
 
-                if (floraState.canSurvive(level, edgePos)) {
-                    level.setBlock(edgePos, floraState, 2);
-                }
+        BlockState centerState = FIBlocks.CONDENSED_DIRT.get().defaultBlockState().setValue(ShallowBlock.WATERLOGGED, true);
+        BlockState woodlandFernState = FIBlocks.WOODLAND_FERN.get().defaultBlockState();
+        BlockState skunkCabbageState = FIBlocks.SKUNK_CABBAGE.get().defaultBlockState();
+
+        for (BlockPos pos : puddleBlocks) {
+            level.setBlock(pos, centerState, 2);
+        }
+
+        for (BlockPos pos : borderBlocks) {
+            level.setBlock(pos, Blocks.GRASS_BLOCK.defaultBlockState(), 2);
+
+            BlockPos plantPos = pos.above();
+            BlockState plantState = random.nextFloat() < 0.75F ? woodlandFernState : skunkCabbageState;
+            if (level.getBlockState(plantPos).canBeReplaced() && plantState.canSurvive(level, plantPos)) {
+                level.setBlock(plantPos, plantState, 2);
             }
         }
 
@@ -86,9 +95,5 @@ public class PuddleFeature extends Feature<NoneFeatureConfiguration> {
         BlockPos belowPos = pos.below();
         return (state.is(Blocks.GRASS_BLOCK) || state.is(Blocks.DIRT) || state.is(Blocks.PODZOL) || state.canBeReplaced())
                 && level.getBlockState(belowPos).isFaceSturdy(level, belowPos, Direction.UP);
-    }
-
-    private static boolean canPlacePerimeterFlora(WorldGenLevel level, BlockPos pos) {
-        return level.getBlockState(pos).canBeReplaced() && !level.getFluidState(pos).isSource();
     }
 }

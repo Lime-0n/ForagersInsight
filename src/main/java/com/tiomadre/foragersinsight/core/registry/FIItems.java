@@ -192,6 +192,8 @@ public class FIItems {
             new BlockItem(FIBlocks.WOODLAND_FERN.get(), basicItem()));
     public static final RegistryObject<Item> GHOST_PIPE_ITEM = HELPER.createItem("ghost_pipe", () ->
             new BlockItem(FIBlocks.GHOST_PIPE.get(), basicItem()));
+    public static final RegistryObject<Item> SKUNK_CABBAGE_ITEM = HELPER.createItem("skunk_cabbage", () ->
+            new BlockItem(FIBlocks.SKUNK_CABBAGE.get(), basicItem()));
     //Foraged
     public static final RegistryObject<Item> BLEWIT_MUSHROOM = HELPER.createItem("blewit_mushroom",  () ->
             new ModerateFoodBlockItem(FIBlocks.BLEWIT_MUSHROOM.get(), new Item.Properties().food(FIFoods.BLEWIT)));

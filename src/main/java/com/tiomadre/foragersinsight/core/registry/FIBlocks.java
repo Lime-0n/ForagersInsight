@@ -150,6 +150,8 @@ public class FIBlocks {
             new GrassBlock(copy(Blocks.FERN)));
     public static final RegistryObject<Block> GHOST_PIPE = HELPER.createBlockNoItem("ghost_pipe", () ->
             new BushBlock(copy(Blocks.ALLIUM).lightLevel(state -> 8).noCollission()));
+    public static final RegistryObject<Block> SKUNK_CABBAGE = HELPER.createBlockNoItem("skunk_cabbage", () ->
+            new SkunkCabbageBlock(copy(Blocks.ALLIUM).noCollission()));
         //Other
     public static final RegistryObject<Block> SUSPICIOUS_LEAF_LITTER = HELPER.createBlock("suspicious_leaf_litter", SuspiciousLitterBlock::new);
     public static final RegistryObject<Block> HOLLOW_LOG = HELPER.createFuelBlock("hollow_log", () ->
