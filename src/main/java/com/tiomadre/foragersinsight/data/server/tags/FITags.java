@@ -10,41 +10,52 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 
 public class FITags {
-    public static class ItemTag {
-        public static final TagKey<Item> ICE = TagUtil.itemTag("forge", "ice");
-        public static final TagKey<Item> SEEDS = TagUtil.itemTag("forge", "seeds");
-        public static final TagKey<Item> NUTS = TagUtil.itemTag("forge", "nuts");
-        public static final TagKey<Item> NUTS_ACORN = TagUtil.itemTag("forge", "nuts/acorn");
-        public static final TagKey<Item> CROPS = TagUtil.itemTag("forge", "crops");
-        public static final TagKey<Item> RAW_MEATS = TagUtil.itemTag("forge", "raw_meats");
-        public static final TagKey<Item> COOKED_MEATS = TagUtil.itemTag("forge", "cooked_meats");
-        public static final TagKey<Item> RAW_FISHES = TagUtil.itemTag("forge", "raw_fishes");
-        public static final TagKey<Item> COOKED_FISHES = TagUtil.itemTag("forge", "cooked_fishes");
-        public static final TagKey<Item> FRUITS = TagUtil.itemTag("forge", "fruits");
-        public static final TagKey<Item> VEGETABLES = TagUtil.itemTag("forge", "vegetables");
-        public static final TagKey<Item> LEATHER = TagUtil.itemTag("forge", "leather");
-        public static final TagKey<Item> EGGS = TagUtil.itemTag("forge", "eggs");
-        public static final TagKey<Item> FLOUR = TagUtil.itemTag("forge", "flour");
-        public static final TagKey<Item> STRAW = TagUtil.itemTag("forge", "straw");
-        public static final TagKey<Item> TREE_BARK = TagUtil.itemTag("forge", "tree_bark");
-        public static final TagKey<Item> DOUGH = TagUtil.itemTag("forge", "dough");
-        public static final TagKey<Item> WOLF_PREY = TagUtil.itemTag("forge", "wolf_prey");
-        public static final TagKey<Item> SHEARS = TagUtil.itemTag("forge", "tools/shears");
+        public static final String COMMON_NAMESPACE = "c";
 
-        //Mallet
-        public static final TagKey<net.minecraft.world.item.Item> MALLETS = TagUtil.itemTag("forge", "tools/mallets");
-        //Milk
-        public static final TagKey<net.minecraft.world.item.Item> MILK_BUCKET = TagUtil.itemTag("forge", "milk/milk");
-        public static final TagKey<net.minecraft.world.item.Item> MILK_BOTTLE = TagUtil.itemTag("forge", "milk/milk_bottle");
-        //Crops
-        public static final TagKey<net.minecraft.world.item.Item> APPLE = TagUtil.itemTag("forge", "crops/apple");
-        public static final TagKey<net.minecraft.world.item.Item> POPPY_SEEDS = TagUtil.itemTag("forge", "crops/poppy_seeds");
-        public static final TagKey<net.minecraft.world.item.Item> ACORN = TagUtil.itemTag("forge", "crops/acorn");
-        public static final TagKey<net.minecraft.world.item.Item> WHEAT = TagUtil.itemTag("forge", "crops/wheat");
-        public static final TagKey<net.minecraft.world.item.Item> COCOA = TagUtil.itemTag("forge", "crops/cocoa");
-        public static final TagKey<net.minecraft.world.item.Item> LILAC = TagUtil.itemTag("forge", "crops/lilac");
-        public static final TagKey<net.minecraft.world.item.Item> ROOTS = TagUtil.itemTag("forge", "crops/root_vegetable");
-        public static final TagKey<net.minecraft.world.item.Item> MUSHROOM = TagUtil.itemTag("forge", "crops/mushroom");
+        public static class ItemTag {
+            public static final TagKey<Item> ICE = TagUtil.itemTag(COMMON_NAMESPACE, "ice");
+            public static final TagKey<Item> SEEDS = TagUtil.itemTag(COMMON_NAMESPACE, "seeds");
+            public static final TagKey<Item> NUTS = TagUtil.itemTag(COMMON_NAMESPACE, "nuts");
+            public static final TagKey<Item> NUTS_ACORN = TagUtil.itemTag(COMMON_NAMESPACE, "nuts/acorn");
+            public static final TagKey<Item> CROPS = TagUtil.itemTag(COMMON_NAMESPACE, "crops");
+            public static final TagKey<Item> RAW_MEATS = TagUtil.itemTag(COMMON_NAMESPACE, "raw_meats");
+            public static final TagKey<Item> COOKED_MEATS = TagUtil.itemTag(COMMON_NAMESPACE, "cooked_meats");
+            public static final TagKey<Item> RAW_FISHES = TagUtil.itemTag(COMMON_NAMESPACE, "raw_fishes");
+            public static final TagKey<Item> COOKED_FISHES = TagUtil.itemTag(COMMON_NAMESPACE, "cooked_fishes");
+            public static final TagKey<Item> FRUITS = TagUtil.itemTag(COMMON_NAMESPACE, "fruits");
+            public static final TagKey<Item> VEGETABLES = TagUtil.itemTag(COMMON_NAMESPACE, "vegetables");
+            public static final TagKey<Item> LEATHER = TagUtil.itemTag(COMMON_NAMESPACE, "leather");
+            public static final TagKey<Item> EGGS = TagUtil.itemTag(COMMON_NAMESPACE, "eggs");
+            public static final TagKey<Item> MILK = TagUtil.itemTag(COMMON_NAMESPACE, "milk");
+            public static final TagKey<Item> FLOUR = TagUtil.itemTag(COMMON_NAMESPACE, "flour");
+            public static final TagKey<Item> STRAW = TagUtil.itemTag(COMMON_NAMESPACE, "straw");
+            public static final TagKey<Item> TREE_BARK = TagUtil.itemTag(COMMON_NAMESPACE, "tree_bark");
+            public static final TagKey<Item> DOUGH = TagUtil.itemTag(COMMON_NAMESPACE, "dough");
+            public static final TagKey<Item> WOLF_PREY = TagUtil.itemTag(COMMON_NAMESPACE, "wolf_prey");
+            public static final TagKey<Item> SHEARS = TagUtil.itemTag(COMMON_NAMESPACE, "tools/shears");
+            public static final TagKey<Item> TOOLS_AXES = TagUtil.itemTag(COMMON_NAMESPACE, "tools/axes");
+            public static final TagKey<Item> TOOLS_KNIVES = TagUtil.itemTag(COMMON_NAMESPACE, "tools/knives");
+            public static final TagKey<Item> RODS_WOODEN = TagUtil.itemTag(COMMON_NAMESPACE, "rods/wooden");
+            public static final TagKey<Item> CHESTS_WOODEN = TagUtil.itemTag(COMMON_NAMESPACE, "chests/wooden");
+
+            //Mallet
+            public static final TagKey<net.minecraft.world.item.Item> MALLETS = TagUtil.itemTag(COMMON_NAMESPACE, "tools/mallets");
+            //Milk
+            public static final TagKey<net.minecraft.world.item.Item> MILK_BUCKET = TagUtil.itemTag(COMMON_NAMESPACE, "milk/milk");
+            public static final TagKey<net.minecraft.world.item.Item> MILK_BOTTLE = TagUtil.itemTag(COMMON_NAMESPACE, "milk/milk_bottle");
+            //Crops
+            public static final TagKey<net.minecraft.world.item.Item> APPLE = TagUtil.itemTag(COMMON_NAMESPACE, "crops/apple");
+            public static final TagKey<net.minecraft.world.item.Item> POPPY_SEEDS = TagUtil.itemTag(COMMON_NAMESPACE, "crops/poppy_seeds");
+            public static final TagKey<net.minecraft.world.item.Item> ACORN = TagUtil.itemTag(COMMON_NAMESPACE, "crops/acorn");
+            public static final TagKey<net.minecraft.world.item.Item> WHEAT = TagUtil.itemTag(COMMON_NAMESPACE, "crops/wheat");
+            public static final TagKey<net.minecraft.world.item.Item> COCOA = TagUtil.itemTag(COMMON_NAMESPACE, "crops/cocoa");
+            public static final TagKey<net.minecraft.world.item.Item> LILAC = TagUtil.itemTag(COMMON_NAMESPACE, "crops/lilac");
+            public static final TagKey<net.minecraft.world.item.Item> ROOTS = TagUtil.itemTag(COMMON_NAMESPACE, "crops/root_vegetable");
+            public static final TagKey<net.minecraft.world.item.Item> MUSHROOM = TagUtil.itemTag(COMMON_NAMESPACE, "crops/mushroom");
+            public static final TagKey<net.minecraft.world.item.Item> ONION = TagUtil.itemTag(COMMON_NAMESPACE, "crops/onion");
+            public static final TagKey<net.minecraft.world.item.Item> TOMATO = TagUtil.itemTag(COMMON_NAMESPACE, "crops/tomato");
+            public static final TagKey<net.minecraft.world.item.Item> RAW_COD = TagUtil.itemTag(COMMON_NAMESPACE, "raw_fishes/cod");
+            public static final TagKey<net.minecraft.world.item.Item> COOKED_SALMON = TagUtil.itemTag(COMMON_NAMESPACE, "cooked_fishes/salmon");
 
         //Diffuser
         public static final TagKey<Item> AROMATICS = TagKey.create(Registries.ITEM,
@@ -73,10 +84,10 @@ public class FITags {
         public static final TagKey<Item> STORAGE_BLOCK_BLEWIT_MUSHROOM = storageTag("blewit_mushroom");
         public static final TagKey<Item> STORAGE_BLOCK_LILAC_BLOOM = storageTag("lilac_bloom");
 
-        public static TagKey<Item> storageTag(String thing) {
-            return TagUtil.itemTag("forge", "storage_blocks/" + thing);
+            public static TagKey<Item> storageTag(String thing) {
+                return TagUtil.itemTag(COMMON_NAMESPACE, "storage_blocks/" + thing);
+            }
         }
-    }
 
     public static class BlockTag {
         public static final TagKey<Block> STORAGE_BLOCK_APPLE = storageTag("apple");
@@ -95,7 +106,7 @@ public class FITags {
         }
 
         public static TagKey<Block> storageTag(String thing) {
-            return TagUtil.blockTag("forge", "storage_blocks/" + thing);
+            return TagUtil.blockTag(COMMON_NAMESPACE, "storage_blocks/" + thing);
         }
     }
 

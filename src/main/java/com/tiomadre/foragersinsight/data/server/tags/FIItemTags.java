@@ -14,9 +14,6 @@ import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.registry.ModItems;
-
-import static com.tiomadre.foragersinsight.core.registry.FIBlocks.SEALED_BAMBOO_PLANKS;
-import static com.tiomadre.foragersinsight.core.registry.FIBlocks.SEALED_PLANKS;
 import static com.tiomadre.foragersinsight.data.server.tags.FITags.ItemTag.*;
 
 public class FIItemTags extends ItemTagsProvider {
@@ -34,8 +31,10 @@ public class FIItemTags extends ItemTagsProvider {
         this.tag(NUTS).add(FIItems.BLACK_ACORN.get());
         this.tag(NUTS_ACORN).add(FIItems.BLACK_ACORN.get());
         this.tag(SEEDS).add(FIItems.POPPY_SEEDS.get());
+        this.tag(MILK).add(FIItems.SEED_MILK_BUCKET.get(), FIItems.SEED_MILK_BOTTLE.get());
         this.tag(MILK_BUCKET).add(FIItems.SEED_MILK_BUCKET.get());
         this.tag(MILK_BOTTLE).add(FIItems.SEED_MILK_BOTTLE.get());
+
         this.tag(ItemTags.SMALL_FLOWERS).add(FIBlocks.STOUT_BEACH_ROSE_BUSH.get().asItem(), FIBlocks.GHOST_PIPE.get().asItem());
         this.tag(ItemTags.TALL_FLOWERS).add(FIBlocks.ROSELLE_BUSH.get().asItem(), FIBlocks.TALL_BEACH_ROSE_BUSH.get().asItem());
         this.tag(ItemTags.FLOWERS).add(FIBlocks.ROSELLE_BUSH.get().asItem(), FIBlocks.STOUT_BEACH_ROSE_BUSH.get().asItem(), FIBlocks.TALL_BEACH_ROSE_BUSH.get().asItem(), FIBlocks.GHOST_PIPE.get().asItem());
@@ -99,7 +98,7 @@ public class FIItemTags extends ItemTagsProvider {
 
      //Handbasket
         IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> handbasketAllowedTag = this.tag(HANDBASKET_ALLOWED);
-        addOptionalTags(handbasketAllowedTag, "forge",
+        addOptionalTags(handbasketAllowedTag, FITags.COMMON_NAMESPACE,
                 "raw_meats", "cooked_meats", "raw_fishes", "cooked_fishes", "eggs", "leather",
                 "feathers", "nuts", "seeds", "crops", "fruits", "vegetables", "crops/mushroom",
                 "flour", "straw", "tree_bark", "ice", "sugar", "milk/milk", "milk/milk_bottle", "honey_bottle"
@@ -118,14 +117,12 @@ public class FIItemTags extends ItemTagsProvider {
         this.tag(ItemTags.HANGING_SIGNS).add(FIItems.LILAC_HANGING_SIGN.get());
         this.tag(ItemTags.BOATS).add(FIItems.LILAC_BOAT.get());
         this.tag(ItemTags.CHEST_BOATS).add(FIItems.LILAC_CHEST_BOAT.get());
-        this.tag(ItemTags.PLANKS).add(FIBlocks.LILAC_PLANKS.get().asItem(), SEALED_PLANKS.get().asItem(), SEALED_BAMBOO_PLANKS.get().asItem()
-        );
-        this.tag(net.minecraft.tags.ItemTags.create(ForagersInsight.rl("sealed_planks"))).add(SEALED_PLANKS.get().asItem(), SEALED_BAMBOO_PLANKS.get().asItem()
+        this.tag(ItemTags.PLANKS).add(FIBlocks.LILAC_PLANKS.get().asItem()
         );
 
-        registerForgeTags();
+        registerCommonTags();
     }
-    protected void registerForgeTags() {
+    protected void registerCommonTags() {
         tag(STORAGE_BLOCK_ROSE_HIP).add(FIBlocks.ROSE_HIP_SACK.get().asItem());
         tag(STORAGE_BLOCK_ROSELLE_CALYX).add(FIBlocks.ROSELLE_CALYX_SACK.get().asItem());
         tag(STORAGE_BLOCK_POPPY_SEEDS).add(FIBlocks.POPPY_SEEDS_SACK.get().asItem());

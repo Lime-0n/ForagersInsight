@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:tools/mallets"
+            "tag": "c:tools/mallets"
           }
         ]
       },

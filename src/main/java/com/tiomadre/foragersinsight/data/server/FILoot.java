@@ -48,8 +48,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.block.MushroomColonyBlock;
-import vectorwing.farmersdelight.common.tag.ModTags;
-
+import vectorwing.farmersdelight.common.tag.CommonTags;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -89,7 +88,7 @@ public class FILoot extends LootTableProvider {
             super(EXPLOSION_RESISTANT, FeatureFlags.REGISTRY.allFlags());
         }
 
-        private static final LootItemCondition.Builder HAS_KNIFE = MatchTool.toolMatches(ItemPredicate.Builder.item().of(ModTags.KNIVES));
+        private static final LootItemCondition.Builder HAS_KNIFE = MatchTool.toolMatches(ItemPredicate.Builder.item().of(CommonTags.Items.TOOLS_KNIVES));
 
         //CROP LOOT STUFF
         @Override
@@ -203,9 +202,6 @@ public class FILoot extends LootTableProvider {
             this.add(LILAC_HANGING_SIGN.get(), block -> createSingleItemTable(FIItems.LILAC_HANGING_SIGN.get()));
             this.add(LILAC_WALL_HANGING_SIGN.get(), block -> createSingleItemTable(FIItems.LILAC_HANGING_SIGN.get()));
             this.dropSelf(LILAC_CABINET.get());
-                //Sealed Planks
-            this.dropSelf(SEALED_PLANKS.get());
-            this.dropSelf(SEALED_BAMBOO_PLANKS.get());
             
                 //Tools + Workstations
             this.add(FIBlocks.DIFFUSER.get(), block -> createSingleItemTable(FIItems.DIFFUSER.get()));

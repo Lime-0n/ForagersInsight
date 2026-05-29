@@ -13,13 +13,13 @@
         "category": "misc",
         "ingredients": [
           {
-            "tag": "forge:crops/wheat"
+            "tag": "c:crops/wheat"
           },
           {
             "item": "minecraft:sweet_berries"
           },
           {
-            "tag": "forge:crops/wheat"
+            "tag": "c:crops/wheat"
           }
         ],
         "result": {

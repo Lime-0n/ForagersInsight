@@ -48,7 +48,7 @@
         {
           "condition": "minecraft:match_tool",
           "predicate": {
-            "tag": "farmersdelight:tools/knives"
+            "tag": "forge:tools/knives"
           }
         }
       ],

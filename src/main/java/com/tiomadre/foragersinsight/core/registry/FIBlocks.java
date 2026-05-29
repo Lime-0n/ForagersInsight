@@ -114,12 +114,6 @@ public class FIBlocks {
             new BlueprintWallHangingSignBlock(copy(Blocks.OAK_WALL_HANGING_SIGN), FIWoodTypes.LILAC));
     public static final RegistryObject<CabinetBlock> LILAC_CABINET = HELPER.createBlock("lilac_cabinet", () ->
             new CabinetBlock(copy(ModBlocks.OAK_CABINET.get())));
-        //Sealed Planks
-        public static final RegistryObject<Block> SEALED_PLANKS = HELPER.createBlock("sealed_planks", () ->
-                new Block(copy(Blocks.OAK_PLANKS).ignitedByLava()));
-    public static final RegistryObject<Block> SEALED_BAMBOO_PLANKS = HELPER.createBlock("sealed_bamboo_planks", () ->
-            new Block(copy(Blocks.BAMBOO_PLANKS).ignitedByLava()));
-
 
         //Syrup Tap
     public static final RegistryObject<Block> TAPPER = HELPER.createBlockNoItem("tapper", () ->

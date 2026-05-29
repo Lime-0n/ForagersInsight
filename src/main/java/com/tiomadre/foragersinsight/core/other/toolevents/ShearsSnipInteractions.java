@@ -32,7 +32,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBloc
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import vectorwing.farmersdelight.common.block.MushroomColonyBlock;
-import vectorwing.farmersdelight.common.block.TomatoVineBlock;
+import vectorwing.farmersdelight.common.block.TomatoBlock;
 import com.tiomadre.foragersinsight.common.utility.TextUtils;
 import net.minecraft.world.item.DyeColor;
 
@@ -282,9 +282,9 @@ public class ShearsSnipInteractions {
         }
 
         // Tomatoes
-        if (state.getBlock() instanceof TomatoVineBlock tomatoVine) {
+        if (state.getBlock() instanceof TomatoBlock tomatoVine) {
             event.setCanceled(true);
-            int age = state.getValue(TomatoVineBlock.VINE_AGE);
+            int age = state.getValue(TomatoBlock.VINE_AGE);
             if (age == tomatoVine.getMaxAge()) {
                 int extraDrops = rollFortuneExtras(rand, getFortuneLevel(tool));
                 // snip 2 tomatoes, plus fortune
@@ -301,11 +301,11 @@ public class ShearsSnipInteractions {
                     dropItemInFront(level, player, rotten);
                 }
 
-                level.setBlock(pos, state.setValue(TomatoVineBlock.VINE_AGE, 0), Block.UPDATE_ALL);
+                level.setBlock(pos, state.setValue(TomatoBlock.VINE_AGE, 0), Block.UPDATE_ALL);
 
                 play(level, pos, SoundEvents.SHEEP_SHEAR);
                 level.playSound(null, pos,
-                        vectorwing.farmersdelight.common.registry.ModSounds.ITEM_TOMATO_PICK_FROM_BUSH.get(),
+                        vectorwing.farmersdelight.common.registry.ModSounds.BLOCK_TOMATOES_PICK_TOMATOES.get(),
                         SoundSource.BLOCKS, 1, 1);
                 damageTool(tool, player, hand);
             }

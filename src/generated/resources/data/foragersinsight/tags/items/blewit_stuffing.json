@@ -1,9 +1,9 @@
 {
   "values": [
-    "#forge:seeds",
-    "#forge:nuts",
-    "#forge:vegetables",
-    "#forge:raw_meats",
-    "#forge:raw_fishes"
+    "#c:seeds",
+    "#c:nuts",
+    "#c:vegetables",
+    "#c:raw_meats",
+    "#c:raw_fishes"
   ]
 }

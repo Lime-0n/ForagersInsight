@@ -9,10 +9,10 @@
       "item": "foragersinsight:cooked_rabbit_leg"
     },
     {
-      "tag": "forge:crops/root_vegetable"
+      "tag": "c:crops/root_vegetable"
     },
     {
-      "tag": "forge:crops/mushroom"
+      "tag": "c:crops/mushroom"
     },
     {
       "item": "minecraft:bowl"

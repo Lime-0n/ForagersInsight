@@ -103,9 +103,7 @@ public class FITabs {
             FIItems.BIRCH_SYRUP_BUCKET,
             FIItems.BIRCH_SYRUP_BOTTLE,
             FIItems.BIRCH_SAP_BUCKET,
-            FIItems.BIRCH_SAP_BOTTLE,
-            FIItems.BIRCH_SAP_BOTTLE,
-            FIItems.SAPPY_BRUSH
+            FIItems.BIRCH_SAP_BOTTLE
     );
 
     private static final List<RegistryObject<? extends ItemLike>> CUISINE_ENTRIES = List.of(
@@ -184,16 +182,10 @@ public class FITabs {
             FIItems.LILAC_HANGING_SIGN,
             FIBlocks.LILAC_CABINET,
             FIItems.LILAC_BOAT,
-            FIItems.LILAC_CHEST_BOAT,
-            FIBlocks.SEALED_BAMBOO_PLANKS,
-            FIBlocks.SEALED_PLANKS
+            FIItems.LILAC_CHEST_BOAT
     );
     private static final List<Supplier<MobEffect>> AUSPICIOUS_STEW_EFFECTS = List.of(
-            () -> MobEffects.REGENERATION,
-            () -> MobEffects.DAMAGE_RESISTANCE,
-            () -> MobEffects.HEALTH_BOOST,
-            FIMobEffects.BLOOM
-    );
+            FIMobEffects.BLOOM,  () -> MobEffects.DAMAGE_RESISTANCE, () -> MobEffects.HEALTH_BOOST, () -> MobEffects.REGENERATION);
 
 
     public static void register(IEventBus bus) {

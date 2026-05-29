@@ -140,9 +140,6 @@
   "block.foragersinsight.lilac_hanging_sign": "Lilac Hanging Sign",
   "block.foragersinsight.lilac_wall_hanging_sign": "Lilac Wall Hanging Sign",
   "block.foragersinsight.lilac_cabinet": "Lilac Cabinet",
-  "block.foragersinsight.sealed_planks": "Sealed Planks",
-  "block.foragersinsight.sealed_bamboo_planks": "Sealed Bamboo Planks",
-
 
   "block.foragersinsight.apple_crate": "Apple Crate",
   "block.foragersinsight.blewit_mushroom_crate": "Blewit Crate",
@@ -178,7 +175,7 @@
   "enchantment.foragersinsight.concussive": "Concussive",
   "enchantment.foragersinsight.luck_of_the_trees": "Luck of the Trees",
 
-  "farmersdelight.tooltip.seed_milk_bottle": "Clears 1 Effect",
+  "tooltip.farmersdelight.seed_milk_bottle": "Clears 1 Effect",
 
   "foragersinsight.tool_interaction.shears.chicken": "Please wait %s seconds to shear this chicken again.",
   "foragersinsight.tool_interaction.shears.baby_chicken": "Baby chickens cannot be sheared.",

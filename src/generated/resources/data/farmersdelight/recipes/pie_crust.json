@@ -13,10 +13,10 @@
         "category": "misc",
         "key": {
           "M": {
-            "tag": "forge:milk"
+            "tag": "c:milk"
           },
           "W": {
-            "tag": "forge:crops/wheat"
+            "tag": "c:crops/wheat"
           }
         },
         "pattern": [

@@ -177,8 +177,6 @@ public class FIItems {
             new Item(new Item.Properties().stacksTo(1).craftRemainder(Items.BUCKET)));
     public static final RegistryObject<Item> BIRCH_SAP_BOTTLE = HELPER.createItem("birch_sap_bottle", () ->
             new BirchSapBottleItem(new Item.Properties().stacksTo(1).durability(4)));
-    public static final RegistryObject<Item> SAPPY_BRUSH = HELPER.createItem("sappy_brush", () ->
-            new Item(new Item.Properties().stacksTo(1).durability(4)));
 
 
     //Wildflowers + Flora

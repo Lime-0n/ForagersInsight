@@ -21,6 +21,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
+import vectorwing.farmersdelight.common.tag.CommonTags;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import java.util.function.Supplier;
 
@@ -53,7 +54,7 @@ public class RainbowSandwichFeastBlock extends Block {
 
     @Override
     public @NotNull InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
-        if (!player.getItemInHand(hand).is(ModTags.KNIVES)) {
+        if (!player.getItemInHand(hand).is(CommonTags.Items.TOOLS_KNIVES)) {
             return InteractionResult.PASS;
         }
 
