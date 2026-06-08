@@ -6,6 +6,7 @@ import com.teamabnormals.blueprint.common.block.sign.BlueprintWallHangingSignBlo
 import com.teamabnormals.blueprint.common.block.sign.BlueprintWallSignBlock;
 import com.tiomadre.foragersinsight.common.block.*;
 import com.tiomadre.foragersinsight.common.block.feasts.RainbowSandwichFeastBlock;
+import com.tiomadre.foragersinsight.common.block.feasts.SliceableCakeBlock;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.teamabnormals.blueprint.common.block.LogBlock;
 import com.teamabnormals.blueprint.core.util.registry.BlockSubRegistryHelper;
@@ -133,6 +134,8 @@ public class FIBlocks {
     public static final RegistryObject<Block> DENSE_SPRUCE_TIP_MAT = HELPER.createBlock("dense_spruce_tips", FoliageMatBlock::new);
     public static final RegistryObject<Block> DENSE_ROSELLE_PETAL_MAT = HELPER.createBlock("dense_roselle_petals", FoliageMatBlock::new);
     public static final RegistryObject<Block> DENSE_ROSE_PETAL_MAT = HELPER.createBlock("dense_rose_petals", FoliageMatBlock::new);
+        //Traps
+    public static final RegistryObject<Block> SAP_TRAP = HELPER.createBlock("sap_trap", SapTrapBlock::new);
         //Wildflowers + Flora
     public static final RegistryObject<Block> ROSELLE_BUSH = HELPER.createBlockNoItem("roselle_bush", () ->
           new TallFlowerBlock(copy(Blocks.LILAC)));

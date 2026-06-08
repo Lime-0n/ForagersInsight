@@ -137,6 +137,15 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .requires(FIBlocks.PHLOX.get())
                 .unlockedBy("has_phlox", has(FIBlocks.PHLOX.get()))
                 .save(consumer, ForagersInsight.rl("light_blue_dye_from_phlox"));
+        //Sap Trap
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, SAP_TRAP.get(), 3)
+                .pattern("PSP")
+                .pattern("BBB")
+                .define('P', PAPER)
+                .define('S', BIRCH_SAP_BOTTLE.get())
+                .define('B', ModItems.TREE_BARK.get())
+                .unlockedBy("has_birch_sap_bottle", has(BIRCH_SAP_BOTTLE.get()))
+                .save(consumer);
         //Seed Milk
             //Bucket of Seed Milk -> Bottles
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, SEED_MILK_BOTTLE.get(),4)

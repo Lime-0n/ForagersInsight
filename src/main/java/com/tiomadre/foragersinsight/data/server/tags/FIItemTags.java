@@ -41,6 +41,7 @@ public class FIItemTags extends ItemTagsProvider {
         this.tag(WOLF_PREY).add(FIItems.RAW_RABBIT_LEG.get());
 
         this.tag(WILD_FLOWER_DROPS).add(FIItems.ROSE_HIP.get(), FIItems.LILAC_BLOOM.get(), FIItems.POPPY_SEEDS.get(), FIItems.DANDELION_ROOT.get(), FIItems.ROSELLE_CALYX.get());
+
         var foragersInsightItems = this.tag(FORAGERS_INSIGHT_ITEMS);
         ForgeRegistries.ITEMS.getValues().stream()
                 .filter(item -> ForagersInsight.MOD_ID.equals(ForgeRegistries.ITEMS.getKey(item).getNamespace()))
@@ -55,7 +56,7 @@ public class FIItemTags extends ItemTagsProvider {
         this.tag(COCOA).add(Items.COCOA_BEANS, FIItems.COCOA_POWDER.get());
         this.tag(ROOTS).add(Items.CARROT, Items.BEETROOT, FIItems.DANDELION_ROOT.get());
         this.tag(MUSHROOM).add(Items.RED_MUSHROOM, Items.BROWN_MUSHROOM, FIItems.BLEWIT_MUSHROOM.get());
-            //tag as crops
+
         this.tag(CROPS).addTags(APPLE,POPPY_SEEDS,ACORN,WHEAT,COCOA,ROOTS,MUSHROOM,LILAC);
         //Food
         this.tag(BLEWIT_STUFFING).addTags(SEEDS,NUTS,VEGETABLES,RAW_MEATS,RAW_FISHES);

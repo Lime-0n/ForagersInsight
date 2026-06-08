@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class ShallowBlock extends Block implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    private static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 11.0D, 16.0D);
+    private static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D);
 
     public ShallowBlock(Properties properties) {
         super(properties);

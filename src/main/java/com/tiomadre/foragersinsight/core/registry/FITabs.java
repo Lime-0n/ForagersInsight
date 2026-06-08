@@ -58,6 +58,7 @@ public class FITabs {
             FIBlocks.SCATTERED_ROSELLE_PETAL_MAT,
             FIBlocks.SCATTERED_SPRUCE_TIP_MAT,
             FIBlocks.SCATTERED_STRAW_MAT,
+            FIBlocks.SAP_TRAP,
 
             FIBlocks.BLEWIT_MUSHROOM,
             FIBlocks.BLEWIT_MUSHROOM_COLONY,

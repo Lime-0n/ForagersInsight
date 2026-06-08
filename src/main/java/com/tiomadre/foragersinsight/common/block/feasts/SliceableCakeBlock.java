@@ -1,4 +1,4 @@
-package com.tiomadre.foragersinsight.common.block;
+package com.tiomadre.foragersinsight.common.block.feasts;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

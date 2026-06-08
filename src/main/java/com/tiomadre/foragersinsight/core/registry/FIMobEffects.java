@@ -4,6 +4,7 @@ import com.tiomadre.foragersinsight.common.effect.BloomEffect;
 import com.tiomadre.foragersinsight.common.effect.ChilledEffect;
 import com.tiomadre.foragersinsight.common.effect.MedicinalEffect;
 import com.tiomadre.foragersinsight.common.effect.OdorousEffect;
+import com.tiomadre.foragersinsight.common.effect.StuckEffect;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraftforge.registries.DeferredRegister;
@@ -17,4 +18,6 @@ public class FIMobEffects {
     public static final RegistryObject<MobEffect> MEDICINAL = MOB_EFFECTS.register("medicinal", MedicinalEffect::new);
     public static final RegistryObject<MobEffect> BLOOM = MOB_EFFECTS.register("bloom", BloomEffect::new);
     public static final RegistryObject<MobEffect> ODOROUS = MOB_EFFECTS.register("odorous", OdorousEffect::new);
+    public static final RegistryObject<MobEffect> ROOTED = MOB_EFFECTS.register("stuck", StuckEffect::new);
+
 }

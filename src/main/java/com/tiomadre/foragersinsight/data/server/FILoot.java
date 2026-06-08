@@ -37,10 +37,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -157,10 +154,26 @@ public class FILoot extends LootTableProvider {
             this.dropSelf(SKUNK_CABBAGE.get());
 
             //Other
+            this.add(SAP_TRAP.get(), block -> LootTable.lootTable()
+                    .withPool(this.applyExplosionCondition(block, LootPool.lootPool()
+                            .when(LootItemRandomChanceCondition.randomChance(0.5F))
+                            .add(LootItem.lootTableItem(vectorwing.farmersdelight.common.registry.ModItems.TREE_BARK.get())))));
             this.add(HOLLOW_LOG.get(), block -> this.applyExplosionDecay(block, LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .add(LootItem.lootTableItem(vectorwing.farmersdelight.common.registry.ModItems.TREE_BARK.get())
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F)))))));
+            this.add(SUSPICIOUS_LEAF_LITTER.get(), LootTable.lootTable());
+            this.add(FIBlocks.BLEWIT_MUSHROOM.get(), block -> LootTable.lootTable()
+                    .withPool(this.applyExplosionCondition(block, LootPool.lootPool()
+                            .add(LootItem.lootTableItem(FIItems.BLEWIT_MUSHROOM.get())))));
+            this.add(BLEWIT_MUSHROOM_COLONY.get(), block -> LootTable.lootTable().withPool(this.applyExplosionCondition(block, LootPool.lootPool()
+                            .add(LootItem.lootTableItem(BLEWIT_MUSHROOM_COLONY.get())).when(stateCond(BLEWIT_MUSHROOM_COLONY, MushroomColonyBlock.COLONY_AGE, 3)).when(HAS_SHEARS_OR_SILK_TOUCH)))
+                    .withPool(this.applyExplosionCondition(block, LootPool.lootPool().add(AlternativesEntry.alternatives(
+                            LootItem.lootTableItem(BLEWIT_MUSHROOM.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2))).when(stateCond(BLEWIT_MUSHROOM_COLONY, MushroomColonyBlock.COLONY_AGE, 0)),
+                            LootItem.lootTableItem(BLEWIT_MUSHROOM.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(3))).when(stateCond(BLEWIT_MUSHROOM_COLONY, MushroomColonyBlock.COLONY_AGE, 1)),
+                            LootItem.lootTableItem(BLEWIT_MUSHROOM.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4))).when(stateCond(BLEWIT_MUSHROOM_COLONY, MushroomColonyBlock.COLONY_AGE, 2)),
+                            LootItem.lootTableItem(BLEWIT_MUSHROOM.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(5))).when(stateCond(BLEWIT_MUSHROOM_COLONY, MushroomColonyBlock.COLONY_AGE, 3))
+                                    .when(HAS_NO_SHEARS_OR_SILK_TOUCH))))));
                 //Condensed
             this.add(CONDENSED_DIRT.get(), block -> createSilkTouchDispatchTable(block, LootItem.lootTableItem(Blocks.DIRT)));
             this.add(CONDENSED_SAND.get(), block -> createSilkTouchDispatchTable(block, LootItem.lootTableItem(Blocks.SAND)));
@@ -207,19 +220,6 @@ public class FILoot extends LootTableProvider {
             this.add(FIBlocks.DIFFUSER.get(), block -> createSingleItemTable(FIItems.DIFFUSER.get()));
             this.add(FIBlocks.TAPPER.get(), block -> createSingleItemTable(FIItems.TAPPER.get()));
 
-                //Other
-            this.add(SUSPICIOUS_LEAF_LITTER.get(), LootTable.lootTable());
-            this.add(FIBlocks.BLEWIT_MUSHROOM.get(), block -> LootTable.lootTable()
-                    .withPool(this.applyExplosionCondition(block, LootPool.lootPool()
-                            .add(LootItem.lootTableItem(FIItems.BLEWIT_MUSHROOM.get())))));
-            this.add(BLEWIT_MUSHROOM_COLONY.get(), block -> LootTable.lootTable().withPool(this.applyExplosionCondition(block, LootPool.lootPool()
-            .add(LootItem.lootTableItem(BLEWIT_MUSHROOM_COLONY.get())).when(stateCond(BLEWIT_MUSHROOM_COLONY, MushroomColonyBlock.COLONY_AGE, 3)).when(HAS_SHEARS_OR_SILK_TOUCH)))
-            .withPool(this.applyExplosionCondition(block, LootPool.lootPool().add(AlternativesEntry.alternatives(
-                    LootItem.lootTableItem(BLEWIT_MUSHROOM.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2))).when(stateCond(BLEWIT_MUSHROOM_COLONY, MushroomColonyBlock.COLONY_AGE, 0)),
-                    LootItem.lootTableItem(BLEWIT_MUSHROOM.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(3))).when(stateCond(BLEWIT_MUSHROOM_COLONY, MushroomColonyBlock.COLONY_AGE, 1)),
-                    LootItem.lootTableItem(BLEWIT_MUSHROOM.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4))).when(stateCond(BLEWIT_MUSHROOM_COLONY, MushroomColonyBlock.COLONY_AGE, 2)),
-                    LootItem.lootTableItem(BLEWIT_MUSHROOM.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(5))).when(stateCond(BLEWIT_MUSHROOM_COLONY, MushroomColonyBlock.COLONY_AGE, 3))
-                            .when(HAS_NO_SHEARS_OR_SILK_TOUCH))))));
 
         }
         private LootTable.Builder createBlossomingLilacLeavesDrops(Block leaves) {
