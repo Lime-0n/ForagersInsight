@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.core.other;
 
 import com.tiomadre.foragersinsight.common.block.WallMushroomBlock;
+import com.tiomadre.foragersinsight.common.block.WallMushroomColonyBlock;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
@@ -21,6 +22,8 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
+import vectorwing.farmersdelight.common.block.MushroomColonyBlock;
+import vectorwing.farmersdelight.common.registry.ModBlocks;
 
 @Mod.EventBusSubscriber(modid = ForagersInsight.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class WMCEvents {
@@ -32,11 +35,6 @@ public class WMCEvents {
         }
 
         ItemStack stack = event.getItemStack();
-        RegistryObject<Block> wallMushroom = getWallMushroom(stack.getItem());
-        if (wallMushroom == null) {
-            return;
-        }
-
         Level level = event.getLevel();
         Player player = event.getEntity();
         BlockPos placePos = event.getPos().relative(face);
@@ -45,8 +43,8 @@ public class WMCEvents {
             return;
         }
 
-        BlockState wallState = wallMushroom.get().defaultBlockState().setValue(WallMushroomBlock.FACING, face);
-        if (!wallState.canSurvive(level, placePos) || !level.mayInteract(player, placePos)) {
+        BlockState wallState = getWallPlacementState(stack.getItem(), face);
+        if (wallState == null || !wallState.canSurvive(level, placePos) || !level.mayInteract(player, placePos)) {
             return;
         }
 
@@ -66,6 +64,22 @@ public class WMCEvents {
         }
     }
 
+    private static BlockState getWallPlacementState(Item item, Direction face) {
+        RegistryObject<Block> wallMushroom = getWallMushroom(item);
+        if (wallMushroom != null) {
+            return wallMushroom.get().defaultBlockState().setValue(WallMushroomBlock.FACING, face);
+        }
+
+        RegistryObject<Block> wallColony = getWallColony(item);
+        if (wallColony != null) {
+            return wallColony.get().defaultBlockState()
+                    .setValue(WallMushroomColonyBlock.FACING, face)
+                    .setValue(MushroomColonyBlock.COLONY_AGE, MushroomColonyBlock.COLONY_AGE.getPossibleValues().size() - 1);
+        }
+
+        return null;
+    }
+
     private static RegistryObject<Block> getWallMushroom(Item item) {
         if (item == Items.RED_MUSHROOM) {
             return FIBlocks.WALL_RED_MUSHROOM;
@@ -75,6 +89,19 @@ public class WMCEvents {
         }
         if (item == FIItems.BLEWIT_MUSHROOM.get()) {
             return FIBlocks.WALL_BLEWIT_MUSHROOM;
+        }
+        return null;
+    }
+
+    private static RegistryObject<Block> getWallColony(Item item) {
+        if (item == ModBlocks.RED_MUSHROOM_COLONY.get().asItem()) {
+            return FIBlocks.WALL_RED_MUSHROOM_COLONY;
+        }
+        if (item == ModBlocks.BROWN_MUSHROOM_COLONY.get().asItem()) {
+            return FIBlocks.WALL_BROWN_MUSHROOM_COLONY;
+        }
+        if (item == FIBlocks.BLEWIT_MUSHROOM_COLONY.get().asItem()) {
+            return FIBlocks.WALL_BLEWIT_MUSHROOM_COLONY;
         }
         return null;
     }

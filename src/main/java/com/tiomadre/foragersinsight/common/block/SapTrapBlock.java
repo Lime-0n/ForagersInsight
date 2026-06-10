@@ -37,11 +37,20 @@ public class SapTrapBlock extends FoliageMatBlock {
 
     @Override
     public void stepOn(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Entity entity) {
+        this.triggerTrap(level, pos, entity);
+        super.stepOn(level, pos, state, entity);
+    }
+
+    @Override
+    public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
+        this.triggerTrap(level, pos, entity);
+        super.entityInside(state, level, pos, entity);
+    }
+
+    private void triggerTrap(@NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
         if (!level.isClientSide && entity instanceof LivingEntity livingEntity) {
             livingEntity.addEffect(new MobEffectInstance(FIMobEffects.STUCK.get(), ROOT_DURATION, 0, false, true, true));
             level.destroyBlock(pos, false, entity);
         }
-
-        super.stepOn(level, pos, state, entity);
     }
 }

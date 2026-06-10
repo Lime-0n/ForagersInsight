@@ -1,7 +1,8 @@
 {
 	"render_type": "cutout",
 	"textures": {
-		"1": "foragersinsight:block/phlox"
+		"1": "foragersinsight:block/phlox",
+		"particle": "foragersinsight:block/phlox"
 	},
 	"elements": [
 		{

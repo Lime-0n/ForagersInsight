@@ -2,6 +2,6 @@
   "parent": "minecraft:block/cross",
   "render_type": "minecraft:cutout",
   "textures": {
-    "cross": "foragersinsight:block/blewit_mushroom"
+    "cross": "foragersinsight:block/wall_blewit_mushroom"
   }
 }

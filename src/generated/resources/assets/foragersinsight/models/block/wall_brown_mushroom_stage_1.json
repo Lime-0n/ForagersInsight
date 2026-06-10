@@ -1,4 +1,7 @@
 {
-  "parent": "farmersdelight:block/brown_mushroom_colony_stage1",
-  "render_type": "minecraft:cutout"
+  "parent": "minecraft:block/cross",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "cross": "foragersinsight:block/wall_brown_1"
+  }
 }

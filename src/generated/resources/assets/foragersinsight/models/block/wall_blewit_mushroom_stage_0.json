@@ -1,4 +1,7 @@
 {
-  "parent": "foragersinsight:block/blewit_mushroom_colony_stage0",
-  "render_type": "minecraft:cutout"
+  "parent": "minecraft:block/cross",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "cross": "foragersinsight:block/wall_blewit_0"
+  }
 }

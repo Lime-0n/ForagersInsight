@@ -76,10 +76,11 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
             }
         }
 
-        boolean placedColonyAndMushroom = placeMushroomDecorations(level, random, logTopPositions);
+        boolean placedMushroomDecoration = placeMushroomDecorations(level, random, logTopPositions);
         replaceGrassWithWoodlandFern(level, random, placedGrassPositions);
-        int ghostPipeReplacements = placedColonyAndMushroom ? 3 : 1;
-        replaceGrassWithGhostPipe(level, random, placedGrassPositions, ghostPipeReplacements);
+        int ghostPipeReplacements = placedMushroomDecoration ? 3 : 1;
+        placeGhostPipes(level, random, placedGrassPositions,
+                placedMushroomDecoration ? sidePositions : List.of(), ghostPipeReplacements);
         return placed;
     }
 
@@ -105,17 +106,15 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
         return pos;
     }
 
-    private static void replaceGrassWithGhostPipe(WorldGenLevel level, RandomSource random, List<BlockPos> grassPositions, int replacements) {
-        if (grassPositions.isEmpty() || replacements <= 0) {
+    private static void placeGhostPipes(WorldGenLevel level, RandomSource random, List<BlockPos> grassPositions,
+                                        List<BlockPos> fallbackPositions, int replacements) {
+        if (replacements <= 0) {
             return;
         }
 
-        List<BlockPos> shuffledGrassPositions = new ArrayList<>(grassPositions);
-        Collections.shuffle(shuffledGrassPositions, new java.util.Random(random.nextLong()));
-
         BlockState ghostPipeState = FIBlocks.GHOST_PIPE.get().defaultBlockState();
         int replaced = 0;
-        for (BlockPos grassPos : shuffledGrassPositions) {
+        for (BlockPos grassPos : shuffledCopy(grassPositions, random)) {
             if (replaced >= replacements) {
                 return;
             }
@@ -124,7 +123,27 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
                 replaced++;
             }
         }
+
+        for (BlockPos fallbackPos : shuffledCopy(fallbackPositions, random)) {
+            if (replaced >= replacements) {
+                return;
+            }
+            if (canReplaceDecoration(level, fallbackPos) && ghostPipeState.canSurvive(level, fallbackPos)) {
+                level.setBlock(fallbackPos, ghostPipeState, 2);
+                replaced++;
+            }
+        }
     }
+    private static List<BlockPos> shuffledCopy(List<BlockPos> positions, RandomSource random) {
+        if (positions.isEmpty()) {
+            return List.of();
+        }
+
+        List<BlockPos> shuffledPositions = new ArrayList<>(positions);
+        Collections.shuffle(shuffledPositions, new java.util.Random(random.nextLong()));
+        return shuffledPositions;
+    }
+
     private static void replaceGrassWithWoodlandFern(WorldGenLevel level, RandomSource random, List<BlockPos> grassPositions) {
         if (grassPositions.isEmpty() || random.nextFloat() >= 0.40F) {
             return;
@@ -161,7 +180,7 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
                 boolean colonyPlaced = placeColony(level, colonyPos, growingColonyState);
                 boolean mushroomPlaced = placeSmallMushroom(level, mushroomPos, random);
                 if (colonyPlaced || mushroomPlaced) {
-                    return colonyPlaced && mushroomPlaced;
+                    return true;
                 }
             }
 
@@ -169,14 +188,14 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
                 boolean colonyPlaced = placeColony(level, colonyPos, colonyState);
                 boolean mushroomPlaced = placeSmallMushroom(level, mushroomPos, random);
                 if (colonyPlaced || mushroomPlaced) {
-                    return colonyPlaced && mushroomPlaced;
+                    return true;
                 }
             }
         }
 
         if (random.nextFloat() < SINGLE_MUSHROOM_LOG_CHANCE) {
             BlockPos mushroomPos = logTopPositions.get(random.nextInt(logTopPositions.size()));
-            placeSmallMushroom(level, mushroomPos, random);
+           return placeSmallMushroom(level, mushroomPos, random);
         }
 
         return false;
