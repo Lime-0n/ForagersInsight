@@ -12,6 +12,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerXpEvent;
@@ -61,6 +62,21 @@ public class FIEvents {
         if (!event.getCrafting().is(FIItems.TAPPER.get())) return;
 
         FIAdvancementCriteria.TAP_THAT.trigger(player);
+    }
+    //Stuck Effect Logico
+    @SubscribeEvent
+    public static void onLivingTick(LivingEvent.LivingTickEvent event) {
+        LivingEntity entity = event.getEntity();
+        if (!entity.hasEffect(FIMobEffects.STUCK.get())) return;
+
+        entity.setDeltaMovement(0.0D, Math.min(entity.getDeltaMovement().y, 0.0D), 0.0D);
+        entity.hurtMarked = true;
+
+        if (entity instanceof Player player) {
+            player.xxa = 0.0F;
+            player.zza = 0.0F;
+            player.setJumping(false);
+        }
     }
 
 

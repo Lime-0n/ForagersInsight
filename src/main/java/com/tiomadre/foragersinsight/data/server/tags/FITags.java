@@ -57,9 +57,6 @@ public class FITags {
             public static final TagKey<net.minecraft.world.item.Item> RAW_COD = TagUtil.itemTag(COMMON_NAMESPACE, "raw_fishes/cod");
             public static final TagKey<net.minecraft.world.item.Item> COOKED_SALMON = TagUtil.itemTag(COMMON_NAMESPACE, "cooked_fishes/salmon");
 
-        //Diffuser
-        public static final TagKey<Item> AROMATICS = TagKey.create(Registries.ITEM,
-                new ResourceLocation(ForagersInsight.MOD_ID, "aromatics"));
         //Food
         public static final TagKey<Item> BLEWIT_STUFFING = TagKey.create(Registries.ITEM,
                 new ResourceLocation(ForagersInsight.MOD_ID, "blewit_stuffing"));

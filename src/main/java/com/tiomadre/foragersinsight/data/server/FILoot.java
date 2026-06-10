@@ -45,6 +45,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.block.MushroomColonyBlock;
+import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.tag.CommonTags;
 import java.util.Map;
 import java.util.Objects;
@@ -92,14 +93,14 @@ public class FILoot extends LootTableProvider {
         protected void generate() {
             //Rose
             this.add(ROSE_CROP.get(), this.applyExplosionDecay(FIItems.ROSE_HIP.get(),
-                LootTable.lootTable()
-                        .withPool(LootPool.lootPool().when(isUpperOrLower(ROSE_CROP))
-                                .add(LootItem.lootTableItem(FIItems.ROSE_HIP.get())
-                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
-                                .when(stateCond(ROSE_CROP, RoseCropBlock.AGE, RoseCropBlock.MAX_AGE)))
-                        .withPool(LootPool.lootPool().add(LootItem.lootTableItem(ROSE_PETALS.get())
-                                .when(HAS_KNIFE)
-                                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)))))));
+                    LootTable.lootTable()
+                            .withPool(LootPool.lootPool().when(isUpperOrLower(ROSE_CROP))
+                                    .add(LootItem.lootTableItem(FIItems.ROSE_HIP.get())
+                                            .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
+                                    .when(stateCond(ROSE_CROP, RoseCropBlock.AGE, RoseCropBlock.MAX_AGE)))
+                            .withPool(LootPool.lootPool().add(LootItem.lootTableItem(ROSE_PETALS.get())
+                                    .when(HAS_KNIFE)
+                                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)))))));
             //Roselle
             this.add(ROSELLE_CROP.get(), this.applyExplosionDecay(ROSELLE_CALYX.get(),
                     LootTable.lootTable()
@@ -117,10 +118,10 @@ public class FILoot extends LootTableProvider {
             this.createFlowerBushDrops(POPPY_BUSH, POPPY_SEEDS, Items.RED_DYE, PoppyBushBlock.AGE, PoppyBushBlock.MAX_AGE);
 
             //BLOCK LOOT STUFF
-                //Feasts
+            //Feasts
             this.dropSelf(RAINBOW_SANDWICH.get());
             this.dropSelf(ACORN_CARROT_CAKE.get());
-                //Storage
+            //Storage
             this.dropSelf(ROSE_HIP_SACK.get());
             this.dropSelf(APPLE_CRATE.get());
             this.dropSelf(BLACK_ACORN_SACK.get());
@@ -130,13 +131,13 @@ public class FILoot extends LootTableProvider {
             this.dropSelf(POPPY_SEEDS_SACK.get());
             this.add(FIBlocks.BLEWIT_CRATE.get(), this::createSlabItemTable);
             this.add(LILAC_BLOOM_CRATE.get(), this::createSlabItemTable);
-                //Wildflower + Plants
+            //Wildflower + Plants
             this.add(FIBlocks.ROSELLE_BUSH.get(), block -> LootTable.lootTable().withPool(this.applyExplosionCondition(block, LootPool.lootPool()
-                                            .setRolls(ConstantValue.exactly(1.0F))
-                                            .add(LootItem.lootTableItem(block)))
-                                    .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-                                            .setProperties(StatePropertiesPredicate.Builder.properties()
-                                                    .hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)))));
+                            .setRolls(ConstantValue.exactly(1.0F))
+                            .add(LootItem.lootTableItem(block)))
+                    .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                            .setProperties(StatePropertiesPredicate.Builder.properties()
+                                    .hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)))));
             this.add(TALL_BEACH_ROSE_BUSH.get(), block -> LootTable.lootTable().withPool(this.applyExplosionCondition(block, LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0F))
                             .add(LootItem.lootTableItem(block)))
@@ -146,8 +147,8 @@ public class FILoot extends LootTableProvider {
             this.add(STOUT_BEACH_ROSE_BUSH.get(), block -> LootTable.lootTable().withPool(this.applyExplosionCondition(block, LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0F))
                             .add(LootItem.lootTableItem(block))))
-                            .withPool(this.applyExplosionCondition(block,
-                                            LootPool.lootPool())));
+                    .withPool(this.applyExplosionCondition(block,
+                            LootPool.lootPool())));
             this.dropSelf(WOODLAND_FERN.get());
             this.dropSelf(GHOST_PIPE.get());
             this.dropSelf(PHLOX.get());
@@ -166,18 +167,19 @@ public class FILoot extends LootTableProvider {
             this.add(FIBlocks.BLEWIT_MUSHROOM.get(), block -> LootTable.lootTable()
                     .withPool(this.applyExplosionCondition(block, LootPool.lootPool()
                             .add(LootItem.lootTableItem(FIItems.BLEWIT_MUSHROOM.get())))));
-            this.add(BLEWIT_MUSHROOM_COLONY.get(), block -> LootTable.lootTable().withPool(this.applyExplosionCondition(block, LootPool.lootPool()
-                            .add(LootItem.lootTableItem(BLEWIT_MUSHROOM_COLONY.get())).when(stateCond(BLEWIT_MUSHROOM_COLONY, MushroomColonyBlock.COLONY_AGE, 3)).when(HAS_SHEARS_OR_SILK_TOUCH)))
-                    .withPool(this.applyExplosionCondition(block, LootPool.lootPool().add(AlternativesEntry.alternatives(
-                            LootItem.lootTableItem(BLEWIT_MUSHROOM.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2))).when(stateCond(BLEWIT_MUSHROOM_COLONY, MushroomColonyBlock.COLONY_AGE, 0)),
-                            LootItem.lootTableItem(BLEWIT_MUSHROOM.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(3))).when(stateCond(BLEWIT_MUSHROOM_COLONY, MushroomColonyBlock.COLONY_AGE, 1)),
-                            LootItem.lootTableItem(BLEWIT_MUSHROOM.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4))).when(stateCond(BLEWIT_MUSHROOM_COLONY, MushroomColonyBlock.COLONY_AGE, 2)),
-                            LootItem.lootTableItem(BLEWIT_MUSHROOM.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(5))).when(stateCond(BLEWIT_MUSHROOM_COLONY, MushroomColonyBlock.COLONY_AGE, 3))
-                                    .when(HAS_NO_SHEARS_OR_SILK_TOUCH))))));
-                //Condensed
+
+            this.add(BLEWIT_MUSHROOM_COLONY.get(), block -> createMushroomColonyDrops(BLEWIT_MUSHROOM_COLONY, BLEWIT_MUSHROOM_COLONY.get(), BLEWIT_MUSHROOM.get()));
+            this.add(WALL_RED_MUSHROOM.get(), block -> createSingleItemTable(Items.RED_MUSHROOM));
+            this.add(WALL_BROWN_MUSHROOM.get(), block -> createSingleItemTable(Items.BROWN_MUSHROOM));
+            this.add(WALL_BLEWIT_MUSHROOM.get(), block -> createSingleItemTable(FIItems.BLEWIT_MUSHROOM.get()));
+            this.add(WALL_RED_MUSHROOM_COLONY.get(), block -> createMushroomColonyDrops(WALL_RED_MUSHROOM_COLONY, ModBlocks.RED_MUSHROOM_COLONY.get(), Items.RED_MUSHROOM));
+            this.add(WALL_BROWN_MUSHROOM_COLONY.get(), block -> createMushroomColonyDrops(WALL_BROWN_MUSHROOM_COLONY, ModBlocks.BROWN_MUSHROOM_COLONY.get(), Items.BROWN_MUSHROOM));
+            this.add(WALL_BLEWIT_MUSHROOM_COLONY.get(), block -> createMushroomColonyDrops(WALL_BLEWIT_MUSHROOM_COLONY, BLEWIT_MUSHROOM_COLONY.get(), BLEWIT_MUSHROOM.get()));
+
+            //Condensed
             this.add(CONDENSED_DIRT.get(), block -> createSilkTouchDispatchTable(block, LootItem.lootTableItem(Blocks.DIRT)));
             this.add(CONDENSED_SAND.get(), block -> createSilkTouchDispatchTable(block, LootItem.lootTableItem(Blocks.SAND)));
-                //Decorative
+            //Decorative
             this.dropSelf(SCATTERED_LILAC_BLOOM_MAT.get());
             this.dropSelf(SCATTERED_ROSE_PETAL_MAT.get());
             this.dropSelf(SCATTERED_ROSELLE_PETAL_MAT.get());
@@ -188,7 +190,7 @@ public class FILoot extends LootTableProvider {
             this.dropSelf(DENSE_SPRUCE_TIP_MAT.get());
             this.dropSelf(DENSE_ROSE_PETAL_MAT.get());
             this.dropSelf(DENSE_ROSELLE_PETAL_MAT.get());
-                //Leaves and Tree Stuff
+            //Leaves and Tree Stuff
             this.add(BOUNTIFUL_SPRUCE_TIPS.get(), LootTable.lootTable().setParamSet(LootContextParamSets.BLOCK));
             this.add(FIBlocks.SAPPY_BIRCH_LOG.get(), block -> createSilkTouchDispatchTable(block, LootItem.lootTableItem(Blocks.BIRCH_LOG)));
             this.add(STRIPPED_SAPPY_BIRCH_LOG.get(), block -> createSilkTouchDispatchTable(block, LootItem.lootTableItem(Blocks.STRIPPED_BIRCH_LOG)));
@@ -200,7 +202,7 @@ public class FILoot extends LootTableProvider {
             this.add(LILAC_LEAVES.get(), this.createLeafDrops(LILAC_LEAVES.get()));
             this.add(BLOSSOMING_LILAC_LEAVES.get(), this.createBlossomingLilacLeavesDrops(BLOSSOMING_LILAC_LEAVES.get()));
             this.add(HANGING_LILAC_LEAVES.get(), LootTable.lootTable().setParamSet(LootContextParamSets.BLOCK));
-                //Wood Stuff
+            //Wood Stuff
             this.dropSelf(LILAC_PLANKS.get());
             this.dropSelf(LILAC_STAIRS.get());
             this.add(LILAC_SLAB.get(), createSlabItemTable(LILAC_SLAB.get()));
@@ -215,11 +217,25 @@ public class FILoot extends LootTableProvider {
             this.add(LILAC_HANGING_SIGN.get(), block -> createSingleItemTable(FIItems.LILAC_HANGING_SIGN.get()));
             this.add(LILAC_WALL_HANGING_SIGN.get(), block -> createSingleItemTable(FIItems.LILAC_HANGING_SIGN.get()));
             this.dropSelf(LILAC_CABINET.get());
-            
-                //Tools + Workstations
+
+            //Tools + Workstations
             this.add(FIBlocks.DIFFUSER.get(), block -> createSingleItemTable(FIItems.DIFFUSER.get()));
             this.add(FIBlocks.TAPPER.get(), block -> createSingleItemTable(FIItems.TAPPER.get()));
 
+
+
+        }
+            private LootTable.Builder createMushroomColonyDrops(RegistryObject<? extends Block> colonyBlock, ItemLike colonyDrop, ItemLike mushroomDrop) {
+                return LootTable.lootTable().withPool(this.applyExplosionCondition(colonyBlock.get(), LootPool.lootPool()
+                                .add(LootItem.lootTableItem(colonyDrop))
+                                .when(stateCond(colonyBlock, MushroomColonyBlock.COLONY_AGE, 3))
+                                .when(HAS_SHEARS_OR_SILK_TOUCH)))
+                        .withPool(this.applyExplosionCondition(colonyBlock.get(), LootPool.lootPool().add(AlternativesEntry.alternatives(
+                                LootItem.lootTableItem(mushroomDrop).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2))).when(stateCond(colonyBlock, MushroomColonyBlock.COLONY_AGE, 0)),
+                                LootItem.lootTableItem(mushroomDrop).apply(SetItemCountFunction.setCount(ConstantValue.exactly(3))).when(stateCond(colonyBlock, MushroomColonyBlock.COLONY_AGE, 1)),
+                                LootItem.lootTableItem(mushroomDrop).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4))).when(stateCond(colonyBlock, MushroomColonyBlock.COLONY_AGE, 2)),
+                                LootItem.lootTableItem(mushroomDrop).apply(SetItemCountFunction.setCount(ConstantValue.exactly(5))).when(stateCond(colonyBlock, MushroomColonyBlock.COLONY_AGE, 3))
+                                        .when(HAS_NO_SHEARS_OR_SILK_TOUCH)))));
 
         }
         private LootTable.Builder createBlossomingLilacLeavesDrops(Block leaves) {

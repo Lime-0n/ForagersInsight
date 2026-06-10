@@ -5,7 +5,6 @@ import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.data.server.recipes.FIDiffusingRecipes;
 import com.tiomadre.foragersinsight.common.gui.DiffuserMenu;
 import com.tiomadre.foragersinsight.core.registry.FIBlockEntityTypes;
-import com.tiomadre.foragersinsight.data.server.tags.FITags;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -390,7 +389,7 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
     @Override
     public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
         if (slot < INPUT_SLOT_COUNT) {
-            return stack.is(FITags.ItemTag.AROMATICS) && !this.hasActiveScent();
+            return !this.hasActiveScent();
         }
         if (slot == ENHANCEMENT_SLOT_INDEX) {
             return isEnhancementItem(stack) && !this.hasActiveScent();

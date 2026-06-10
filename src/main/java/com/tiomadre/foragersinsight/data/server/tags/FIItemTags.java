@@ -22,8 +22,6 @@ public class FIItemTags extends ItemTagsProvider {
     }
     @Override
     protected void addTags(HolderLookup.@NotNull Provider provider) {
-        //Aromatic
-        this.tag(AROMATICS).add(FIItems.ROSE_PETALS.get(), FIItems.ROSELLE_PETALS.get(), FIItems.SPRUCE_TIPS.get());
         //Other
         this.tag(FITags.ItemTag.DOUGH).add(ModItems.WHEAT_DOUGH.get(), FIItems.ACORN_DOUGH.get());
         this.tag(FITags.ItemTag.ICE).add(Items.ICE, FIItems.CRUSHED_ICE.get())

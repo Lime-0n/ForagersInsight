@@ -54,9 +54,21 @@ public class FIBlocks {
     //Mushrooms
     public static final RegistryObject<Block> BLEWIT_MUSHROOM_COLONY = HELPER.createBlock("blewit_mushroom_colony", () ->
             new MushroomColonyBlock(copy(Blocks.RED_MUSHROOM), FIItems.BLEWIT_MUSHROOM));
-
     public static final RegistryObject<Block> BLEWIT_MUSHROOM = HELPER.createBlockNoItem("blewit_mushroom", () ->
             new WildMushroomBlock(copy(Blocks.RED_MUSHROOM), BLEWIT_MUSHROOM_COLONY));
+    public static final RegistryObject<Block> WALL_RED_MUSHROOM_COLONY = HELPER.createBlockNoItem("wall_red_mushroom_colony", () ->
+            new WallMushroomColonyBlock(copy(Blocks.RED_MUSHROOM), () -> Items.RED_MUSHROOM));
+    public static final RegistryObject<Block> WALL_BROWN_MUSHROOM_COLONY = HELPER.createBlockNoItem("wall_brown_mushroom_colony", () ->
+            new WallMushroomColonyBlock(copy(Blocks.BROWN_MUSHROOM), () -> Items.BROWN_MUSHROOM));
+    public static final RegistryObject<Block> WALL_BLEWIT_MUSHROOM_COLONY = HELPER.createBlockNoItem("wall_blewit_mushroom_colony", () ->
+            new WallMushroomColonyBlock(copy(Blocks.RED_MUSHROOM), FIItems.BLEWIT_MUSHROOM));
+    public static final RegistryObject<Block> WALL_RED_MUSHROOM = HELPER.createBlockNoItem("wall_red_mushroom", () ->
+            new WallMushroomBlock(copy(Blocks.RED_MUSHROOM), WALL_RED_MUSHROOM_COLONY));
+    public static final RegistryObject<Block> WALL_BROWN_MUSHROOM = HELPER.createBlockNoItem("wall_brown_mushroom", () ->
+            new WallMushroomBlock(copy(Blocks.BROWN_MUSHROOM), WALL_BROWN_MUSHROOM_COLONY));
+    public static final RegistryObject<Block> WALL_BLEWIT_MUSHROOM = HELPER.createBlockNoItem("wall_blewit_mushroom", () ->
+            new WallMushroomBlock(copy(Blocks.RED_MUSHROOM), WALL_BLEWIT_MUSHROOM_COLONY));
+
     //Trees
     //Oak
     public static final RegistryObject<Block> BOUNTIFUL_OAK_LEAVES = HELPER.createBlock("bountiful_oak_leaves", () ->

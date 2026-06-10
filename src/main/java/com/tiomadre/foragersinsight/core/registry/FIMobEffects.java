@@ -18,6 +18,6 @@ public class FIMobEffects {
     public static final RegistryObject<MobEffect> MEDICINAL = MOB_EFFECTS.register("medicinal", MedicinalEffect::new);
     public static final RegistryObject<MobEffect> BLOOM = MOB_EFFECTS.register("bloom", BloomEffect::new);
     public static final RegistryObject<MobEffect> ODOROUS = MOB_EFFECTS.register("odorous", OdorousEffect::new);
-    public static final RegistryObject<MobEffect> ROOTED = MOB_EFFECTS.register("stuck", StuckEffect::new);
+    public static final RegistryObject<MobEffect> STUCK = MOB_EFFECTS.register("stuck", StuckEffect::new);
 
 }
