@@ -168,7 +168,7 @@ public class FIBlocks {
     public static final RegistryObject<Block> CONDENSED_DIRT = HELPER.createBlock("condensed_dirt", () ->
             new ShallowBlock(copy(Blocks.DIRT).noOcclusion()));
     public static final RegistryObject<Block> CONDENSED_SAND = HELPER.createBlock("condensed_sand", () ->
-            new ShallowBlock(copy(Blocks.SAND).noOcclusion()));
+            new ShallowFallingBlock(copy(Blocks.SAND).noOcclusion()));
 
 
     //STORAGE

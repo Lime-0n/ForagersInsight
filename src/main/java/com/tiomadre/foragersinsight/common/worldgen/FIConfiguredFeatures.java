@@ -97,7 +97,7 @@ public class FIConfiguredFeatures {
                 .ignoreVines().build());
         register(context, YOUNG_ACORN_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(Blocks.DARK_OAK_LOG),
-                new StraightTrunkPlacer(5, 2, 1),
+                new StraightTrunkPlacer(4, 2, 1),
                 bountifulLeafStateProvider(Blocks.DARK_OAK_LEAVES, FIBlocks.BOUNTIFUL_DARK_OAK_LEAVES),
                 new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
                 new TwoLayersFeatureSize(1, 0, 1)
@@ -105,7 +105,7 @@ public class FIConfiguredFeatures {
 
         register(context, YOUNG_DARK_OAK_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(Blocks.DARK_OAK_LOG),
-                new StraightTrunkPlacer(5, 2, 1),
+                new StraightTrunkPlacer(4, 2, 1),
                 BlockStateProvider.simple(Blocks.DARK_OAK_LEAVES),
                 new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
                 new TwoLayersFeatureSize(1, 0, 1)

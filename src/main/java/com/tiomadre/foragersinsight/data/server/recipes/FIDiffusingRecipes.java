@@ -87,7 +87,17 @@ public final class FIDiffusingRecipes {
             "foragersinsight.diffuser.foul",
             "foragersinsight.diffuser.foul.description",
             8.0,
-            () -> new MobEffectInstance(FIMobEffects.ODOROUS.get(), 1200, 0),
+            () -> new MobEffectInstance(FIMobEffects.ODOROUS.get(), 900, 0),
+            3);
+
+    public static final Supplier<FIDiffusingRecipes> FOUL_II = register(
+            "foul",
+            repeated(ModItems.ORGANIC_COMPOST, 1, 3),
+            ForagersInsight.rl("textures/scents/foul_II.png"),
+            "foragersinsight.diffuser.foul",
+            "foragersinsight.diffuser.foul.description",
+            12.0,
+            () -> new MobEffectInstance(FIMobEffects.ODOROUS.get(), 1500, 0),
             3);
 
     public static void bootstrap() {

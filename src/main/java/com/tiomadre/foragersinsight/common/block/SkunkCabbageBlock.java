@@ -33,7 +33,7 @@ public class SkunkCabbageBlock extends BushBlock {
             double x = pos.getX() + 0.5D + (random.nextDouble() - 0.5D) * 0.4D;
             double y = pos.getY() + 0.2D + random.nextDouble() * 0.5D;
             double z = pos.getZ() + 0.5D + (random.nextDouble() - 0.5D) * 0.4D;
-            serverLevel.sendParticles(FIParticleTypes.FOUL_SCENT.get(), x, y, z, 2, 0.05D, 0.08D, 0.05D, 0.01D);
+            serverLevel.sendParticles(FIParticleTypes.FOUL_SCENT.get(), x, y, z, 1, 0.03D, 0.04D, 0.03D, 0.005D);
         }
     }
 }

@@ -198,11 +198,13 @@
   "foragersinsight.diffuser.floral": "The diffuser is exuding a Floral scent!",
   "foragersinsight.diffuser.floral_ii": "The diffuser is exuding a strong Floral scent!",
   "foragersinsight.diffuser.foul": "The diffuser is exuding a Foul scent!",
+  "foragersinsight.diffuser.foul_ii": "The diffuser is exuding a strong Foul scent!",
   "foragersinsight.diffuser.rosey.description": "A comforting rosey scent fills the air, granting Regeneration to those near this Diffuser.",
   "foragersinsight.diffuser.coniferous.description": "An invigorating coniferous scent fills the air, giving Resistance to those near this Diffuser.",
   "foragersinsight.diffuser.floral.description": "A light floral scent wafts in the air, giving Bloom to those near this Diffuser.",
   "foragersinsight.diffuser.floral_ii.description": "A strong floral scent perfumes the air, giving Bloom II to those near this Diffuser.",
   "foragersinsight.diffuser.foul.description": "A stinky aroma fills the air, giving Odorous to those near this Diffuser.",
+  "foragersinsight.diffuser.foul_ii.description": "A powerful stench fills the air, giving Odorous to those near this Diffuser.",
 
   "item.foragersinsight.diffuser.tooltip.remaining_duration": "The scent is paused for %s seconds",
   "item.foragersinsight.diffuser.tooltip.scent": "Scent: %s",
