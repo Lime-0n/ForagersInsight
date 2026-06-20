@@ -16,6 +16,7 @@ public class FIConfig {
         public final ForgeConfigSpec.BooleanValue enableTapperXP;
         public final ForgeConfigSpec.BooleanValue enableBeehiveXP;
         public final ForgeConfigSpec.BooleanValue enableMilkingXP;
+        public final ForgeConfigSpec.BooleanValue milkRemovesOdorous;
 
 
         public Common(ForgeConfigSpec.Builder builder) {
@@ -55,6 +56,14 @@ public class FIConfig {
             this.enableMilkingXP = builder
                     .comment("Enable XP from milking cows.")
                     .define("Milking XP", true);
+
+            builder.pop();
+
+            builder.push("Effect Toggles");
+
+            this.milkRemovesOdorous = builder
+                    .comment("Allow milk to remove the Odorous effect.")
+                    .define("Milk Removes Odorous", false);
 
             builder.pop();
         }

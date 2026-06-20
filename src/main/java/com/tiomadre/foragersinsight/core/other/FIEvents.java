@@ -1,26 +1,39 @@
 package com.tiomadre.foragersinsight.core.other;
 
+import com.tiomadre.foragersinsight.common.effect.StuckEffect;
+import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIAdvancementCriteria;
+import com.tiomadre.foragersinsight.core.registry.FIConfig;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import com.tiomadre.foragersinsight.core.registry.FIMobEffects;
-import com.tiomadre.foragersinsight.core.ForagersInsight;
+import com.tiomadre.foragersinsight.data.server.tags.FITags;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.WrappedGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.MobEffectEvent;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerXpEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 @Mod.EventBusSubscriber(modid = ForagersInsight.MOD_ID)
 public class FIEvents {
+    private static final Map<UUID, MobEffectInstance> ODOROUS_MILK_EFFECTS = new HashMap<>();
+
     //Odorous Effect logic
     @SubscribeEvent
     public static void onMobJoin(EntityJoinLevelEvent event) {
@@ -46,8 +59,34 @@ public class FIEvents {
 
         event.setNewTarget(null);
         monster.setTarget(null);
-        //Advancement Triggers
+
     }
+    @SubscribeEvent
+    public static void onMilkDrinkStart(LivingEntityUseItemEvent.Start event) {
+        if (FIConfig.COMMON.milkRemovesOdorous.get()) return;
+        if (!isMilk(event.getItem())) return;
+
+        MobEffectInstance odorous = event.getEntity().getEffect(FIMobEffects.ODOROUS.get());
+        if (odorous == null) return;
+
+        ODOROUS_MILK_EFFECTS.put(event.getEntity().getUUID(), new MobEffectInstance(odorous));
+    }
+
+    @SubscribeEvent
+    public static void onMilkDrinkFinish(LivingEntityUseItemEvent.Finish event) {
+        if (FIConfig.COMMON.milkRemovesOdorous.get()) return;
+        if (!isMilk(event.getItem())) return;
+
+        MobEffectInstance odorous = ODOROUS_MILK_EFFECTS.remove(event.getEntity().getUUID());
+        if (odorous == null || event.getEntity().hasEffect(FIMobEffects.ODOROUS.get())) return;
+
+        event.getEntity().addEffect(odorous);
+    }
+
+    private static boolean isMilk(ItemStack stack) {
+        return stack.is(Items.MILK_BUCKET) || stack.is(FITags.ItemTag.MILK);
+    }
+    //Advancement Triggers
     @SubscribeEvent
     public static void onMobEffectAdded(MobEffectEvent.Added event) {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
@@ -69,8 +108,7 @@ public class FIEvents {
         LivingEntity entity = event.getEntity();
         if (!entity.hasEffect(FIMobEffects.STUCK.get())) return;
 
-        entity.setDeltaMovement(0.0D, Math.min(entity.getDeltaMovement().y, 0.0D), 0.0D);
-        entity.hurtMarked = true;
+        StuckEffect.stopMovementActions(entity);
 
         if (entity instanceof Player player) {
             player.xxa = 0.0F;

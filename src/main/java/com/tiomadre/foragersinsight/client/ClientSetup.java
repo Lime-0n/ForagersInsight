@@ -73,32 +73,6 @@ public class ClientSetup {
                     RenderType.cutout()
             );
 
-            ItemBlockRenderTypes.setRenderLayer(
-                    FIBlocks.WALL_RED_MUSHROOM.get(),
-                    RenderType.cutout()
-            );
-            ItemBlockRenderTypes.setRenderLayer(
-                    FIBlocks.WALL_BROWN_MUSHROOM.get(),
-                    RenderType.cutout()
-            );
-            ItemBlockRenderTypes.setRenderLayer(
-                    FIBlocks.WALL_BLEWIT_MUSHROOM.get(),
-                    RenderType.cutout()
-            );
-            ItemBlockRenderTypes.setRenderLayer(
-                    FIBlocks.WALL_RED_MUSHROOM_COLONY.get(),
-                    RenderType.cutout()
-            );
-            ItemBlockRenderTypes.setRenderLayer(
-                    FIBlocks.WALL_BROWN_MUSHROOM_COLONY.get(),
-                    RenderType.cutout()
-            );
-            ItemBlockRenderTypes.setRenderLayer(
-                    FIBlocks.WALL_BLEWIT_MUSHROOM_COLONY.get(),
-                    RenderType.cutout()
-            );
-
-
             BlockEntityRenderers.register(
                     FIBlockEntityTypes.SUSPICIOUS_LEAF_LITTER.get(),
                     SuspiciousLitterRenderer::new

@@ -103,7 +103,7 @@ public final class FIDiffusingRecipes {
             "foragersinsight.diffuser.foul",
             "foragersinsight.diffuser.foul.description",
             8.0,
-            () -> new MobEffectInstance(FIMobEffects.ODOROUS.get(), 900, 0),
+            () -> new MobEffectInstance(FIMobEffects.ODOROUS.get(), 100, 0),
             3);
 
     public static final Supplier<FIDiffusingRecipes> FOUL_II = register(
