@@ -2,7 +2,7 @@
   "parent": "foragersinsight:block/v_cross",
   "render_type": "minecraft:cutout",
   "textures": {
-    "missing": "foragersinsight:block/wall_brown_mushroom",
+    "cross": "foragersinsight:block/wall_brown_mushroom",
     "particle": "foragersinsight:block/wall_brown_mushroom"
   }
 }

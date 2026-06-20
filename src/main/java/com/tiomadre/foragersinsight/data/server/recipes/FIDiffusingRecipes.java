@@ -41,6 +41,15 @@ public final class FIDiffusingRecipes {
             8.0,
             () -> new MobEffectInstance(MobEffects.REGENERATION, 200, 0),
             0);
+    public static final Supplier<FIDiffusingRecipes> ROSEY_II = register(
+            "rosey",
+            repeated(FIBlocks.DENSE_ROSE_PETAL_MAT, 1, 3),
+            ForagersInsight.rl("textures/scents/rosey_ii.png"),
+            "foragersinsight.diffuser.rosey_ii",
+            "foragersinsight.diffuser.rosey_ii.description",
+            8.0,
+            () -> new MobEffectInstance(MobEffects.REGENERATION, 800, 1),
+            0);
 
     //CONIFEROUS SCENT RECIPES
     public static final Supplier<FIDiffusingRecipes> CONIFEROUS = register(
@@ -52,13 +61,20 @@ public final class FIDiffusingRecipes {
             8.0,
             () -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 500, 0),
             1);
+    public static final Supplier<FIDiffusingRecipes> CONIFEROUS_II = register(
+            "coniferous",
+            repeated(FIBlocks.DENSE_SPRUCE_TIP_MAT, 1, 3),
+            ForagersInsight.rl("textures/scents/coniferous_ii.png"),
+            "foragersinsight.diffuser.coniferous_ii",
+            "foragersinsight.diffuser.coniferous_ii.description",
+            8.0,
+            () -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 1500, 0),
+            1);
 
     //FLORAL SCENT RECIPES
     public static final Supplier<FIDiffusingRecipes> FLORAL = register(
             "floral",
-            List.of(IngredientCount.of(Ingredient.of(FIItems.LILAC_BLOOM.get()), 1),
-                    IngredientCount.of(Ingredient.of(FIItems.LILAC_BLOOM.get()), 1),
-                    IngredientCount.of(Ingredient.of(FIItems.LILAC_BLOOM.get()), 1)),
+            repeated(FIItems.LILAC_BLOOM, 1, 3),
             ForagersInsight.rl("textures/scents/floral.png"),
             "foragersinsight.diffuser.floral",
             "foragersinsight.diffuser.floral.description",
@@ -82,7 +98,7 @@ public final class FIDiffusingRecipes {
     //FOUL SCENT
     public static final Supplier<FIDiffusingRecipes> FOUL = register(
             "foul",
-            repeated(ModItems.ORGANIC_COMPOST, 1, 3),
+            repeated(FIBlocks.SKUNK_CABBAGE, 1, 3),
             ForagersInsight.rl("textures/scents/foul.png"),
             "foragersinsight.diffuser.foul",
             "foragersinsight.diffuser.foul.description",
@@ -91,11 +107,11 @@ public final class FIDiffusingRecipes {
             3);
 
     public static final Supplier<FIDiffusingRecipes> FOUL_II = register(
-            "foul",
+            "foul_ii",
             repeated(ModItems.ORGANIC_COMPOST, 1, 3),
-            ForagersInsight.rl("textures/scents/foul_II.png"),
-            "foragersinsight.diffuser.foul",
-            "foragersinsight.diffuser.foul.description",
+            ForagersInsight.rl("textures/scents/foul_ii.png"),
+            "foragersinsight.diffuser.foul_ii",
+            "foragersinsight.diffuser.foul_ii.description",
             12.0,
             () -> new MobEffectInstance(FIMobEffects.ODOROUS.get(), 1500, 0),
             3);

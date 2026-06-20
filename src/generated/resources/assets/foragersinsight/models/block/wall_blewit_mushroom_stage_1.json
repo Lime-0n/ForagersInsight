@@ -2,7 +2,7 @@
   "parent": "foragersinsight:block/v_cross",
   "render_type": "minecraft:cutout",
   "textures": {
-    "missing": "foragersinsight:block/wall_blewit_1",
+    "cross": "foragersinsight:block/wall_blewit_1",
     "particle": "foragersinsight:block/wall_blewit_1"
   }
 }
