@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class SkunkCabbageBlock extends BushBlock {
-    private static final int ODOROUS_DURATION_TICKS = 100;
+    private static final int ODOROUS_DURATION_TICKS = 250;
 
     public SkunkCabbageBlock(Properties properties) {
         super(properties);

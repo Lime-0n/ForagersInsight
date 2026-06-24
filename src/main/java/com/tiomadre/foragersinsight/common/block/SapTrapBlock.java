@@ -26,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
 public class SapTrapBlock extends FoliageMatBlock {
     public static final BooleanProperty TRIGGERED = BooleanProperty.create("triggered");
     private static final int ROOT_DURATION = 60;
-    private static final int BREAK_DELAY_TICKS = 10;
+    private static final int BREAK_DELAY_TICKS = 5;
     private static final int SLOW_DURATION_TICKS = 5;
     private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 2, 16);
 

@@ -54,8 +54,7 @@ public class FIEvents {
         LivingEntity newTarget = event.getNewTarget();
 
         if (!(attacker instanceof Monster monster)) return;
-        if (!(newTarget instanceof Player player)) return;
-        if (!player.hasEffect(FIMobEffects.ODOROUS.get())) return;
+        if (newTarget == null || !newTarget.hasEffect(FIMobEffects.ODOROUS.get())) return;
 
         event.setNewTarget(null);
         monster.setTarget(null);
