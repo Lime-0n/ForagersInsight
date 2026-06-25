@@ -68,6 +68,9 @@ public class FIBlocks {
             new WallMushroomBlock(copy(Blocks.BROWN_MUSHROOM), WALL_BROWN_MUSHROOM_COLONY));
     public static final RegistryObject<Block> WALL_BLEWIT_MUSHROOM = HELPER.createBlockNoItem("wall_blewit_mushroom", () ->
             new WallMushroomBlock(copy(Blocks.RED_MUSHROOM), WALL_BLEWIT_MUSHROOM_COLONY));
+        //Unique Mushrooms
+    public static final RegistryObject<Block> TINDER_CONK = HELPER.createBlock("tinder_conk", () ->
+            new TinderConkBlock(copy(Blocks.BROWN_MUSHROOM).randomTicks().noOcclusion()));
 
     //Trees
     //Oak
@@ -169,7 +172,7 @@ public class FIBlocks {
             new ShallowBlock(copy(Blocks.DIRT).noOcclusion()));
     public static final RegistryObject<Block> CONDENSED_SAND = HELPER.createBlock("condensed_sand", () ->
             new ShallowFallingBlock(copy(Blocks.SAND).noOcclusion()));
-
+    public static final RegistryObject<Block> SAP_SPLOTCH = HELPER.createBlock("sap_splotch", SapSplotchBlock::new);
 
     //STORAGE
         //Crop Crates and Sacks

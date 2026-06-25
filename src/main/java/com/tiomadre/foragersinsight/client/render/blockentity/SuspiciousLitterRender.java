@@ -10,11 +10,11 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
-public class SuspiciousLitterRenderer implements BlockEntityRenderer<SuspiciousLitterBlockEntity> {
+public class SuspiciousLitterRender implements BlockEntityRenderer<SuspiciousLitterBlockEntity> {
 
     private final ItemRenderer itemRenderer;
 
-    public SuspiciousLitterRenderer(BlockEntityRendererProvider.Context context) {
+    public SuspiciousLitterRender(BlockEntityRendererProvider.Context context) {
         this.itemRenderer = context.getItemRenderer();
     }
 

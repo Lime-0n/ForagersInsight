@@ -40,12 +40,19 @@ public class FIEvents {
         if (event.getLevel().isClientSide()) return;
         if (!(event.getEntity() instanceof PathfinderMob mob)) return;
 
-        boolean alreadyPresent = mob.goalSelector.getAvailableGoals().stream()
+        boolean alreadyHasOdorousAvoidance = mob.goalSelector.getAvailableGoals().stream()
                 .map(WrappedGoal::getGoal)
                 .anyMatch(goal -> goal instanceof OdorousAvoidance);
-        if (alreadyPresent) return;
+        if (!alreadyHasOdorousAvoidance) {
+            mob.goalSelector.addGoal(3, new OdorousAvoidance(mob, 1.1D, 1.25D));
+        }
 
-        mob.goalSelector.addGoal(3, new OdorousAvoidance(mob, 1.1D, 1.25D));
+        boolean alreadyHasSapTrapBait = mob.goalSelector.getAvailableGoals().stream()
+                .map(WrappedGoal::getGoal)
+                .anyMatch(goal -> goal instanceof SapTrapBaitGoal);
+        if (!alreadyHasSapTrapBait) {
+            mob.goalSelector.addGoal(3, new SapTrapBaitGoal(mob));
+        }
     }
 
     @SubscribeEvent

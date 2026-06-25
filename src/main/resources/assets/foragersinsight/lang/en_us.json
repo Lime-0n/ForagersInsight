@@ -88,7 +88,6 @@
   "item.foragersinsight.diamond_mallet": "Diamond Mallet",
   "item.foragersinsight.netherite_mallet": "Netherite Mallet",
   "item.foragersinsight.tapper": "Tapper",
-  "item.foragersinsight.sappy_brush": "Sappy Brush",
 
   "block.foragersinsight.blewit_mushroom": "Blewit Mushroom",
   "block.foragersinsight.blewit_mushroom_colony": "Blewit Mushroom Colony",
@@ -124,6 +123,8 @@
   "block.foragersinsight.phlox": "Phlox",
   "item.foragersinsight.phlox": "Phlox",
   "block.foragersinsight.skunk_cabbage": "Skunk Cabbage",
+  "block.foragersinsight.tinder_conk": "Tinder Conk",
+
   "block.foragersinsight.condensed_dirt": "Compact Dirt",
   "block.foragersinsight.condensed_sand": "Compact Sand",
 
@@ -169,6 +170,7 @@
   "block.foragersinsight.scattered_spruce_tips": "Scattered Spruce Tips",
 
   "block.foragersinsight.sap_trap": "Sap Trap",
+  "block.foragersinsight.sap_splotch": "Sap Splotch",
 
   "effect.foragersinsight.bloom": "Bloom",
   "effect.foragersinsight.chilled": "Chilled",
@@ -180,7 +182,7 @@
   "effect.foragersinsight.chilled.description": "Freeze the duration of beneficial effects.",
   "effect.foragersinsight.medicinal.description": "Removes and prevents the application of Poison and Wither. The player is also healed per effect removed.",
   "effect.foragersinsight.odorous.description": "Become stinky, causing nearby mobs to avoid this unit.",
-  "effect.foragersinsight.stuck.description": "Become stuck, preventing movement for the duration",
+  "effect.foragersinsight.stuck.description": "Become stuck, preventing movement and jumping for the duration",
   "effect.foragersinsight.sticky_resistance.description": "Removes and prevents the application of Stuck. Gain movement speed for 3 seconds if Stuck is removed.",
 
   "enchantment.foragersinsight.farmhand": "Farmhand",

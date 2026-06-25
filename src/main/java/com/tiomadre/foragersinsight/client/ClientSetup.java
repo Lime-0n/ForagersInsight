@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.client;
 
-import com.tiomadre.foragersinsight.client.render.blockentity.SuspiciousLitterRenderer;
+import com.tiomadre.foragersinsight.client.render.blockentity.SuspiciousLitterRender;
+import com.tiomadre.foragersinsight.client.render.blockentity.SapTrapRenderer;
 import com.tiomadre.foragersinsight.common.block.SuspiciousLitterBlock;
 import com.tiomadre.foragersinsight.common.worldgen.FIBiomes;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
@@ -75,7 +76,11 @@ public class ClientSetup {
 
             BlockEntityRenderers.register(
                     FIBlockEntityTypes.SUSPICIOUS_LEAF_LITTER.get(),
-                    SuspiciousLitterRenderer::new
+                    SuspiciousLitterRender::new
+            );
+            BlockEntityRenderers.register(
+                    FIBlockEntityTypes.SAP_TRAP.get(),
+                    SapTrapRenderer::new
             );
         });
     }

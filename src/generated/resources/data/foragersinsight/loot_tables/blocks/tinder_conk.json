@@ -1,0 +1,85 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "block": "foragersinsight:tinder_conk",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "age": "0"
+              }
+            },
+            {
+              "block": "foragersinsight:tinder_conk",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "age": "1"
+              }
+            },
+            {
+              "block": "foragersinsight:tinder_conk",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "age": "2"
+              }
+            },
+            {
+              "block": "foragersinsight:tinder_conk",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "age": "3"
+              }
+            },
+            {
+              "block": "foragersinsight:tinder_conk",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "age": "4"
+              }
+            }
+          ],
+          "functions": [
+            {
+              "add": false,
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "count": 2.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "count": 3.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "count": 4.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "count": 5.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "foragersinsight:tinder_conk"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "foragersinsight:blocks/tinder_conk"
+}

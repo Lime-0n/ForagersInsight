@@ -2,9 +2,11 @@ package com.tiomadre.foragersinsight.common.worldgen.trees.decorator;
 
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FITreeDecoratorTypes;
+import com.tiomadre.foragersinsight.common.block.TinderConkBlock;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
@@ -72,5 +74,19 @@ public class SappyBirchLogDecorator extends TreeDecorator {
         BlockPos chosen = trunk.get(random.nextInt(trunk.size()));
         BlockState state = FIBlocks.SAPPY_BIRCH_LOG.get().defaultBlockState();
         context.setBlock(chosen, state);
+        placeTinderConk(context, chosen, random);
+    }
+
+    private static void placeTinderConk(Context context, BlockPos supportPos, RandomSource random) {
+        List<Direction> directions = new ArrayList<>(Direction.Plane.HORIZONTAL.stream().toList());
+        while (!directions.isEmpty()) {
+            Direction direction = directions.remove(random.nextInt(directions.size()));
+            BlockPos conkPos = supportPos.relative(direction);
+            BlockState conkState = FIBlocks.TINDER_CONK.get().defaultBlockState().setValue(TinderConkBlock.FACING, direction);
+            if (context.isAir(conkPos)) {
+                context.setBlock(conkPos, conkState);
+                return;
+            }
+        }
     }
 }

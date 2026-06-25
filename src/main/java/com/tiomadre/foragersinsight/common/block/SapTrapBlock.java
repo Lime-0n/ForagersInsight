@@ -1,31 +1,45 @@
 package com.tiomadre.foragersinsight.common.block;
 
+import com.tiomadre.foragersinsight.common.block.entity.SapTrapBlockEntity;
+import com.tiomadre.foragersinsight.common.item.BaitItem;
 import com.tiomadre.foragersinsight.core.registry.FIMobEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public class SapTrapBlock extends FoliageMatBlock {
+public class SapTrapBlock extends FoliageMatBlock implements EntityBlock {
     public static final BooleanProperty TRIGGERED = BooleanProperty.create("triggered");
-    private static final int ROOT_DURATION = 60;
+    private static final int ROOT_DURATION = 75 ;
+    private static final int BAITED_ROOT_DURATION = Math.round(ROOT_DURATION * 1.35F);
     private static final int BREAK_DELAY_TICKS = 5;
     private static final int SLOW_DURATION_TICKS = 5;
     private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 2, 16);
@@ -52,6 +66,39 @@ public class SapTrapBlock extends FoliageMatBlock {
     }
 
     @Override
+    public @NotNull InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos,
+                                          @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+        ItemStack heldStack = player.getItemInHand(hand);
+        if (!(level.getBlockEntity(pos) instanceof SapTrapBlockEntity sapTrap)) {
+            return InteractionResult.PASS;
+        }
+
+        if (sapTrap.hasBait()) {
+            if (!level.isClientSide) {
+                ItemStack bait = sapTrap.removeBait();
+                if (!player.addItem(bait)) {
+                    player.drop(bait, false);
+                }
+                level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 0.8F, 1.0F);
+            }
+            return InteractionResult.sidedSuccess(level.isClientSide);
+        }
+
+        if (!BaitItem.isBait(heldStack)) {
+            return InteractionResult.PASS;
+        }
+
+        if (!level.isClientSide) {
+            sapTrap.setBait(heldStack);
+            if (!player.getAbilities().instabuild) {
+                heldStack.shrink(1);
+            }
+            level.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 0.8F, 1.0F);
+        }
+        return InteractionResult.sidedSuccess(level.isClientSide);
+    }
+
+    @Override
     public void stepOn(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Entity entity) {
         this.triggerTrap(level, pos, state, entity);
         super.stepOn(level, pos, state, entity);
@@ -71,11 +118,34 @@ public class SapTrapBlock extends FoliageMatBlock {
 
         AABB trapArea = new AABB(pos).inflate(0.05D, 0.0D, 0.05D);
         for (LivingEntity livingEntity : level.getEntitiesOfClass(LivingEntity.class, trapArea)) {
-            livingEntity.addEffect(new MobEffectInstance(FIMobEffects.STUCK.get(), ROOT_DURATION, 0, false, true, true));
+            int duration = getStuckDuration(level, pos, livingEntity);
+            livingEntity.addEffect(new MobEffectInstance(FIMobEffects.STUCK.get(), duration, 0, false, true, true));
         }
 
         level.playSound(null, pos, SoundType.BAMBOO.getBreakSound(), SoundSource.BLOCKS, SoundType.BAMBOO.getVolume(), SoundType.BAMBOO.getPitch());
         level.destroyBlock(pos, false);
+    }
+
+    @Override
+    public void destroy(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state) {
+        if (level instanceof Level realLevel && !realLevel.isClientSide && realLevel.getBlockEntity(pos) instanceof SapTrapBlockEntity sapTrap && sapTrap.hasBait()) {
+            ItemStack bait = sapTrap.removeBait();
+            realLevel.addFreshEntity(new ItemEntity(realLevel, pos.getX() + 0.5D, pos.getY() + 0.15D, pos.getZ() + 0.5D, bait));
+        }
+        super.destroy(level, pos, state);
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+        return new SapTrapBlockEntity(pos, state);
+    }
+
+    private int getStuckDuration(@NotNull Level level, @NotNull BlockPos pos, @NotNull LivingEntity livingEntity) {
+        if (level.getBlockEntity(pos) instanceof SapTrapBlockEntity sapTrap && BaitItem.attracts(sapTrap.getBait(), livingEntity)) {
+            return BAITED_ROOT_DURATION;
+        }
+        return ROOT_DURATION;
     }
 
     private void triggerTrap(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Entity entity) {

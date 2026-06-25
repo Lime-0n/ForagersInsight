@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.core.registry;
 
 import com.tiomadre.foragersinsight.common.block.entity.DiffuserBlockEntity;
+import com.tiomadre.foragersinsight.common.block.entity.SapTrapBlockEntity;
 import com.tiomadre.foragersinsight.common.block.entity.TapperBlockEntity;
 import com.tiomadre.foragersinsight.common.block.entity.suspiciouslitter.SuspiciousLitterBlockEntity;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
@@ -23,7 +24,12 @@ public class FIBlockEntityTypes {
     public static final RegistryObject<BlockEntityType<TapperBlockEntity>> TAPPER =
             BLOCK_ENTITY_TYPES.register("tapper",
                     () -> BlockEntityType.Builder.of(TapperBlockEntity::new, FIBlocks.TAPPER.get()).build(null));
+    public static final RegistryObject<BlockEntityType<SapTrapBlockEntity>> SAP_TRAP =
+            BLOCK_ENTITY_TYPES.register("sap_trap",
+                    () -> BlockEntityType.Builder.of(SapTrapBlockEntity::new, FIBlocks.SAP_TRAP.get()).build(null));
+
     public static void register(IEventBus bus) {
         BLOCK_ENTITY_TYPES.register(bus);
     }
+
 }

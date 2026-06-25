@@ -1,9 +1,6 @@
 package com.tiomadre.foragersinsight.data.server;
 
-import com.tiomadre.foragersinsight.common.block.BountifulLeavesBlock;
-import com.tiomadre.foragersinsight.common.block.DandelionBushBlock;
-import com.tiomadre.foragersinsight.common.block.PoppyBushBlock;
-import com.tiomadre.foragersinsight.common.block.RoseCropBlock;
+import com.tiomadre.foragersinsight.common.block.*;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIForageLoot;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
@@ -163,6 +160,7 @@ public class FILoot extends LootTableProvider {
                     .withPool(LootPool.lootPool()
                             .add(LootItem.lootTableItem(vectorwing.farmersdelight.common.registry.ModItems.TREE_BARK.get())
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F)))))));
+            this.add(SAP_SPLOTCH.get(), LootTable.lootTable());
             this.add(SUSPICIOUS_LEAF_LITTER.get(), LootTable.lootTable());
             this.add(FIBlocks.BLEWIT_MUSHROOM.get(), block -> LootTable.lootTable()
                     .withPool(this.applyExplosionCondition(block, LootPool.lootPool()
@@ -175,6 +173,8 @@ public class FILoot extends LootTableProvider {
             this.add(WALL_RED_MUSHROOM_COLONY.get(), block -> createMushroomColonyDrops(WALL_RED_MUSHROOM_COLONY, ModBlocks.RED_MUSHROOM_COLONY.get(), Items.RED_MUSHROOM));
             this.add(WALL_BROWN_MUSHROOM_COLONY.get(), block -> createMushroomColonyDrops(WALL_BROWN_MUSHROOM_COLONY, ModBlocks.BROWN_MUSHROOM_COLONY.get(), Items.BROWN_MUSHROOM));
             this.add(WALL_BLEWIT_MUSHROOM_COLONY.get(), block -> createMushroomColonyDrops(WALL_BLEWIT_MUSHROOM_COLONY, BLEWIT_MUSHROOM_COLONY.get(), BLEWIT_MUSHROOM.get()));
+            //Unique Mushrooms
+            this.add(TINDER_CONK.get(), block -> createTinderConkDrops());
 
             //Condensed
             this.add(CONDENSED_DIRT.get(), block -> createSilkTouchDispatchTable(block, LootItem.lootTableItem(Blocks.DIRT)));
@@ -222,7 +222,16 @@ public class FILoot extends LootTableProvider {
             this.add(FIBlocks.DIFFUSER.get(), block -> createSingleItemTable(FIItems.DIFFUSER.get()));
             this.add(FIBlocks.TAPPER.get(), block -> createSingleItemTable(FIItems.TAPPER.get()));
 
-
+        }
+            private LootTable.Builder createTinderConkDrops() {
+                return LootTable.lootTable()
+                        .withPool(this.applyExplosionCondition(TINDER_CONK.get(), LootPool.lootPool()
+                                .add(LootItem.lootTableItem(TINDER_CONK.get())
+                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))).when(stateCond(TINDER_CONK, TinderConkBlock.AGE, 0))
+                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2))).when(stateCond(TINDER_CONK, TinderConkBlock.AGE, 1))
+                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(3))).when(stateCond(TINDER_CONK, TinderConkBlock.AGE, 2))
+                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(4))).when(stateCond(TINDER_CONK, TinderConkBlock.AGE, 3))
+                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(5))).when(stateCond(TINDER_CONK, TinderConkBlock.AGE, 4)))));
 
         }
             private LootTable.Builder createMushroomColonyDrops(RegistryObject<? extends Block> colonyBlock, ItemLike colonyDrop, ItemLike mushroomDrop) {
