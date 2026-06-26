@@ -25,7 +25,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 public class SapSplotchBlock extends FoliageMatBlock {
-    private static final int ROOT_DURATION = 30;
+    private static final int STUCK_DURATION = 60;
     private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 1, 16);
 
     public SapSplotchBlock() {
@@ -34,7 +34,7 @@ public class SapSplotchBlock extends FoliageMatBlock {
                 .sound(SoundType.SLIME_BLOCK)
                 .noOcclusion()
                 .noCollission()
-                .mapColor(MapColor.COLOR_ORANGE)
+                .mapColor(MapColor.COLOR_LIGHT_GREEN)
                 .isValidSpawn((state, level, pos, entityType) -> false));
     }
 
@@ -43,15 +43,25 @@ public class SapSplotchBlock extends FoliageMatBlock {
                                         @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return SHAPE;
     }
-
     @Override
     public void stepOn(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Entity entity) {
-        if (!level.isClientSide && entity instanceof LivingEntity livingEntity) {
-            livingEntity.addEffect(new MobEffectInstance(FIMobEffects.STUCK.get(), ROOT_DURATION, 0, false, true, true));
-            level.destroyBlock(pos, false);
+        this.triggerSapSplotch(level, pos, entity);
+        super.stepOn(level, pos, state, entity);
+    }
+
+    @Override
+    public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
+        this.triggerSapSplotch(level, pos, entity);
+        super.entityInside(state, level, pos, entity);
+    }
+
+    private void triggerSapSplotch(@NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
+        if (level.isClientSide || !(entity instanceof LivingEntity livingEntity)) {
+            return;
         }
 
-        super.stepOn(level, pos, state, entity);
+        livingEntity.addEffect(new MobEffectInstance(FIMobEffects.STUCK.get(), STUCK_DURATION, 0, false, true, true));
+        level.destroyBlock(pos, false);
     }
 
     @Override
@@ -74,6 +84,7 @@ public class SapSplotchBlock extends FoliageMatBlock {
             }
 
             level.playSound(null, pos, SoundEvents.BOTTLE_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
+            level.playSound(null, pos, SoundEvents.SLIME_SQUISH_SMALL, SoundSource.BLOCKS, 0.8F, 1.0F);
             level.destroyBlock(pos, false);
         }
 

@@ -38,8 +38,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class SapTrapBlock extends FoliageMatBlock implements EntityBlock {
     public static final BooleanProperty TRIGGERED = BooleanProperty.create("triggered");
-    private static final int ROOT_DURATION = 75 ;
-    private static final int BAITED_ROOT_DURATION = Math.round(ROOT_DURATION * 1.35F);
+    private static final int STUCK_DURATION = 150 ;
+    private static final int BAITED_STUCK_DURATION = Math.round(STUCK_DURATION * 1.35F);
     private static final int BREAK_DELAY_TICKS = 5;
     private static final int SLOW_DURATION_TICKS = 5;
     private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 2, 16);
@@ -143,9 +143,9 @@ public class SapTrapBlock extends FoliageMatBlock implements EntityBlock {
 
     private int getStuckDuration(@NotNull Level level, @NotNull BlockPos pos, @NotNull LivingEntity livingEntity) {
         if (level.getBlockEntity(pos) instanceof SapTrapBlockEntity sapTrap && BaitItem.attracts(sapTrap.getBait(), livingEntity)) {
-            return BAITED_ROOT_DURATION;
+            return BAITED_STUCK_DURATION;
         }
-        return ROOT_DURATION;
+        return STUCK_DURATION;
     }
 
     private void triggerTrap(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Entity entity) {

@@ -155,6 +155,7 @@
       ]
     }
   ],
+  "render_type": "minecraft:cutout",
   "textures": {
     "0": "foragersinsight:block/sap_splotch",
     "particle": "foragersinsight:block/sap_splotch"
