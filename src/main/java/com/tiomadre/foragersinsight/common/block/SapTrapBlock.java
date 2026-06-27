@@ -117,10 +117,18 @@ public class SapTrapBlock extends FoliageMatBlock implements EntityBlock {
         }
 
         AABB trapArea = new AABB(pos).inflate(0.05D, 0.0D, 0.05D);
+        boolean baitWasEaten = false;
         for (LivingEntity livingEntity : level.getEntitiesOfClass(LivingEntity.class, trapArea)) {
             int duration = getStuckDuration(level, pos, livingEntity);
             livingEntity.addEffect(new MobEffectInstance(FIMobEffects.STUCK.get(), duration, 0, false, true, true));
+            baitWasEaten = baitWasEaten || isEatingBait(level, pos, livingEntity);
         }
+
+        if (baitWasEaten && level.getBlockEntity(pos) instanceof SapTrapBlockEntity sapTrap) {
+            sapTrap.removeBait();
+            level.playSound(null, pos, SoundEvents.GENERIC_EAT, SoundSource.NEUTRAL, 0.8F, 1.0F);
+        }
+
 
         level.playSound(null, pos, SoundType.BAMBOO.getBreakSound(), SoundSource.BLOCKS, SoundType.BAMBOO.getVolume(), SoundType.BAMBOO.getPitch());
         level.destroyBlock(pos, false);
@@ -142,10 +150,15 @@ public class SapTrapBlock extends FoliageMatBlock implements EntityBlock {
     }
 
     private int getStuckDuration(@NotNull Level level, @NotNull BlockPos pos, @NotNull LivingEntity livingEntity) {
-        if (level.getBlockEntity(pos) instanceof SapTrapBlockEntity sapTrap && BaitItem.attracts(sapTrap.getBait(), livingEntity)) {
+        if (isEatingBait(level, pos, livingEntity)) {
             return BAITED_STUCK_DURATION;
+
         }
         return STUCK_DURATION;
+    }
+    private boolean isEatingBait(@NotNull Level level, @NotNull BlockPos pos, @NotNull LivingEntity livingEntity) {
+        return level.getBlockEntity(pos) instanceof SapTrapBlockEntity sapTrap
+                && BaitItem.attracts(sapTrap.getBait(), livingEntity);
     }
 
     private void triggerTrap(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Entity entity) {

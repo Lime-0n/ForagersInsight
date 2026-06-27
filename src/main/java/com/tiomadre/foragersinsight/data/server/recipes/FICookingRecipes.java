@@ -2,6 +2,7 @@ package com.tiomadre.foragersinsight.data.server.recipes;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import com.tiomadre.foragersinsight.core.registry.FIMobEffects;
 import com.tiomadre.foragersinsight.data.server.tags.FITags;
@@ -243,6 +244,14 @@ public class FICookingRecipes {
         buildAuspiciousStewRecipe(consumer, ROSELLE_PETALS.get(), MobEffects.DAMAGE_RESISTANCE, "auspicious_stew_from_roselle_petals");
         buildAuspiciousStewRecipe(consumer, SPRUCE_TIPS.get(), MobEffects.HEALTH_BOOST, "auspicious_stew_from_spruce_tips");
         buildAuspiciousStewRecipe(consumer, LILAC_BLOOM.get(), FIMobEffects.BLOOM.get(), "auspicious_stew_from_lilac_bloom");
+            //Other Non Food
+        CookingPotRecipeBuilder.cookingPotRecipe(AMADOU.get(), 3, NORMAL_COOKING, MEDIUM_EXP)
+                .addIngredient(FIBlocks.TINDER_CONK.get())
+                .addIngredient(FIBlocks.TINDER_CONK.get())
+                .addIngredient(Items.BONE_MEAL)
+                .unlockedByAnyIngredient(FIBlocks.TINDER_CONK.get())
+                .setRecipeBookTab(CookingPotRecipeBookTab.MISC)
+                .save(consumer);
 
         CookingPotRecipeBuilder.cookingPotRecipe(CANDIED_CALYCES.get(), 2, NORMAL_COOKING, MEDIUM_EXP)
                 .addIngredient(Items.SUGAR)

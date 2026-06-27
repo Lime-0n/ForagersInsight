@@ -49,8 +49,9 @@
   "item.foragersinsight.roselle_juice": "Roselle Juice",
   "item.foragersinsight.forest_elixir": "Forest's Elixir",
   "item.foragersinsight.glowing_carrot_juice": "Glowing Carrot Juice",
-
+  
   "item.foragersinsight.acorn_dough": "Acorn Dough",
+  "item.foragersinsight.amadou": "Amadou",
   "item.foragersinsight.birch_sap_bottle": "Birch Sap Bottle",
   "item.foragersinsight.birch_sap_bucket": "Birch Sap Bucket",
   "item.foragersinsight.birch_syrup_bottle": "Birch Syrup Bottle",
@@ -124,6 +125,7 @@
   "item.foragersinsight.phlox": "Phlox",
   "block.foragersinsight.skunk_cabbage": "Skunk Cabbage",
   "block.foragersinsight.tinder_conk": "Tinder Conk",
+  "item.foragersinsight.tinder_conk_spores": "Tinder Conk Spores",
 
   "block.foragersinsight.condensed_dirt": "Compact Dirt",
   "block.foragersinsight.condensed_sand": "Compact Sand",

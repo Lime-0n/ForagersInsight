@@ -230,8 +230,11 @@ public class FILoot extends LootTableProvider {
                                         .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))).when(stateCond(TINDER_CONK, TinderConkBlock.AGE, 0))
                                         .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2))).when(stateCond(TINDER_CONK, TinderConkBlock.AGE, 1))
                                         .apply(SetItemCountFunction.setCount(ConstantValue.exactly(3))).when(stateCond(TINDER_CONK, TinderConkBlock.AGE, 2))
-                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(4))).when(stateCond(TINDER_CONK, TinderConkBlock.AGE, 3))
-                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(5))).when(stateCond(TINDER_CONK, TinderConkBlock.AGE, 4)))));
+                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(5))).when(stateCond(TINDER_CONK, TinderConkBlock.AGE, 4)))))
+                        .withPool(this.applyExplosionCondition(TINDER_CONK.get(), LootPool.lootPool()
+                                .add(LootItem.lootTableItem(FIItems.TINDER_CONK_SPORES.get())
+                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1)))
+                                        .when(stateCond(TINDER_CONK, TinderConkBlock.AGE, 4)))));
 
         }
             private LootTable.Builder createMushroomColonyDrops(RegistryObject<? extends Block> colonyBlock, ItemLike colonyDrop, ItemLike mushroomDrop) {

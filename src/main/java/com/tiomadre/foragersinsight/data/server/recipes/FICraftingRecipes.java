@@ -188,6 +188,11 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .unlockedBy("has_birch_syrup_bottle", has(BIRCH_SYRUP_BOTTLE.get()))
                 .save(consumer, ForagersInsight.rl("sugar_from_birch_syrup_bottle"));
             //Furnace Cooking
+                //Amadou
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(AMADOU.get()), RecipeCategory.MISC, CHARCOAL, 0.25F, 200)
+                .unlockedBy("has_amadou", has(AMADOU.get()))
+                .save(consumer, ForagersInsight.rl("charcoal_from_smelting_amadou"));
+
                 //Syrup Bucket
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(BIRCH_SAP_BUCKET.get()), RecipeCategory.FOOD, BIRCH_SYRUP_BUCKET.get(), 1.0F, 200)
                 .unlockedBy("has_birch_sap_bucket", has(BIRCH_SAP_BUCKET.get()))

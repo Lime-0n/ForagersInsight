@@ -55,6 +55,7 @@ public class FICrushandCutRecipes {
         CuttingBoardRecipeBuilder.cuttingRecipe(of(Items.COCOA_BEANS), of(FITags.ItemTag.MALLETS), FIItems.COCOA_POWDER.get(), 2).addResultWithChance(FIItems.COCOA_POWDER.get(),0.1f).save(consumer);
         CuttingBoardRecipeBuilder.cuttingRecipe(of(Items.WHEAT), of(FITags.ItemTag.MALLETS), FIItems.WHEAT_FLOUR.get(), 2).addResultWithChance(FIItems.WHEAT_FLOUR.get(),0.1f).save(consumer);
         //Other
+        CuttingBoardRecipeBuilder.cuttingRecipe(of(FIItems.AMADOU.get()), of(FITags.ItemTag.MALLETS), Items.LEATHER, 1).save(consumer);
         CuttingBoardRecipeBuilder.cuttingRecipe(of(Items.BONE), of(FITags.ItemTag.MALLETS), Items.BONE_MEAL, 4).addResultWithChance(Items.BONE_MEAL,0.1f).save(consumer);
 
     }

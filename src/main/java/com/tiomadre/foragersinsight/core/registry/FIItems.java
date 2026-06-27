@@ -41,7 +41,7 @@ public class FIItems {
     public static final RegistryObject<Item> COCOA_POWDER = HELPER.createItem("cocoa_powder", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> WHEAT_FLOUR = HELPER.createItem("wheat_flour", () -> new Item(new Item.Properties()));
 
-    //Crops
+    //Crop Drops
     public static final RegistryObject<Item> BLACK_ACORN = HELPER.createItem("black_acorn", () ->
             new Item(new Item.Properties().food(FIFoods.MID_SAT_MORSELS)));
     public static final RegistryObject<Item> DANDELION_ROOT = HELPER.createItem("dandelion_root", () ->
@@ -56,6 +56,10 @@ public class FIItems {
             new ItemNameBlockItem(FIBlocks.ROSE_CROP.get(), new Item.Properties().food(FIFoods.NO_SAT_MORSELS)));
     public static final RegistryObject<Item> SPRUCE_TIPS = HELPER.createItem("spruce_tips", () ->
             new Item(new Item.Properties().food(FIFoods.LOW_SAT_MORSELS)));
+        //Seed Only
+    public static final  RegistryObject<Item> TINDER_CONK_SPORES = HELPER.createItem("tinder_conk_spores", () ->
+                new Item(new Item.Properties().food(FIFoods.LOW_SAT_MORSELS)));
+
     //Ingredients
     public static final RegistryObject<Item> GREEN_SAUCE = HELPER.createItem("green_sauce", () -> new ConsumableItem(
             new Item.Properties().stacksTo(16).food(FIFoods.SAUCE_BOWLS).craftRemainder(Items.BOWL)));
@@ -64,6 +68,7 @@ public class FIItems {
     public static final RegistryObject<Item> BIRCH_SYRUP_BUCKET = HELPER.createItem("birch_syrup_bucket", () -> new Item(new Item.Properties().stacksTo(1).craftRemainder(Items.BUCKET)));
     public static final RegistryObject<Item> BIRCH_SYRUP_BOTTLE = HELPER.createItem("birch_syrup_bottle",
             () -> new HoneyBottleItem(new Item.Properties().stacksTo(16).food(FIFoods.BIRCH_SYRUP_BOTTLE).craftRemainder(Items.GLASS_BOTTLE)));
+
     //DISHES and FOODSTUFF
         //Baked Goods & Sweets
     public static final RegistryObject<Item> ACORN_COOKIE = HELPER.createItem("acorn_cookie", () -> new Item(new Item.Properties()
@@ -151,6 +156,7 @@ public class FIItems {
     //Other
     public static final RegistryObject<Item> AUSPICIOUS_STEW = HELPER.createItem("auspicious_stew", () -> new AuspiciousStewItem(
             new Item.Properties().stacksTo(16).food(FIFoods.AUSPICIOUS_STEW).craftRemainder(Items.BOWL)));
+    public static final RegistryObject<Item> AMADOU = HELPER.createItem("amadou", () -> new Item(new Item.Properties()));
 
 
     //Drinks

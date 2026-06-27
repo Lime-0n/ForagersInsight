@@ -60,6 +60,7 @@ public class FITabs {
             FIBlocks.SCATTERED_STRAW_MAT,
             FIBlocks.SAP_TRAP,
 
+
             FIBlocks.BLEWIT_MUSHROOM,
             FIBlocks.BLEWIT_MUSHROOM_COLONY,
             FIItems.GHOST_PIPE_ITEM,
@@ -68,6 +69,9 @@ public class FITabs {
             FIItems.TALL_BEACH_ROSE_BUSH_ITEM,
             FIItems.WOODLAND_FERN_ITEM,
             FIItems.SKUNK_CABBAGE_ITEM,
+            FIBlocks.TINDER_CONK,
+            FIItems.TINDER_CONK_SPORES,
+
 
             FIBlocks.CONDENSED_DIRT,
             FIBlocks.CONDENSED_SAND,
@@ -78,6 +82,7 @@ public class FITabs {
     );
 
     private static final List<RegistryObject<? extends ItemLike>> INGREDIENT_ENTRIES = List.of(
+            FIItems.AMADOU,
             FIItems.APPLE_SLICE,
             FIItems.BLEWIT_MUSHROOM,
             FIItems.COOKED_RABBIT_LEG,
@@ -164,7 +169,7 @@ public class FITabs {
             FIItems.TAPPER
     );
     private static final List<RegistryObject<? extends ItemLike>> WOODEN_ENTRIES = List.of(
-            //SPRUCE
+            //BIRCH
             FIBlocks.SAPPY_BIRCH_LOG,
             FIBlocks.STRIPPED_SAPPY_BIRCH_LOG,
             //LILAC

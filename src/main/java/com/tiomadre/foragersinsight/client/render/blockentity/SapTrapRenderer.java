@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.client.render.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import com.tiomadre.foragersinsight.common.block.entity.SapTrapBlockEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -26,8 +27,9 @@ public class SapTrapRenderer implements BlockEntityRenderer<SapTrapBlockEntity> 
         }
 
         poseStack.pushPose();
-        poseStack.translate(0.5D, 0.135D, 0.5D);
-        poseStack.scale(0.55F, 0.55F, 0.55F);
+        poseStack.translate(0.5D, 0.145D, 0.5D);
+        poseStack.mulPose(Axis.XP.rotationDegrees(90.0F));
+        poseStack.scale(0.85F, 0.85F, 0.85F);
         this.itemRenderer.renderStatic(bait, ItemDisplayContext.GROUND, packedLight, OverlayTexture.NO_OVERLAY,
                 poseStack, bufferSource, blockEntity.getLevel(), 0);
         poseStack.popPose();
