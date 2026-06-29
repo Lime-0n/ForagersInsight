@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": {
+      "item": "foragersinsight:amadou"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    "AIA",
+    " I "
+  ],
+  "result": {
+    "item": "foragersinsight:strop"
+  },
+  "show_notification": true
+}

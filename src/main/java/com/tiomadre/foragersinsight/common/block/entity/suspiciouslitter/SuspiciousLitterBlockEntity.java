@@ -11,6 +11,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BrushItem;
 import net.minecraft.world.item.ItemStack;
@@ -56,8 +57,7 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
 
     public void startBrushing(Player player, ItemStack brushStack) {
         this.brusher = player.getUUID();
-        this.luckOfTheTreesLevel = EnchantmentHelper.getItemEnchantmentLevel(
-                FIEnchantments.LUCK_OF_THE_TREES.get(), brushStack);
+        this.luckOfTheTreesLevel = getLuckOfTheTreesLevel(player, brushStack);
         if (this.level instanceof ServerLevel serverLevel) {
             resolveRevealedItem(serverLevel, getBlockState());
             sync();
@@ -175,12 +175,19 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
                 continue;
             }
             this.brusher = player.getUUID();
-            this.luckOfTheTreesLevel = EnchantmentHelper.getItemEnchantmentLevel(
-                    FIEnchantments.LUCK_OF_THE_TREES.get(), player.getUseItem());
+            this.luckOfTheTreesLevel = getLuckOfTheTreesLevel(player, player.getUseItem());
             resolveRevealedItem(level, state);
             sync();
             return;
         }
+    }
+
+    private static int getLuckOfTheTreesLevel(Player player, ItemStack brushStack) {
+        int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(FIEnchantments.LUCK_OF_THE_TREES.get(), brushStack);
+        if (player.getItemBySlot(EquipmentSlot.HEAD).is(FIItems.AMADOU_CAP.get())) {
+            return Math.max(enchantmentLevel, 1);
+        }
+        return enchantmentLevel;
     }
 
     private void resolveRevealedItem(ServerLevel level, BlockState state) {

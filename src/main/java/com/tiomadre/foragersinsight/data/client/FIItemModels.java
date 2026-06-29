@@ -62,8 +62,9 @@ public class FIItemModels extends BlueprintItemModelProvider {
                 AMADOU, TINDER_CONK_SPORES,
                 //Wildflowers + Plants
                 ROSELLE_BUSH_ITEM,STOUT_BEACH_ROSE_BUSH_ITEM,TALL_BEACH_ROSE_BUSH_ITEM, WOODLAND_FERN_ITEM, SKUNK_CABBAGE_ITEM,
-                //Tools and Workstations
-                HANDBASKET, FLINT_MALLET, IRON_MALLET, GOLD_MALLET, DIAMOND_MALLET, NETHERITE_MALLET, FLINT_SHEARS, TAPPER,
+                //Tools and Armor
+                HANDBASKET, FLINT_MALLET, IRON_MALLET, GOLD_MALLET, DIAMOND_MALLET, NETHERITE_MALLET, FLINT_SHEARS, STROP,TAPPER,
+                AMADOU_CAP,
                 //Wood Items
                 LILAC_BOAT, LILAC_CHEST_BOAT,LILAC_SIGN, LILAC_HANGING_SIGN
 

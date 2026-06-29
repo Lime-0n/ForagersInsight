@@ -11,8 +11,8 @@ import vectorwing.farmersdelight.common.item.DrinkableItem;
 public class TonicItem extends DrinkableItem {
     private static final int MEDICINAL_DURATION = 1200;
 
-    public TonicItem(Properties properties) {
-        super(properties);
+    public TonicItem(Properties properties, boolean hasFoodEffectTooltip) {
+        super(properties, hasFoodEffectTooltip);
     }
 
     @Override

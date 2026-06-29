@@ -80,7 +80,23 @@ public class SappyBirchLogDecorator extends TreeDecorator {
 
     private static void placeSapSplotch(Context context, BlockPos basePos, RandomSource random) {
         List<Direction> directions = new ArrayList<>(Direction.Plane.HORIZONTAL.stream().toList());
-        boolean placedFirst = false;
+        Direction fallbackDirection = directions.get(random.nextInt(directions.size()));
+        boolean placedFirst = placeRandomSapSplotch(context, basePos, directions, random);
+
+        if (!placedFirst) {
+            context.setBlock(
+                    basePos.relative(fallbackDirection),
+                    FIBlocks.SAP_SPLOTCH.get().defaultBlockState()
+            );
+            return;
+        }
+
+        if (random.nextFloat() < 0.25F) {
+            placeRandomSapSplotch(context, basePos, directions, random);
+        }
+    }
+
+    private static boolean placeRandomSapSplotch(Context context, BlockPos basePos, List<Direction> directions, RandomSource random) {
 
         while (!directions.isEmpty()) {
             Direction direction = directions.remove(random.nextInt(directions.size()));
@@ -91,25 +107,12 @@ public class SappyBirchLogDecorator extends TreeDecorator {
                         splotchPos,
                         FIBlocks.SAP_SPLOTCH.get().defaultBlockState()
                 );
-                placedFirst = true;
-                break;
+                return true;
             }
         }
 
-        if (placedFirst && random.nextFloat() < 0.25F) {
-            while (!directions.isEmpty()) {
-                Direction direction = directions.remove(random.nextInt(directions.size()));
-                BlockPos splotchPos = basePos.relative(direction);
+        return false;
 
-                if (context.isAir(splotchPos)) {
-                    context.setBlock(
-                            splotchPos,
-                            FIBlocks.SAP_SPLOTCH.get().defaultBlockState()
-                    );
-                    break;
-                }
-            }
-        }
     }
 
     private static void placeTinderConk(Context context, BlockPos supportPos, RandomSource random) {

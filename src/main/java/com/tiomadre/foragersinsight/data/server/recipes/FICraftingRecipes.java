@@ -137,15 +137,6 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .requires(FIBlocks.PHLOX.get())
                 .unlockedBy("has_phlox", has(FIBlocks.PHLOX.get()))
                 .save(consumer, ForagersInsight.rl("light_blue_dye_from_phlox"));
-        //Sap Trap
-        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, SAP_TRAP.get(), 3)
-                .pattern("PSP")
-                .pattern("BBB")
-                .define('P', PAPER)
-                .define('S', BIRCH_SAP_BOTTLE.get())
-                .define('B', ModItems.TREE_BARK.get())
-                .unlockedBy("has_birch_sap_bottle", has(BIRCH_SAP_BOTTLE.get()))
-                .save(consumer);
         //Seed Milk
             //Bucket of Seed Milk -> Bottles
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, SEED_MILK_BOTTLE.get(),4)
@@ -213,7 +204,7 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .save(consumer, ForagersInsight.rl("cooked_rabbit_leg_from_campfire_cooking"));
 
 
-        //Tools
+        //Tools and Armor
         //Flint Shears
         ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, FLINT_SHEARS.get())
                 .requires(FLINT).requires(FLINT)
@@ -279,6 +270,24 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .define(')', STICK)
                 .unlockedBy("has_straw", has(ModItems.STRAW.get()))
                 .save(consumer);
+        //Sap Trap
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, SAP_TRAP.get(), 3)
+                .pattern("PSP")
+                .pattern("BBB")
+                .define('P', PAPER)
+                .define('S', BIRCH_SAP_BOTTLE.get())
+                .define('B', ModItems.TREE_BARK.get())
+                .unlockedBy("has_birch_sap_bottle", has(BIRCH_SAP_BOTTLE.get()))
+                .save(consumer);
+
+        //Strop
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, STROP.get())
+                .pattern("AIA")
+                .pattern(" I ")
+                .define('A', AMADOU.get())
+                .define('I', IRON_INGOT)
+                .unlockedBy("has_amadou", has(AMADOU.get()))
+                .save(consumer);
         //Tapper
         ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, FIItems.TAPPER.get())
                 .requires(ModItems.FLINT_KNIFE.get())
@@ -286,6 +295,17 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .unlockedBy("has_flint_knife", has(ModItems.FLINT_KNIFE.get()))
                 .unlockedBy("has_bucket", has(BUCKET))
                 .save(consumer);
+        //Armor
+            //Amadou Cap
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, AMADOU_CAP.get())
+                .pattern("SAS")
+                .pattern("ABA")
+                .define('A', AMADOU.get())
+                .define('S', STRING)
+                .define('B', BIRCH_SAP_BOTTLE.get())
+                .unlockedBy("has_amadou", has(AMADOU.get()))
+                .save(consumer);
+
         //BLOCKS
         //Decorative
             //Foliage Mats

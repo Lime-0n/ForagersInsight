@@ -2,8 +2,8 @@ package com.tiomadre.foragersinsight.common.item;
 
 import com.tiomadre.foragersinsight.core.registry.FIConfig;
 import com.tiomadre.foragersinsight.core.registry.FIMobEffects;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -11,33 +11,31 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.UseAnim;
-
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MilkBucketItem extends Item {
     private static final int DRINK_DURATION = 32;
+    private static final String TOOLTIP_KEY = "tooltip.farmersdelight.seed_milk_bottle";
+    private final boolean hasFoodEffectTooltip;
 
-    public MilkBucketItem(Properties settings) {
+    public MilkBucketItem(Properties settings, boolean hasFoodEffectTooltip) {
         super(settings);
+        this.hasFoodEffectTooltip = hasFoodEffectTooltip;
     }
 
     @Override
-    public int getUseDuration(@NotNull ItemStack stack) {
-        return DRINK_DURATION;
-    }
-
-    @Override
-    public @NotNull UseAnim getUseAnimation(@NotNull ItemStack stack) {
-        return UseAnim.DRINK;
-    }
-
-    @Override
-    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand) {
-        return ItemUtils.startUsingInstantly(level, player, hand);
+    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltip,
+                                @NotNull TooltipFlag flag) {
+        super.appendHoverText(stack, level, tooltip, flag);
+        if (this.hasFoodEffectTooltip) {
+            tooltip.add(Component.translatable(TOOLTIP_KEY).withStyle(ChatFormatting.BLUE));
+        }
     }
 
     @Override

@@ -58,8 +58,6 @@ public class FITabs {
             FIBlocks.SCATTERED_ROSELLE_PETAL_MAT,
             FIBlocks.SCATTERED_SPRUCE_TIP_MAT,
             FIBlocks.SCATTERED_STRAW_MAT,
-            FIBlocks.SAP_TRAP,
-
 
             FIBlocks.BLEWIT_MUSHROOM,
             FIBlocks.BLEWIT_MUSHROOM_COLONY,
@@ -166,7 +164,11 @@ public class FITabs {
             FIItems.GOLD_MALLET,
             FIItems.DIAMOND_MALLET,
             FIItems.NETHERITE_MALLET,
-            FIItems.TAPPER
+            FIBlocks.SAP_TRAP,
+            FIItems.STROP,
+            FIItems.TAPPER,
+            FIItems.AMADOU_CAP
+
     );
     private static final List<RegistryObject<? extends ItemLike>> WOODEN_ENTRIES = List.of(
             //BIRCH
