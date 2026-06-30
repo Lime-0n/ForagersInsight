@@ -375,6 +375,16 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .define('T', ModItems.TREE_BARK.get())
                 .unlockedBy("has_tree_bark", has(ModItems.TREE_BARK.get()))
                 .save(consumer);
+        //Ghost Pipe Torch
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, FIBlocks.GHOST_PIPE_TORCH.get(), 4)
+                .pattern("C  ")
+                .pattern("G  ")
+                .pattern("G  ")
+                .define('C', CHARCOAL)
+                .define('G', GHOST_PIPE_ITEM.get())
+                .unlockedBy("has_ghost_pipe", has(GHOST_PIPE_ITEM.get()))
+                .save(consumer);
+
         //Wood Stuff
         ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, LILAC_PLANKS.get(), 2)
                 .requires(LILAC_LOG.get(), 1)

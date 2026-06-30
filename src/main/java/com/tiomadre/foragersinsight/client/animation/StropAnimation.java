@@ -37,11 +37,12 @@ public class StropAnimation {
         poseStack.mulPose(Axis.XP.rotationDegrees(-16.0F));
 
         if (event.getHand() == InteractionHand.MAIN_HAND) {
-            poseStack.translate(0.0F, rub, 0.05F);
+            poseStack.translate(0.0F, rub, 0.08F);
             poseStack.mulPose(Axis.ZP.rotationDegrees(10.0F * renderedHandSign));
         } else {
-            poseStack.translate(0.0F, -rub * 0.45F, 0.0F);
-            poseStack.mulPose(Axis.ZP.rotationDegrees(-7.0F * renderedHandSign));
+            poseStack.translate(0.10F * renderedHandSign, -rub * 0.35F, -0.18F);
+            poseStack.mulPose(Axis.YP.rotationDegrees(-12.0F * renderedHandSign));
+            poseStack.mulPose(Axis.ZP.rotationDegrees(-12.0F * renderedHandSign));
         }
     }
 }

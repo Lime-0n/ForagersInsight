@@ -128,7 +128,7 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
             if (replaced >= replacements) {
                 return;
             }
-            if (canReplaceDecoration(level, fallbackPos) && ghostPipeState.canSurvive(level, fallbackPos)) {
+            if (canReplaceGhostPipeFallback(level, fallbackPos) && ghostPipeState.canSurvive(level, fallbackPos)) {
                 level.setBlock(fallbackPos, ghostPipeState, 2);
                 replaced++;
             }
@@ -258,6 +258,9 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
         }
 
         return null;
+    }
+    private static boolean canReplaceGhostPipeFallback(WorldGenLevel level, BlockPos pos) {
+        return canReplaceDecoration(level, pos) && !(level.getBlockState(pos).getBlock() instanceof DoublePlantBlock);
     }
 
     private static boolean canPlaceDoublePlant(WorldGenLevel level, BlockPos pos) {

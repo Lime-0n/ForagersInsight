@@ -21,7 +21,7 @@ import java.util.List;
 
 public class MilkBucketItem extends Item {
     private static final int DRINK_DURATION = 32;
-    private static final String TOOLTIP_KEY = "tooltip.farmersdelight.seed_milk_bottle";
+    private static final String TOOLTIP_KEY = "tooltip.foragersinsight.milk_bucket";
     private final boolean hasFoodEffectTooltip;
 
     public MilkBucketItem(Properties settings, boolean hasFoodEffectTooltip) {

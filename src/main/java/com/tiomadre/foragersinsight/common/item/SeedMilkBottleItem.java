@@ -12,7 +12,7 @@ import vectorwing.farmersdelight.common.item.MilkBottleItem;
 import java.util.List;
 
 public class SeedMilkBottleItem extends MilkBottleItem {
-    private static final String TOOLTIP_KEY = "tooltip.foragersdinsight.seed_milk_bottle";
+    private static final String TOOLTIP_KEY = "tooltip.foragersinsight.seed_milk_bottle";
     private final boolean hasFoodEffectTooltip;
 
     public SeedMilkBottleItem(Properties properties, boolean hasFoodEffectTooltip) {

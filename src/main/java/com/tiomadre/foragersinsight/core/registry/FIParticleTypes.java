@@ -37,6 +37,10 @@ public final class FIParticleTypes {
     public static final RegistryObject<SimpleParticleType> SUSPICIOUS_FLOWER =
             PARTICLES.register("suspicious_flower", () -> new SimpleParticleType(false));
 
+    //other
+    public static final RegistryObject<SimpleParticleType> GHOST_PIPE =
+            PARTICLES.register("ghost_pipe", () -> new SimpleParticleType(false));
+
     private FIParticleTypes() {
     }
 

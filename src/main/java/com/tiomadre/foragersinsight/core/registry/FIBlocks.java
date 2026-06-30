@@ -164,6 +164,9 @@ public class FIBlocks {
             new BushBlock(copy(Blocks.ALLIUM).lightLevel(state -> 8).noCollission()));
     public static final RegistryObject<Block> SKUNK_CABBAGE = HELPER.createBlockNoItem("skunk_cabbage", () ->
             new SkunkCabbageBlock(copy(Blocks.ALLIUM).noCollission()));
+        //Lighting
+    public static final RegistryObject<Block> GHOST_PIPE_TORCH = HELPER.createBlockNoItem("ghost_pipe_torch", () ->
+                new GhostPipeTorchBlock(copy(Blocks.TORCH).lightLevel(state -> 8), FIParticleTypes.GHOST_PIPE.get()));
         //Other
     public static final RegistryObject<Block> SUSPICIOUS_LEAF_LITTER = HELPER.createBlock("suspicious_leaf_litter", SuspiciousLitterBlock::new);
     public static final RegistryObject<Block> HOLLOW_LOG = HELPER.createFuelBlock("hollow_log", () ->

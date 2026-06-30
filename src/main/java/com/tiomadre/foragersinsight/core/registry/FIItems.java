@@ -156,6 +156,8 @@ public class FIItems {
     public static final RegistryObject<Item> AUSPICIOUS_STEW = HELPER.createItem("auspicious_stew", () -> new AuspiciousStewItem(
             new Item.Properties().stacksTo(16).food(FIFoods.AUSPICIOUS_STEW).craftRemainder(Items.BOWL), true));
     public static final RegistryObject<Item> AMADOU = HELPER.createItem("amadou", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> GHOST_PIPE_TORCH = HELPER.createItem("ghost_pipe_torch", () ->
+            new BlockItem(FIBlocks.GHOST_PIPE_TORCH.get(), basicItem()));
 
 
     //Drinks
@@ -181,7 +183,7 @@ public class FIItems {
     public static final RegistryObject<Item> BIRCH_SAP_BUCKET = HELPER.createItem("birch_sap_bucket", () ->
             new Item(new Item.Properties().stacksTo(1).craftRemainder(Items.BUCKET)));
     public static final RegistryObject<Item> BIRCH_SAP_BOTTLE = HELPER.createItem("birch_sap_bottle", () ->
-            new BirchSapBottleItem(new Item.Properties().stacksTo(1).durability(4)));
+            new Item(new Item.Properties().stacksTo(16).craftRemainder(Items.GLASS_BOTTLE)));
 
 
     //Wildflowers + Flora

@@ -37,7 +37,9 @@ public class FIParticles implements DataProvider {
                 //suspicious leaf litter brush particles
                 saveParticle(output, FIParticleTypes.SUSPICIOUS_LEAVES.getId()),
                 saveParticle(output, FIParticleTypes.SUSPICIOUS_NEEDLES.getId()),
-                saveParticle(output, FIParticleTypes.SUSPICIOUS_FLOWER.getId())
+                saveParticle(output, FIParticleTypes.SUSPICIOUS_FLOWER.getId()),
+                //ghostpipe torch
+                saveParticle(output, FIParticleTypes.GHOST_PIPE.getId())
         );
     }
 

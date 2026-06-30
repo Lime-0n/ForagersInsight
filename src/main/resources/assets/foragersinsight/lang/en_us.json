@@ -195,6 +195,7 @@
   "enchantment.foragersinsight.luck_of_the_trees": "Luck of the Trees",
 
   "tooltip.foragersinsight.seed_milk_bottle": "Clears 1 Effect",
+  "tooltip.foragersinsight.milk_bucket": "Clears all Effects",
 
   "foragersinsight.tool_interaction.shears.chicken": "Please wait %s seconds to shear this chicken again.",
   "foragersinsight.tool_interaction.shears.baby_chicken": "Baby chickens cannot be sheared.",
