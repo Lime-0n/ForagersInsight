@@ -17,6 +17,8 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import java.util.function.Supplier;
+
 public class GhostPipeTorchBlock extends Block {
     public static final DirectionProperty FACING = DirectionProperty.create("facing", direction -> direction != Direction.DOWN);
     protected static final VoxelShape STANDING_SHAPE = Block.box(6.0D, 0.0D, 6.0D, 10.0D, 16.0D, 10.0D);
@@ -24,9 +26,9 @@ public class GhostPipeTorchBlock extends Block {
     protected static final VoxelShape SOUTH_SHAPE = Block.box(6.0D, 3.0D, 6.0D, 10.0D, 16.0D, 16.0D);
     protected static final VoxelShape WEST_SHAPE = Block.box(0.0D, 3.0D, 6.0D, 10.0D, 16.0D, 10.0D);
     protected static final VoxelShape EAST_SHAPE = Block.box(6.0D, 3.0D, 6.0D, 16.0D, 16.0D, 10.0D);
-    private final SimpleParticleType flameParticle;
+    private final Supplier<SimpleParticleType> flameParticle;
 
-    public GhostPipeTorchBlock(Properties properties, SimpleParticleType flameParticle) {
+    public GhostPipeTorchBlock(Properties properties, Supplier<SimpleParticleType> flameParticle) {
         super(properties);
         this.flameParticle = flameParticle;
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP));
@@ -87,7 +89,7 @@ public class GhostPipeTorchBlock extends Block {
             z += 0.27D * (double) opposite.getStepZ();
         }
 
-        level.addParticle(this.flameParticle, x, y, z, 0.0D, 0.0D, 0.0D);
+        level.addParticle(this.flameParticle.get(), x, y, z, 0.0D, 0.0D, 0.0D);
     }
 
     @Override

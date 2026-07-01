@@ -59,6 +59,8 @@ public class FITabs {
             FIBlocks.SCATTERED_SPRUCE_TIP_MAT,
             FIBlocks.SCATTERED_STRAW_MAT,
 
+            FIBlocks.GHOST_PIPE_TORCH,
+
             FIBlocks.BLEWIT_MUSHROOM,
             FIBlocks.BLEWIT_MUSHROOM_COLONY,
             FIItems.GHOST_PIPE_ITEM,

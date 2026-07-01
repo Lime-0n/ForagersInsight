@@ -165,6 +165,7 @@ public class FILoot extends LootTableProvider {
             this.add(FIBlocks.BLEWIT_MUSHROOM.get(), block -> LootTable.lootTable()
                     .withPool(this.applyExplosionCondition(block, LootPool.lootPool()
                             .add(LootItem.lootTableItem(FIItems.BLEWIT_MUSHROOM.get())))));
+            this.dropSelf(FIBlocks.GHOST_PIPE_TORCH.get());
 
             this.add(BLEWIT_MUSHROOM_COLONY.get(), block -> createMushroomColonyDrops(BLEWIT_MUSHROOM_COLONY, BLEWIT_MUSHROOM_COLONY.get(), BLEWIT_MUSHROOM.get()));
             this.add(WALL_RED_MUSHROOM.get(), block -> createSingleItemTable(Items.RED_MUSHROOM));
