@@ -73,6 +73,10 @@ public class ClientSetup {
                     FIBlocks.WOODLAND_FERN.get(),
                     RenderType.cutout()
             );
+            ItemBlockRenderTypes.setRenderLayer(
+                    FIBlocks.GHOST_PIPE_TORCH.get(),
+                    RenderType.cutout()
+            );
 
             BlockEntityRenderers.register(
                     FIBlockEntityTypes.SUSPICIOUS_LEAF_LITTER.get(),

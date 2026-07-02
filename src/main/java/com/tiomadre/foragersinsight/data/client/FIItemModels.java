@@ -59,7 +59,7 @@ public class FIItemModels extends BlueprintItemModelProvider {
                 //Foraged
                 BLEWIT_MUSHROOM,
                 //Other
-                AMADOU, TINDER_CONK_SPORES,
+                AMADOU, TINDER_CONK_SPORES, GHOST_PIPE_TORCH,
                 //Wildflowers + Plants
                 ROSELLE_BUSH_ITEM,STOUT_BEACH_ROSE_BUSH_ITEM,TALL_BEACH_ROSE_BUSH_ITEM, WOODLAND_FERN_ITEM, SKUNK_CABBAGE_ITEM,
                 //Tools and Armor
