@@ -47,12 +47,9 @@ public class GhostPipeTorchBlock extends Block {
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        for (Direction direction : context.getNearestLookingDirections()) {
-            if (direction == Direction.DOWN) {
-                continue;
-            }
-
-            BlockState state = this.defaultBlockState().setValue(FACING, direction);
+        Direction clickedFace = context.getClickedFace();
+        if (clickedFace != Direction.DOWN) {
+            BlockState state = this.defaultBlockState().setValue(FACING, clickedFace);
             if (state.canSurvive(context.getLevel(), context.getClickedPos())) {
                 return state;
             }

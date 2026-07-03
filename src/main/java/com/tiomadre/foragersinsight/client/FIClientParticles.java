@@ -5,6 +5,7 @@ import com.tiomadre.foragersinsight.client.particle.SapDripParticleProvider;
 import com.tiomadre.foragersinsight.client.particle.SuspiciousLitterParticleProvider;
 import com.tiomadre.foragersinsight.core.registry.FIParticleTypes;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
+import net.minecraft.client.particle.FlameParticle;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -27,5 +28,7 @@ public class FIClientParticles {
         event.registerSpriteSet(FIParticleTypes.SUSPICIOUS_LEAVES.get(), SuspiciousLitterParticleProvider::new);
         event.registerSpriteSet(FIParticleTypes.SUSPICIOUS_NEEDLES.get(), SuspiciousLitterParticleProvider::new);
         event.registerSpriteSet(FIParticleTypes.SUSPICIOUS_FLOWER.get(), SuspiciousLitterParticleProvider::new);
+        //ghost pipe torch particles
+        event.registerSpriteSet(FIParticleTypes.GHOST_PIPE.get(), FlameParticle.Provider::new);
     }
 }

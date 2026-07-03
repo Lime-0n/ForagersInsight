@@ -70,7 +70,7 @@
 			"from": [4, 12.75, 8.35],
 			"to": [4, 14.75, 10.35],
 			"shade": false,
-			"rotation": {"x": 0, "y": 90, "z": -22.5, "origin": [2, 4, 11]},
+			"rotation": {"angle": -22.5, "axis": "z", "origin": [2, 4, 11]},
 			"faces": {
 				"north": {"uv": [6, 9, 8, 11], "texture": "#ghost_pipe"},
 				"east": {"uv": [8, 9, 6, 11], "texture": "#ghost_pipe"},
@@ -84,7 +84,7 @@
 			"from": [4, 12.75, 6.35],
 			"to": [4, 14.75, 8.35],
 			"shade": false,
-			"rotation": {"x": 0, "y": 90, "z": -22.5, "origin": [2, 4, 9]},
+			"rotation": {"angle": -22.5, "axis": "z", "origin": [2, 4, 9]},
 			"faces": {
 				"north": {"uv": [8, 7, 10, 9], "texture": "#ghost_pipe"},
 				"east": {"uv": [10, 7, 8, 9], "texture": "#ghost_pipe"},

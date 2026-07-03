@@ -56,9 +56,7 @@ public class FIItems {
     public static final RegistryObject<Item> SPRUCE_TIPS = HELPER.createItem("spruce_tips", () ->
             new Item(new Item.Properties().food(FIFoods.LOW_SAT_MORSELS)));
         //Seed Only
-    public static final  RegistryObject<Item> TINDER_CONK_SPORES = HELPER.createItem("tinder_conk_spores", () ->
-                new Item(new Item.Properties().food(FIFoods.LOW_SAT_MORSELS)));
-
+    public static final  RegistryObject<Item> TINDER_CONK_SPORES = HELPER.createItem("tinder_conk_spores",  () -> new Item(new Item.Properties()));
     //Ingredients
     public static final RegistryObject<Item> GREEN_SAUCE = HELPER.createItem("green_sauce", () -> new ConsumableItem(
             new Item.Properties().stacksTo(16).food(FIFoods.SAUCE_BOWLS).craftRemainder(Items.BOWL)));
