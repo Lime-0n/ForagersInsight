@@ -44,7 +44,11 @@ public class TinderConkBlock extends Block implements BonemealableBlock {
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         Direction clickedFace = context.getClickedFace();
         if (clickedFace.getAxis().isHorizontal()) {
-            BlockState state = this.defaultBlockState().setValue(FACING, clickedFace);
+            ItemStack stack = context.getItemInHand();
+            int age = stack.is(FIItems.TINDER_CONK_SPORES.get()) ? 0 : MAX_AGE;
+            BlockState state = this.defaultBlockState()
+                    .setValue(FACING, clickedFace)
+                    .setValue(AGE, age);
             return state.canSurvive(context.getLevel(), context.getClickedPos()) ? state : null;
         }
         return null;

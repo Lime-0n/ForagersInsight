@@ -1,97 +1,25 @@
 {
-	"format_version": "1.20.1",
+	"format_version": "1.21.11",
+	"credit": "Made with Blockbench",
 	"ambientocclusion": false,
-	"render_type": "minecraft:cutout",
+	"render_type": "cutout",
 	"textures": {
-		"ghost_pipe": "foragersinsight:block/ghost_pipe",
-		"torch": "foragersinsight:block/ghost_pipe_torch",
-		"particle": "foragersinsight:block/ghost_pipe_torch"
+		"particle": "foragersinsight:block/ghost_pipe_torch",
+		"torch": "foragersinsight:block/ghost_pipe_torch"
 	},
 	"elements": [
 		{
-			"from": [-1, 3.5, 7],
-			"to": [1, 13.5, 9],
+			"from": [7, 2.5, 17],
+			"to": [9, 12.5, 19],
 			"shade": false,
-			"rotation": {"angle": -22.5, "axis": "z", "origin": [0, 3.5, 8]},
+			"rotation": {"angle": -22.5, "axis": "x", "origin": [7, -1, 16]},
 			"faces": {
+				"north": {"uv": [7, 6, 9, 16], "texture": "#torch"},
+				"east": {"uv": [7, 6, 9, 16], "texture": "#torch"},
+				"south": {"uv": [7, 6, 9, 16], "texture": "#torch"},
+				"west": {"uv": [7, 6, 9, 16], "texture": "#torch"},
 				"up": {"uv": [7, 6, 9, 8], "texture": "#torch"},
-				"down": {"uv": [7, 13, 9, 15], "texture": "#torch"}
-			}
-		},
-		{
-			"from": [-1, 3.5, 0],
-			"to": [1, 19.5, 16],
-			"shade": false,
-			"rotation": {"angle": -22.5, "axis": "z", "origin": [0, 3.5, 8]},
-			"faces": {
-				"east": {"uv": [0, 0, 16, 16], "texture": "#torch"},
-				"west": {"uv": [0, 0, 16, 16], "texture": "#torch"}
-			}
-		},
-		{
-			"from": [-8, 3.5, 7],
-			"to": [8, 19.5, 9],
-			"shade": false,
-			"rotation": {"angle": -22.5, "axis": "z", "origin": [0, 3.5, 8]},
-			"faces": {
-				"north": {"uv": [0, 0, 16, 16], "texture": "#torch"},
-				"south": {"uv": [0, 0, 16, 16], "texture": "#torch"}
-			}
-		},
-		{
-			"from": [-1.86, 14.9, 7],
-			"to": [-1.86, 16.9, 9],
-			"shade": false,
-			"rotation": {"angle": -22.5, "axis": "z", "origin": [-4, 2, 8]},
-			"faces": {
-				"north": {"uv": [8, 7, 10, 9], "texture": "#ghost_pipe"},
-				"east": {"uv": [8, 7, 10, 9], "texture": "#ghost_pipe"},
-				"south": {"uv": [8, 7, 10, 9], "texture": "#ghost_pipe"},
-				"west": {"uv": [10, 7, 8, 9], "texture": "#ghost_pipe"},
-				"up": {"uv": [8, 7, 10, 9], "texture": "#ghost_pipe"},
-				"down": {"uv": [8, 7, 10, 9], "texture": "#ghost_pipe"}
-			}
-		},
-		{
-			"from": [1.876, 14, 7],
-			"to": [1.876, 16, 9],
-			"shade": false,
-			"rotation": {"angle": -22.5, "axis": "z", "origin": [-1, 6, 8]},
-			"faces": {
-				"north": {"uv": [8, 7, 10, 9], "texture": "#ghost_pipe"},
-				"east": {"uv": [10, 7, 8, 9], "texture": "#ghost_pipe"},
-				"south": {"uv": [8, 7, 10, 9], "texture": "#ghost_pipe"},
-				"west": {"uv": [8, 7, 10, 9], "texture": "#ghost_pipe"},
-				"up": {"uv": [8, 7, 10, 9], "texture": "#ghost_pipe"},
-				"down": {"uv": [8, 7, 10, 9], "texture": "#ghost_pipe"}
-			}
-		},
-		{
-			"from": [4, 12.75, 8.35],
-			"to": [4, 14.75, 10.35],
-			"shade": false,
-			"rotation": {"angle": -22.5, "axis": "z", "origin": [2, 4, 11]},
-			"faces": {
-				"north": {"uv": [6, 9, 8, 11], "texture": "#ghost_pipe"},
-				"east": {"uv": [8, 9, 6, 11], "texture": "#ghost_pipe"},
-				"south": {"uv": [6, 9, 8, 11], "texture": "#ghost_pipe"},
-				"west": {"uv": [6, 9, 8, 11], "texture": "#ghost_pipe"},
-				"up": {"uv": [6, 9, 8, 11], "texture": "#ghost_pipe"},
-				"down": {"uv": [6, 9, 8, 11], "texture": "#ghost_pipe"}
-			}
-		},
-		{
-			"from": [4, 12.75, 6.35],
-			"to": [4, 14.75, 8.35],
-			"shade": false,
-			"rotation": {"angle": -22.5, "axis": "z", "origin": [2, 4, 9]},
-			"faces": {
-				"north": {"uv": [8, 7, 10, 9], "texture": "#ghost_pipe"},
-				"east": {"uv": [10, 7, 8, 9], "texture": "#ghost_pipe"},
-				"south": {"uv": [8, 7, 10, 9], "texture": "#ghost_pipe"},
-				"west": {"uv": [8, 7, 10, 9], "texture": "#ghost_pipe"},
-				"up": {"uv": [8, 7, 10, 9], "texture": "#ghost_pipe"},
-				"down": {"uv": [3, 7, 5, 9], "texture": "#ghost_pipe"}
+				"down": {"uv": [7, 14, 9, 16], "texture": "#torch"}
 			}
 		}
 	]
