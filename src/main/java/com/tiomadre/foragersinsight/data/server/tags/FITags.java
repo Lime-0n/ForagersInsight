@@ -56,7 +56,6 @@ public class FITags {
             public static final TagKey<net.minecraft.world.item.Item> TOMATO = TagUtil.itemTag(COMMON_NAMESPACE, "crops/tomato");
             public static final TagKey<net.minecraft.world.item.Item> RAW_COD = TagUtil.itemTag(COMMON_NAMESPACE, "raw_fishes/cod");
             public static final TagKey<net.minecraft.world.item.Item> COOKED_SALMON = TagUtil.itemTag(COMMON_NAMESPACE, "cooked_fishes/salmon");
-
         //Food
         public static final TagKey<Item> BLEWIT_STUFFING = TagKey.create(Registries.ITEM,
                 new ResourceLocation(ForagersInsight.MOD_ID, "blewit_stuffing"));
@@ -97,6 +96,7 @@ public class FITags {
 
         public static final TagKey<Block> FORAGING = blockTag("foraging");
         public static final TagKey<Block> SHEARABLE_CROPS = blockTag("shearable_crops");
+        public static final TagKey<Block> RICH_SOIL_TREE_SAPLINGS = blockTag("rich_soil_tree_saplings");
 
         public static TagKey<Block> blockTag(String namespace) {
             return TagUtil.blockTag(ForagersInsight.MOD_ID, namespace);

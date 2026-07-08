@@ -2,7 +2,8 @@
 	"format_version": "1.9.0",
 	"parent": "minecraft:block/block",
 	"textures": {
-		"1": "foragersinsight:block/tinder_conk_young"
+		"1": "foragersinsight:block/tinder_conk_young",
+		"particle": "foragersinsight:block/tinder_conk_young"
 	},
 	"elements": [
 		{

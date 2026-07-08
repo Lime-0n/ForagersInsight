@@ -77,6 +77,10 @@ public class ClientSetup {
                     FIBlocks.GHOST_PIPE_TORCH.get(),
                     RenderType.cutout()
             );
+            ItemBlockRenderTypes.setRenderLayer(
+                    FIBlocks.WALL_GHOST_PIPE_TORCH.get(),
+                    RenderType.cutout()
+            );
 
             BlockEntityRenderers.register(
                     FIBlockEntityTypes.SUSPICIOUS_LEAF_LITTER.get(),

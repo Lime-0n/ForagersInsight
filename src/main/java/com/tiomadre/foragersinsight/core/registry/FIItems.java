@@ -6,6 +6,7 @@ import com.tiomadre.foragersinsight.common.item.MilkBucketItem;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.other.FIFoods;
 import com.teamabnormals.blueprint.core.util.registry.ItemSubRegistryHelper;
+import net.minecraft.core.Direction;
 import net.minecraft.world.item.*;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
@@ -56,7 +57,8 @@ public class FIItems {
     public static final RegistryObject<Item> SPRUCE_TIPS = HELPER.createItem("spruce_tips", () ->
             new Item(new Item.Properties().food(FIFoods.LOW_SAT_MORSELS)));
         //Seed Only
-    public static final  RegistryObject<Item> TINDER_CONK_SPORES = HELPER.createItem("tinder_conk_spores",  () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> TINDER_CONK_SPORES = HELPER.createItem("tinder_conk_spores", () ->
+            new ItemNameBlockItem(FIBlocks.TINDER_CONK.get(), new Item.Properties()));
     //Ingredients
     public static final RegistryObject<Item> GREEN_SAUCE = HELPER.createItem("green_sauce", () -> new ConsumableItem(
             new Item.Properties().stacksTo(16).food(FIFoods.SAUCE_BOWLS).craftRemainder(Items.BOWL)));
@@ -155,7 +157,7 @@ public class FIItems {
             new Item.Properties().stacksTo(16).food(FIFoods.AUSPICIOUS_STEW).craftRemainder(Items.BOWL), true));
     public static final RegistryObject<Item> AMADOU = HELPER.createItem("amadou", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> GHOST_PIPE_TORCH = HELPER.createItem("ghost_pipe_torch", () ->
-            new BlockItem(FIBlocks.GHOST_PIPE_TORCH.get(), basicItem()));
+            new StandingAndWallBlockItem(FIBlocks.GHOST_PIPE_TORCH.get(), FIBlocks.WALL_GHOST_PIPE_TORCH.get(), basicItem(), Direction.DOWN));
 
 
     //Drinks

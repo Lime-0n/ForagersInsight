@@ -15,7 +15,7 @@ import vectorwing.farmersdelight.common.tag.CommonTags;
 
 import static com.tiomadre.foragersinsight.core.registry.FIBlocks.*;
 import static com.tiomadre.foragersinsight.data.server.tags.FITags.BlockTag.*;
-import static com.tiomadre.foragersinsight.data.server.tags.FITags.ItemTag.RICH_SOIL_TREE_STARTERS;
+
 
 public class FIBlockTags extends BlockTagsProvider {
 
@@ -58,7 +58,7 @@ public class FIBlockTags extends BlockTagsProvider {
                 .addOptional(new ResourceLocation("farmersdelight", "brown_mushroom_colony"))
                 .addOptional(new ResourceLocation("farmersdelight", "red_mushroom_colony"))
                 .addOptional(new ResourceLocation("farmersdelight", "tomato_vine"));
-        this.tag(RICH_SOIL_TREE_STARTERS)
+        this.tag(RICH_SOIL_TREE_SAPLINGS)
                 .add(Blocks.LILAC)
                 .addOptionalTag(new ResourceLocation("minecraft", "saplings"));
         this.tag(FORAGING)

@@ -80,14 +80,9 @@ public class SappyBirchLogDecorator extends TreeDecorator {
 
     private static void placeSapSplotch(Context context, BlockPos basePos, RandomSource random) {
         List<Direction> directions = new ArrayList<>(Direction.Plane.HORIZONTAL.stream().toList());
-        Direction fallbackDirection = directions.get(random.nextInt(directions.size()));
         boolean placedFirst = placeRandomSapSplotch(context, basePos, directions, random);
 
         if (!placedFirst) {
-            context.setBlock(
-                    basePos.relative(fallbackDirection),
-                    FIBlocks.SAP_SPLOTCH.get().defaultBlockState()
-            );
             return;
         }
 
@@ -100,9 +95,9 @@ public class SappyBirchLogDecorator extends TreeDecorator {
 
         while (!directions.isEmpty()) {
             Direction direction = directions.remove(random.nextInt(directions.size()));
-            BlockPos splotchPos = basePos.relative(direction);
+            BlockPos splotchPos = findSapSplotchPosition(context, basePos.relative(direction));
 
-            if (context.isAir(splotchPos)) {
+            if (splotchPos != null) {
                 context.setBlock(
                         splotchPos,
                         FIBlocks.SAP_SPLOTCH.get().defaultBlockState()
@@ -113,6 +108,17 @@ public class SappyBirchLogDecorator extends TreeDecorator {
 
         return false;
 
+    }
+
+    private static BlockPos findSapSplotchPosition(Context context, BlockPos targetPos) {
+        for (int offset = 2; offset >= -2; offset--) {
+            BlockPos pos = targetPos.above(offset);
+            if (context.isAir(pos) && !context.isAir(pos.below())) {
+                return pos;
+            }
+        }
+
+        return null;
     }
 
     private static void placeTinderConk(Context context, BlockPos supportPos, RandomSource random) {

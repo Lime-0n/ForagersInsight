@@ -1,26 +1,7 @@
 {
-	"format_version": "1.21.11",
-	"credit": "Made with Blockbench",
-	"ambientocclusion": false,
-	"render_type": "cutout",
+	"parent": "minecraft:block/template_torch_wall",
+	"render_type": "minecraft:cutout",
 	"textures": {
-		"particle": "foragersinsight:block/ghost_pipe_torch",
 		"torch": "foragersinsight:block/ghost_pipe_torch"
-	},
-	"elements": [
-		{
-			"from": [7, 2.5, 17],
-			"to": [9, 12.5, 19],
-			"shade": false,
-			"rotation": {"angle": -22.5, "axis": "x", "origin": [7, -1, 16]},
-			"faces": {
-				"north": {"uv": [7, 6, 9, 16], "texture": "#torch"},
-				"east": {"uv": [7, 6, 9, 16], "texture": "#torch"},
-				"south": {"uv": [7, 6, 9, 16], "texture": "#torch"},
-				"west": {"uv": [7, 6, 9, 16], "texture": "#torch"},
-				"up": {"uv": [7, 6, 9, 8], "texture": "#torch"},
-				"down": {"uv": [7, 14, 9, 16], "texture": "#torch"}
-			}
-		}
-	]
+	}
 }

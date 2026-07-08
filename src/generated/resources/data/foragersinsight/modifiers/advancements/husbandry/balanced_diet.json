@@ -38,7 +38,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:tinder_conk_spores"
+                  "foragersinsight:green_sauce"
                 ]
               }
             },
@@ -48,7 +48,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:green_sauce"
+                  "foragersinsight:seed_butter"
                 ]
               }
             },
@@ -58,7 +58,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:seed_butter"
+                  "foragersinsight:birch_syrup_bottle"
                 ]
               }
             },
@@ -68,7 +68,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:birch_syrup_bottle"
+                  "foragersinsight:acorn_cookie"
                 ]
               }
             },
@@ -78,7 +78,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:acorn_cookie"
+                  "foragersinsight:rose_cookie"
                 ]
               }
             },
@@ -88,7 +88,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:rose_cookie"
+                  "foragersinsight:red_velvet_cupcake"
                 ]
               }
             },
@@ -98,7 +98,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:red_velvet_cupcake"
+                  "foragersinsight:black_forest_muffin"
                 ]
               }
             },
@@ -108,7 +108,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:black_forest_muffin"
+                  "foragersinsight:poppy_seed_bagel"
                 ]
               }
             },
@@ -118,7 +118,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:poppy_seed_bagel"
+                  "foragersinsight:lilac_teacake"
                 ]
               }
             },
@@ -138,7 +138,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:lilac_teacake"
+                  "foragersinsight:candied_calyces"
                 ]
               }
             },
@@ -148,7 +148,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:candied_calyces"
+                  "foragersinsight:apple_dippers"
                 ]
               }
             },
@@ -158,7 +158,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:apple_dippers"
+                  "foragersinsight:slice_of_rainbow_sandwich"
                 ]
               }
             },
@@ -168,7 +168,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:slice_of_rainbow_sandwich"
+                  "foragersinsight:slice_of_acorn_carrot_cake"
                 ]
               }
             },
@@ -178,7 +178,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:slice_of_acorn_carrot_cake"
+                  "foragersinsight:blewit_bites"
                 ]
               }
             },
@@ -188,7 +188,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:blewit_bites"
+                  "foragersinsight:carrot_poppy_chowder"
                 ]
               }
             },
@@ -198,7 +198,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:carrot_poppy_chowder"
+                  "foragersinsight:cod_and_pumpkin_stew"
                 ]
               }
             },
@@ -208,7 +208,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:cod_and_pumpkin_stew"
+                  "foragersinsight:creamy_salmon_bagel"
                 ]
               }
             },
@@ -218,7 +218,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:creamy_salmon_bagel"
+                  "foragersinsight:foragers_granola"
                 ]
               }
             },
@@ -228,7 +228,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:foragers_granola"
+                  "foragersinsight:jammy_breakfast_sandwich"
                 ]
               }
             },
@@ -248,7 +248,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:jammy_breakfast_sandwich"
+                  "foragersinsight:hearty_spruce_pilaf"
                 ]
               }
             },
@@ -258,7 +258,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:hearty_spruce_pilaf"
+                  "foragersinsight:steamy_kelp_rice"
                 ]
               }
             },
@@ -268,7 +268,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:steamy_kelp_rice"
+                  "foragersinsight:rose_hip_soup"
                 ]
               }
             },
@@ -278,7 +278,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:rose_hip_soup"
+                  "foragersinsight:acorn_noodles"
                 ]
               }
             },
@@ -288,7 +288,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:acorn_noodles"
+                  "foragersinsight:glazed_porkchop_and_acorn_grits"
                 ]
               }
             },
@@ -298,7 +298,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:glazed_porkchop_and_acorn_grits"
+                  "foragersinsight:rose_roasted_roots"
                 ]
               }
             },
@@ -308,7 +308,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:rose_roasted_roots"
+                  "foragersinsight:seaside_sizzler"
                 ]
               }
             },
@@ -318,7 +318,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:seaside_sizzler"
+                  "foragersinsight:syrup_toast_stacks"
                 ]
               }
             },
@@ -328,7 +328,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:syrup_toast_stacks"
+                  "foragersinsight:woodland_pasta"
                 ]
               }
             },
@@ -338,7 +338,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:woodland_pasta"
+                  "foragersinsight:tart_wheat_pilaf"
                 ]
               }
             },
@@ -358,7 +358,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:tart_wheat_pilaf"
+                  "foragersinsight:savory_pasta_roll"
                 ]
               }
             },
@@ -368,7 +368,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:savory_pasta_roll"
+                  "foragersinsight:kelp_and_beet_salad"
                 ]
               }
             },
@@ -378,7 +378,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:kelp_and_beet_salad"
+                  "foragersinsight:meadow_medley"
                 ]
               }
             },
@@ -388,7 +388,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:meadow_medley"
+                  "foragersinsight:lilac_salad"
                 ]
               }
             },
@@ -398,7 +398,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:lilac_salad"
+                  "foragersinsight:kelp_wrap"
                 ]
               }
             },
@@ -408,7 +408,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:kelp_wrap"
+                  "foragersinsight:dandelion_fries"
                 ]
               }
             },
@@ -418,7 +418,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:dandelion_fries"
+                  "foragersinsight:seed_butter_jamwich"
                 ]
               }
             },
@@ -428,7 +428,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:seed_butter_jamwich"
+                  "foragersinsight:sweet_roasted_rabbit_leg"
                 ]
               }
             },
@@ -438,7 +438,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:sweet_roasted_rabbit_leg"
+                  "foragersinsight:auspicious_stew"
                 ]
               }
             },
@@ -448,7 +448,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:auspicious_stew"
+                  "foragersinsight:seed_milk_bottle"
                 ]
               }
             },
@@ -468,7 +468,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:seed_milk_bottle"
+                  "foragersinsight:seed_milk_bucket"
                 ]
               }
             },
@@ -478,7 +478,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:seed_milk_bucket"
+                  "foragersinsight:rose_cordial"
                 ]
               }
             },
@@ -488,7 +488,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:rose_cordial"
+                  "foragersinsight:glowing_carrot_juice"
                 ]
               }
             },
@@ -498,7 +498,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:glowing_carrot_juice"
+                  "foragersinsight:dandelion_root_tea"
                 ]
               }
             },
@@ -508,7 +508,7 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:dandelion_root_tea"
+                  "foragersinsight:forest_elixir"
                 ]
               }
             },
@@ -518,23 +518,13 @@
             "conditions": {
               "item": {
                 "items": [
-                  "foragersinsight:forest_elixir"
-                ]
-              }
-            },
-            "trigger": "minecraft:consume_item"
-          },
-          "foragersinsight:56": {
-            "conditions": {
-              "item": {
-                "items": [
                   "foragersinsight:roselle_juice"
                 ]
               }
             },
             "trigger": "minecraft:consume_item"
           },
-          "foragersinsight:57": {
+          "foragersinsight:56": {
             "conditions": {
               "item": {
                 "items": [

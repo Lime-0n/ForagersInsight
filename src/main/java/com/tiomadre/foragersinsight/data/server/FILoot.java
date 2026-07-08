@@ -151,11 +151,7 @@ public class FILoot extends LootTableProvider {
             this.dropSelf(PHLOX.get());
             this.dropSelf(SKUNK_CABBAGE.get());
 
-            //Other
-            this.add(SAP_TRAP.get(), block -> LootTable.lootTable()
-                    .withPool(this.applyExplosionCondition(block, LootPool.lootPool()
-                            .when(LootItemRandomChanceCondition.randomChance(0.5F))
-                            .add(LootItem.lootTableItem(vectorwing.farmersdelight.common.registry.ModItems.TREE_BARK.get())))));
+            //Other Natural Blocks
             this.add(HOLLOW_LOG.get(), block -> this.applyExplosionDecay(block, LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .add(LootItem.lootTableItem(vectorwing.farmersdelight.common.registry.ModItems.TREE_BARK.get())
@@ -165,8 +161,8 @@ public class FILoot extends LootTableProvider {
             this.add(FIBlocks.BLEWIT_MUSHROOM.get(), block -> LootTable.lootTable()
                     .withPool(this.applyExplosionCondition(block, LootPool.lootPool()
                             .add(LootItem.lootTableItem(FIItems.BLEWIT_MUSHROOM.get())))));
-            this.dropSelf(FIBlocks.GHOST_PIPE_TORCH.get());
 
+            // Mushroom Colonies
             this.add(BLEWIT_MUSHROOM_COLONY.get(), block -> createMushroomColonyDrops(BLEWIT_MUSHROOM_COLONY, BLEWIT_MUSHROOM_COLONY.get(), BLEWIT_MUSHROOM.get()));
             this.add(WALL_RED_MUSHROOM.get(), block -> createSingleItemTable(Items.RED_MUSHROOM));
             this.add(WALL_BROWN_MUSHROOM.get(), block -> createSingleItemTable(Items.BROWN_MUSHROOM));
@@ -180,6 +176,7 @@ public class FILoot extends LootTableProvider {
             //Condensed
             this.add(CONDENSED_DIRT.get(), block -> createSilkTouchDispatchTable(block, LootItem.lootTableItem(Blocks.DIRT)));
             this.add(CONDENSED_SAND.get(), block -> createSilkTouchDispatchTable(block, LootItem.lootTableItem(Blocks.SAND)));
+
             //Decorative
             this.dropSelf(SCATTERED_LILAC_BLOOM_MAT.get());
             this.dropSelf(SCATTERED_ROSE_PETAL_MAT.get());
@@ -191,6 +188,9 @@ public class FILoot extends LootTableProvider {
             this.dropSelf(DENSE_SPRUCE_TIP_MAT.get());
             this.dropSelf(DENSE_ROSE_PETAL_MAT.get());
             this.dropSelf(DENSE_ROSELLE_PETAL_MAT.get());
+            this.dropSelf(FIBlocks.GHOST_PIPE_TORCH.get());
+            this.dropOther(FIBlocks.WALL_GHOST_PIPE_TORCH.get(), FIItems.GHOST_PIPE_TORCH.get());
+
             //Leaves and Tree Stuff
             this.add(BOUNTIFUL_SPRUCE_TIPS.get(), LootTable.lootTable().setParamSet(LootContextParamSets.BLOCK));
             this.add(FIBlocks.SAPPY_BIRCH_LOG.get(), block -> createSilkTouchDispatchTable(block, LootItem.lootTableItem(Blocks.BIRCH_LOG)));
@@ -222,7 +222,10 @@ public class FILoot extends LootTableProvider {
             //Tools + Workstations
             this.add(FIBlocks.DIFFUSER.get(), block -> createSingleItemTable(FIItems.DIFFUSER.get()));
             this.add(FIBlocks.TAPPER.get(), block -> createSingleItemTable(FIItems.TAPPER.get()));
-
+            this.add(SAP_TRAP.get(), block -> LootTable.lootTable()
+                    .withPool(this.applyExplosionCondition(block, LootPool.lootPool()
+                            .when(LootItemRandomChanceCondition.randomChance(0.5F))
+                            .add(LootItem.lootTableItem(vectorwing.farmersdelight.common.registry.ModItems.TREE_BARK.get())))));
         }
             private LootTable.Builder createTinderConkDrops() {
                 return LootTable.lootTable()
