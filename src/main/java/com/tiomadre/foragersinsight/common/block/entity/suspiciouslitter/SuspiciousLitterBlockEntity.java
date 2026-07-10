@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.common.block.entity.suspiciouslitter;
 
 import com.tiomadre.foragersinsight.common.block.SuspiciousLitterBlock;
+import com.tiomadre.foragersinsight.common.item.AmadouCapItem;
 import com.tiomadre.foragersinsight.core.other.FarmingXPEvents;
 import com.tiomadre.foragersinsight.core.registry.*;
 import net.minecraft.core.BlockPos;
@@ -11,7 +12,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BrushItem;
 import net.minecraft.world.item.ItemStack;
@@ -184,10 +184,7 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
 
     private static int getLuckOfTheTreesLevel(Player player, ItemStack brushStack) {
         int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(FIEnchantments.LUCK_OF_THE_TREES.get(), brushStack);
-        if (player.getItemBySlot(EquipmentSlot.HEAD).is(FIItems.AMADOU_CAP.get())) {
-            return Math.max(enchantmentLevel, 1);
-        }
-        return enchantmentLevel;
+        return AmadouCapItem.applyLuckOfTheTrees(player, enchantmentLevel);
     }
 
     private void resolveRevealedItem(ServerLevel level, BlockState state) {

@@ -45,7 +45,7 @@ public class GhostPipeWallTorchBlock extends WallTorchBlock {
         Direction direction = state.getValue(FACING);
         Direction opposite = direction.getOpposite();
         double x = (double) pos.getX() + 0.5D + 0.27D * (double) opposite.getStepX();
-        double y = (double) pos.getY() + 0.7D;
+        double y = (double) pos.getY() + 0.85D;
         double z = (double) pos.getZ() + 0.5D + 0.27D * (double) opposite.getStepZ();
 
         level.addParticle(this.flameParticle.get(), x, y, z, 0.0D, 0.0D, 0.0D);

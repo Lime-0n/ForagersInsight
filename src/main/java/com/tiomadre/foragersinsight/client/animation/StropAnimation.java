@@ -5,44 +5,98 @@ import com.mojang.math.Axis;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = ForagersInsight.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
-public class StropAnimation {
+@Mod.EventBusSubscriber(
+        modid = ForagersInsight.MOD_ID,
+        value = Dist.CLIENT,
+        bus = Mod.EventBusSubscriber.Bus.FORGE
+)
+public final class StropAnimation {
+
+    private StropAnimation() {
+    }
+
     @SubscribeEvent
     public static void onRenderHand(RenderHandEvent event) {
-        LocalPlayer player = Minecraft.getInstance().player;
-        if (player == null || !player.isUsingItem() || player.getUsedItemHand() != InteractionHand.OFF_HAND) {
-            return;
-        }
-        if (!player.getOffhandItem().is(FIItems.STROP.get())) {
+        Minecraft minecraft = Minecraft.getInstance();
+        Player player = minecraft.player;
+
+        if (player == null) {
             return;
         }
 
-        float useTicks = player.getTicksUsingItem() + event.getPartialTick();
-        float rub = (float) Math.sin(useTicks * 0.9F) * 0.08F;
-        boolean rightMainHand = player.getMainArm() == HumanoidArm.RIGHT;
-        int mainHandSign = rightMainHand ? 1 : -1;
-        int renderedHandSign = event.getHand() == InteractionHand.MAIN_HAND ? mainHandSign : -mainHandSign;
+        if (event.getHand() != InteractionHand.MAIN_HAND) {
+            return;
+        }
+
+        ItemStack mainHand = player.getMainHandItem();
+        ItemStack offHand = player.getOffhandItem();
+
+        if (!shouldPlayStroppingAnimation(player, mainHand, offHand)) {
+            return;
+        }
 
         PoseStack poseStack = event.getPoseStack();
-        poseStack.translate(-0.18F * renderedHandSign, -0.12F + Math.abs(rub) * 0.35F, -0.28F);
-        poseStack.mulPose(Axis.YP.rotationDegrees(18.0F * renderedHandSign));
-        poseStack.mulPose(Axis.XP.rotationDegrees(-16.0F));
+        float partialTick = event.getPartialTick();
 
-        if (event.getHand() == InteractionHand.MAIN_HAND) {
-            poseStack.translate(0.0F, rub, 0.08F);
-            poseStack.mulPose(Axis.ZP.rotationDegrees(10.0F * renderedHandSign));
-        } else {
-            poseStack.translate(0.10F * renderedHandSign, -rub * 0.35F, -0.18F);
-            poseStack.mulPose(Axis.YP.rotationDegrees(-12.0F * renderedHandSign));
-            poseStack.mulPose(Axis.ZP.rotationDegrees(-12.0F * renderedHandSign));
+        float animationTime =
+                offHand.getUseDuration() -
+                        player.getUseItemRemainingTicks() +
+                        partialTick;
+
+        float rub = Mth.sin(animationTime * 1.8F);
+        float lift = Mth.sin(animationTime * 3.6F) * 0.025F;
+        poseStack.pushPose();
+
+        poseStack.translate(
+                -0.32F + rub * 0.10F,
+                0.18F + lift,
+                -0.18F
+        );
+        poseStack.mulPose(Axis.XP.rotationDegrees(-28.0F));
+        poseStack.mulPose(
+                Axis.YP.rotationDegrees(
+                        -24.0F + rub * 7.0F
+                )
+        );
+        poseStack.mulPose(
+                Axis.ZP.rotationDegrees(
+                        18.0F + rub * 5.0F
+                )
+        );
+
+        poseStack.scale(0.9F, 0.9F, 0.9F);
+    }
+
+    private static boolean shouldPlayStroppingAnimation(
+            Player player,
+            ItemStack mainHand,
+            ItemStack offHand
+    ) {
+        if (!offHand.is(FIItems.STROP.get())) {
+            return false;
         }
+
+        if (!player.isUsingItem()) {
+            return false;
+        }
+
+        if (player.getUsedItemHand() != InteractionHand.OFF_HAND) {
+            return false;
+        }
+
+        return canRepair(mainHand);
+    }
+
+    private static boolean canRepair(ItemStack tool) {
+        return !tool.isEmpty() && tool.isDamageableItem() && tool.isDamaged();
     }
 }

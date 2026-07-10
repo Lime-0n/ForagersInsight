@@ -33,6 +33,7 @@ public class StickyResistanceEvents {
         if (incomingEffect != FIMobEffects.STUCK.get()) return;
         if (!event.getEntity().hasEffect(FIMobEffects.STICKY_RESISTANCE.get())) return;
 
+        WaxedBoots.drainForStuckPrevention(event.getEntity());
         event.setResult(Event.Result.DENY);
     }
 

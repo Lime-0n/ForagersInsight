@@ -70,7 +70,8 @@ public final class FIForageLoot {
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1))
                             .add(LootItem.lootTableItem(ROSE_HIP.get()).setWeight(6))
-                            .add(LootItem.lootTableItem(Items.HONEYCOMB).setWeight(4).setQuality(1)));
+                            .add(LootItem.lootTableItem(FIBlocks.TINDER_CONK.get()).setWeight(4))
+                    );
         }
 
         private static LootTable.Builder suspiciousLitterSpruce() {

@@ -282,8 +282,9 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
 
         //Strop
         ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, STROP.get())
-                .pattern("AIA")
-                .pattern(" I ")
+                .pattern(" AI")
+                .pattern(" A ")
+                .pattern("IA ")
                 .define('A', AMADOU.get())
                 .define('I', IRON_INGOT)
                 .unlockedBy("has_amadou", has(AMADOU.get()))

@@ -17,6 +17,7 @@ public class StropItem extends Item {
     private static final int REPAIR_AMOUNT = 2;
     private static final int REPAIR_DELAY_TICKS = 20;
     private static final int REPAIR_INTERVAL_TICKS = 20;
+    private static final int STROP_NOISE = 5;
     private static final int USE_DURATION_TICKS = 150;
 
     public StropItem(Properties properties) {
@@ -26,13 +27,26 @@ public class StropItem extends Item {
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand) {
         ItemStack strop = player.getItemInHand(hand);
-        if (hand != InteractionHand.OFF_HAND || !canRepair(player.getMainHandItem())) {
+        if (hand == InteractionHand.MAIN_HAND) {
+            if (!player.getOffhandItem().isEmpty()) {
+                return InteractionResultHolder.pass(strop);
+            }
+
+            ItemStack offhandStrop = strop.copy();
+            offhandStrop.setCount(1);
+            player.setItemInHand(InteractionHand.OFF_HAND, offhandStrop);
+            strop.shrink(1);
+            return InteractionResultHolder.consume(player.getItemInHand(hand));
+        }
+
+        if (!canRepair(player.getMainHandItem())) {
             return InteractionResultHolder.pass(strop);
         }
 
         player.startUsingItem(hand);
         return InteractionResultHolder.consume(strop);
     }
+
 
     @Override
     public void onUseTick(@NotNull Level level, @NotNull LivingEntity livingEntity, @NotNull ItemStack strop, int remainingUseDuration) {
@@ -47,6 +61,8 @@ public class StropItem extends Item {
         }
 
         int elapsedTicks = this.getUseDuration(strop) - remainingUseDuration;
+        playStroppingSound(level, player, elapsedTicks);
+
         if (elapsedTicks < REPAIR_DELAY_TICKS || elapsedTicks % REPAIR_INTERVAL_TICKS != 0) {
             return;
         }
@@ -55,7 +71,6 @@ public class StropItem extends Item {
             tool.setDamageValue(Math.max(0, tool.getDamageValue() - REPAIR_AMOUNT));
             strop.hurtAndBreak(2, player, user -> user.broadcastBreakEvent(EquipmentSlot.OFFHAND));
             player.awardStat(Stats.ITEM_USED.get(this));
-            level.playSound(null, player.blockPosition(), SoundEvents.BRUSH_SAND, SoundSource.PLAYERS, 0.5F, .85F);
         }
     }
 
@@ -66,5 +81,13 @@ public class StropItem extends Item {
 
     private static boolean canRepair(ItemStack tool) {
         return !tool.isEmpty() && tool.isDamageableItem() && tool.isDamaged();
+    }
+
+    private static void playStroppingSound(Level level, Player player, int elapsedTicks) {
+        if (level.isClientSide || elapsedTicks % STROP_NOISE != 0) {
+            return;
+        }
+
+        level.playSound(null, player.blockPosition(), SoundEvents.BRUSH_SAND, SoundSource.PLAYERS, 0.35F, 0.85F);
     }
 }

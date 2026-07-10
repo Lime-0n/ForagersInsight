@@ -199,6 +199,8 @@
 
   "tooltip.foragersinsight.seed_milk_bottle": "Clears 1 Effect",
   "tooltip.foragersinsight.milk_bucket": "Clears all Effects",
+  "tooltip.foragersinsight.amadou_cap.luck_of_the_trees": "Grants Luck of the Trees I while worn",
+  "tooltip.foragersinsight.waxed_boots": "Waxed: Gain Sticky Resistance for %s/%s remaining steps",
 
   "foragersinsight.tool_interaction.shears.chicken": "Please wait %s seconds to shear this chicken again.",
   "foragersinsight.tool_interaction.shears.baby_chicken": "Baby chickens cannot be sheared.",

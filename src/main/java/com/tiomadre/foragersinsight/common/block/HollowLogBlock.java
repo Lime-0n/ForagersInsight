@@ -5,9 +5,11 @@ import net.minecraft.core.Holder;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -19,12 +21,33 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.NotNull;
 
 public class HollowLogBlock extends RotatedPillarBlock implements SimpleWaterloggedBlock {
     public static final EnumProperty<LogTexture> LOG_TEXTURE = EnumProperty.create("log_texture", LogTexture.class);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    private static final VoxelShape SHAPE_Y = Shapes.or(
+            Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 2.0D),
+            Block.box(0.0D, 0.0D, 14.0D, 16.0D, 16.0D, 16.0D),
+            Block.box(0.0D, 0.0D, 2.0D, 2.0D, 16.0D, 14.0D),
+            Block.box(14.0D, 0.0D, 2.0D, 16.0D, 16.0D, 14.0D)
+    );
+    private static final VoxelShape SHAPE_X = Shapes.or(
+            Block.box(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D),
+            Block.box(0.0D, 14.0D, 0.0D, 16.0D, 16.0D, 16.0D),
+            Block.box(0.0D, 2.0D, 0.0D, 16.0D, 14.0D, 2.0D),
+            Block.box(0.0D, 2.0D, 14.0D, 16.0D, 14.0D, 16.0D)
+    );
+    private static final VoxelShape SHAPE_Z = Shapes.or(
+            Block.box(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D),
+            Block.box(0.0D, 14.0D, 0.0D, 16.0D, 16.0D, 16.0D),
+            Block.box(0.0D, 2.0D, 0.0D, 2.0D, 14.0D, 16.0D),
+            Block.box(14.0D, 2.0D, 0.0D, 16.0D, 14.0D, 16.0D)
+    );
 
     public HollowLogBlock(BlockBehaviour.Properties properties) {
         super(properties);
@@ -66,6 +89,21 @@ public class HollowLogBlock extends RotatedPillarBlock implements SimpleWaterlog
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
+    @Override
+    public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+        return getShapeForAxis(state.getValue(AXIS));
+    }
+
+    @Override
+    public @NotNull VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+        return getShapeForAxis(state.getValue(AXIS));
+    }
+
+    @Override
+    public @NotNull VoxelShape getOcclusionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
+        return getShapeForAxis(state.getValue(AXIS));
+    }
+
     public static boolean MushroomPlacement(BlockState state, Direction face) {
         if (!(state.getBlock() instanceof HollowLogBlock)) {
             return false;
@@ -93,6 +131,13 @@ public class HollowLogBlock extends RotatedPillarBlock implements SimpleWaterlog
         return false;
     }
 
+    private static VoxelShape getShapeForAxis(Direction.Axis axis) {
+        return switch (axis) {
+            case X -> SHAPE_X;
+            case Z -> SHAPE_Z;
+            default -> SHAPE_Y;
+        };
+    }
 
     public static LogTexture getDominantBiomeTexture(Holder<Biome> biome) {
         if (biome.is(FITags.BiomeTag.HAS_BIRCH_FOREST_LITTER)) {

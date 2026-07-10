@@ -10,8 +10,9 @@
     }
   },
   "pattern": [
-    "AIA",
-    " I "
+    " AI",
+    " A ",
+    "IA "
   ],
   "result": {
     "item": "foragersinsight:strop"

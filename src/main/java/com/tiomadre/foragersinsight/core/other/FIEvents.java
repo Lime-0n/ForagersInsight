@@ -4,7 +4,6 @@ import com.tiomadre.foragersinsight.common.effect.StuckEffect;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIAdvancementCriteria;
 import com.tiomadre.foragersinsight.core.registry.FIConfig;
-import com.tiomadre.foragersinsight.core.registry.FIItems;
 import com.tiomadre.foragersinsight.core.registry.FIMobEffects;
 import com.tiomadre.foragersinsight.data.server.tags.FITags;
 import net.minecraft.server.level.ServerPlayer;
@@ -21,7 +20,7 @@ import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerXpEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -102,16 +101,15 @@ public class FIEvents {
     }
 
     @SubscribeEvent
-    public static void onItemCrafted(PlayerEvent.ItemCraftedEvent event) {
-        if (!(event.getEntity() instanceof ServerPlayer player)) return;
-        if (!event.getCrafting().is(FIItems.TAPPER.get())) return;
-
-        FIAdvancementCriteria.TAP_THAT.trigger(player);
+    public static void onItemTooltip(ItemTooltipEvent event) {
+        WaxedBoots.appendTooltip(event.getItemStack(), event.getToolTip());
     }
+
     //Stuck Effect Logico
     @SubscribeEvent
     public static void onLivingTick(LivingEvent.LivingTickEvent event) {
         LivingEntity entity = event.getEntity();
+        WaxedBoots.tick(entity);
         if (!entity.hasEffect(FIMobEffects.STUCK.get())) return;
 
         StuckEffect.stopMovementActions(entity);
