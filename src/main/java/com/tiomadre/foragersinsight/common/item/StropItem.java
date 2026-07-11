@@ -10,6 +10,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
@@ -77,6 +78,10 @@ public class StropItem extends Item {
     @Override
     public int getUseDuration(@NotNull ItemStack stack) {
         return USE_DURATION_TICKS;
+    }
+    @Override
+    public @NotNull UseAnim getUseAnimation(@NotNull ItemStack stack) {
+        return UseAnim.BLOCK;
     }
 
     private static boolean canRepair(ItemStack tool) {

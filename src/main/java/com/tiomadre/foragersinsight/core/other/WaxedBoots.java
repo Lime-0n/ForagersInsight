@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class WaxedBoots {
     public static final String WAXED_DURATION_TAG = "ForagersInsightWaxedDuration";
+    public static final String WAXED_LEVEL_TAG = "ForagersInsightWaxedLevel";
     public static final int MAX_WAXED_LEVEL = 3;
     private static final int WAXED_DURATION_PER_HONEYCOMB = 4 * 60 * 20;
     private static final int WALKING_DRAIN_INTERVAL = 20;
@@ -23,6 +24,7 @@ public class WaxedBoots {
 
     public static void wax(ItemStack stack, int honeycombCount) {
         int waxedLevel = Math.max(1, Math.min(MAX_WAXED_LEVEL, honeycombCount));
+        stack.getOrCreateTag().putInt(WAXED_LEVEL_TAG, waxedLevel);
         stack.getOrCreateTag().putInt(WAXED_DURATION_TAG, waxedLevel * WAXED_DURATION_PER_HONEYCOMB);
     }
 
@@ -34,6 +36,15 @@ public class WaxedBoots {
         return stack.getOrCreateTag().getInt(WAXED_DURATION_TAG);
     }
 
+    public static int getWaxedLevel(ItemStack stack) {
+        int waxedLevel = stack.getOrCreateTag().getInt(WAXED_LEVEL_TAG);
+        if (waxedLevel > 0) {
+            return Math.min(MAX_WAXED_LEVEL, waxedLevel);
+        }
+
+        return Math.max(1, Math.min(MAX_WAXED_LEVEL, (int) Math.ceil(getWaxedDuration(stack) / (double) WAXED_DURATION_PER_HONEYCOMB)));
+    }
+
     public static void appendTooltip(ItemStack stack, java.util.List<Component> tooltip) {
         int duration = getWaxedDuration(stack);
         if (duration <= 0) return;
@@ -41,8 +52,16 @@ public class WaxedBoots {
         int totalSeconds = (int) Math.ceil(duration / 20.0D);
         int minutes = totalSeconds / 60;
         int seconds = totalSeconds % 60;
-        tooltip.add(Component.translatable("tooltip.foragersinsight.waxed_boots", minutes, String.format("%02d", seconds))
-                .withStyle(ChatFormatting.GOLD));
+        tooltip.add(Component.translatable("tooltip.foragersinsight.waxed_boots", toRomanNumeral(getWaxedLevel(stack)), minutes, String.format("%02d", seconds))
+                .withStyle(ChatFormatting.GRAY));
+    }
+
+    private static String toRomanNumeral(int value) {
+        return switch (value) {
+            case 2 -> "II";
+            case 3 -> "III";
+            default -> "I";
+        };
     }
 
     public static void tick(LivingEntity entity) {
@@ -67,6 +86,7 @@ public class WaxedBoots {
         int duration = Math.max(0, getWaxedDuration(stack) - amount);
         if (duration == 0) {
             stack.getOrCreateTag().remove(WAXED_DURATION_TAG);
+            stack.getOrCreateTag().remove(WAXED_LEVEL_TAG);
             return;
         }
         stack.getOrCreateTag().putInt(WAXED_DURATION_TAG, duration);

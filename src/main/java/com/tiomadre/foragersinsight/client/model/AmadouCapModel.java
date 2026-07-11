@@ -13,6 +13,11 @@ import net.minecraft.world.entity.LivingEntity;
 public class AmadouCapModel<T extends LivingEntity> extends HumanoidModel<T> {
     public AmadouCapModel(ModelPart root) {
         super(root);
+        this.body.visible = false;
+        this.rightArm.visible = false;
+        this.leftArm.visible = false;
+        this.rightLeg.visible = false;
+        this.leftLeg.visible = false;
     }
 
     public static LayerDefinition createBodyLayer() {
