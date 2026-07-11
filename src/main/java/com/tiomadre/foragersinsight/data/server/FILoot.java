@@ -128,6 +128,7 @@ public class FILoot extends LootTableProvider {
             this.dropSelf(POPPY_SEEDS_SACK.get());
             this.add(FIBlocks.BLEWIT_CRATE.get(), this::createSlabItemTable);
             this.add(LILAC_BLOOM_CRATE.get(), this::createSlabItemTable);
+            this.dropSelf(TINDER_CONK_CRATE.get());
             //Wildflower + Plants
             this.add(FIBlocks.ROSELLE_BUSH.get(), block -> LootTable.lootTable().withPool(this.applyExplosionCondition(block, LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0F))

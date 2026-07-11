@@ -1,6 +1,5 @@
 package com.tiomadre.foragersinsight.core.registry;
 
-import com.tiomadre.foragersinsight.common.enchantments.ConcussiveEnchantment;
 import com.tiomadre.foragersinsight.common.enchantments.FarmhandEnchantment;
 import com.tiomadre.foragersinsight.common.enchantments.LuckOfTheTreesEnchantment;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
@@ -16,9 +15,6 @@ public final class FIEnchantments {
 
     public static final RegistryObject<Enchantment> FARMHAND =
             ENCHANTMENTS.register("farmhand", FarmhandEnchantment::new);
-
-    public static final RegistryObject<Enchantment> CONCUSSIVE =
-            ENCHANTMENTS.register("concussive", () -> new ConcussiveEnchantment(Enchantment.Rarity.UNCOMMON));
 
     public static final RegistryObject<Enchantment> LUCK_OF_THE_TREES =
             ENCHANTMENTS.register("luck_of_the_trees", LuckOfTheTreesEnchantment::new);

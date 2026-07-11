@@ -79,6 +79,7 @@ public class FITags {
         public static final TagKey<Item> STORAGE_BLOCK_BLACK_ACORNS = storageTag("black_acorns");
         public static final TagKey<Item> STORAGE_BLOCK_BLEWIT_MUSHROOM = storageTag("blewit_mushroom");
         public static final TagKey<Item> STORAGE_BLOCK_LILAC_BLOOM = storageTag("lilac_bloom");
+        public static final TagKey<Item> STORAGE_BLOCK_TINDER_CONK = storageTag("tinder_conk");
 
             public static TagKey<Item> storageTag(String thing) {
                 return TagUtil.itemTag(COMMON_NAMESPACE, "storage_blocks/" + thing);
@@ -93,6 +94,8 @@ public class FITags {
         public static final TagKey<Block> STORAGE_BLOCK_POPPY_SEEDS = storageTag("poppy_seeds");
         public static final TagKey<Block> STORAGE_BLOCK_BLACK_ACORNS = storageTag("black_acorns");
         public static final TagKey<Block> STORAGE_BLOCK_BLEWIT_MUSHROOM = storageTag("blewit_mushroom");
+        public static final TagKey<Block> STORAGE_BLOCK_TINDER_CONK = storageTag("tinder_conk");
+
 
         public static final TagKey<Block> FORAGING = blockTag("foraging");
         public static final TagKey<Block> SHEARABLE_CROPS = blockTag("shearable_crops");

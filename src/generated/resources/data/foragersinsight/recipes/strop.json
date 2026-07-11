@@ -2,17 +2,17 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "A": {
-      "item": "foragersinsight:amadou"
-    },
     "I": {
       "item": "minecraft:iron_ingot"
+    },
+    "L": {
+      "item": "minecraft:leather"
     }
   },
   "pattern": [
-    " AI",
-    " A ",
-    "IA "
+    " LI",
+    " L ",
+    "IL "
   ],
   "result": {
     "item": "foragersinsight:strop"

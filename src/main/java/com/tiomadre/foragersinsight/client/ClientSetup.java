@@ -1,5 +1,7 @@
 package com.tiomadre.foragersinsight.client;
 
+import com.tiomadre.foragersinsight.client.model.AmadouCapModel;
+import com.tiomadre.foragersinsight.client.model.FIModelLayers;
 import com.tiomadre.foragersinsight.client.render.blockentity.SuspiciousLitterRender;
 import com.tiomadre.foragersinsight.client.render.blockentity.SapTrapRenderer;
 import com.tiomadre.foragersinsight.common.block.SuspiciousLitterBlock;
@@ -22,6 +24,7 @@ import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -92,6 +95,11 @@ public class ClientSetup {
             );
         });
     }
+    @SubscribeEvent
+    public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(FIModelLayers.AMADOU_CAP, AmadouCapModel::createBodyLayer);
+    }
+
 
     @SubscribeEvent
     public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {

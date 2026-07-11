@@ -132,13 +132,14 @@
     "foragersinsight:condensed_sand",
     "foragersinsight:sap_splotch",
     "foragersinsight:apple_crate",
-    "foragersinsight:dandelion_root_sack",
+    "foragersinsight:blewit_mushroom_crate",
     "foragersinsight:lilac_crate",
+    "foragersinsight:tinder_conk_crate",
+    "foragersinsight:black_acorn_sack",
+    "foragersinsight:dandelion_root_sack",
     "foragersinsight:poppy_seeds_sack",
     "foragersinsight:rose_hip_sack",
     "foragersinsight:roselle_calyx_sack",
-    "foragersinsight:black_acorn_sack",
-    "foragersinsight:spruce_tips_sack",
-    "foragersinsight:blewit_mushroom_crate"
+    "foragersinsight:spruce_tips_sack"
   ]
 }

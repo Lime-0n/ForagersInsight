@@ -41,6 +41,7 @@ public class FITabs {
             FIBlocks.APPLE_CRATE,
             FIBlocks.BLEWIT_CRATE,
             FIBlocks.LILAC_BLOOM_CRATE,
+            FIBlocks.TINDER_CONK_CRATE,
             FIBlocks.BLACK_ACORN_SACK,
             FIBlocks.DANDELION_ROOT_SACK,
             FIBlocks.POPPY_SEEDS_SACK,
@@ -213,6 +214,8 @@ public class FITabs {
                 .map(Supplier::get)
                 .map(FITabs::createAuspiciousStew)
                 .forEach(output::accept);
+
+        output.accept(FIBlocks.TINDER_CONK.get().asItem());
     }
 
     private static ItemStack createAuspiciousStew(MobEffect effect) {

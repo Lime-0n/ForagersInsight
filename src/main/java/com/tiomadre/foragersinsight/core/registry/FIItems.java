@@ -56,6 +56,7 @@ public class FIItems {
             new ItemNameBlockItem(FIBlocks.ROSE_CROP.get(), new Item.Properties().food(FIFoods.NO_SAT_MORSELS)));
     public static final RegistryObject<Item> SPRUCE_TIPS = HELPER.createItem("spruce_tips", () ->
             new Item(new Item.Properties().food(FIFoods.LOW_SAT_MORSELS)));
+    
         //Seed Only
     public static final RegistryObject<Item> TINDER_CONK_SPORES = HELPER.createItem("tinder_conk_spores", () ->
             new ItemNameBlockItem(FIBlocks.TINDER_CONK.get(), new Item.Properties()));

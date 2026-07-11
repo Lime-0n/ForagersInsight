@@ -3,6 +3,7 @@ package com.tiomadre.foragersinsight.data.server.recipes;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
+import com.tiomadre.foragersinsight.core.registry.FIRecipeSerializers;
 import com.tiomadre.foragersinsight.data.server.tags.FITags;
 import static com.tiomadre.foragersinsight.core.registry.FIBlocks.*;
 import static com.tiomadre.foragersinsight.core.registry.FIItems.*;
@@ -37,6 +38,9 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
     public void buildRecipes(Consumer<FinishedRecipe> consumer) {
         addVanillaOverrides(consumer);
         addFarmersDelightOverrides(consumer);
+        SpecialRecipeBuilder.special(FIRecipeSerializers.WAXED_BOOTS.get())
+                .save(consumer, ForagersInsight.rl("crafting_special_waxedboots").toString());
+
         cookie(ROSE_COOKIE, FIItems.ROSE_HIP, consumer);
         cookie(ACORN_COOKIE, BLACK_ACORN, consumer);
         //Dough
@@ -282,12 +286,12 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
 
         //Strop
         ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, STROP.get())
-                .pattern(" AI")
-                .pattern(" A ")
-                .pattern("IA ")
-                .define('A', AMADOU.get())
+                .pattern(" LI")
+                .pattern(" L ")
+                .pattern("IL ")
+                .define('L', LEATHER)
                 .define('I', IRON_INGOT)
-                .unlockedBy("has_amadou", has(AMADOU.get()))
+                .unlockedBy("has_leather", has(LEATHER))
                 .save(consumer);
         //Tapper
         ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, FIItems.TAPPER.get())
@@ -508,6 +512,7 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
         this.storageRecipes(consumer, RecipeCategory.FOOD, ROSELLE_CALYX.get(), RecipeCategory.DECORATIONS, ROSELLE_CALYX_SACK.get());
         this.storageRecipes(consumer, RecipeCategory.FOOD, FIItems.BLEWIT_MUSHROOM.get(), RecipeCategory.DECORATIONS, FIBlocks.BLEWIT_CRATE.get());
         this.storageRecipes(consumer, RecipeCategory.FOOD, LILAC_BLOOM.get(), RecipeCategory.DECORATIONS, LILAC_BLOOM_CRATE.get());
+        this.storageRecipes(consumer, RecipeCategory.MISC, TINDER_CONK.get(), RecipeCategory.DECORATIONS, TINDER_CONK_CRATE.get());
 
         FICookingRecipes.buildRecipes(consumer);
         FICrushandCutRecipes.buildRecipes(consumer);
