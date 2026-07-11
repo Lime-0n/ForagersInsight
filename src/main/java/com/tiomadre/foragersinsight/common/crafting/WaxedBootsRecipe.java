@@ -32,53 +32,41 @@ public class WaxedBootsRecipe extends CustomRecipe {
     }
 
     private java.util.Optional<ItemStack> getCraftingResult(CraftingContainer container) {
-        if (container.getWidth() < 3 || container.getHeight() < 2) {
+        ItemStack boots = ItemStack.EMPTY;
+        int honeycombCount = 0;
+
+        for (int i = 0; i < container.getContainerSize(); i++) {
+            ItemStack stack = container.getItem(i);
+            if (stack.isEmpty()) {
+                continue;
+            }
+
+            if (HONEYCOMB.test(stack)) {
+                honeycombCount++;
+                continue;
+            }
+
+            if (WaxedBoots.isBoots(stack) && boots.isEmpty()) {
+                boots = stack;
+                continue;
+            }
+
             return java.util.Optional.empty();
         }
 
-        for (int y = 0; y <= container.getHeight() - 2; y++) {
-            for (int x = 0; x <= container.getWidth() - 3; x++) {
-                ItemStack topHoneycomb = container.getItem(x + 1 + y * container.getWidth());
-                ItemStack leftHoneycomb = container.getItem(x + (y + 1) * container.getWidth());
-                ItemStack boots = container.getItem(x + 1 + (y + 1) * container.getWidth());
-                ItemStack rightHoneycomb = container.getItem(x + 2 + (y + 1) * container.getWidth());
-
-                if (!HONEYCOMB.test(topHoneycomb) || !HONEYCOMB.test(leftHoneycomb) || !WaxedBoots.isBoots(boots)
-                        || !HONEYCOMB.test(rightHoneycomb)) {
-                    continue;
-                }
-
-                if (hasUnexpectedItems(container, x, y)) {
-                    continue;
-                }
-
-                ItemStack result = boots.copy();
-                result.setCount(1);
-                WaxedBoots.wax(result);
-                return java.util.Optional.of(result);
-            }
+        if (boots.isEmpty() || honeycombCount < 1 || honeycombCount > WaxedBoots.MAX_WAXED_LEVEL) {
+            return java.util.Optional.empty();
         }
-        return java.util.Optional.empty();
-    }
 
-    private boolean hasUnexpectedItems(CraftingContainer container, int recipeX, int recipeY) {
-        for (int y = 0; y < container.getHeight(); y++) {
-            for (int x = 0; x < container.getWidth(); x++) {
-                boolean recipeSlot = (x == recipeX + 1 && y == recipeY)
-                        || (x == recipeX && y == recipeY + 1)
-                        || (x == recipeX + 1 && y == recipeY + 1)
-                        || (x == recipeX + 2 && y == recipeY + 1);
-                if (!recipeSlot && !container.getItem(x + y * container.getWidth()).isEmpty()) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        ItemStack result = boots.copy();
+        result.setCount(1);
+        WaxedBoots.wax(result, honeycombCount);
+        return java.util.Optional.of(result);
     }
 
     @Override
     public boolean canCraftInDimensions(int width, int height) {
-        return width >= 3 && height >= 2;
+        return width * height >= 2;
     }
 
     @Override

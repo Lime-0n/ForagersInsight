@@ -11,7 +11,8 @@ import net.minecraft.world.item.ItemStack;
 
 public class WaxedBoots {
     public static final String WAXED_DURATION_TAG = "ForagersInsightWaxedDuration";
-    private static final int MAX_WAXED_DURATION = 6000;
+    public static final int MAX_WAXED_LEVEL = 3;
+    private static final int WAXED_DURATION_PER_HONEYCOMB = 4 * 60 * 20;
     private static final int WALKING_DRAIN_INTERVAL = 20;
     private static final int STUCK_PREVENTION_DRAIN = 200;
     private static final int STICKY_RESISTANCE_REFRESH_DURATION = 40;
@@ -20,8 +21,9 @@ public class WaxedBoots {
         return stack.getItem() instanceof ArmorItem armorItem && armorItem.getEquipmentSlot() == EquipmentSlot.FEET;
     }
 
-    public static void wax(ItemStack stack) {
-        stack.getOrCreateTag().putInt(WAXED_DURATION_TAG, MAX_WAXED_DURATION);
+    public static void wax(ItemStack stack, int honeycombCount) {
+        int waxedLevel = Math.max(1, Math.min(MAX_WAXED_LEVEL, honeycombCount));
+        stack.getOrCreateTag().putInt(WAXED_DURATION_TAG, waxedLevel * WAXED_DURATION_PER_HONEYCOMB);
     }
 
     public static boolean isWaxed(ItemStack stack) {
