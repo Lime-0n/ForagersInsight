@@ -8,11 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
-import net.minecraft.world.item.crafting.CraftingRecipe;
-import net.minecraft.world.item.crafting.CustomRecipe;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
@@ -33,8 +29,16 @@ public class WaxedBootsRecipe extends CustomRecipe {
     public static java.util.List<CraftingRecipe> createJeiRecipes() {
         java.util.List<CraftingRecipe> recipes = new java.util.ArrayList<>();
         for (int honeycombCount = 1; honeycombCount <= WaxedBoots.MAX_WAXED_LEVEL; honeycombCount++) {
-            recipes.add(new WaxedBootsRecipe(ForagersInsight.rl("jei_waxed_boots_" + honeycombCount),
-                    CraftingBookCategory.EQUIPMENT, honeycombCount));
+            NonNullList<Ingredient> ingredients = NonNullList.create();
+            ingredients.add(createBootsIngredient());
+            for (int i = 0; i < honeycombCount; i++) {
+                ingredients.add(HONEYCOMB);
+            }
+
+            ItemStack result = new ItemStack(Items.DIAMOND_BOOTS);
+            WaxedBoots.wax(result, honeycombCount);
+            recipes.add(new ShapelessRecipe(ForagersInsight.rl("jei_waxed_boots_" + honeycombCount),
+                    "waxed_boots", CraftingBookCategory.EQUIPMENT, result, ingredients));
         }
         return recipes;
     }
@@ -101,7 +105,7 @@ public class WaxedBootsRecipe extends CustomRecipe {
         return ingredients;
     }
 
-    private Ingredient createBootsIngredient() {
+    private static Ingredient createBootsIngredient() {
         java.util.List<ItemStack> boots = ForgeRegistries.ITEMS.getValues().stream()
                 .map(ItemStack::new)
                 .filter(WaxedBoots::isBoots)

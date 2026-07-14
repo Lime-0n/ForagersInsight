@@ -49,10 +49,8 @@ public class WaxedBoots {
         int duration = getWaxedDuration(stack);
         if (duration <= 0) return;
 
-        int totalSeconds = (int) Math.ceil(duration / 20.0D);
-        int minutes = totalSeconds / 60;
-        int seconds = totalSeconds % 60;
-        tooltip.add(Component.translatable("tooltip.foragersinsight.waxed_boots", toRomanNumeral(getWaxedLevel(stack)), minutes, String.format("%02d", seconds))
+        int stepsRemaining = (int) Math.ceil(duration / (double) WALKING_DRAIN_INTERVAL);
+        tooltip.add(Component.translatable("tooltip.foragersinsight.waxed_boots", toRomanNumeral(getWaxedLevel(stack)), stepsRemaining)
                 .withStyle(ChatFormatting.GRAY));
     }
 

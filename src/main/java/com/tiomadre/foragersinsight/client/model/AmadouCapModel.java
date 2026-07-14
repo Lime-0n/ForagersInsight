@@ -14,6 +14,7 @@ public class AmadouCapModel<T extends LivingEntity> extends HumanoidModel<T> {
     public AmadouCapModel(ModelPart root) {
         super(root);
         this.body.visible = false;
+        this.hat.visible = false;
         this.rightArm.visible = false;
         this.leftArm.visible = false;
         this.rightLeg.visible = false;
@@ -23,7 +24,7 @@ public class AmadouCapModel<T extends LivingEntity> extends HumanoidModel<T> {
     public static LayerDefinition createBodyLayer() {
         MeshDefinition mesh = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
         PartDefinition root = mesh.getRoot();
-        PartDefinition head = root.getChild("head");
+        PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.ZERO);
 
         head.addOrReplaceChild("cap_crown", CubeListBuilder.create()
                         .texOffs(0, 1)

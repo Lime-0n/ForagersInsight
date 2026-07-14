@@ -1,12 +1,14 @@
 package com.tiomadre.foragersinsight.common.item;
 
 import com.tiomadre.foragersinsight.client.model.AmadouCapModel;
+import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.client.model.FIModelLayers;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -18,13 +20,18 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.item.DyeableLeatherItem;
+import net.minecraft.world.item.DyeColor;
 
 import java.util.List;
 import java.util.function.Consumer;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
-public class AmadouCapItem extends ArmorItem {
+public class AmadouCapItem extends ArmorItem implements DyeableLeatherItem  {
     private static final String TOOLTIP_KEY = "tooltip.foragersinsight.amadou_cap.luck_of_the_trees";
+    private static final String DYED_TOOLTIP_KEY = "tooltip.foragersinsight.amadou_cap.dyed";
+    private static final String ARMOR_TEXTURE = ForagersInsight.MOD_ID + ":textures/block/amadou_hat.png";
+
 
     public AmadouCapItem(ArmorMaterial material, Type type, Properties properties) {
         super(material, type, properties);
@@ -58,9 +65,44 @@ public class AmadouCapItem extends ArmorItem {
     }
 
     @Override
+    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
+        return ARMOR_TEXTURE;
+    }
+
+    @Override
     public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltip,
                                 @NotNull TooltipFlag flag) {
         super.appendHoverText(stack, level, tooltip, flag);
+        if (this.hasCustomColor(stack)) {
+            tooltip.add(Component.translatable(DYED_TOOLTIP_KEY, getClosestDyeColorName(this.getColor(stack)))
+                    .withStyle(ChatFormatting.GRAY));
+        }
         tooltip.add(Component.translatable(TOOLTIP_KEY).withStyle(ChatFormatting.GRAY));
+    }
+    private static Component getClosestDyeColorName(int color) {
+        DyeColor closestColor = DyeColor.WHITE;
+        int closestDistance = Integer.MAX_VALUE;
+        int red = color >> 16 & 255;
+        int green = color >> 8 & 255;
+        int blue = color & 255;
+
+        for (DyeColor dyeColor : DyeColor.values()) {
+            float[] textureColors = dyeColor.getTextureDiffuseColors();
+            int dyeRed = (int) (textureColors[0] * 255.0F);
+            int dyeGreen = (int) (textureColors[1] * 255.0F);
+            int dyeBlue = (int) (textureColors[2] * 255.0F);
+            int redDifference = red - dyeRed;
+            int greenDifference = green - dyeGreen;
+            int blueDifference = blue - dyeBlue;
+            int distance = redDifference * redDifference + greenDifference * greenDifference
+                    + blueDifference * blueDifference;
+
+            if (distance < closestDistance) {
+                closestDistance = distance;
+                closestColor = dyeColor;
+            }
+        }
+
+        return Component.translatable("color.minecraft." + closestColor.getName());
     }
 }

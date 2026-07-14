@@ -182,13 +182,11 @@
   "block.foragersinsight.sap_splotch": "Sap Splotch",
 
   "effect.foragersinsight.bloom": "Bloom",
-  "effect.foragersinsight.chilled": "Chilled",
   "effect.foragersinsight.medicinal": "Medicinal",
   "effect.foragersinsight.odorous": "Odorous",
   "effect.foragersinsight.stuck": "Stuck",
   "effect.foragersinsight.sticky_resistance": "Sticky Resistance",
   "effect.foragersinsight.bloom.description": "Gain 20% more experience and pay 20% less experience for actions.",
-  "effect.foragersinsight.chilled.description": "Freeze the duration of beneficial effects.",
   "effect.foragersinsight.medicinal.description": "Removes and prevents the application of Poison and Wither. The player is also healed per effect removed.",
   "effect.foragersinsight.odorous.description": "Become stinky, causing nearby mobs to avoid this unit.",
   "effect.foragersinsight.stuck.description": "Become stuck, preventing movement and jumping for the duration",
@@ -200,7 +198,8 @@
   "tooltip.foragersinsight.seed_milk_bottle": "Clears 1 Effect",
   "tooltip.foragersinsight.milk_bucket": "Clears all Effects",
   "tooltip.foragersinsight.amadou_cap.luck_of_the_trees": "Grants Luck of the Trees while worn",
-  "tooltip.foragersinsight.waxed_boots": "Waxed %s (%s:%s)",
+  "tooltip.foragersinsight.amadou_cap.dyed": "%s",
+  "tooltip.foragersinsight.waxed_boots": "Waxed steps remaining: %s",
 
   "foragersinsight.tool_interaction.shears.chicken": "Please wait %s seconds to shear this chicken again.",
   "foragersinsight.tool_interaction.shears.baby_chicken": "Baby chickens cannot be sheared.",
@@ -256,7 +255,7 @@
   "advancements.foragersinsight.adventure.brush_it_off.title": "Brush It Off",
   "advancements.foragersinsight.adventure.brush_it_off.description": "Brush away forest litter to reveal an item.",
 
-  "advancements.foragersinsight.adventure.scentsational.title": "Scentsational.",
+  "advancements.foragersinsight.adventure.scentsational.title": "Scentsational...",
   "advancements.foragersinsight.adventure.scentsational.description": "Ignite a Diffuser and take a deep breath!",
 
   "advancements.foragersinsight.adventure.petal_to_the_metal.title": "Petal to The Metal",
@@ -287,7 +286,7 @@
   "advancements.foragersinsight.adventure.birch_please.description": "Use a Bucket to collect from a full Tapper.",
 
   "advancements.foragersinsight.taste_the_rainbow_motha.title": "§4T§ca§6s§et§ae §bt§9h§de §4R§ca§6i§en§ab§bo§9w§d!",
-  "advancements.foragersinsight.taste_the_rainbow_motha.description": "Consume the whole visible spectrum in a convenient edible form!",
+  "advancements.foragersinsight.taste_the_rainbow_motha.description": "Consume the whole visible spectrum conveniently sandwiched between bread!",
 
   "itemGroup.foragersinsight": "Forager's Insight"
 }

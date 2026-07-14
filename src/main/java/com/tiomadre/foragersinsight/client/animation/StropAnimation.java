@@ -57,7 +57,7 @@ public final class StropAnimation {
 
         if (event.getHand() == InteractionHand.MAIN_HAND) {
             poseStack.translate(
-                    -0.46F + rub * 0.08F,
+                    -0.24F + rub * 0.08F,
                     0.27F + lift,
                     -0.32F
             );
@@ -95,7 +95,7 @@ public final class StropAnimation {
         float rub = Mth.sin(animationTime * 1.8F);
 
         PlayerModel<?> model = event.getRenderer().getModel();
-        poseThirdPersonArm(model.rightArm, -1.05F, -0.42F + rub * 0.08F, 0.28F + rub * 0.06F);
+        poseThirdPersonArm(model.rightArm, -1.05F, -0.26F + rub * 0.08F, 0.28F + rub * 0.06F);
         poseThirdPersonArm(model.leftArm, -1.05F, 0.42F - rub * 0.08F, -0.28F - rub * 0.06F);
     }
 
@@ -126,6 +126,6 @@ public final class StropAnimation {
     }
 
     private static boolean canRepair(ItemStack tool) {
-        return !tool.isEmpty() && tool.isDamageableItem() && tool.isDamaged();
+        return !tool.is(FIItems.STROP.get()) && !tool.isEmpty() && tool.isDamageableItem() && tool.isDamaged();
     }
 }
