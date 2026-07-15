@@ -1,87 +1,87 @@
 {
   "values": [
     {
-      "id": "#c:raw_meats",
+      "id": "#forge:raw_meats",
       "required": false
     },
     {
-      "id": "#c:cooked_meats",
+      "id": "#forge:cooked_meats",
       "required": false
     },
     {
-      "id": "#c:raw_fishes",
+      "id": "#forge:raw_fishes",
       "required": false
     },
     {
-      "id": "#c:cooked_fishes",
+      "id": "#forge:cooked_fishes",
       "required": false
     },
     {
-      "id": "#c:eggs",
+      "id": "#forge:eggs",
       "required": false
     },
     {
-      "id": "#c:leather",
+      "id": "#forge:leather",
       "required": false
     },
     {
-      "id": "#c:feathers",
+      "id": "#forge:feathers",
       "required": false
     },
     {
-      "id": "#c:nuts",
+      "id": "#forge:nuts",
       "required": false
     },
     {
-      "id": "#c:seeds",
+      "id": "#forge:seeds",
       "required": false
     },
     {
-      "id": "#c:crops",
+      "id": "#forge:crops",
       "required": false
     },
     {
-      "id": "#c:fruits",
+      "id": "#forge:fruits",
       "required": false
     },
     {
-      "id": "#c:vegetables",
+      "id": "#forge:vegetables",
       "required": false
     },
     {
-      "id": "#c:crops/mushroom",
+      "id": "#forge:crops/mushroom",
       "required": false
     },
     {
-      "id": "#c:flour",
+      "id": "#forge:flour",
       "required": false
     },
     {
-      "id": "#c:straw",
+      "id": "#forge:straw",
       "required": false
     },
     {
-      "id": "#c:tree_bark",
+      "id": "#forge:tree_bark",
       "required": false
     },
     {
-      "id": "#c:ice",
+      "id": "#forge:ice",
       "required": false
     },
     {
-      "id": "#c:sugar",
+      "id": "#forge:sugar",
       "required": false
     },
     {
-      "id": "#c:milk/milk",
+      "id": "#forge:milk/milk",
       "required": false
     },
     {
-      "id": "#c:milk/milk_bottle",
+      "id": "#forge:milk/milk_bottle",
       "required": false
     },
     {
-      "id": "#c:honey_bottle",
+      "id": "#forge:honey_bottle",
       "required": false
     },
     {

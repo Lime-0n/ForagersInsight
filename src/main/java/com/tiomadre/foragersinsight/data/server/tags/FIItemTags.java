@@ -96,7 +96,7 @@ public class FIItemTags extends ItemTagsProvider {
 
      //Handbasket
         IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> handbasketAllowedTag = this.tag(HANDBASKET_ALLOWED);
-        addOptionalTags(handbasketAllowedTag, FITags.COMMON_NAMESPACE,
+        addOptionalTags(handbasketAllowedTag, "forge",
                 "raw_meats", "cooked_meats", "raw_fishes", "cooked_fishes", "eggs", "leather",
                 "feathers", "nuts", "seeds", "crops", "fruits", "vegetables", "crops/mushroom",
                 "flour", "straw", "tree_bark", "ice", "sugar", "milk/milk", "milk/milk_bottle", "honey_bottle"
@@ -118,9 +118,9 @@ public class FIItemTags extends ItemTagsProvider {
         this.tag(ItemTags.PLANKS).add(FIBlocks.LILAC_PLANKS.get().asItem()
         );
 
-        registerCommonTags();
+        registerForgeTags();
     }
-    protected void registerCommonTags() {
+    protected void registerForgeTags() {
         tag(STORAGE_BLOCK_ROSE_HIP).add(FIBlocks.ROSE_HIP_SACK.get().asItem());
         tag(STORAGE_BLOCK_ROSELLE_CALYX).add(FIBlocks.ROSELLE_CALYX_SACK.get().asItem());
         tag(STORAGE_BLOCK_POPPY_SEEDS).add(FIBlocks.POPPY_SEEDS_SACK.get().asItem());

@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "W": {
-      "tag": "c:crops/wheat"
+      "tag": "forge:crops/wheat"
     }
   },
   "pattern": [

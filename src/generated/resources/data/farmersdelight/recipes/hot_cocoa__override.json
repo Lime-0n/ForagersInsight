@@ -20,10 +20,10 @@
             "item": "minecraft:sugar"
           },
           {
-            "tag": "c:crops/cocoa"
+            "tag": "forge:crops/cocoa"
           },
           {
-            "tag": "c:crops/cocoa"
+            "tag": "forge:crops/cocoa"
           }
         ],
         "recipe_book_tab": "drinks",

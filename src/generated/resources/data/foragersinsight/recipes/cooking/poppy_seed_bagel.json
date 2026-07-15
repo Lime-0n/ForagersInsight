@@ -4,16 +4,16 @@
   "experience": 1.0,
   "ingredients": [
     {
-      "tag": "c:dough"
+      "tag": "forge:dough"
     },
     {
-      "tag": "c:crops/poppy_seeds"
+      "tag": "forge:crops/poppy_seeds"
     },
     {
-      "tag": "c:crops/poppy_seeds"
+      "tag": "forge:crops/poppy_seeds"
     },
     {
-      "tag": "c:crops/poppy_seeds"
+      "tag": "forge:crops/poppy_seeds"
     }
   ],
   "recipe_book_tab": "meals",

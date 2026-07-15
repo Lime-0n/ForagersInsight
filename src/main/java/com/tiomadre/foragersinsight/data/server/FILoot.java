@@ -6,6 +6,7 @@ import com.tiomadre.foragersinsight.core.registry.FIForageLoot;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import com.google.common.collect.ImmutableList;
+import com.tiomadre.foragersinsight.data.server.tags.FITags;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
@@ -43,7 +44,7 @@ import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.block.MushroomColonyBlock;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
-import vectorwing.farmersdelight.common.tag.CommonTags;
+
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -83,7 +84,7 @@ public class FILoot extends LootTableProvider {
             super(EXPLOSION_RESISTANT, FeatureFlags.REGISTRY.allFlags());
         }
 
-        private static final LootItemCondition.Builder HAS_KNIFE = MatchTool.toolMatches(ItemPredicate.Builder.item().of(CommonTags.Items.TOOLS_KNIVES));
+        private static final LootItemCondition.Builder HAS_KNIFE = MatchTool.toolMatches(ItemPredicate.Builder.item().of(FITags.ItemTag.TOOLS_KNIVES));
 
         //CROP LOOT STUFF
         @Override

@@ -3,13 +3,13 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "c:crops/wheat"
+      "tag": "forge:crops/wheat"
     },
     {
-      "tag": "c:crops/cocoa"
+      "tag": "forge:crops/cocoa"
     },
     {
-      "tag": "c:crops/wheat"
+      "tag": "forge:crops/wheat"
     }
   ],
   "result": {

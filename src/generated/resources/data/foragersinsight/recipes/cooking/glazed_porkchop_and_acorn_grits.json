@@ -15,10 +15,10 @@
       "item": "minecraft:porkchop"
     },
     {
-      "tag": "c:crops/acorn"
+      "tag": "forge:crops/acorn"
     },
     {
-      "tag": "c:crops/acorn"
+      "tag": "forge:crops/acorn"
     },
     {
       "tag": "forge:milk"

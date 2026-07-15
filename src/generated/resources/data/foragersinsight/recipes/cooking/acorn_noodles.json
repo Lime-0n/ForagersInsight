@@ -7,13 +7,13 @@
       "item": "foragersinsight:acorn_dough"
     },
     {
-      "tag": "c:crops/acorn"
+      "tag": "forge:crops/acorn"
     },
     {
-      "tag": "c:crops/acorn"
+      "tag": "forge:crops/acorn"
     },
     {
-      "tag": "forge:milk"
+      "tag": "forge:milk/milk_bottle"
     }
   ],
   "recipe_book_tab": "meals",

@@ -13,10 +13,10 @@
         "category": "misc",
         "ingredients": [
           {
-            "tag": "c:crops/wheat"
+            "tag": "forge:crops/wheat"
           },
           {
-            "tag": "c:crops/wheat"
+            "tag": "forge:crops/wheat"
           },
           {
             "item": "minecraft:honey_bottle"

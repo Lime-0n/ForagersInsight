@@ -1,5 +1,6 @@
 package com.tiomadre.foragersinsight.common.block.feasts;
 
+import com.tiomadre.foragersinsight.data.server.tags.FITags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -21,8 +22,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
-import vectorwing.farmersdelight.common.tag.CommonTags;
-import vectorwing.farmersdelight.common.tag.ModTags;
 import java.util.function.Supplier;
 
 public class RainbowSandwichFeastBlock extends Block {
@@ -54,7 +53,7 @@ public class RainbowSandwichFeastBlock extends Block {
 
     @Override
     public @NotNull InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
-        if (!player.getItemInHand(hand).is(CommonTags.Items.TOOLS_KNIVES)) {
+        if (!player.getItemInHand(hand).is(FITags.ItemTag.TOOLS_KNIVES)) {
             return InteractionResult.PASS;
         }
 

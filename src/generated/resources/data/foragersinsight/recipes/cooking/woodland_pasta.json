@@ -10,13 +10,13 @@
       "item": "farmersdelight:raw_pasta"
     },
     {
-      "tag": "c:crops/mushroom"
+      "tag": "forge:crops/mushroom"
     },
     {
-      "tag": "c:crops/mushroom"
+      "tag": "forge:crops/mushroom"
     },
     {
-      "tag": "c:crops/mushroom"
+      "tag": "forge:crops/mushroom"
     }
   ],
   "recipe_book_tab": "meals",

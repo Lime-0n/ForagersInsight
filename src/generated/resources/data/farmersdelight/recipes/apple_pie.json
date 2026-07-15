@@ -13,7 +13,7 @@
         "category": "misc",
         "key": {
           "A": {
-            "tag": "c:crops/apple"
+            "tag": "forge:crops/apple"
           },
           "C": {
             "item": "farmersdelight:pie_crust"
@@ -22,7 +22,7 @@
             "item": "minecraft:sugar"
           },
           "W": {
-            "tag": "c:crops/wheat"
+            "tag": "forge:crops/wheat"
           }
         },
         "pattern": [

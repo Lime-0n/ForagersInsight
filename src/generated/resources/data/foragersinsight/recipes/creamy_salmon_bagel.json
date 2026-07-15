@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "c:milk"
+      "tag": "forge:milk"
     },
     {
       "item": "foragersinsight:poppy_seed_bagel"

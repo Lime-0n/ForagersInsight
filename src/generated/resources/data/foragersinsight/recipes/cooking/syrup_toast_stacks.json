@@ -15,7 +15,7 @@
       "item": "minecraft:bread"
     },
     {
-      "tag": "c:eggs"
+      "tag": "forge:eggs"
     },
     {
       "tag": "forge:milk/milk_bottle"

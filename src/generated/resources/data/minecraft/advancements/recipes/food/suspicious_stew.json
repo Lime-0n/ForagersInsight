@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:crops/mushroom"
+            "tag": "forge:crops/mushroom"
           }
         ]
       },

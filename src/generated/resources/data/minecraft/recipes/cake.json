@@ -6,13 +6,13 @@
       "tag": "forge:eggs"
     },
     "M": {
-      "tag": "c:milk"
+      "tag": "forge:milk"
     },
     "S": {
       "item": "minecraft:sugar"
     },
     "W": {
-      "tag": "c:crops/wheat"
+      "tag": "forge:crops/wheat"
     }
   },
   "pattern": [

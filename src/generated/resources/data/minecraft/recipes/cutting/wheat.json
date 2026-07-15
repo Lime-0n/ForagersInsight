@@ -16,6 +16,6 @@
     }
   ],
   "tool": {
-    "tag": "c:tools/mallets"
+    "tag": "forge:tools/mallets"
   }
 }

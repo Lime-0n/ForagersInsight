@@ -3,13 +3,13 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "c:crops/acorn"
+      "tag": "forge:crops/acorn"
     },
     {
-      "tag": "c:crops/acorn"
+      "tag": "forge:crops/acorn"
     },
     {
-      "tag": "c:crops/acorn"
+      "tag": "forge:crops/acorn"
     },
     [
       {

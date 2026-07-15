@@ -1,5 +1,6 @@
 package com.tiomadre.foragersinsight.common.block.feasts;
 
+import com.tiomadre.foragersinsight.data.server.tags.FITags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -21,7 +22,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
-import vectorwing.farmersdelight.common.tag.CommonTags;
 
 import java.util.function.Supplier;
 
@@ -58,7 +58,7 @@ public class SliceableCakeBlock extends Block {
     @Override
     public @NotNull InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
         ItemStack heldStack = player.getItemInHand(hand);
-        if (heldStack.is(CommonTags.Items.TOOLS_KNIVES)) {
+        if (heldStack.is(FITags.ItemTag.TOOLS_KNIVES)) {
             return cutSlice(level, pos, state, player);
         }
         return InteractionResult.PASS;

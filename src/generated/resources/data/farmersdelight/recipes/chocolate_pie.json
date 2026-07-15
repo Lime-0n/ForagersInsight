@@ -13,10 +13,10 @@
         "category": "misc",
         "key": {
           "C": {
-            "tag": "c:crops/cocoa"
+            "tag": "forge:crops/cocoa"
           },
           "M": {
-            "tag": "c:milk"
+            "tag": "forge:milk"
           },
           "P": {
             "item": "farmersdelight:pie_crust"

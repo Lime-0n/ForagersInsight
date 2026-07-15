@@ -22,7 +22,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.data.event.GatherDataEvent;
 import vectorwing.farmersdelight.common.registry.ModItems;
-import vectorwing.farmersdelight.common.tag.CommonTags;
+import vectorwing.farmersdelight.common.tag.ForgeTags;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -49,7 +49,7 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .requires(FITags.ItemTag.ACORN)
                 .requires(FITags.ItemTag.ACORN)
                 .requires(Ingredient.fromValues(Stream.of(
-                        new Ingredient.TagValue(CommonTags.Items.EGGS),
+                        new Ingredient.TagValue(ForgeTags.EGGS),
                         new Ingredient.ItemValue(new net.minecraft.world.item.ItemStack(Items.WATER_BUCKET))
                 )))
                 .unlockedBy("has_black_acorn", has(BLACK_ACORN.get()))
@@ -61,7 +61,7 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .requires(FITags.ItemTag.ACORN).requires(BOWL)
                 .unlockedBy("has_rose_hip", has(FIItems.ROSE_HIP.get())).save(consumer);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, CREAMY_SALMON_BAGEL.get(), 2)
-                .requires(FITags.ItemTag.MILK).requires(POPPY_SEED_BAGEL.get()).requires(CommonTags.Items.COOKED_FISHES_SALMON)
+                .requires(FITags.ItemTag.MILK).requires(POPPY_SEED_BAGEL.get()).requires(ForgeTags.COOKED_FISHES_SALMON)
                 .unlockedBy("has_poppy_seed", has(POPPY_SEEDS.get())).save(consumer);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, JAMMY_BREAKFAST_SANDWICH.get())
                 .requires(SWEET_BERRIES).requires(POPPY_SEED_BAGEL.get()).requires(ModItems.BACON.get())
@@ -90,8 +90,8 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .unlockedBy("has_lilac_bloom", has(LILAC_BLOOM.get())).save(consumer);
         //Sandwiches + Finger Foods
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, KELP_WRAP.get())
-                .requires(KELP).requires(INK_SAC).requires(CommonTags.Items.CROPS_TOMATO)
-                .requires(CommonTags.Items.CROPS_ONION).requires(Ingredient.of(COOKED_COD,ModItems.COOKED_COD_SLICE.get(),BROWN_MUSHROOM))
+                .requires(KELP).requires(INK_SAC).requires(ForgeTags.CROPS_TOMATO)
+                .requires(ForgeTags.CROPS_ONION).requires(Ingredient.of(COOKED_COD,ModItems.COOKED_COD_SLICE.get(),BROWN_MUSHROOM))
                 .requires(KELP)
                 .unlockedBy("has_kelp", has(KELP)).save(consumer);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, SEED_BUTTER_JAMWICH.get())
@@ -357,7 +357,7 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
         //Feasts and Cakes
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, ACORN_CARROT_CAKE_ITEM.get())
                 .requires(ACORN_DOUGH.get()).requires(CARROT).requires(CARROT)
-                .requires(SUGAR).requires(CommonTags.Items.EGGS).requires(SUGAR)
+                .requires(SUGAR).requires(ForgeTags.EGGS).requires(SUGAR)
                 .requires(FITags.ItemTag.MILK).requires(FITags.ItemTag.MILK).requires(FITags.ItemTag.MILK)
                 .unlockedBy("has_black_acorn", has(BLACK_ACORN.get())).save(consumer);
         ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, RAINBOW_SANDWICH_ITEM.get())
@@ -547,7 +547,7 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .pattern("WWW")
                 .define('M', FITags.ItemTag.MILK)
                 .define('S', Items.SUGAR)
-                .define('E', CommonTags.Items.EGGS)
+                .define('E', ForgeTags.EGGS)
                 .define('W', FITags.ItemTag.WHEAT)
                 .unlockedBy("has_egg", has(Items.EGG))
                 .save(consumer, new ResourceLocation("minecraft", "cake"));
@@ -579,7 +579,7 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                         .pattern("WW ")
                         .define('W', FITags.ItemTag.WHEAT)
                         .define('E', Ingredient.fromValues(java.util.stream.Stream.of(
-                                new Ingredient.TagValue(vectorwing.farmersdelight.common.tag.CommonTags.Items.EGGS),
+                                new Ingredient.TagValue(vectorwing.farmersdelight.common.tag.ForgeTags.EGGS),
                                 new Ingredient.ItemValue(new net.minecraft.world.item.ItemStack(Items.WATER_BUCKET)))))
                         .unlockedBy("has_wheat", has(Items.WHEAT))
                         .save(r))

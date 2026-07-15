@@ -33,7 +33,7 @@
       }
     ],
     "V": {
-      "tag": "c:vegetables"
+      "tag": "forge:vegetables"
     }
   },
   "pattern": [

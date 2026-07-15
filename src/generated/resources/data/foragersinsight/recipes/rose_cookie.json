@@ -3,13 +3,13 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "c:crops/wheat"
+      "tag": "forge:crops/wheat"
     },
     {
       "item": "foragersinsight:rose_hip"
     },
     {
-      "tag": "c:crops/wheat"
+      "tag": "forge:crops/wheat"
     }
   ],
   "result": {
