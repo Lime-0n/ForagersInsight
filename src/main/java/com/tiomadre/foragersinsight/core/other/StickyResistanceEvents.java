@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.core.other;
 
 import com.tiomadre.foragersinsight.core.ForagersInsight;
+import com.tiomadre.foragersinsight.core.other.toolevents.WaxedBoots;
 import com.tiomadre.foragersinsight.core.registry.FIMobEffects;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.LivingEntity;

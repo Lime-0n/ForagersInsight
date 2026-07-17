@@ -1,8 +1,7 @@
-package com.tiomadre.foragersinsight.core.other;
+package com.tiomadre.foragersinsight.core.registry;
 
 
 import com.teamabnormals.blueprint.core.util.DataUtil;
-import com.tiomadre.foragersinsight.core.registry.FIItems;
 import net.minecraft.world.level.ItemLike;
 
 import java.util.function.Supplier;

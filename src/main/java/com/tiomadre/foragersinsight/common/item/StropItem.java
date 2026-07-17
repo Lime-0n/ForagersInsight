@@ -1,5 +1,6 @@
 package com.tiomadre.foragersinsight.common.item;
 
+import com.tiomadre.foragersinsight.core.registry.FIItems;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -23,6 +24,12 @@ public class StropItem extends Item {
 
     public StropItem(Properties properties) {
         super(properties);
+    }
+
+
+    @Override
+    public boolean isValidRepairItem(@NotNull ItemStack itemToRepair, @NotNull ItemStack repairItem) {
+        return repairItem.is(FIItems.AMADOU.get());
     }
 
     @Override

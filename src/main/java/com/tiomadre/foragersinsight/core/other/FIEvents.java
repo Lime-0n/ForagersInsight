@@ -2,6 +2,8 @@ package com.tiomadre.foragersinsight.core.other;
 
 import com.tiomadre.foragersinsight.common.effect.StuckEffect;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
+import com.tiomadre.foragersinsight.core.other.toolevents.SapTrapBaitGoal;
+import com.tiomadre.foragersinsight.core.other.toolevents.WaxedBoots;
 import com.tiomadre.foragersinsight.core.registry.FIAdvancementCriteria;
 import com.tiomadre.foragersinsight.core.registry.FIConfig;
 import com.tiomadre.foragersinsight.core.registry.FIMobEffects;

@@ -1,4 +1,4 @@
-package com.tiomadre.foragersinsight.core.other;
+package com.tiomadre.foragersinsight.core.other.toolevents;
 
 import com.tiomadre.foragersinsight.core.registry.FIMobEffects;
 import net.minecraft.ChatFormatting;

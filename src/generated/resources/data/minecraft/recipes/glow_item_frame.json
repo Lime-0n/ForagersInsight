@@ -2,18 +2,18 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
+    "C": {
+      "item": "minecraft:item_frame"
+    },
     "G": {
       "item": "foragersinsight:ghost_pipe"
     }
   },
   "pattern": [
-    "G  ",
-    "G  ",
-    "G  "
+    "GC "
   ],
   "result": {
-    "count": 6,
-    "item": "foragersinsight:ghost_pipe_torch"
+    "item": "minecraft:glow_item_frame"
   },
   "show_notification": true
 }

@@ -1,10 +1,7 @@
-package com.tiomadre.foragersinsight.data.server;
+package com.tiomadre.foragersinsight.core.registry;
 
 import com.tiomadre.foragersinsight.common.block.*;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
-import com.tiomadre.foragersinsight.core.registry.FIForageLoot;
-import com.tiomadre.foragersinsight.core.registry.FIBlocks;
-import com.tiomadre.foragersinsight.core.registry.FIItems;
 import com.google.common.collect.ImmutableList;
 import com.tiomadre.foragersinsight.data.server.tags.FITags;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;

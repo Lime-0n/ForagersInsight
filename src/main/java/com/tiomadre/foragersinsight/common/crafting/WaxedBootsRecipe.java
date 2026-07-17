@@ -1,7 +1,7 @@
 package com.tiomadre.foragersinsight.common.crafting;
 
 import com.tiomadre.foragersinsight.core.ForagersInsight;
-import com.tiomadre.foragersinsight.core.other.WaxedBoots;
+import com.tiomadre.foragersinsight.core.other.toolevents.WaxedBoots;
 import com.tiomadre.foragersinsight.core.registry.FIRecipeSerializers;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;

@@ -43,6 +43,7 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
 
         cookie(ROSE_COOKIE, FIItems.ROSE_HIP, consumer);
         cookie(ACORN_COOKIE, BLACK_ACORN, consumer);
+
         //Dough
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, ACORN_DOUGH.get(), 3)
                 .requires(FITags.ItemTag.ACORN)
@@ -103,44 +104,6 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .requires(FITags.ItemTag.POPPY_SEEDS) .requires(Ingredient.of(HONEY_BOTTLE, BIRCH_SYRUP_BOTTLE.get()))
                 .unlockedBy("has_raw_rabbit_leg", has(RAW_RABBIT_LEG.get())).save(consumer);
 
-        //OTHER
-        //Dyes
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, RED_DYE, 1)
-                .requires(FIItems.ROSE_PETALS.get())
-                .unlockedBy("has_rose_petals", has(FIItems.ROSE_PETALS.get()))
-                .save(consumer, ForagersInsight.rl("red_dye_from_rose_petals"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, PINK_DYE, 1)
-                .requires(FIItems.ROSELLE_PETALS.get())
-                .unlockedBy("has_roseLle_petals", has(FIItems.ROSELLE_PETALS.get()))
-                .save(consumer, ForagersInsight.rl("pink_dye_from_roselle_petals"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, PINK_DYE, 2)
-                .requires(FIItems.ROSELLE_BUSH_ITEM.get())
-                .unlockedBy("has_roselle_bush", has(FIItems.ROSELLE_BUSH_ITEM.get()))
-                .save(consumer, ForagersInsight.rl("pink_dye_from_roselle_bush"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, RED_DYE, 1)
-                .requires(STOUT_BEACH_ROSE_BUSH_ITEM.get())
-                .unlockedBy("has_roselle_bush", has(STOUT_BEACH_ROSE_BUSH_ITEM.get()))
-                .save(consumer, ForagersInsight.rl("red_dye_from_stout_beach_rose_bush"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, RED_DYE, 2)
-                .requires(TALL_BEACH_ROSE_BUSH_ITEM.get())
-                .unlockedBy("has_roselle_bush", has(TALL_BEACH_ROSE_BUSH_ITEM.get()))
-                .save(consumer, ForagersInsight.rl("red_dye_from_tall_beach_rose_bush"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BLUE_DYE, 1)
-                .requires(FIItems.BLEWIT_MUSHROOM.get())
-                .unlockedBy("has_blewit", has(FIItems.BLEWIT_MUSHROOM.get()))
-                .save(consumer, ForagersInsight.rl("blue_dye_from_blewit"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, MAGENTA_DYE, 1)
-                .requires(LILAC_BLOOM.get())
-                .unlockedBy("has_lilac_bloom", has(LILAC_BLOOM.get()))
-                .save(consumer, ForagersInsight.rl("magenta_dye_from_lilac_bloom"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, WHITE_DYE, 2)
-                .requires(GHOST_PIPE_ITEM.get())
-                .unlockedBy("has_rose_petals", has(GHOST_PIPE_ITEM.get()))
-                .save(consumer, ForagersInsight.rl("white_dye_from_ghost_pipe"));
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.LIGHT_BLUE_DYE)
-                .requires(FIBlocks.PHLOX.get())
-                .unlockedBy("has_phlox", has(FIBlocks.PHLOX.get()))
-                .save(consumer, ForagersInsight.rl("light_blue_dye_from_phlox"));
         //Seed Milk
             //Bucket of Seed Milk -> Bottles
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, SEED_MILK_BOTTLE.get(),4)
@@ -182,6 +145,7 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .requires(BIRCH_SYRUP_BOTTLE.get())
                 .unlockedBy("has_birch_syrup_bottle", has(BIRCH_SYRUP_BOTTLE.get()))
                 .save(consumer, ForagersInsight.rl("sugar_from_birch_syrup_bottle"));
+
             //Furnace Cooking
                 //Amadou
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(AMADOU.get()), RecipeCategory.MISC, CHARCOAL, 0.25F, 200)
@@ -206,7 +170,6 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
         SimpleCookingRecipeBuilder.campfireCooking(Ingredient.of(RAW_RABBIT_LEG.get()), RecipeCategory.FOOD, COOKED_RABBIT_LEG.get(), 0.35F, 600)
                 .unlockedBy("has_raw_rabbit_leg", has(RAW_RABBIT_LEG.get()))
                 .save(consumer, ForagersInsight.rl("cooked_rabbit_leg_from_campfire_cooking"));
-
 
         //Tools and Armor
         //Flint Shears
@@ -371,7 +334,45 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .define('V', FITags.ItemTag.VEGETABLES)
                 .unlockedBy("has_bread", has(BREAD))
                 .save(consumer);
-        //Other
+        //OTHER
+        //Dyes
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, RED_DYE, 1)
+                .requires(FIItems.ROSE_PETALS.get())
+                .unlockedBy("has_rose_petals", has(FIItems.ROSE_PETALS.get()))
+                .save(consumer, ForagersInsight.rl("red_dye_from_rose_petals"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, PINK_DYE, 1)
+                .requires(FIItems.ROSELLE_PETALS.get())
+                .unlockedBy("has_roseLle_petals", has(FIItems.ROSELLE_PETALS.get()))
+                .save(consumer, ForagersInsight.rl("pink_dye_from_roselle_petals"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, PINK_DYE, 2)
+                .requires(FIItems.ROSELLE_BUSH_ITEM.get())
+                .unlockedBy("has_roselle_bush", has(FIItems.ROSELLE_BUSH_ITEM.get()))
+                .save(consumer, ForagersInsight.rl("pink_dye_from_roselle_bush"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, RED_DYE, 1)
+                .requires(STOUT_BEACH_ROSE_BUSH_ITEM.get())
+                .unlockedBy("has_roselle_bush", has(STOUT_BEACH_ROSE_BUSH_ITEM.get()))
+                .save(consumer, ForagersInsight.rl("red_dye_from_stout_beach_rose_bush"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, RED_DYE, 2)
+                .requires(TALL_BEACH_ROSE_BUSH_ITEM.get())
+                .unlockedBy("has_roselle_bush", has(TALL_BEACH_ROSE_BUSH_ITEM.get()))
+                .save(consumer, ForagersInsight.rl("red_dye_from_tall_beach_rose_bush"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BLUE_DYE, 1)
+                .requires(FIItems.BLEWIT_MUSHROOM.get())
+                .unlockedBy("has_blewit", has(FIItems.BLEWIT_MUSHROOM.get()))
+                .save(consumer, ForagersInsight.rl("blue_dye_from_blewit"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, MAGENTA_DYE, 1)
+                .requires(LILAC_BLOOM.get())
+                .unlockedBy("has_lilac_bloom", has(LILAC_BLOOM.get()))
+                .save(consumer, ForagersInsight.rl("magenta_dye_from_lilac_bloom"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, WHITE_DYE, 2)
+                .requires(GHOST_PIPE_ITEM.get())
+                .unlockedBy("has_rose_petals", has(GHOST_PIPE_ITEM.get()))
+                .save(consumer, ForagersInsight.rl("white_dye_from_ghost_pipe"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.LIGHT_BLUE_DYE)
+                .requires(FIBlocks.PHLOX.get())
+                .unlockedBy("has_phlox", has(FIBlocks.PHLOX.get()))
+                .save(consumer, ForagersInsight.rl("light_blue_dye_from_phlox"));
+
         //Hollow Log
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, HOLLOW_LOG.get(), 1)
                 .pattern("TTT")
@@ -381,16 +382,15 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .unlockedBy("has_tree_bark", has(ModItems.TREE_BARK.get()))
                 .save(consumer);
         //Ghost Pipe Torch
-        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, FIBlocks.GHOST_PIPE_TORCH.get(), 4)
-                .pattern("C  ")
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, FIBlocks.GHOST_PIPE_TORCH.get(), 6)
                 .pattern("G  ")
                 .pattern("G  ")
-                .define('C', CHARCOAL)
+                .pattern("G  ")
                 .define('G', GHOST_PIPE_ITEM.get())
                 .unlockedBy("has_ghost_pipe", has(GHOST_PIPE_ITEM.get()))
                 .save(consumer);
 
-        //Wood Stuff
+        //WOODSTUFF
         ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, LILAC_PLANKS.get(), 2)
                 .requires(LILAC_LOG.get(), 1)
                 .unlockedBy("has_lilac_log", has(LILAC_LOG.get())).save(consumer);
@@ -483,8 +483,9 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .save(consumer);
 
 
-        //Alternate Recipes using Rabbit Hide
-        //Book
+        //Alternate Recipes
+        //Rabbit Hide
+            //Book
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BOOK)
                 .requires(PAPER)
                 .requires(PAPER)
@@ -492,7 +493,7 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .requires(RABBIT_HIDE)
                 .unlockedBy("has_rabbit_hide", has(RABBIT_HIDE))
                 .save(consumer, ForagersInsight.rl("book_from_rabbit_hide"));
-        // Item Frame
+            // Item Frame
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ITEM_FRAME)
                 .pattern("SSS")
                 .pattern("SHS")
@@ -501,6 +502,14 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .define('H', RABBIT_HIDE)
                 .unlockedBy("has_rabbit_hide", has(RABBIT_HIDE))
                 .save(consumer, ForagersInsight.rl("item_frame_from_rabbit_hide"));
+        //Ghost Pipe
+            //Glow Item Frame
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, GLOW_ITEM_FRAME)
+                .pattern("GC ")
+                .define('C', ITEM_FRAME)
+                .define('G', GHOST_PIPE_ITEM.get())
+                .unlockedBy("has_ghost_pipe", has(GHOST_PIPE_ITEM.get()))
+                .save(consumer);
 
         //Storage
         this.storageRecipes(consumer, RecipeCategory.FOOD, APPLE, RecipeCategory.DECORATIONS, APPLE_CRATE.get());

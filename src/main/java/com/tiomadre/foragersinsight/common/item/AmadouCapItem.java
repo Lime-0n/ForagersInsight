@@ -37,6 +37,12 @@ public class AmadouCapItem extends ArmorItem implements DyeableLeatherItem  {
         super(material, type, properties);
     }
 
+    @Override
+    public boolean isValidRepairItem(@NotNull ItemStack itemToRepair, @NotNull ItemStack repairItem) {
+        return repairItem.is(FIItems.AMADOU.get());
+    }
+
+
     public static int applyLuckOfTheTrees(Player player, int enchantmentLevel) {
         if (player.getItemBySlot(EquipmentSlot.HEAD).is(FIItems.AMADOU_CAP.get())) {
             return Math.max(enchantmentLevel, 1);

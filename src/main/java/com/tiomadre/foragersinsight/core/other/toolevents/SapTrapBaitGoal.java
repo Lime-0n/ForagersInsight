@@ -1,4 +1,4 @@
-package com.tiomadre.foragersinsight.core.other;
+package com.tiomadre.foragersinsight.core.other.toolevents;
 
 import com.tiomadre.foragersinsight.common.block.entity.SapTrapBlockEntity;
 import com.tiomadre.foragersinsight.common.item.BaitItem;

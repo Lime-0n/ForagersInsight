@@ -1,4 +1,4 @@
-package com.tiomadre.foragersinsight.core.other;
+package com.tiomadre.foragersinsight.core.other.cropevents;
 
 import com.tiomadre.foragersinsight.common.block.WallMushroomBlock;
 import com.tiomadre.foragersinsight.common.block.WallMushroomColonyBlock;
