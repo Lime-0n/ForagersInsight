@@ -264,7 +264,7 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
                 .unlockedBy("has_bucket", has(BUCKET))
                 .save(consumer);
         //Armor
-            //Amadou Cap
+            //Amadou Hat
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, AMADOU_CAP.get())
                 .pattern("SAS")
                 .pattern("ABA")
@@ -521,7 +521,7 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
         this.storageRecipes(consumer, RecipeCategory.FOOD, ROSELLE_CALYX.get(), RecipeCategory.DECORATIONS, ROSELLE_CALYX_SACK.get());
         this.storageRecipes(consumer, RecipeCategory.FOOD, FIItems.BLEWIT_MUSHROOM.get(), RecipeCategory.DECORATIONS, FIBlocks.BLEWIT_CRATE.get());
         this.storageRecipes(consumer, RecipeCategory.FOOD, LILAC_BLOOM.get(), RecipeCategory.DECORATIONS, LILAC_BLOOM_CRATE.get());
-        this.storageRecipes(consumer, RecipeCategory.MISC, TINDER_CONK.get(), RecipeCategory.DECORATIONS, TINDER_CONK_CRATE.get());
+        this.storageRecipes(consumer, RecipeCategory.MISC, FIItems.TINDER_CONK.get(), RecipeCategory.DECORATIONS, TINDER_CONK_CRATE.get());
 
         FICookingRecipes.buildRecipes(consumer);
         FICrushandCutRecipes.buildRecipes(consumer);

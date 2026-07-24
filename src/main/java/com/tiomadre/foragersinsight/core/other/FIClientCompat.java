@@ -3,10 +3,12 @@ package com.tiomadre.foragersinsight.core.other;
 import com.tiomadre.foragersinsight.common.block.SuspiciousLitterBlock;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.teamabnormals.blueprint.core.util.DataUtil;
+import com.tiomadre.foragersinsight.core.registry.FIItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.RegistryObject;
@@ -19,6 +21,14 @@ public class FIClientCompat {
         registerBlockColors();
     }
 
+    private static void registerItemColors() {
+        ItemColors itemColors = Minecraft.getInstance().getItemColors();
+
+        itemColors.register((stack, tintIndex) -> tintIndex == 0
+                        ? ((DyeableLeatherItem) stack.getItem()).getColor(stack)
+                        : 0xFFFFFF,
+                FIItems.AMADOU_CAP.get());
+    }
     private static void registerBlockColors() {
         BlockColors blockColors = Minecraft.getInstance().getBlockColors();
         ItemColors itemColors = Minecraft.getInstance().getItemColors();

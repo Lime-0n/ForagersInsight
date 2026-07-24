@@ -70,7 +70,7 @@ public class FITabs {
             FIItems.TALL_BEACH_ROSE_BUSH_ITEM,
             FIItems.WOODLAND_FERN_ITEM,
             FIItems.SKUNK_CABBAGE_ITEM,
-            FIBlocks.TINDER_CONK,
+            FIItems.TINDER_CONK,
             FIItems.TINDER_CONK_SPORES,
 
 
@@ -215,7 +215,6 @@ public class FITabs {
                 .map(FITabs::createAuspiciousStew)
                 .forEach(output::accept);
 
-        output.accept(FIBlocks.TINDER_CONK.get().asItem());
     }
 
     private static ItemStack createAuspiciousStew(MobEffect effect) {

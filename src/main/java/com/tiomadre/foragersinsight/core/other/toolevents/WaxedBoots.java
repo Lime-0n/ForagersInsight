@@ -11,10 +11,10 @@ import net.minecraft.world.item.ItemStack;
 
 public class WaxedBoots {
     public static final String WAXED_DURATION_TAG = "ForagersInsightWaxedDuration";
-    public static final String WAXED_LEVEL_TAG = "ForagersInsightWaxedLevel";
-    public static final int MAX_WAXED_LEVEL = 3;
-    private static final int WAXED_DURATION_PER_HONEYCOMB = 4 * 60 * 20;
-    private static final int WALKING_DRAIN_INTERVAL = 20;
+    private static final String WAXED_TAG = "ForagersInsightWaxedLevel";
+    public static final int HONEYCOMB_COUNT = 2;
+    private static final int WAXED_DURATION = 4800;
+    private static final int WALKING_DRAIN = 20;
     private static final int STUCK_PREVENTION_DRAIN = 200;
     private static final int STICKY_RESISTANCE_REFRESH_DURATION = 40;
 
@@ -22,10 +22,9 @@ public class WaxedBoots {
         return stack.getItem() instanceof ArmorItem armorItem && armorItem.getEquipmentSlot() == EquipmentSlot.FEET;
     }
 
-    public static void wax(ItemStack stack, int honeycombCount) {
-        int waxedLevel = Math.max(1, Math.min(MAX_WAXED_LEVEL, honeycombCount));
-        stack.getOrCreateTag().putInt(WAXED_LEVEL_TAG, waxedLevel);
-        stack.getOrCreateTag().putInt(WAXED_DURATION_TAG, waxedLevel * WAXED_DURATION_PER_HONEYCOMB);
+    public static void wax(ItemStack stack) {
+        stack.getOrCreateTag().putInt(WAXED_DURATION_TAG, HONEYCOMB_COUNT * WAXED_DURATION);
+        stack.getOrCreateTag().remove(WAXED_TAG);
     }
 
     public static boolean isWaxed(ItemStack stack) {
@@ -36,30 +35,13 @@ public class WaxedBoots {
         return stack.getOrCreateTag().getInt(WAXED_DURATION_TAG);
     }
 
-    public static int getWaxedLevel(ItemStack stack) {
-        int waxedLevel = stack.getOrCreateTag().getInt(WAXED_LEVEL_TAG);
-        if (waxedLevel > 0) {
-            return Math.min(MAX_WAXED_LEVEL, waxedLevel);
-        }
-
-        return Math.max(1, Math.min(MAX_WAXED_LEVEL, (int) Math.ceil(getWaxedDuration(stack) / (double) WAXED_DURATION_PER_HONEYCOMB)));
-    }
-
     public static void appendTooltip(ItemStack stack, java.util.List<Component> tooltip) {
         int duration = getWaxedDuration(stack);
         if (duration <= 0) return;
 
-        int stepsRemaining = (int) Math.ceil(duration / (double) WALKING_DRAIN_INTERVAL);
-        tooltip.add(Component.translatable("tooltip.foragersinsight.waxed_boots", toRomanNumeral(getWaxedLevel(stack)), stepsRemaining)
+        int stepsRemaining = (int) Math.ceil(duration / (double) WALKING_DRAIN);
+        tooltip.add(Component.translatable("tooltip.foragersinsight.waxed_boots", stepsRemaining)
                 .withStyle(ChatFormatting.GRAY));
-    }
-
-    private static String toRomanNumeral(int value) {
-        return switch (value) {
-            case 2 -> "II";
-            case 3 -> "III";
-            default -> "I";
-        };
     }
 
     public static void tick(LivingEntity entity) {
@@ -68,8 +50,8 @@ public class WaxedBoots {
 
         entity.addEffect(new MobEffectInstance(FIMobEffects.STICKY_RESISTANCE.get(), STICKY_RESISTANCE_REFRESH_DURATION, 0, false, false, true));
 
-        if (entity.level().getGameTime() % WALKING_DRAIN_INTERVAL == 0 && entity.getDeltaMovement().horizontalDistanceSqr() > 1.0E-5D) {
-            shrinkWaxedDuration(boots, WALKING_DRAIN_INTERVAL);
+        if (entity.level().getGameTime() % WALKING_DRAIN == 0 && entity.getDeltaMovement().horizontalDistanceSqr() > 1.0E-5D) {
+            shrinkWaxedDuration(boots, WALKING_DRAIN);
         }
     }
 
@@ -84,7 +66,7 @@ public class WaxedBoots {
         int duration = Math.max(0, getWaxedDuration(stack) - amount);
         if (duration == 0) {
             stack.getOrCreateTag().remove(WAXED_DURATION_TAG);
-            stack.getOrCreateTag().remove(WAXED_LEVEL_TAG);
+            stack.getOrCreateTag().remove(WAXED_TAG);
             return;
         }
         stack.getOrCreateTag().putInt(WAXED_DURATION_TAG, duration);

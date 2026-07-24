@@ -10,89 +10,24 @@
       ],
       "entries": [
         {
-          "type": "minecraft:alternatives",
-          "children": [
+          "type": "minecraft:item",
+          "conditions": [
             {
-              "type": "minecraft:item",
-              "conditions": [
-                {
-                  "block": "foragersinsight:tinder_conk",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "age": "0"
-                  }
-                }
-              ],
-              "functions": [
-                {
-                  "add": false,
-                  "count": 1.0,
-                  "function": "minecraft:set_count"
-                }
-              ],
-              "name": "foragersinsight:tinder_conk"
-            },
-            {
-              "type": "minecraft:item",
-              "conditions": [
-                {
-                  "block": "foragersinsight:tinder_conk",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "age": "1"
-                  }
-                }
-              ],
-              "functions": [
-                {
-                  "add": false,
-                  "count": 2.0,
-                  "function": "minecraft:set_count"
-                }
-              ],
-              "name": "foragersinsight:tinder_conk"
-            },
-            {
-              "type": "minecraft:item",
-              "conditions": [
-                {
-                  "block": "foragersinsight:tinder_conk",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "age": "2"
-                  }
-                }
-              ],
-              "functions": [
-                {
-                  "add": false,
-                  "count": 3.0,
-                  "function": "minecraft:set_count"
-                }
-              ],
-              "name": "foragersinsight:tinder_conk"
-            },
-            {
-              "type": "minecraft:item",
-              "conditions": [
-                {
-                  "block": "foragersinsight:tinder_conk",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "age": "4"
-                  }
-                }
-              ],
-              "functions": [
-                {
-                  "add": false,
-                  "count": 5.0,
-                  "function": "minecraft:set_count"
-                }
-              ],
-              "name": "foragersinsight:tinder_conk"
+              "block": "foragersinsight:tinder_conk",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "age": "4"
+              }
             }
-          ]
+          ],
+          "functions": [
+            {
+              "add": false,
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "foragersinsight:tinder_conk"
         }
       ],
       "rolls": 1.0

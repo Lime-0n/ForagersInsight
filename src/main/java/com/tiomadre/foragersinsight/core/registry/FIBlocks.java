@@ -69,7 +69,7 @@ public class FIBlocks {
     public static final RegistryObject<Block> WALL_BLEWIT_MUSHROOM = HELPER.createBlockNoItem("wall_blewit_mushroom", () ->
             new WallMushroomBlock(copy(Blocks.RED_MUSHROOM), WALL_BLEWIT_MUSHROOM_COLONY));
         //Unique Mushrooms
-    public static final RegistryObject<Block> TINDER_CONK = HELPER.createBlock("tinder_conk", () ->
+        public static final RegistryObject<Block> TINDER_CONK = HELPER.createBlockNoItem("tinder_conk", () ->
             new TinderConkBlock(copy(Blocks.BROWN_MUSHROOM).randomTicks().noOcclusion()));
 
     //Trees

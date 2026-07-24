@@ -2,7 +2,6 @@ package com.tiomadre.foragersinsight.data.server.recipes;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import com.tiomadre.foragersinsight.core.registry.FIMobEffects;
 import com.tiomadre.foragersinsight.data.server.tags.FITags;
@@ -246,10 +245,10 @@ public class FICookingRecipes {
         buildAuspiciousStewRecipe(consumer, LILAC_BLOOM.get(), FIMobEffects.BLOOM.get(), "auspicious_stew_from_lilac_bloom");
             //Other Non Food
         CookingPotRecipeBuilder.cookingPotRecipe(AMADOU.get(), 3, NORMAL_COOKING, MEDIUM_EXP)
-                .addIngredient(FIBlocks.TINDER_CONK.get())
-                .addIngredient(FIBlocks.TINDER_CONK.get())
+                .addIngredient(FIItems.TINDER_CONK.get())
+                .addIngredient(FIItems.TINDER_CONK.get())
                 .addIngredient(Items.BONE_MEAL)
-                .unlockedByAnyIngredient(FIBlocks.TINDER_CONK.get())
+                .unlockedByAnyIngredient(FIItems.TINDER_CONK.get())
                 .setRecipeBookTab(CookingPotRecipeBookTab.MISC)
                 .save(consumer);
 

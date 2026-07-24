@@ -65,7 +65,7 @@ public class TinderConkBlock extends Block implements BonemealableBlock {
         }
 
         if (!level.isClientSide) {
-            popResource(level, pos, new ItemStack(FIBlocks.TINDER_CONK.get()));
+            popResource(level, pos, new ItemStack(FIItems.TINDER_CONK.get()));
             popResource(level, pos, new ItemStack(FIItems.TINDER_CONK_SPORES.get(), 2));
             level.destroyBlock(pos, false, player);
         }

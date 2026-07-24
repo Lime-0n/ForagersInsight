@@ -199,7 +199,7 @@
   "tooltip.foragersinsight.milk_bucket": "Clears all Effects",
   "tooltip.foragersinsight.amadou_cap.luck_of_the_trees": "Grants Luck of the Trees while worn",
   "tooltip.foragersinsight.amadou_cap.dyed": "%s",
-  "tooltip.foragersinsight.waxed_boots": "Waxed steps remaining: %s",
+  "tooltip.foragersinsight.waxed_boots": "Waxed: %s steps remaining",
 
   "foragersinsight.tool_interaction.shears.chicken": "Please wait %s seconds to shear this chicken again.",
   "foragersinsight.tool_interaction.shears.baby_chicken": "Baby chickens cannot be sheared.",
@@ -288,5 +288,7 @@
   "advancements.foragersinsight.taste_the_rainbow_motha.title": "§4T§ca§6s§et§ae §bt§9h§de §4R§ca§6i§en§ab§bo§9w§d!",
   "advancements.foragersinsight.taste_the_rainbow_motha.description": "Consume the whole visible spectrum conveniently sandwiched between bread!",
 
-  "itemGroup.foragersinsight": "Forager's Insight"
+  "itemGroup.foragersinsight": "Forager's Insight",
+
+  "jei.foragersinsight.diffusing": "Diffusing"
 }

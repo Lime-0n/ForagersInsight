@@ -313,4 +313,8 @@ public final class FIDiffusingRecipes {
 
         return Optional.empty();
     }
+    public static List<FIDiffusingRecipes> all() {
+        bootstrap();
+        return List.copyOf(ALL);
+    }
 }

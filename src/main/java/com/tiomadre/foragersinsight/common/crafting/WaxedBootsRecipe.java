@@ -15,32 +15,14 @@ import org.jetbrains.annotations.NotNull;
 
 public class WaxedBootsRecipe extends CustomRecipe {
     private static final Ingredient HONEYCOMB = Ingredient.of(Items.HONEYCOMB);
-    private final int jeiHoneycombCount;
 
     public WaxedBootsRecipe(ResourceLocation id, CraftingBookCategory category) {
-        this(id, category, 0);
-    }
-
-    private WaxedBootsRecipe(ResourceLocation id, CraftingBookCategory category, int jeiHoneycombCount) {
         super(id, category);
-        this.jeiHoneycombCount = jeiHoneycombCount;
     }
 
     public static java.util.List<CraftingRecipe> createJeiRecipes() {
-        java.util.List<CraftingRecipe> recipes = new java.util.ArrayList<>();
-        for (int honeycombCount = 1; honeycombCount <= WaxedBoots.MAX_WAXED_LEVEL; honeycombCount++) {
-            NonNullList<Ingredient> ingredients = NonNullList.create();
-            ingredients.add(createBootsIngredient());
-            for (int i = 0; i < honeycombCount; i++) {
-                ingredients.add(HONEYCOMB);
-            }
-
-            ItemStack result = new ItemStack(Items.DIAMOND_BOOTS);
-            WaxedBoots.wax(result, honeycombCount);
-            recipes.add(new ShapelessRecipe(ForagersInsight.rl("jei_waxed_boots_" + honeycombCount),
-                    "waxed_boots", CraftingBookCategory.EQUIPMENT, result, ingredients));
-        }
-        return recipes;
+        return java.util.List.of(new ShapelessRecipe(ForagersInsight.rl("jei_waxed_boots"),
+                "waxed_boots", CraftingBookCategory.EQUIPMENT, createResult(), createIngredients()));
     }
 
     @Override
@@ -76,32 +58,31 @@ public class WaxedBootsRecipe extends CustomRecipe {
             return java.util.Optional.empty();
         }
 
-        if (boots.isEmpty() || honeycombCount < 1 || honeycombCount > WaxedBoots.MAX_WAXED_LEVEL) {
+        if (boots.isEmpty() || honeycombCount != WaxedBoots.HONEYCOMB_COUNT) {
             return java.util.Optional.empty();
         }
 
         ItemStack result = boots.copy();
         result.setCount(1);
-        WaxedBoots.wax(result, honeycombCount);
+        WaxedBoots.wax(result);
         return java.util.Optional.of(result);
     }
 
     @Override
     public boolean canCraftInDimensions(int width, int height) {
-        return width * height >= 2;
+        return width * height >= 3;
     }
 
     @Override
     public @NotNull NonNullList<Ingredient> getIngredients() {
-        NonNullList<Ingredient> ingredients = NonNullList.create();
-        if (jeiHoneycombCount <= 0) {
-            return ingredients;
-        }
+        return createIngredients();
+    }
 
+    private static NonNullList<Ingredient> createIngredients() {
+        NonNullList<Ingredient> ingredients = NonNullList.create();
         ingredients.add(createBootsIngredient());
-        for (int i = 0; i < jeiHoneycombCount; i++) {
-            ingredients.add(HONEYCOMB);
-        }
+        ingredients.add(HONEYCOMB);
+        ingredients.add(HONEYCOMB);
         return ingredients;
     }
 
@@ -115,12 +96,12 @@ public class WaxedBootsRecipe extends CustomRecipe {
 
     @Override
     public @NotNull ItemStack getResultItem(@NotNull net.minecraft.core.RegistryAccess registryAccess) {
-        if (jeiHoneycombCount <= 0) {
-            return ItemStack.EMPTY;
-        }
+        return createResult();
+    }
 
+    private static ItemStack createResult() {
         ItemStack result = new ItemStack(Items.DIAMOND_BOOTS);
-        WaxedBoots.wax(result, jeiHoneycombCount);
+        WaxedBoots.wax(result);
         return result;
     }
 

@@ -170,7 +170,7 @@ public class FILoot extends LootTableProvider {
             this.add(WALL_BROWN_MUSHROOM_COLONY.get(), block -> createMushroomColonyDrops(WALL_BROWN_MUSHROOM_COLONY, ModBlocks.BROWN_MUSHROOM_COLONY.get(), Items.BROWN_MUSHROOM));
             this.add(WALL_BLEWIT_MUSHROOM_COLONY.get(), block -> createMushroomColonyDrops(WALL_BLEWIT_MUSHROOM_COLONY, BLEWIT_MUSHROOM_COLONY.get(), BLEWIT_MUSHROOM.get()));
             //Unique Mushrooms
-            this.add(TINDER_CONK.get(), block -> createTinderConkDrops());
+            this.add(FIBlocks.TINDER_CONK.get(), block -> createTinderConkDrops());
 
             //Condensed
             this.add(CONDENSED_DIRT.get(), block -> createSilkTouchDispatchTable(block, LootItem.lootTableItem(Blocks.DIRT)));
@@ -228,24 +228,24 @@ public class FILoot extends LootTableProvider {
         }
         private LootTable.Builder createTinderConkDrops() {
             return LootTable.lootTable()
-                    .withPool(this.applyExplosionCondition(TINDER_CONK.get(), LootPool.lootPool()
-                            .add(AlternativesEntry.alternatives(
-                                    LootItem.lootTableItem(TINDER_CONK.get())
+                    .withPool(this.applyExplosionCondition(FIItems.TINDER_CONK.get(),
+                            LootPool.lootPool()
+                                    .add(LootItem.lootTableItem(FIBlocks.TINDER_CONK.get())
                                             .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1)))
-                                            .when(stateCond(TINDER_CONK, TinderConkBlock.AGE, 0)),
-                                    LootItem.lootTableItem(TINDER_CONK.get())
-                                            .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2)))
-                                            .when(stateCond(TINDER_CONK, TinderConkBlock.AGE, 1)),
-                                    LootItem.lootTableItem(TINDER_CONK.get())
-                                            .apply(SetItemCountFunction.setCount(ConstantValue.exactly(3)))
-                                            .when(stateCond(TINDER_CONK, TinderConkBlock.AGE, 2)),
-                                    LootItem.lootTableItem(TINDER_CONK.get())
-                                            .apply(SetItemCountFunction.setCount(ConstantValue.exactly(5)))
-                                            .when(stateCond(TINDER_CONK, TinderConkBlock.AGE, 4))))))
-                    .withPool(this.applyExplosionCondition(TINDER_CONK.get(), LootPool.lootPool()
-                            .add(LootItem.lootTableItem(FIItems.TINDER_CONK_SPORES.get())
-                                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1)))
-                                    .when(stateCond(TINDER_CONK, TinderConkBlock.AGE, 4)))));
+                                            .when(stateCond(
+                                                    FIBlocks.TINDER_CONK,
+                                                    TinderConkBlock.AGE,
+                                                    4
+                                            )))))
+                    .withPool(this.applyExplosionCondition(FIItems.TINDER_CONK.get(),
+                            LootPool.lootPool()
+                                    .add(LootItem.lootTableItem(FIItems.TINDER_CONK_SPORES.get())
+                                            .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1)))
+                                            .when(stateCond(
+                                                    FIBlocks.TINDER_CONK,
+                                                    TinderConkBlock.AGE,
+                                                    4
+                                            )))));
         }
             private LootTable.Builder createMushroomColonyDrops(RegistryObject<? extends Block> colonyBlock, ItemLike colonyDrop, ItemLike mushroomDrop) {
                 return LootTable.lootTable().withPool(this.applyExplosionCondition(colonyBlock.get(), LootPool.lootPool()

@@ -200,9 +200,12 @@ public class FIItems {
             new BlockItem(FIBlocks.GHOST_PIPE.get(), basicItem()));
     public static final RegistryObject<Item> SKUNK_CABBAGE_ITEM = HELPER.createItem("skunk_cabbage", () ->
             new BlockItem(FIBlocks.SKUNK_CABBAGE.get(), basicItem()));
-    //Foraged
+    //Fungi
     public static final RegistryObject<Item> BLEWIT_MUSHROOM = HELPER.createItem("blewit_mushroom",  () ->
             new ModerateFoodBlockItem(FIBlocks.BLEWIT_MUSHROOM.get(), new Item.Properties().food(FIFoods.BLEWIT)));
+    public static final RegistryObject<Item> TINDER_CONK = HELPER.createItem("tinder_conk", () ->
+            new BlockItem(FIBlocks.TINDER_CONK.get(), new Item.Properties()));
+
     //Wood Items
     public static final RegistryObject<Item> LILAC_SIGN = HELPER.createItem("lilac_sign", () ->
             new SignItem(new Item.Properties().stacksTo(16), FIBlocks.LILAC_SIGN.get(), FIBlocks.LILAC_WALL_SIGN.get()));
