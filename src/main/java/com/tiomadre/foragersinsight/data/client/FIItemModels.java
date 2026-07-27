@@ -69,6 +69,6 @@ public class FIItemModels extends BlueprintItemModelProvider {
                 LILAC_BOAT, LILAC_CHEST_BOAT,LILAC_SIGN, LILAC_HANGING_SIGN
 
                 );
-
+        this.withExistingParent(AMADOU_CAP.getId().getPath(), this.modLoc("armor/amadou_cap"));
     }
 }

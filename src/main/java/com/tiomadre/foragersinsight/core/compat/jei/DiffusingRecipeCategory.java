@@ -29,13 +29,15 @@ public class DiffusingRecipeCategory implements IRecipeCategory<FIDiffusingRecip
     private static final ResourceLocation TEXTURE = ForagersInsight.rl("textures/gui/jei_diffuser_ui.png");
     private static final int WIDTH = 176;
     private static final int HEIGHT = 66;
-    private static final int INPUT_SLOT_Y = 41;
-    private static final int INPUT_SLOT_START_X = 34;
-    private static final int ENHANCEMENT_SLOT_X = INPUT_SLOT_START_X + 18;
-    private static final int ENHANCEMENT_SLOT_Y = 21;
-    private static final int SLOT_SPACING = 18;
-    private static final int RESULT_SLOT_X = 126;
-    private static final int RESULT_SLOT_Y = 37;
+    private static final int SLOT_SIZE = 18;
+    private static final int SLOT_SPACING = SLOT_SIZE;
+    private static final int SLOT_ITEM_OFFSET = 1;
+    private static final int INPUT_SLOT_Y = 35;
+    private static final int INPUT_SLOT_START_X = 30;
+    private static final int ENHANCEMENT_SLOT_X = INPUT_SLOT_START_X + SLOT_SPACING;
+    private static final int ENHANCEMENT_SLOT_Y = 14;
+    private static final int RESULT_SLOT_X = 128;
+    private static final int RESULT_SLOT_Y = 31;
     private static final int SCENT_ICON_SIZE = 16;
     private static final int ARROW_U = 177;
     private static final int ARROW_V = 0;
@@ -90,17 +92,17 @@ public class DiffusingRecipeCategory implements IRecipeCategory<FIDiffusingRecip
     @Override
     public void draw(@NotNull FIDiffusingRecipes recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphics guiGraphics, double mouseX, double mouseY) {
         this.arrow.draw(guiGraphics, ARROW_X, ARROW_Y);
-        guiGraphics.blit(recipe.icon(), RESULT_SLOT_X, RESULT_SLOT_Y, 0, 0, SCENT_ICON_SIZE, SCENT_ICON_SIZE, SCENT_ICON_SIZE, SCENT_ICON_SIZE);
+        guiGraphics.blit(recipe.icon(), RESULT_SLOT_X + SLOT_ITEM_OFFSET, RESULT_SLOT_Y + SLOT_ITEM_OFFSET, 0, 0, SCENT_ICON_SIZE, SCENT_ICON_SIZE, SCENT_ICON_SIZE, SCENT_ICON_SIZE);
     }
 
     @Override
     public @NotNull List<Component> getTooltipStrings(@NotNull FIDiffusingRecipes recipe, @NotNull IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
-        if (mouseX >= RESULT_SLOT_X && mouseX < RESULT_SLOT_X + SCENT_ICON_SIZE
-                && mouseY >= RESULT_SLOT_Y && mouseY < RESULT_SLOT_Y + SCENT_ICON_SIZE) {
+        if (mouseX >= RESULT_SLOT_X + SLOT_ITEM_OFFSET && mouseX < RESULT_SLOT_X + SLOT_ITEM_OFFSET + SCENT_ICON_SIZE
+                && mouseY >= RESULT_SLOT_Y + SLOT_ITEM_OFFSET && mouseY < RESULT_SLOT_Y + SLOT_ITEM_OFFSET + SCENT_ICON_SIZE) {
             return recipe.tooltip();
         }
-        if (mouseX >= ENHANCEMENT_SLOT_X && mouseX < ENHANCEMENT_SLOT_X + SLOT_SPACING
-                && mouseY >= ENHANCEMENT_SLOT_Y && mouseY < ENHANCEMENT_SLOT_Y + SLOT_SPACING) {
+        if (mouseX >= ENHANCEMENT_SLOT_X && mouseX < ENHANCEMENT_SLOT_X + SLOT_SIZE
+                && mouseY >= ENHANCEMENT_SLOT_Y && mouseY < ENHANCEMENT_SLOT_Y + SLOT_SIZE) {
             return enhancementTooltip(recipe);
         }
         return List.of();

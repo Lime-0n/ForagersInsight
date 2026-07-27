@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:item/generated",
+  "parent": "foragersinsight:armor/amadou_cap",
   "textures": {
     "layer0": "foragersinsight:item/amadou_cap"
   }
