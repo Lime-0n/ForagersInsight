@@ -1,14 +1,13 @@
 package com.tiomadre.foragersinsight.common.item;
 
-import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Equipable;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -18,15 +17,19 @@ import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.item.DyeColor;
 import java.util.List;
 
-public class AmadouCapItem extends ArmorItem implements DyeableLeatherItem  {
-    private static final String TOOLTIP_KEY = "tooltip.foragersinsight.amadou_cap.luck_of_the_trees";
-    private static final String DYED_TOOLTIP_KEY = "tooltip.foragersinsight.amadou_cap.dyed";
-    private static final String ARMOR_TEXTURE = ForagersInsight.MOD_ID + ":textures/block/amadou_hat.png";
-    private static final String EMPTY_ARMOR_OVERLAY_TEXTURE = ForagersInsight.MOD_ID + ":textures/misc/empty_armor_overlay.png";
+public class AmadouCapItem extends Item implements DyeableLeatherItem, Equipable {
+    public AmadouCapItem(Properties properties) {
+        super(properties);
+    }
 
+    @Override
+    public EquipmentSlot getEquipmentSlot() {
+        return EquipmentSlot.HEAD;
+    }
 
-    public AmadouCapItem(ArmorMaterial material, Type type, Properties properties) {
-        super(material, type, properties);
+    @Override
+    public EquipmentSlot getEquipmentSlot(ItemStack stack) {
+        return EquipmentSlot.HEAD;
     }
 
     @Override
@@ -40,11 +43,6 @@ public class AmadouCapItem extends ArmorItem implements DyeableLeatherItem  {
             return Math.max(enchantmentLevel, 1);
         }
         return enchantmentLevel;
-    }
-
-    @Override
-    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-        return type == null ? ARMOR_TEXTURE : EMPTY_ARMOR_OVERLAY_TEXTURE;
     }
 
     @Override
@@ -74,12 +72,23 @@ public class AmadouCapItem extends ArmorItem implements DyeableLeatherItem  {
     public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltip,
                                 @NotNull TooltipFlag flag) {
         super.appendHoverText(stack, level, tooltip, flag);
-        if (this.hasCustomColor(stack)) {
-            tooltip.add(Component.translatable(DYED_TOOLTIP_KEY, getClosestDyeColorName(DyeableLeatherItem.super.getColor(stack)))
-                    .withStyle(ChatFormatting.GRAY));
-        }
-        tooltip.add(Component.translatable(TOOLTIP_KEY).withStyle(ChatFormatting.GRAY));
+        this.hasCustomColor(stack);
     }
+
+    public static void appendEquipmentTooltip(ItemStack stack, List<Component> tooltip) {
+        if (!stack.is(FIItems.AMADOU_CAP.get())) return;
+
+        for (int i = 0; i < tooltip.size(); i++) {
+            if (tooltip.get(i).getContents() instanceof TranslatableContents contents
+                    && contents.getKey().equals("item.modifiers.head")) {
+                int insertionIndex = Math.min(i + 2, tooltip.size());
+                tooltip.add(insertionIndex, Component.translatable("enchantment.foragersinsight.luck_of_the_trees")
+                        .withStyle(ChatFormatting.BLUE));
+                return;
+            }
+        }
+    }
+
     private static Component getClosestDyeColorName(int color) {
         DyeColor closestColor = DyeColor.WHITE;
         int closestDistance = Integer.MAX_VALUE;

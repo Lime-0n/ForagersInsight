@@ -3,6 +3,7 @@ package com.tiomadre.foragersinsight.common.block;
 import com.tiomadre.foragersinsight.common.block.entity.SapTrapBlockEntity;
 import com.tiomadre.foragersinsight.common.item.BaitItem;
 import com.tiomadre.foragersinsight.core.registry.FIMobEffects;
+import com.tiomadre.foragersinsight.core.registry.FISapTrapBaits;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -17,6 +18,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -33,13 +35,15 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import java.util.List;
 
 public class SapTrapBlock extends FoliageMatBlock implements EntityBlock {
     public static final BooleanProperty TRIGGERED = BooleanProperty.create("triggered");
     private static final int STUCK_DURATION = 150 ;
-    private static final int BAITED_STUCK_DURATION = Math.round(STUCK_DURATION * 1.35F);
+
     private static final int BREAK_DELAY_TICKS = 5;
     private static final int SLOW_DURATION_TICKS = 5;
     private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 2, 16);
@@ -63,6 +67,12 @@ public class SapTrapBlock extends FoliageMatBlock implements EntityBlock {
     public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level,
                                         @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return SHAPE;
+    }
+    @Override
+    public void appendHoverText(@NotNull ItemStack stack, @Nullable BlockGetter level, @NotNull List<Component> tooltip,
+                                @NotNull TooltipFlag flag) {
+        tooltip.add(Component.translatable("tooltip.foragersinsight.sap_trap.baits").withStyle(net.minecraft.ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("tooltip.foragersinsight.sap_trap.potent_baits").withStyle(net.minecraft.ChatFormatting.DARK_GREEN));
     }
 
     @Override
@@ -150,8 +160,8 @@ public class SapTrapBlock extends FoliageMatBlock implements EntityBlock {
     }
 
     private int getStuckDuration(@NotNull Level level, @NotNull BlockPos pos, @NotNull LivingEntity livingEntity) {
-        if (isEatingBait(level, pos, livingEntity)) {
-            return BAITED_STUCK_DURATION;
+        if (level.getBlockEntity(pos) instanceof SapTrapBlockEntity sapTrap) {
+            return Math.round(STUCK_DURATION * FISapTrapBaits.stuckDurationMultiplier(sapTrap.getBait(), livingEntity));
 
         }
         return STUCK_DURATION;

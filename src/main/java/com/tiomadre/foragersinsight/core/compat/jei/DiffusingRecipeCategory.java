@@ -36,8 +36,8 @@ public class DiffusingRecipeCategory implements IRecipeCategory<FIDiffusingRecip
     private static final int INPUT_SLOT_START_X = 30;
     private static final int ENHANCEMENT_SLOT_X = INPUT_SLOT_START_X + SLOT_SPACING;
     private static final int ENHANCEMENT_SLOT_Y = 14;
-    private static final int RESULT_SLOT_X = 128;
-    private static final int RESULT_SLOT_Y = 31;
+    private static final int RESULT_SLOT_X = 121;
+    private static final int RESULT_SLOT_Y = 30;
     private static final int SCENT_ICON_SIZE = 16;
     private static final int ARROW_U = 177;
     private static final int ARROW_V = 0;

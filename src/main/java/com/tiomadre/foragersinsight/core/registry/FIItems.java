@@ -219,7 +219,7 @@ public class FIItems {
 // Tools & Armor
     //Armor
     public static final RegistryObject<Item> AMADOU_CAP = HELPER.createItem("amadou_cap", () ->
-        new AmadouCapItem(ArmorMaterials.LEATHER, ArmorItem.Type.HELMET, new Item.Properties().stacksTo(1)));
+        new AmadouCapItem(new Item.Properties().stacksTo(1)));
     //Diffuser
     public static final RegistryObject<Item> DIFFUSER = HELPER.createItem("diffuser", () ->
         new DiffuserBlockItem(FIBlocks.DIFFUSER.get(), basicItem().stacksTo(1)));

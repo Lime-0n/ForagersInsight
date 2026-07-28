@@ -2,6 +2,9 @@ package com.tiomadre.foragersinsight.data.client;
 
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.teamabnormals.blueprint.core.data.client.BlueprintItemModelProvider;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.client.model.generators.loaders.SeparateTransformsModelBuilder;
 import net.minecraftforge.data.event.GatherDataEvent;
 
 import static com.tiomadre.foragersinsight.core.registry.FIItems.*;
@@ -69,6 +72,16 @@ public class FIItemModels extends BlueprintItemModelProvider {
                 LILAC_BOAT, LILAC_CHEST_BOAT,LILAC_SIGN, LILAC_HANGING_SIGN
 
                 );
-        this.withExistingParent(AMADOU_CAP.getId().getPath(), this.modLoc("armor/amadou_cap"));
+
+        //Unique logic
+            //Amadou Hat (worn)
+        this.getBuilder(AMADOU_CAP.getId().getPath())
+                .customLoader(SeparateTransformsModelBuilder::begin)
+                .base(this.nested()
+                        .parent(new ModelFile.UncheckedModelFile(this.mcLoc("item/generated")))
+                        .texture("layer0", this.modLoc("item/amadou_cap")))
+                .perspective(ItemDisplayContext.HEAD, this.nested()
+                        .parent(new ModelFile.UncheckedModelFile(this.modLoc("armor/amadou_cap"))))
+                .end();
     }
 }

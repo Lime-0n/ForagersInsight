@@ -3,6 +3,7 @@ package com.tiomadre.foragersinsight.core.other.toolevents;
 import com.tiomadre.foragersinsight.common.block.entity.SapTrapBlockEntity;
 import com.tiomadre.foragersinsight.common.item.BaitItem;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
+import com.tiomadre.foragersinsight.core.registry.FISapTrapBaits;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -11,7 +12,6 @@ import net.minecraft.world.level.Level;
 import java.util.EnumSet;
 
 public class SapTrapBaitGoal extends Goal {
-    private static final int SEARCH_RANGE = 10;
     private static final double SPEED_MODIFIER = 1.0D;
     private final PathfinderMob mob;
     private BlockPos targetPos;
@@ -58,7 +58,8 @@ public class SapTrapBaitGoal extends Goal {
         BlockPos closest = null;
         double closestDistance = Double.MAX_VALUE;
 
-        for (BlockPos pos : BlockPos.betweenClosed(origin.offset(-SEARCH_RANGE, -2, -SEARCH_RANGE), origin.offset(SEARCH_RANGE, 2, SEARCH_RANGE))) {
+        int range = FISapTrapBaits.MAX_SEARCH_RANGE;
+        for (BlockPos pos : BlockPos.betweenClosed(origin.offset(-range, -2, -range), origin.offset(range, 2, range))) {
             if (!this.isValidBaitedTrap(pos)) {
                 continue;
             }
@@ -75,6 +76,7 @@ public class SapTrapBaitGoal extends Goal {
         Level level = this.mob.level();
         return level.getBlockState(pos).is(FIBlocks.SAP_TRAP.get())
                 && level.getBlockEntity(pos) instanceof SapTrapBlockEntity sapTrap
-                && BaitItem.attracts(sapTrap.getBait(), this.mob);
+                && BaitItem.attracts(sapTrap.getBait(), this.mob)
+                && pos.distSqr(this.mob.blockPosition()) <= Math.pow(FISapTrapBaits.searchRange(sapTrap.getBait(), this.mob), 2);
     }
 }

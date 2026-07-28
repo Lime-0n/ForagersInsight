@@ -195,15 +195,24 @@
   "enchantment.foragersinsight.farmhand": "Farmhand",
   "enchantment.foragersinsight.luck_of_the_trees": "Luck of the Trees",
 
+  "foragersinsight.diffuser.rosey.scent": "Rosey",
+  "foragersinsight.diffuser.rosey_ii.scent": "Rosey II",
+  "foragersinsight.diffuser.coniferous.scent": "Coniferous",
+  "foragersinsight.diffuser.coniferous_ii.scent": "Coniferous II",
+  "foragersinsight.diffuser.floral.scent": "Floral",
+  "foragersinsight.diffuser.floral_ii.scent": "Floral II",
+  "foragersinsight.diffuser.foul.scent": "Foul",
+  "foragersinsight.diffuser.foul_ii.scent": "Foul II",
+
   "tooltip.foragersinsight.seed_milk_bottle": "Clears 1 Effect",
   "tooltip.foragersinsight.milk_bucket": "Clears all Effects",
-  "tooltip.foragersinsight.amadou_cap.luck_of_the_trees": "Grants Luck of the Trees while worn",
-  "tooltip.foragersinsight.amadou_cap.dyed": "%s",
   "tooltip.foragersinsight.waxed_boots": "Waxed: %s steps remaining",
 
   "foragersinsight.tool_interaction.shears.chicken": "Please wait %s seconds to shear this chicken again.",
   "foragersinsight.tool_interaction.shears.baby_chicken": "Baby chickens cannot be sheared.",
   "foragersinsight.tool_interaction.mallet.anvil_no_repairs": "This anvil is fully repaired.",
+  "tooltip.foragersinsight.sap_trap.baits": "Bait for rabbits, chickens, ocelots, foxes, or pigs",
+  "tooltip.foragersinsight.sap_trap.potent_baits": "Favorite foods lure from farther away and hold longer",
 
   "foragersinsight.diffuser.rosey": "The diffuser is exuding a Rosey scent!",
   "foragersinsight.diffuser.rosey_ii": "The diffuser is exuding a strong Rosey scent!",

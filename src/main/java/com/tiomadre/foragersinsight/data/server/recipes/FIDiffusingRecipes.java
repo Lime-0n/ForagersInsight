@@ -194,6 +194,10 @@ public final class FIDiffusingRecipes {
         return Component.translatable(this.translationKey);
     }
 
+    public Component recipeName() {
+        return Component.translatable(this.translationKey + ".scent");
+    }
+
     public Component description() {
         return Component.translatable(this.descriptionKey).withStyle(ChatFormatting.GRAY);
     }
