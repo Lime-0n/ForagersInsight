@@ -25,6 +25,7 @@ public class FIPlacedFeatures {
     public static final ResourceKey<PlacedFeature> LILAC_TREE_PLACED_KEY = registerKey("lilac_tree_placed");
     public static final ResourceKey<PlacedFeature> SPRUCE_TIP_TREE_PLACED_KEY = registerKey("spruce_tip_tree_placed");
     public static final ResourceKey<PlacedFeature> SAPPY_BIRCH_TREE_PLACED_KEY = registerKey("sappy_birch_tree_placed");
+    public static final ResourceKey<PlacedFeature> MUSHROOM_BIRCH_TREE_PLACED_KEY = registerKey("mushroom_birch_tree_placed");
 
     public static final ResourceKey<PlacedFeature> ROSELLE_PATCH_PLACED_KEY = registerKey("roselle_patch_placed");
     public static final ResourceKey<PlacedFeature> BEACH_ROSE_PATCH_PLACED_KEY = registerKey("beach_rose_patch_placed");
@@ -51,6 +52,7 @@ public class FIPlacedFeatures {
     public static final ResourceKey<PlacedFeature> PUDDLE_PLACED_KEY = registerKey("puddle_placed");
 
 
+
     public static ResourceKey<PlacedFeature> registerKey(String name) {
         return ResourceKey.create(Registries.PLACED_FEATURE, ForagersInsight.rl(name));
     }
@@ -69,6 +71,7 @@ public class FIPlacedFeatures {
         register(context, SAPPY_BIRCH_TREE_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.SAPPY_BIRCH_TREE_KEY),
                 VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.2f, 1), Blocks.BIRCH_SAPLING));
         //Biomes
+            //Dark Woodlands
         register(context, DARK_WOODLANDS_TREES_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.DARK_WOODLANDS_TREES_KEY),
                 VegetationPlacements.treePlacement(PlacementUtils.countExtra(2, 0.25f, 2), Blocks.DARK_OAK_SAPLING));
         register(context, DARK_OAK_BUSH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.DARK_OAK_BUSH_KEY),
@@ -78,6 +81,9 @@ public class FIPlacedFeatures {
         register(context, WOODLANDS_PATCH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.WOODLANDS_PATCH_KEY),
                 List.of(RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(), HeightmapPlacement
                         .onHeightmap(Heightmap.Types.MOTION_BLOCKING), BiomeFilter.biome()));
+            //Birch Forest
+        register(context, MUSHROOM_BIRCH_TREE_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.MUSHROOM_BIRCH_TREE_KEY),
+                VegetationPlacements.treePlacement(RarityFilter.onAverageOnceEvery(12), Blocks.BIRCH_SAPLING));
 
         //Wild Flower + Plants
         register(context, ROSELLE_PATCH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.ROSELLE_BUSH_PATCH_KEY),

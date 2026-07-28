@@ -39,6 +39,9 @@ public class DiffusingRecipeCategory implements IRecipeCategory<FIDiffusingRecip
     private static final int RESULT_SLOT_X = 121;
     private static final int RESULT_SLOT_Y = 30;
     private static final int SCENT_ICON_SIZE = 16;
+    private static final int SCENT_CLOUD_X = RESULT_SLOT_X + SLOT_ITEM_OFFSET;
+    private static final int SCENT_CLOUD_Y = 8;
+    private static final int SCENT_CLOUD_SIZE = 16;
     private static final int ARROW_U = 177;
     private static final int ARROW_V = 0;
     private static final int ARROW_X = 125;
@@ -99,11 +102,14 @@ public class DiffusingRecipeCategory implements IRecipeCategory<FIDiffusingRecip
     public @NotNull List<Component> getTooltipStrings(@NotNull FIDiffusingRecipes recipe, @NotNull IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
         if (mouseX >= RESULT_SLOT_X + SLOT_ITEM_OFFSET && mouseX < RESULT_SLOT_X + SLOT_ITEM_OFFSET + SCENT_ICON_SIZE
                 && mouseY >= RESULT_SLOT_Y + SLOT_ITEM_OFFSET && mouseY < RESULT_SLOT_Y + SLOT_ITEM_OFFSET + SCENT_ICON_SIZE) {
-            return recipe.tooltip();
+            return List.of(
+                    recipe.recipeName().copy().withStyle(ChatFormatting.GOLD),
+                    recipe.description()
+            );
         }
-        if (mouseX >= ENHANCEMENT_SLOT_X && mouseX < ENHANCEMENT_SLOT_X + SLOT_SIZE
-                && mouseY >= ENHANCEMENT_SLOT_Y && mouseY < ENHANCEMENT_SLOT_Y + SLOT_SIZE) {
-            return enhancementTooltip(recipe);
+        if (mouseX >= SCENT_CLOUD_X && mouseX < SCENT_CLOUD_X + SCENT_CLOUD_SIZE
+                && mouseY >= SCENT_CLOUD_Y && mouseY < SCENT_CLOUD_Y + SCENT_CLOUD_SIZE) {
+            return scentCloudTooltip(recipe);
         }
         return List.of();
     }
@@ -122,7 +128,7 @@ public class DiffusingRecipeCategory implements IRecipeCategory<FIDiffusingRecip
         );
     }
 
-    private static List<Component> enhancementTooltip(FIDiffusingRecipes recipe) {
+    private static List<Component> scentCloudTooltip(FIDiffusingRecipes recipe) {
         List<Component> tooltip = new ArrayList<>(6);
         tooltip.add(Component.translatable("gui.foragersinsight.diffuser.tooltip.radius", recipe.radius()).withStyle(ChatFormatting.WHITE));
         tooltip.add(Component.translatable("gui.foragersinsight.diffuser.tooltip.duration", FIDiffusingRecipes.STANDARD_DURATION / 20).withStyle(ChatFormatting.WHITE));

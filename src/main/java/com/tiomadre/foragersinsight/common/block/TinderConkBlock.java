@@ -13,8 +13,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -75,6 +77,15 @@ public class TinderConkBlock extends Block implements BonemealableBlock {
 
     public static boolean canGrowOn(BlockState state) {
         return state.is(FIBlocks.SAPPY_BIRCH_LOG.get()) || state.is(FIBlocks.STRIPPED_SAPPY_BIRCH_LOG.get());
+    }
+
+    @Override
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level,
+                                  BlockPos currentPos, BlockPos neighborPos) {
+        if (direction == state.getValue(FACING).getOpposite() && !state.canSurvive(level, currentPos)) {
+            return Blocks.AIR.defaultBlockState();
+        }
+        return super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
     }
 
     @Override

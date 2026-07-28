@@ -19,6 +19,8 @@ public class FIBiomeModifiers {
     public static final ResourceKey<BiomeModifier> ADD_LILAC_TREES = registerKey("add_lilac_trees");
     public static final ResourceKey<BiomeModifier> ADD_SPRUCE_TIP_TREES = registerKey("add_spruce_tip_trees");
     public static final ResourceKey<BiomeModifier> ADD_SAPPY_BIRCH_TREES = registerKey("add_sappy_birch_trees");
+    public static final ResourceKey<BiomeModifier> ADD_MUSHROOM_BIRCH_TREES = registerKey("add_mushroom_birch_trees");
+
     public static final ResourceKey<BiomeModifier> ADD_ROSELLE_BUSHES = registerKey("add_roselle_bushes");
     public static final ResourceKey<BiomeModifier> ADD_BEACH_ROSES = registerKey("add_beach_roses");
     public static final ResourceKey<BiomeModifier> ADD_WOODLAND_FERNS = registerKey("add_woodland_ferns");
@@ -69,8 +71,13 @@ public class FIBiomeModifiers {
                         tagSet(biomes, FITags.BiomeTag.HAS_SAPPY_BIRCH_TREES),
                         HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.SAPPY_BIRCH_TREE_PLACED_KEY)),
                         GenerationStep.Decoration.VEGETAL_DECORATION)
-                //Wild Flower Patches
         );
+        context.register(ADD_MUSHROOM_BIRCH_TREES, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                tagSet(biomes, FITags.BiomeTag.HAS_BIRCH_FOREST_LITTER),
+                HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.MUSHROOM_BIRCH_TREE_PLACED_KEY)),
+                GenerationStep.Decoration.VEGETAL_DECORATION)
+        );
+        //Wild Flower Patches
         context.register(ADD_ROSELLE_BUSHES, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
                 tagSet(biomes, FITags.BiomeTag.HAS_ROSELLE_BUSHES),
                 HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.ROSELLE_PATCH_PLACED_KEY)),
@@ -81,7 +88,7 @@ public class FIBiomeModifiers {
                 HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.BEACH_ROSE_PATCH_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION)
         );
-            //Suspicious Litter Patches
+                //Suspicious Litter Patches
         context.register(ADD_OAK_SUSPICIOUS_LEAF_LITTER, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
                 tagSet(biomes, FITags.BiomeTag.HAS_OAK_FOREST_LITTER),
                 HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.OAK_SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY)),

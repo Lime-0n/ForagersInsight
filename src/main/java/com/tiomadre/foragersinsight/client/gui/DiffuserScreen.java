@@ -143,18 +143,8 @@ public class DiffuserScreen extends AbstractContainerScreen<DiffuserMenu> {
         int iconY = top + slot.y;
         if (mouseX >= iconX && mouseX < iconX + ICON_SIZE && mouseY >= iconY && mouseY < iconY + ICON_SIZE) {
             FIDiffusingRecipes recipe = scent.get();
-            List<Component> tooltip = new ArrayList<>(4);
+            List<Component> tooltip = new ArrayList<>(2);
             tooltip.add(recipe.recipeName().copy().withStyle(ChatFormatting.GOLD));
-            tooltip.add(Component.translatable(
-                    "gui.foragersinsight.diffuser.tooltip.radius",
-                    String.format(Locale.ROOT, "%.1f", recipe.radius())
-            ).withStyle(ChatFormatting.WHITE));
-            tooltip.add(Component.translatable(
-                    "gui.foragersinsight.diffuser.tooltip.duration",
-                    FIDiffusingRecipes.STANDARD_DURATION / 20
-            ).withStyle(ChatFormatting.WHITE));
-            tooltip.add(recipe.description());
-            gui.renderComponentTooltip(this.font, tooltip, mouseX, mouseY);
         }
     }
 

@@ -235,10 +235,10 @@ public class DiffuserBlock extends BaseEntityBlock implements SimpleWaterloggedB
     }
 
     private @Nullable SimpleParticleType getScentParticleType(FIDiffusingRecipes scent) {
-        if (scent == FIDiffusingRecipes.ROSEY.get()) {
+        if (scent == FIDiffusingRecipes.ROSEY.get() || scent == FIDiffusingRecipes.ROSEY_II.get()) {
             return FIParticleTypes.ROSE_SCENT.get();
         }
-        if (scent == FIDiffusingRecipes.CONIFEROUS.get()) {
+        if (scent == FIDiffusingRecipes.CONIFEROUS.get() || scent == FIDiffusingRecipes.CONIFEROUS_II.get()) {
             return FIParticleTypes.CONIFEROUS_SCENT.get();
         }
         if (scent == FIDiffusingRecipes.FLORAL.get()) {
@@ -247,7 +247,7 @@ public class DiffuserBlock extends BaseEntityBlock implements SimpleWaterloggedB
         if(scent ==  FIDiffusingRecipes.FLORAL_II.get()) {
             return FIParticleTypes.FLORAL_II_SCENT.get();
         }
-        if (scent == FIDiffusingRecipes.FOUL.get()) {
+        if (scent == FIDiffusingRecipes.FOUL.get() || scent == FIDiffusingRecipes.FOUL_II.get()) {
             return FIParticleTypes.FOUL_SCENT.get();
         }
         return null;

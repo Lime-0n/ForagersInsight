@@ -2,6 +2,7 @@ package com.tiomadre.foragersinsight.common.worldgen.feature;
 
 import com.mojang.serialization.Codec;
 import com.tiomadre.foragersinsight.common.block.HollowLogBlock;
+import com.tiomadre.foragersinsight.common.block.WallMushroomBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -26,6 +27,7 @@ import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 
 public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
     private static final float SINGLE_MUSHROOM_LOG_CHANCE = 0.50F;
+    private static final float SINGLE_WALL_MUSHROOM_LOG_CHANCE = 0.50F;
     private static final float GROWING_COLONY_AND_MUSHROOM_LOG_CHANCE = 0.30F;
     private static final float COLONY_AND_MUSHROOM_LOG_CHANCE = 0.15F;
 
@@ -56,6 +58,7 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
                 .setValue(RotatedPillarBlock.AXIS, direction.getAxis())
                 .setValue(HollowLogBlock.LOG_TEXTURE, biomeTexture);
         List<BlockPos> logTopPositions = new ArrayList<>();
+        List<BlockPos> logPositions = new ArrayList<>();
         List<BlockPos> sidePositions = new ArrayList<>();
         boolean placed = false;
         for (int i = 0; i < logLength; i++) {
@@ -63,6 +66,7 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
             this.setBlock(level, logPos, fallenLogState);
             placed = true;
 
+            logPositions.add(logPos);
             logTopPositions.add(logPos.above());
             sidePositions.add(logPos.relative(sideA));
             sidePositions.add(logPos.relative(sideB));
@@ -77,6 +81,9 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
         }
 
         boolean placedMushroomDecoration = placeMushroomDecorations(level, random, logTopPositions);
+        if (random.nextFloat() < SINGLE_WALL_MUSHROOM_LOG_CHANCE) {
+            placedMushroomDecoration |= placeWallMushroom(level, random, logPositions, sideA, sideB);
+        }
         replaceGrassWithWoodlandFern(level, random, placedGrassPositions);
         int ghostPipeReplacements = placedMushroomDecoration ? 3 : 1;
         placeGhostPipes(level, random, placedGrassPositions,
@@ -196,6 +203,39 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
         if (random.nextFloat() < SINGLE_MUSHROOM_LOG_CHANCE) {
             BlockPos mushroomPos = logTopPositions.get(random.nextInt(logTopPositions.size()));
            return placeSmallMushroom(level, mushroomPos, random);
+        }
+
+        return false;
+    }
+    private static boolean placeWallMushroom(WorldGenLevel level, RandomSource random, List<BlockPos> logPositions,
+                                             Direction sideA, Direction sideB) {
+        List<BlockPos> shuffledLogPositions = shuffledCopy(logPositions, random);
+        boolean trySideAFirst = random.nextBoolean();
+        Direction firstSide = trySideAFirst ? sideA : sideB;
+        Direction secondSide = trySideAFirst ? sideB : sideA;
+
+        for (BlockPos logPos : shuffledLogPositions) {
+            if (placeWallMushroomAt(level, random, logPos.relative(firstSide), firstSide)
+                    || placeWallMushroomAt(level, random, logPos.relative(secondSide), secondSide)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    private static boolean placeWallMushroomAt(WorldGenLevel level, RandomSource random, BlockPos pos, Direction facing) {
+        if (!canReplaceDecoration(level, pos)) {
+            return false;
+        }
+
+        BlockState mushroomState = (random.nextBoolean()
+                ? FIBlocks.WALL_RED_MUSHROOM.get()
+                : FIBlocks.WALL_BROWN_MUSHROOM.get())
+                .defaultBlockState()
+                .setValue(WallMushroomBlock.FACING, facing);
+        if (mushroomState.canSurvive(level, pos)) {
+            level.setBlock(pos, mushroomState, 2);
+            return true;
         }
 
         return false;

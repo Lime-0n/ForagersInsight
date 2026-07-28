@@ -207,12 +207,13 @@
   "tooltip.foragersinsight.seed_milk_bottle": "Clears 1 Effect",
   "tooltip.foragersinsight.milk_bucket": "Clears all Effects",
   "tooltip.foragersinsight.waxed_boots": "Waxed: %s steps remaining",
+  "tooltip.foragersinsight.sap_trap.baits": "Bait for rabbits, chickens, ocelots, foxes, or pigs",
+  "tooltip.foragersinsight.sap_trap.potent_baits": "Favorite foods lure from farther away and hold longer",
 
   "foragersinsight.tool_interaction.shears.chicken": "Please wait %s seconds to shear this chicken again.",
   "foragersinsight.tool_interaction.shears.baby_chicken": "Baby chickens cannot be sheared.",
   "foragersinsight.tool_interaction.mallet.anvil_no_repairs": "This anvil is fully repaired.",
-  "tooltip.foragersinsight.sap_trap.baits": "Bait for rabbits, chickens, ocelots, foxes, or pigs",
-  "tooltip.foragersinsight.sap_trap.potent_baits": "Favorite foods lure from farther away and hold longer",
+
 
   "foragersinsight.diffuser.rosey": "The diffuser is exuding a Rosey scent!",
   "foragersinsight.diffuser.rosey_ii": "The diffuser is exuding a strong Rosey scent!",
