@@ -220,11 +220,11 @@ public class FICraftingRecipes extends BlueprintRecipeProvider {
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, FIItems.DIFFUSER.get())
                 .pattern("BCB")
                 .pattern("CGC")
-                .pattern("CTC")
+                .pattern("CFC")
                 .define('B', HONEYCOMB)
                 .define('C', Items.COPPER_INGOT)
                 .define('G', Items.GLASS_BOTTLE)
-                .define('T', Items.TORCH)
+                .define('F', Items.FLINT_AND_STEEL)
                 .unlockedBy("has_copper_ingot", has(COPPER_INGOT))
                 .save(consumer, ForagersInsight.rl("diffuser"));
 

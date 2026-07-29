@@ -694,7 +694,7 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         RADIUS(1.2D, 1.0D, "honeycomb"),
         RADIUS_BLOCK(2.0D, 1.0D, "honeycomb_block"),
         DURATION(1.0D, 1.2D, "birch_sap_bottle"),
-        DURATION_BUCKET(1.0D, 1.85D, "birch_sap_bucket");
+        DURATION_BUCKET(1.0D, 2.D, "birch_sap_bucket");
 
         private final double radiusMultiplier;
         private final double durationMultiplier;

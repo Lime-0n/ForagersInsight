@@ -26,7 +26,9 @@ public final class FISapTrapBaits {
                 //Liked Foods
             bait(Ingredient.of(Items.CARROT, FIItems.DANDELION_ROOT.get()), Rabbit.class, 1.35F, SEARCH_RANGE),
             //Chicken
-
+                //Favorite Food
+            bait(Ingredient.of(Items.MELON_SLICE), Chicken.class, 1.75F, MAX_SEARCH_RANGE),
+                //Liked Foods
             bait(Ingredient.of(Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS), Chicken.class, 1.35F, SEARCH_RANGE),
             //Ocelot
                 //Favorite Food
@@ -37,12 +39,12 @@ public final class FISapTrapBaits {
                 //Favorite Food
             bait(Ingredient.of(Items.SWEET_BERRIES), Fox.class, 1.75F, MAX_SEARCH_RANGE),
                 //Liked Foods
-            bait(Ingredient.of(FIItems.ROSE_HIP.get()), Fox.class, 1.35F, SEARCH_RANGE),
+            bait(Ingredient.of(FIItems.ROSE_HIP.get(), Items.RABBIT, FIItems.RAW_RABBIT_LEG.get()), Fox.class, 1.35F, SEARCH_RANGE),
             //Pig
                 //Favorite Food
-            bait(Ingredient.of(FIItems.BLACK_ACORN.get()), Pig.class, 1.75F, MAX_SEARCH_RANGE),
+            bait(Ingredient.of(FIItems.BLACK_ACORN.get(),FIItems.ACORN_MEAL.get()), Pig.class, 1.75F, MAX_SEARCH_RANGE),
                 //Liked Foods
-            bait(Ingredient.of(Items.CARROT, Items.POTATO, Items.BEETROOT), Pig.class, 1.35F, SEARCH_RANGE)
+            bait(Ingredient.of(ModItems.PUMPKIN_SLICE.get(), Items.POTATO, Items.BEETROOT), Pig.class, 1.35F, SEARCH_RANGE)
     );
 
     private FISapTrapBaits() {

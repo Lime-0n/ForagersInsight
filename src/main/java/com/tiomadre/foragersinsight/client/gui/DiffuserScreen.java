@@ -34,15 +34,15 @@ public class DiffuserScreen extends AbstractContainerScreen<DiffuserMenu> {
     private static final int ARROW_X = 125;
     private static final int ARROW_Y = 33;
 
-    private static final int EXTINGUISH_BUTTON_SIZE = 6;
-    private static final int EXTINGUISH_BUTTON_X = 131;
-    private static final int EXTINGUISH_BUTTON_Y = 61;
+    private static final int POWER_BUTTON_SIZE = 6;
+    private static final int POWER_BUTTON_X = 131;
+    private static final int POWER_BUTTON_Y = 61;
 
     private static final int SCENT_CLOUD_Y = 24;
     private static final int SCENT_CLOUD_SIZE = 16;
 
     private static final int ICON_SIZE = 16;
-    private Button extinguishButton;
+    private Button powerButton;
 
     public DiffuserScreen(DiffuserMenu menu, Inventory inv, Component title) {
         super(menu, inv, title);
@@ -57,32 +57,32 @@ public class DiffuserScreen extends AbstractContainerScreen<DiffuserMenu> {
     @Override
     protected void init() {
         super.init();
-        int buttonX = this.leftPos + EXTINGUISH_BUTTON_X;
-        int buttonY = this.topPos + EXTINGUISH_BUTTON_Y;
+        int buttonX = this.leftPos + POWER_BUTTON_X;
+        int buttonY = this.topPos + POWER_BUTTON_Y;
 
-        this.extinguishButton = Button.builder(Component.empty(), this::onExtinguishPressed)
-                .bounds(buttonX, buttonY, EXTINGUISH_BUTTON_SIZE, EXTINGUISH_BUTTON_SIZE)
+        this.powerButton = Button.builder(Component.empty(), this::onPowerPressed)
+                .bounds(buttonX, buttonY, POWER_BUTTON_SIZE, POWER_BUTTON_SIZE)
                 .build();
-        this.extinguishButton.setAlpha(0.0F);
-        this.extinguishButton.setTooltip(Tooltip.create(
-                Component.translatable("gui.foragersinsight.diffuser.extinguish")));
-        this.addRenderableWidget(this.extinguishButton);
+        this.powerButton.setAlpha(0.0F);
+        this.powerButton.setTooltip(Tooltip.create(
+                Component.translatable("gui.foragersinsight.diffuser.power")));
+        this.addRenderableWidget(this.powerButton);
         updateButtonState();
     }
     private void updateButtonState() {
-        if (this.extinguishButton != null) {
-            this.extinguishButton.active = this.menu.getActiveScent().isPresent();
+        if (this.powerButton != null) {
+            this.powerButton.active = this.menu.getActiveScent().isPresent();
         }
     }
 
-    private void onExtinguishPressed(Button button) {
+    private void onPowerPressed(Button button) {
         if (this.minecraft == null || this.minecraft.gameMode == null) {
             return;
         }
         if (this.menu.getActiveScent().isEmpty()) {
             return;
         }
-        this.minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, DiffuserMenu.BUTTON_EXTINGUISH);
+        this.minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, DiffuserMenu.BUTTON_POWER);
     }
 
     @Override
