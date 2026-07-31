@@ -1,7 +1,6 @@
 package com.tiomadre.foragersinsight.core.other;
 
 import com.tiomadre.foragersinsight.common.effect.StuckEffect;
-import com.tiomadre.foragersinsight.common.item.AmadouCapItem;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.other.toolevents.SapTrapBaitGoal;
 import com.tiomadre.foragersinsight.core.other.toolevents.WaxedBoots;
@@ -106,7 +105,6 @@ public class FIEvents {
     @SubscribeEvent
     public static void onItemTooltip(ItemTooltipEvent event) {
         WaxedBoots.appendTooltip(event.getItemStack(), event.getToolTip());
-        AmadouCapItem.appendEquipmentTooltip(event.getItemStack(), event.getToolTip());
     }
 
     //Stuck Effect Logico

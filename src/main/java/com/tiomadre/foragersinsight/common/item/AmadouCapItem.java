@@ -1,10 +1,11 @@
 package com.tiomadre.foragersinsight.common.item;
 
+import com.google.common.collect.ImmutableMultimap;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Equipable;
 import net.minecraft.world.item.Item;
@@ -15,9 +16,19 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import com.google.common.collect.Multimap;
+import java.util.UUID;
 import java.util.List;
 
+
 public class AmadouCapItem extends Item implements DyeableLeatherItem, Equipable {
+    private static final UUID ARMOR_MODIFIER_UUID = UUID.fromString("5f5b1524-4079-4e20-a4c9-c7d1842f3f2a");
+    private static final Multimap<Attribute, AttributeModifier> HEAD_ATTRIBUTE_MODIFIERS =
+            ImmutableMultimap.of(Attributes.ARMOR, new AttributeModifier(ARMOR_MODIFIER_UUID, "Armor modifier",
+                    1.0D, AttributeModifier.Operation.ADDITION));
+
     public AmadouCapItem(Properties properties) {
         super(properties);
     }
@@ -36,7 +47,10 @@ public class AmadouCapItem extends Item implements DyeableLeatherItem, Equipable
     public boolean isValidRepairItem(@NotNull ItemStack itemToRepair, @NotNull ItemStack repairItem) {
         return repairItem.is(FIItems.AMADOU.get());
     }
-
+    @Override
+    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot slot) {
+        return slot == EquipmentSlot.HEAD ? HEAD_ATTRIBUTE_MODIFIERS : super.getDefaultAttributeModifiers(slot);
+    }
 
     public static int applyLuckOfTheTrees(Player player, int enchantmentLevel) {
         if (player.getItemBySlot(EquipmentSlot.HEAD).is(FIItems.AMADOU_CAP.get())) {
@@ -72,21 +86,9 @@ public class AmadouCapItem extends Item implements DyeableLeatherItem, Equipable
     public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltip,
                                 @NotNull TooltipFlag flag) {
         super.appendHoverText(stack, level, tooltip, flag);
-        this.hasCustomColor(stack);
-    }
+        tooltip.add(Component.translatable("enchantment.foragersinsight.luck_of_the_trees")
+                .withStyle(ChatFormatting.BLUE));
 
-    public static void appendEquipmentTooltip(ItemStack stack, List<Component> tooltip) {
-        if (!stack.is(FIItems.AMADOU_CAP.get())) return;
-
-        for (int i = 0; i < tooltip.size(); i++) {
-            if (tooltip.get(i).getContents() instanceof TranslatableContents contents
-                    && contents.getKey().equals("item.modifiers.head")) {
-                int insertionIndex = Math.min(i + 2, tooltip.size());
-                tooltip.add(insertionIndex, Component.translatable("enchantment.foragersinsight.luck_of_the_trees")
-                        .withStyle(ChatFormatting.BLUE));
-                return;
-            }
-        }
     }
 
     private static Component getClosestDyeColorName(int color) {
