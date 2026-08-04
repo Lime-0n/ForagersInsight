@@ -94,7 +94,7 @@ public class FIPlacedFeatures {
                         .onHeightmap(Heightmap.Types.MOTION_BLOCKING), BiomeFilter.biome(), BiomeTagFilter.biomeIsInTag(FITags.BiomeTag.HAS_BEACH_ROSES)));
         register(context, WOODLAND_FERN_PATCH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.WOODLAND_FERN_PATCH_KEY),
                 List.of(RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(), HeightmapPlacement
-                        .onHeightmap(Heightmap.Types.MOTION_BLOCKING), BiomeFilter.biome(), BiomeTagFilter.biomeIsInTag(FITags.BiomeTag.HAS_OAK_FERNS)));
+                        .onHeightmap(Heightmap.Types.MOTION_BLOCKING), BiomeFilter.biome(), BiomeTagFilter.biomeIsInTag(FITags.BiomeTag.HAS_WOODLAND_FERNS)));
         register(context, PHLOX_PATCH_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.PHLOX_PATCH_KEY),
                 List.of(RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(), HeightmapPlacement
                         .onHeightmap(Heightmap.Types.MOTION_BLOCKING), BiomeFilter.biome()));

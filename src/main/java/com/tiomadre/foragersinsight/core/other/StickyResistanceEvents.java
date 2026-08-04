@@ -35,6 +35,9 @@ public class StickyResistanceEvents {
         if (!event.getEntity().hasEffect(FIMobEffects.STICKY_RESISTANCE.get())) return;
 
         WaxedBoots.drainForStuckPrevention(event.getEntity());
+        if (event.getEntity().getEffect(FIMobEffects.STICKY_RESISTANCE.get()).getAmplifier() >= 1) {
+            applySpeedBoost(event.getEntity());
+        }
         event.setResult(Event.Result.DENY);
     }
 

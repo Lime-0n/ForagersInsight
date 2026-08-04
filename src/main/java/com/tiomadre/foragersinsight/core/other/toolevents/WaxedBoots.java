@@ -11,9 +11,12 @@ import net.minecraft.world.item.ItemStack;
 
 public class WaxedBoots {
     public static final String WAXED_DURATION_TAG = "ForagersInsightWaxedDuration";
-    private static final String WAXED_TAG = "ForagersInsightWaxedLevel";
+    private static final String WAXED_LEVEL_TAG = "ForagersInsightWaxedLevel";
     public static final int HONEYCOMB_COUNT = 2;
+    public static final int STICKY_RESISTANCE_LEVEL = 1;
+    public static final int STICKY_RESISTANCE_II_LEVEL = 2;
     private static final int WAXED_DURATION = 4800;
+    private static final int BLOCK_WAXED_DURATION = 3 * WAXED_DURATION;
     private static final int WALKING_DRAIN = 20;
     private static final int STUCK_PREVENTION_DRAIN = 200;
     private static final int STICKY_RESISTANCE_REFRESH_DURATION = 40;
@@ -24,7 +27,12 @@ public class WaxedBoots {
 
     public static void wax(ItemStack stack) {
         stack.getOrCreateTag().putInt(WAXED_DURATION_TAG, HONEYCOMB_COUNT * WAXED_DURATION);
-        stack.getOrCreateTag().remove(WAXED_TAG);
+        stack.getOrCreateTag().putInt(WAXED_LEVEL_TAG, STICKY_RESISTANCE_LEVEL);
+    }
+
+    public static void waxWithHoneycombBlock(ItemStack stack) {
+        stack.getOrCreateTag().putInt(WAXED_DURATION_TAG, BLOCK_WAXED_DURATION);
+        stack.getOrCreateTag().putInt(WAXED_LEVEL_TAG, STICKY_RESISTANCE_II_LEVEL);
     }
 
     public static boolean isWaxed(ItemStack stack) {
@@ -33,6 +41,12 @@ public class WaxedBoots {
 
     public static int getWaxedDuration(ItemStack stack) {
         return stack.getOrCreateTag().getInt(WAXED_DURATION_TAG);
+    }
+
+    public static int getWaxedLevel(ItemStack stack) {
+        if (!isWaxed(stack)) return 0;
+
+        return Math.max(STICKY_RESISTANCE_LEVEL, stack.getOrCreateTag().getInt(WAXED_LEVEL_TAG));
     }
 
     public static void appendTooltip(ItemStack stack, java.util.List<Component> tooltip) {
@@ -48,7 +62,8 @@ public class WaxedBoots {
         ItemStack boots = entity.getItemBySlot(EquipmentSlot.FEET);
         if (!isWaxed(boots)) return;
 
-        entity.addEffect(new MobEffectInstance(FIMobEffects.STICKY_RESISTANCE.get(), STICKY_RESISTANCE_REFRESH_DURATION, 0, false, false, true));
+        int amplifier = getWaxedLevel(boots) - 1;
+        entity.addEffect(new MobEffectInstance(FIMobEffects.STICKY_RESISTANCE.get(), STICKY_RESISTANCE_REFRESH_DURATION, amplifier, false, false, true));
 
         if (entity.level().getGameTime() % WALKING_DRAIN == 0 && entity.getDeltaMovement().horizontalDistanceSqr() > 1.0E-5D) {
             shrinkWaxedDuration(boots, WALKING_DRAIN);
@@ -66,7 +81,7 @@ public class WaxedBoots {
         int duration = Math.max(0, getWaxedDuration(stack) - amount);
         if (duration == 0) {
             stack.getOrCreateTag().remove(WAXED_DURATION_TAG);
-            stack.getOrCreateTag().remove(WAXED_TAG);
+            stack.getOrCreateTag().remove(WAXED_LEVEL_TAG);
             return;
         }
         stack.getOrCreateTag().putInt(WAXED_DURATION_TAG, duration);

@@ -15,14 +15,19 @@ import org.jetbrains.annotations.NotNull;
 
 public class WaxedBootsRecipe extends CustomRecipe {
     private static final Ingredient HONEYCOMB = Ingredient.of(Items.HONEYCOMB);
+    private static final Ingredient HONEYCOMB_BLOCK = Ingredient.of(Items.HONEYCOMB_BLOCK);
 
     public WaxedBootsRecipe(ResourceLocation id, CraftingBookCategory category) {
         super(id, category);
     }
 
     public static java.util.List<CraftingRecipe> createJeiRecipes() {
-        return java.util.List.of(new ShapelessRecipe(ForagersInsight.rl("jei_waxed_boots"),
-                "waxed_boots", CraftingBookCategory.EQUIPMENT, createResult(), createIngredients()));
+        return java.util.List.of(
+                new ShapelessRecipe(ForagersInsight.rl("jei_waxed_boots"), "waxed_boots",
+                        CraftingBookCategory.EQUIPMENT, createResult(false), createIngredients(false)),
+                new ShapelessRecipe(ForagersInsight.rl("jei_waxed_boots_honeycomb_block"), "waxed_boots",
+                        CraftingBookCategory.EQUIPMENT, createResult(true), createIngredients(true))
+        );
     }
 
     @Override
@@ -38,6 +43,7 @@ public class WaxedBootsRecipe extends CustomRecipe {
     private java.util.Optional<ItemStack> getCraftingResult(CraftingContainer container) {
         ItemStack boots = ItemStack.EMPTY;
         int honeycombCount = 0;
+        boolean hasHoneycombBlock = false;
 
         for (int i = 0; i < container.getContainerSize(); i++) {
             ItemStack stack = container.getItem(i);
@@ -50,6 +56,11 @@ public class WaxedBootsRecipe extends CustomRecipe {
                 continue;
             }
 
+            if (HONEYCOMB_BLOCK.test(stack) && !hasHoneycombBlock) {
+                hasHoneycombBlock = true;
+                continue;
+            }
+
             if (WaxedBoots.isBoots(stack) && boots.isEmpty()) {
                 boots = stack;
                 continue;
@@ -58,13 +69,19 @@ public class WaxedBootsRecipe extends CustomRecipe {
             return java.util.Optional.empty();
         }
 
-        if (boots.isEmpty() || honeycombCount != WaxedBoots.HONEYCOMB_COUNT) {
+        boolean isNormalRecipe = honeycombCount == WaxedBoots.HONEYCOMB_COUNT && !hasHoneycombBlock;
+        boolean isHoneycombBlockRecipe = honeycombCount == 0 && hasHoneycombBlock;
+        if (boots.isEmpty() || (!isNormalRecipe && !isHoneycombBlockRecipe)) {
             return java.util.Optional.empty();
         }
 
         ItemStack result = boots.copy();
         result.setCount(1);
-        WaxedBoots.wax(result);
+        if (isHoneycombBlockRecipe) {
+            WaxedBoots.waxWithHoneycombBlock(result);
+        } else {
+            WaxedBoots.wax(result);
+        }
         return java.util.Optional.of(result);
     }
 
@@ -75,14 +92,18 @@ public class WaxedBootsRecipe extends CustomRecipe {
 
     @Override
     public @NotNull NonNullList<Ingredient> getIngredients() {
-        return createIngredients();
+        return createIngredients(false);
     }
 
-    private static NonNullList<Ingredient> createIngredients() {
+    private static NonNullList<Ingredient> createIngredients(boolean useHoneycombBlock) {
         NonNullList<Ingredient> ingredients = NonNullList.create();
         ingredients.add(createBootsIngredient());
-        ingredients.add(HONEYCOMB);
-        ingredients.add(HONEYCOMB);
+        if (useHoneycombBlock) {
+            ingredients.add(HONEYCOMB_BLOCK);
+        } else {
+            ingredients.add(HONEYCOMB);
+            ingredients.add(HONEYCOMB);
+        }
         return ingredients;
     }
 
@@ -96,12 +117,16 @@ public class WaxedBootsRecipe extends CustomRecipe {
 
     @Override
     public @NotNull ItemStack getResultItem(@NotNull net.minecraft.core.RegistryAccess registryAccess) {
-        return createResult();
+        return createResult(false);
     }
 
-    private static ItemStack createResult() {
+    private static ItemStack createResult(boolean useHoneycombBlock) {
         ItemStack result = new ItemStack(Items.DIAMOND_BOOTS);
-        WaxedBoots.wax(result);
+        if (useHoneycombBlock) {
+            WaxedBoots.waxWithHoneycombBlock(result);
+        } else {
+            WaxedBoots.wax(result);
+        }
         return result;
     }
 

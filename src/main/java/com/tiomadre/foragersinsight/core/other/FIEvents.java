@@ -112,7 +112,10 @@ public class FIEvents {
     public static void onLivingTick(LivingEvent.LivingTickEvent event) {
         LivingEntity entity = event.getEntity();
         WaxedBoots.tick(entity);
-        if (!entity.hasEffect(FIMobEffects.STUCK.get())) return;
+        if (!entity.hasEffect(FIMobEffects.STUCK.get())) {
+            StuckEffect.restoreMovementActions(entity);
+            return;
+        }
 
         StuckEffect.stopMovementActions(entity);
 

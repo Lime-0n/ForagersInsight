@@ -121,7 +121,7 @@ public class FITags {
         public static final TagKey<Biome> HAS_SPRUCE_FOREST_LITTER = hasFeature("spruce_forest_litter");
         public static final TagKey<Biome> HAS_DARK_OAK_FOREST_LITTER = hasFeature("dark_oak_forest_litter");
         public static final TagKey<Biome> HAS_FLOWER_FOREST_LITTER = hasFeature("flower_forest_litter");
-        public static final TagKey<Biome> HAS_OAK_FERNS = hasFeature("oak_ferns");
+        public static final TagKey<Biome> HAS_WOODLAND_FERNS = hasFeature("woodland_ferns");
         public static final TagKey<Biome> HAS_GHOST_PIPE = hasFeature("ghost_pipe");
         public static final TagKey<Biome> HAS_PUDDLES = hasFeature("puddles");
 

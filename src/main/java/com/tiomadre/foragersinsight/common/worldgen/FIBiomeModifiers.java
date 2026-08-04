@@ -116,7 +116,7 @@ public class FIBiomeModifiers {
         );
                 //Other Flora Patchers
         context.register(ADD_WOODLAND_FERNS, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-                tagSet(biomes, FITags.BiomeTag.HAS_OAK_FERNS),
+                tagSet(biomes, FITags.BiomeTag.HAS_WOODLAND_FERNS),
                 HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.WOODLAND_FERN_PATCH_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION)
                 //Fallen Trees
