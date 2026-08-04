@@ -15,8 +15,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -26,11 +30,30 @@ import java.util.function.Supplier;
 
 public class RainbowSandwichFeastBlock extends Block {
     public static final IntegerProperty BITES = IntegerProperty.create("bites", 0, 3);
-    private static final VoxelShape[] FEAST_SHAPES = new VoxelShape[]{
+    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    private static final VoxelShape[] NORTH_SHAPES = new VoxelShape[]{
             Block.box(1.5D, 0.0D, 1.0D, 14.5D, 6.0D, 15.0D),
             Block.box(1.5D, 0.0D, 1.0D, 14.5D, 6.0D, 12.0D),
             Block.box(1.5D, 0.0D, 1.0D, 14.5D, 6.0D, 9.0D),
             Block.box(1.5D, 0.0D, 1.0D, 14.5D, 6.0D, 6.0D)
+    };
+    private static final VoxelShape[] EAST_SHAPES = new VoxelShape[]{
+            Block.box(1.0D, 0.0D, 1.5D, 15.0D, 6.0D, 14.5D),
+            Block.box(4.0D, 0.0D, 1.5D, 15.0D, 6.0D, 14.5D),
+            Block.box(7.0D, 0.0D, 1.5D, 15.0D, 6.0D, 14.5D),
+            Block.box(10.0D, 0.0D, 1.5D, 15.0D, 6.0D, 14.5D)
+    };
+    private static final VoxelShape[] SOUTH_SHAPES = new VoxelShape[]{
+            Block.box(1.5D, 0.0D, 1.0D, 14.5D, 6.0D, 15.0D),
+            Block.box(1.5D, 0.0D, 4.0D, 14.5D, 6.0D, 15.0D),
+            Block.box(1.5D, 0.0D, 7.0D, 14.5D, 6.0D, 15.0D),
+            Block.box(1.5D, 0.0D, 10.0D, 14.5D, 6.0D, 15.0D)
+    };
+    private static final VoxelShape[] WEST_SHAPES = new VoxelShape[]{
+            Block.box(1.0D, 0.0D, 1.5D, 15.0D, 6.0D, 14.5D),
+            Block.box(1.0D, 0.0D, 1.5D, 12.0D, 6.0D, 14.5D),
+            Block.box(1.0D, 0.0D, 1.5D, 9.0D, 6.0D, 14.5D),
+            Block.box(1.0D, 0.0D, 1.5D, 6.0D, 6.0D, 14.5D)
     };
 
     private final Supplier<Item> servingItem;
@@ -38,17 +61,33 @@ public class RainbowSandwichFeastBlock extends Block {
     public RainbowSandwichFeastBlock(Properties properties, Supplier<Item> servingItem) {
         super(properties);
         this.servingItem = servingItem;
-        this.registerDefaultState(this.stateDefinition.any().setValue(BITES, 0));
+        this.registerDefaultState(this.stateDefinition.any().setValue(BITES, 0).setValue(FACING, Direction.NORTH));
     }
 
     @Override
     public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-        return FEAST_SHAPES[state.getValue(BITES)];
+        VoxelShape[] shapes = switch (state.getValue(FACING)) {
+            case EAST -> EAST_SHAPES;
+            case SOUTH -> SOUTH_SHAPES;
+            case WEST -> WEST_SHAPES;
+            default -> NORTH_SHAPES;
+        };
+        return shapes[state.getValue(BITES)];
     }
 
     @Override
     public @NotNull BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
-        return this.defaultBlockState();
+        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
+    }
+
+    @Override
+    public @NotNull BlockState rotate(@NotNull BlockState state, @NotNull Rotation rotation) {
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
+    }
+
+    @Override
+    public @NotNull BlockState mirror(@NotNull BlockState state, @NotNull Mirror mirror) {
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
     @Override
@@ -83,6 +122,6 @@ public class RainbowSandwichFeastBlock extends Block {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(BITES);
+        builder.add(BITES, FACING);
     }
 }

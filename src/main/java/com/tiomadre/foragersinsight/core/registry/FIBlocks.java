@@ -159,7 +159,7 @@ public class FIBlocks {
     public static final RegistryObject<Block> TALL_BEACH_ROSE_BUSH = HELPER.createBlockNoItem("tall_beach_rose_bush", () ->
             new TallSandyFlowerBlock(copy(Blocks.ROSE_BUSH)));
     public static final RegistryObject<Block> WOODLAND_FERN = HELPER.createBlockNoItem("woodland_fern", () ->
-            new GrassBlock(copy(Blocks.FERN)));
+            new BushBlock(copy(Blocks.FERN)));
     public static final RegistryObject<Block> GHOST_PIPE = HELPER.createBlockNoItem("ghost_pipe", () ->
             new BushBlock(copy(Blocks.ALLIUM).lightLevel(state -> 8).noCollission()));
     public static final RegistryObject<Block> SKUNK_CABBAGE = HELPER.createBlockNoItem("skunk_cabbage", () ->

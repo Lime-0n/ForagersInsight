@@ -145,6 +145,8 @@ public class DiffuserScreen extends AbstractContainerScreen<DiffuserMenu> {
             FIDiffusingRecipes recipe = scent.get();
             List<Component> tooltip = new ArrayList<>(2);
             tooltip.add(recipe.recipeName().copy().withStyle(ChatFormatting.GOLD));
+            tooltip.add(recipe.description());
+            gui.renderComponentTooltip(this.font, tooltip, mouseX, mouseY);
         }
     }
 

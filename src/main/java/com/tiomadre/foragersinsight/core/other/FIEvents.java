@@ -4,7 +4,6 @@ import com.tiomadre.foragersinsight.common.effect.StuckEffect;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.other.toolevents.SapTrapBaitGoal;
 import com.tiomadre.foragersinsight.core.other.toolevents.WaxedBoots;
-import com.tiomadre.foragersinsight.core.registry.FIAdvancementCriteria;
 import com.tiomadre.foragersinsight.core.registry.FIConfig;
 import com.tiomadre.foragersinsight.core.registry.FIMobEffects;
 import com.tiomadre.foragersinsight.data.server.tags.FITags;
@@ -20,7 +19,6 @@ import net.minecraft.world.item.Items;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerXpEvent;
@@ -34,6 +32,12 @@ import java.util.UUID;
 @Mod.EventBusSubscriber(modid = ForagersInsight.MOD_ID)
 public class FIEvents {
     private static final Map<UUID, MobEffectInstance> ODOROUS_MILK_EFFECTS = new HashMap<>();
+
+    //Boot Wax tooltip
+    @SubscribeEvent
+    public static void onItemTooltip(ItemTooltipEvent event) {
+        WaxedBoots.appendTooltip(event.getItemStack(), event.getToolTip());
+    }
 
     //Odorous Effect logic
     @SubscribeEvent
@@ -66,7 +70,6 @@ public class FIEvents {
 
         event.setNewTarget(null);
         monster.setTarget(null);
-
     }
     @SubscribeEvent
     public static void onMilkDrinkStart(LivingEntityUseItemEvent.Start event) {
@@ -93,20 +96,6 @@ public class FIEvents {
     private static boolean isMilk(ItemStack stack) {
         return stack.is(Items.MILK_BUCKET) || stack.is(FITags.ItemTag.MILK);
     }
-    //Advancement Triggers
-    @SubscribeEvent
-    public static void onMobEffectAdded(MobEffectEvent.Added event) {
-        if (!(event.getEntity() instanceof ServerPlayer player)) return;
-        if (event.getEffectInstance().getEffect() != FIMobEffects.ODOROUS.get()) return;
-
-        FIAdvancementCriteria.STINKY_SITUATION.trigger(player);
-    }
-
-    @SubscribeEvent
-    public static void onItemTooltip(ItemTooltipEvent event) {
-        WaxedBoots.appendTooltip(event.getItemStack(), event.getToolTip());
-    }
-
     //Stuck Effect Logico
     @SubscribeEvent
     public static void onLivingTick(LivingEvent.LivingTickEvent event) {

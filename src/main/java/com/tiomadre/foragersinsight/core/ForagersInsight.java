@@ -54,6 +54,7 @@ public class ForagersInsight {
 		FITabs.TABS.register(bus);
 		FITreeDecoratorTypes.TREE_DECORATOR_TYPES.register(bus);
 		FIRecipeSerializers.RECIPE_SERIALIZERS.register(bus);
+		FITappables.bootstrap();
 
 
 		bus.addListener(this::commonSetup);

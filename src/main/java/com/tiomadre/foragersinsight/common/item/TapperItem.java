@@ -3,6 +3,7 @@ package com.tiomadre.foragersinsight.common.item;
 import com.tiomadre.foragersinsight.common.block.TapperBlock;
 import com.tiomadre.foragersinsight.core.registry.FIBlockEntityTypes;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
+import com.tiomadre.foragersinsight.core.registry.FITappables;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
@@ -61,10 +62,8 @@ public class TapperItem extends Item {
             logPos = clicked;
         }
 
-        // must click a sappy birch
         BlockState logState = level.getBlockState(logPos);
-        if (!(logState.is(FIBlocks.SAPPY_BIRCH_LOG.get()) || logState.is(FIBlocks.STRIPPED_SAPPY_BIRCH_LOG.get()))
-                || face.getAxis().isVertical()) {
+        if (FITappables.find(logState).isEmpty() || face.getAxis().isVertical()) {
             return InteractionResult.PASS;
         }
 

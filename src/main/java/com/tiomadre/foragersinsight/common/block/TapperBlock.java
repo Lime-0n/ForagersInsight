@@ -1,10 +1,7 @@
 package com.tiomadre.foragersinsight.common.block;
 
 import com.tiomadre.foragersinsight.common.block.entity.TapperBlockEntity;
-import com.tiomadre.foragersinsight.core.registry.FIAdvancementCriteria;
-import com.tiomadre.foragersinsight.core.registry.FIBlocks;
-import com.tiomadre.foragersinsight.core.registry.FIItems;
-import com.tiomadre.foragersinsight.core.registry.FIParticleTypes;
+import com.tiomadre.foragersinsight.core.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -113,8 +110,7 @@ public class TapperBlock extends HorizontalDirectionalBlock implements EntityBlo
         BlockPos logPos = context.getClickedPos().relative(face.getOpposite());
         BlockState logState = level.getBlockState(logPos);
 
-        // place on a Sappy Birch Log to begin harvest
-        if (!(logState.is(FIBlocks.SAPPY_BIRCH_LOG.get()) || logState.is(FIBlocks.STRIPPED_SAPPY_BIRCH_LOG.get())) || logState.getValue(RotatedPillarBlock.AXIS) != Direction.Axis.Y) {
+        if (FITappables.find(logState).isEmpty()) {
             return null;
         }
         return defaultBlockState()
@@ -128,8 +124,7 @@ public class TapperBlock extends HorizontalDirectionalBlock implements EntityBlo
     public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader world, @NotNull BlockPos pos) {
         Direction attachDir = state.getValue(FACING).getOpposite();
         BlockState logState = world.getBlockState(pos.relative(attachDir));
-        return (logState.is(FIBlocks.SAPPY_BIRCH_LOG.get()) || logState.is(FIBlocks.STRIPPED_SAPPY_BIRCH_LOG.get())) &&
-                logState.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y;
+        return FITappables.find(logState).isPresent();
     }
     @Override
     public @NotNull BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction,
@@ -151,14 +146,11 @@ public class TapperBlock extends HorizontalDirectionalBlock implements EntityBlo
     public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level,
                            @NotNull BlockPos pos, @NotNull RandomSource random) {
         int fill = state.getValue(FILL);
-        int increment = 1;
-
-        if (state.getValue(ENCHANTED)) {
-            BlockEntity blockEntity = level.getBlockEntity(pos);
-            if (blockEntity instanceof TapperBlockEntity tapper && tapper.getFireAspectLevel() >= 2) {
-                increment++;
-            }
-        }
+        BlockState sourceState = level.getBlockState(pos.relative(state.getValue(FACING).getOpposite()));
+        int fireAspectLevel = getFireAspectLevel(level, pos);
+        int increment = FITappables.find(sourceState)
+                .map(source -> source.harvestIncrement(fireAspectLevel))
+                .orElse(1);
 
         int newFill = Math.min(4, fill + increment);
         if (newFill != fill) {
@@ -193,7 +185,11 @@ public class TapperBlock extends HorizontalDirectionalBlock implements EntityBlo
         ItemStack held = player.getItemInHand(hand);
         if (state.getValue(HAS_TAPPER) && state.getValue(FILL) == 4 && held.is(Items.BUCKET)) {
             if (!level.isClientSide) {
-                ItemStack sap = new ItemStack(state.getValue(ENCHANTED) ? FIItems.BIRCH_SYRUP_BUCKET.get() : FIItems.BIRCH_SAP_BUCKET.get());
+                BlockState sourceState = level.getBlockState(pos.relative(state.getValue(FACING).getOpposite()));
+                ItemStack sap = FITappables.find(sourceState)
+                        .map(source -> source.result(getFireAspectLevel(level, pos)))
+                        .orElse(ItemStack.EMPTY);
+                if (sap.isEmpty()) return InteractionResult.PASS;
                 if (!player.addItem(sap)) player.drop(sap, false);
                 level.setBlock(pos, state.setValue(FILL, 0).setValue(HAS_TAPPER, true), Block.UPDATE_ALL);
                 level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 0.9F, 0.9F);
@@ -207,6 +203,11 @@ public class TapperBlock extends HorizontalDirectionalBlock implements EntityBlo
         }
 
         return InteractionResult.PASS;
+    }
+
+    private static int getFireAspectLevel(Level level, BlockPos pos) {
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+        return blockEntity instanceof TapperBlockEntity tapper ? tapper.getFireAspectLevel() : 0;
     }
 
     @Override

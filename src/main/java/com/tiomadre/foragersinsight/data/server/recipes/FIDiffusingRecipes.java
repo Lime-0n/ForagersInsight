@@ -9,6 +9,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
@@ -47,7 +48,7 @@ public final class FIDiffusingRecipes {
             ForagersInsight.rl("textures/scents/rosey_ii.png"),
             "foragersinsight.diffuser.rosey_ii",
             "foragersinsight.diffuser.rosey_ii.description",
-            8.0,
+            12.0,
             () -> new MobEffectInstance(MobEffects.REGENERATION, 800, 1),
             0);
 
@@ -67,7 +68,7 @@ public final class FIDiffusingRecipes {
             ForagersInsight.rl("textures/scents/coniferous_ii.png"),
             "foragersinsight.diffuser.coniferous_ii",
             "foragersinsight.diffuser.coniferous_ii.description",
-            8.0,
+            12.0,
             () -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 1500, 0),
             1);
 
@@ -91,7 +92,7 @@ public final class FIDiffusingRecipes {
             ForagersInsight.rl("textures/scents/floral_ii.png"),
             "foragersinsight.diffuser.floral_ii",
             "foragersinsight.diffuser.floral_ii.description",
-            15.0,
+            12.0,
             () -> new MobEffectInstance(FIMobEffects.BLOOM.get(), 2000, 1),
             4);
 
@@ -213,6 +214,11 @@ public final class FIDiffusingRecipes {
     public Optional<MobEffectInstance> createEffectInstance() {
         MobEffectInstance effect = this.effectSupplier.get();
         return Optional.ofNullable(effect);
+    }
+    public boolean usesEffect(MobEffect effect) {
+        return createEffectInstance()
+                .map(instance -> instance.getEffect() == effect)
+                .orElse(false);
     }
 
     public double radius() {

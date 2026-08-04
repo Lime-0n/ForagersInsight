@@ -4,6 +4,7 @@ import com.tiomadre.foragersinsight.common.block.entity.DiffuserBlockEntity;
 import com.tiomadre.foragersinsight.core.registry.FIAdvancementCriteria;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIMenuTypes;
+import com.tiomadre.foragersinsight.core.registry.FIMobEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
@@ -222,6 +223,9 @@ public class DiffuserMenu extends AbstractContainerMenu {
                                 level.random.nextFloat() * 0.4F + 0.8F);
                         if (player instanceof ServerPlayer serverPlayer) {
                             FIAdvancementCriteria.SCENTSATIONAL.trigger(serverPlayer);
+                            diffuser.getActiveScent()
+                                    .filter(scent -> scent.usesEffect(FIMobEffects.ODOROUS.get()))
+                                    .ifPresent(scent -> FIAdvancementCriteria.STINKY_SITUATION.trigger(serverPlayer));
                         }
                     } }
             });
