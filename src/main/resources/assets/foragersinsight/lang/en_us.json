@@ -49,8 +49,9 @@
   "item.foragersinsight.roselle_juice": "Roselle Juice",
   "item.foragersinsight.forest_elixir": "Forest's Elixir",
   "item.foragersinsight.glowing_carrot_juice": "Glowing Carrot Juice",
-
+  
   "item.foragersinsight.acorn_dough": "Acorn Dough",
+  "item.foragersinsight.amadou": "Amadou",
   "item.foragersinsight.birch_sap_bottle": "Birch Sap Bottle",
   "item.foragersinsight.birch_sap_bucket": "Birch Sap Bucket",
   "item.foragersinsight.birch_syrup_bottle": "Birch Syrup Bottle",
@@ -87,11 +88,19 @@
   "item.foragersinsight.gold_mallet": "Gold Mallet",
   "item.foragersinsight.diamond_mallet": "Diamond Mallet",
   "item.foragersinsight.netherite_mallet": "Netherite Mallet",
+  "item.foragersinsight.strop": "Strop",
   "item.foragersinsight.tapper": "Tapper",
-  "item.foragersinsight.sappy_brush": "Sappy Brush",
+
+  "item.foragersinsight.amadou_cap": "Amadou Hat",
 
   "block.foragersinsight.blewit_mushroom": "Blewit Mushroom",
   "block.foragersinsight.blewit_mushroom_colony": "Blewit Mushroom Colony",
+  "block.foragersinsight.wall_red_mushroom": "Wall Red Mushroom",
+  "block.foragersinsight.wall_brown_mushroom": "Wall Brown Mushroom",
+  "block.foragersinsight.wall_blewit_mushroom": "Wall Blewit Mushroom",
+  "block.foragersinsight.wall_red_mushroom_colony": "Wall Red Mushroom Colony",
+  "block.foragersinsight.wall_brown_mushroom_colony": "Wall Brown Mushroom Colony",
+  "block.foragersinsight.wall_blewit_mushroom_colony": "Wall Blewit Mushroom Colony",
   "block.foragersinsight.roselle_bush": "Roselle Bush",
   "block.foragersinsight.stout_beach_rose_bush": "Stout Beach Rose Bush",
   "block.foragersinsight.tall_beach_rose_bush": "Tall Beach Rose Bush",
@@ -118,6 +127,9 @@
   "block.foragersinsight.phlox": "Phlox",
   "item.foragersinsight.phlox": "Phlox",
   "block.foragersinsight.skunk_cabbage": "Skunk Cabbage",
+  "block.foragersinsight.tinder_conk": "Tinder Conk",
+  "item.foragersinsight.tinder_conk_spores": "Tinder Conk Spores",
+
   "block.foragersinsight.condensed_dirt": "Compact Dirt",
   "block.foragersinsight.condensed_sand": "Compact Sand",
 
@@ -140,13 +152,11 @@
   "block.foragersinsight.lilac_hanging_sign": "Lilac Hanging Sign",
   "block.foragersinsight.lilac_wall_hanging_sign": "Lilac Wall Hanging Sign",
   "block.foragersinsight.lilac_cabinet": "Lilac Cabinet",
-  "block.foragersinsight.sealed_planks": "Sealed Planks",
-  "block.foragersinsight.sealed_bamboo_planks": "Sealed Bamboo Planks",
-
 
   "block.foragersinsight.apple_crate": "Apple Crate",
   "block.foragersinsight.blewit_mushroom_crate": "Blewit Crate",
   "block.foragersinsight.lilac_crate": "Lilac Bloom Crate",
+  "block.foragersinsight.tinder_conk_crate": "Tinder Conk Crate",
   "block.foragersinsight.dandelion_root_sack": "Bag of Dandelion Roots",
   "block.foragersinsight.black_acorn_sack": "Bag of Black Acorns",
   "block.foragersinsight.poppy_seeds_sack": "Bag of Poppy Seeds",
@@ -165,42 +175,69 @@
   "block.foragersinsight.scattered_lilac_blooms": "Scattered Lilac Blooms",
   "block.foragersinsight.scattered_spruce_tips": "Scattered Spruce Tips",
 
+  "item.foragersinsight.ghost_pipe_torch": "Ghost Pipe Torch",
+  "block.foragersinsight.ghost_pipe_torch": "Ghost Pipe Torch",
+
+  "block.foragersinsight.sap_trap": "Sap Trap",
+  "block.foragersinsight.sap_splotch": "Sap Splotch",
+
   "effect.foragersinsight.bloom": "Bloom",
-  "effect.foragersinsight.chilled": "Chilled",
   "effect.foragersinsight.medicinal": "Medicinal",
   "effect.foragersinsight.odorous": "Odorous",
+  "effect.foragersinsight.stuck": "Stuck",
+  "effect.foragersinsight.sticky_resistance": "Sticky Resistance",
   "effect.foragersinsight.bloom.description": "Gain 20% more experience and pay 20% less experience for actions.",
-  "effect.foragersinsight.chilled.description": "Freeze the duration of beneficial effects.",
   "effect.foragersinsight.medicinal.description": "Removes and prevents the application of Poison and Wither. The player is also healed per effect removed.",
   "effect.foragersinsight.odorous.description": "Become stinky, causing nearby mobs to avoid this unit.",
+  "effect.foragersinsight.stuck.description": "Become stuck, preventing movement and jumping for the duration",
+  "effect.foragersinsight.sticky_resistance.description": "Removes and prevents the application of Stuck. Gain movement speed for 3 seconds if Stuck is removed.",
 
   "enchantment.foragersinsight.farmhand": "Farmhand",
-  "enchantment.foragersinsight.concussive": "Concussive",
   "enchantment.foragersinsight.luck_of_the_trees": "Luck of the Trees",
 
-  "farmersdelight.tooltip.seed_milk_bottle": "Clears 1 Effect",
+  "foragersinsight.diffuser.rosey.scent": "Rosey",
+  "foragersinsight.diffuser.rosey_ii.scent": "Rosey II",
+  "foragersinsight.diffuser.coniferous.scent": "Coniferous",
+  "foragersinsight.diffuser.coniferous_ii.scent": "Coniferous II",
+  "foragersinsight.diffuser.floral.scent": "Floral",
+  "foragersinsight.diffuser.floral_ii.scent": "Floral II",
+  "foragersinsight.diffuser.foul.scent": "Foul",
+  "foragersinsight.diffuser.foul_ii.scent": "Foul II",
+
+  "tooltip.foragersinsight.seed_milk_bottle": "Clears 1 Effect",
+  "tooltip.foragersinsight.milk_bucket": "Clears all Effects",
+  "tooltip.foragersinsight.waxed_boots": "Waxed: %s steps remaining",
+  "tooltip.foragersinsight.sap_trap.baits": "Bait for rabbits, chickens, ocelots, foxes, or pigs",
+  "tooltip.foragersinsight.sap_trap.potent_baits": "Favorite foods lure from farther away and hold longer",
 
   "foragersinsight.tool_interaction.shears.chicken": "Please wait %s seconds to shear this chicken again.",
   "foragersinsight.tool_interaction.shears.baby_chicken": "Baby chickens cannot be sheared.",
   "foragersinsight.tool_interaction.mallet.anvil_no_repairs": "This anvil is fully repaired.",
 
+
   "foragersinsight.diffuser.rosey": "The diffuser is exuding a Rosey scent!",
+  "foragersinsight.diffuser.rosey_ii": "The diffuser is exuding a strong Rosey scent!",
   "foragersinsight.diffuser.coniferous": "The diffuser is exuding a Coniferous scent!",
+  "foragersinsight.diffuser.coniferous_ii": "The diffuser is exuding a strong Coniferous scent!",
   "foragersinsight.diffuser.floral": "The diffuser is exuding a Floral scent!",
   "foragersinsight.diffuser.floral_ii": "The diffuser is exuding a strong Floral scent!",
   "foragersinsight.diffuser.foul": "The diffuser is exuding a Foul scent!",
+  "foragersinsight.diffuser.foul_ii": "The diffuser is exuding a strong Foul scent!",
   "foragersinsight.diffuser.rosey.description": "A comforting rosey scent fills the air, granting Regeneration to those near this Diffuser.",
-  "foragersinsight.diffuser.coniferous.description": "An invigorating coniferous scent fills the air, giving Resistance to those near this Diffuser.",
+  "foragersinsight.diffuser.rosey_ii.description": "A soothing rosey aroma fills the air, granting Regeneration I to those near this Diffuser.",
+  "foragersinsight.diffuser.coniferous.description": "A refreshing coniferous scent fills the air, giving Resistance to those near this Diffuser.",
+  "foragersinsight.diffuser.coniferous_ii.description": "A powerful resinous aroma fills the air, giving Resistance to those near this Diffuser.",
   "foragersinsight.diffuser.floral.description": "A light floral scent wafts in the air, giving Bloom to those near this Diffuser.",
-  "foragersinsight.diffuser.floral_ii.description": "A strong floral scent perfumes the air, giving Bloom II to those near this Diffuser.",
+  "foragersinsight.diffuser.floral_ii.description": "A strong floral aroma perfumes the air, giving Bloom II to those near this Diffuser.",
   "foragersinsight.diffuser.foul.description": "A stinky aroma fills the air, giving Odorous to those near this Diffuser.",
+  "foragersinsight.diffuser.foul_ii.description": "A powerful stench fills the air, giving Odorous to those near this Diffuser.",
 
   "item.foragersinsight.diffuser.tooltip.remaining_duration": "The scent is paused for %s seconds",
   "item.foragersinsight.diffuser.tooltip.scent": "Scent: %s",
   "item.foragersinsight.diffuser.tooltip.ingredients": "Ingredients:",
   "item.foragersinsight.diffuser.tooltip.empty_slot": "Empty Slot",
 
-  "gui.foragersinsight.diffuser.extinguish": "Extinguish Scent",
+  "gui.foragersinsight.diffuser.power": "Power Button",
   "gui.foragersinsight.diffuser.tooltip.radius": "Radius: %s blocks",
   "gui.foragersinsight.diffuser.tooltip.duration": "Duration: %s seconds",
   "gui.foragersinsight.diffuser.tooltip.enhanced_radius": " + Honeycomb (+20% radius)",
@@ -228,7 +265,7 @@
   "advancements.foragersinsight.adventure.brush_it_off.title": "Brush It Off",
   "advancements.foragersinsight.adventure.brush_it_off.description": "Brush away forest litter to reveal an item.",
 
-  "advancements.foragersinsight.adventure.scentsational.title": "Scentsational.",
+  "advancements.foragersinsight.adventure.scentsational.title": "Scentsational...",
   "advancements.foragersinsight.adventure.scentsational.description": "Ignite a Diffuser and take a deep breath!",
 
   "advancements.foragersinsight.adventure.petal_to_the_metal.title": "Petal to The Metal",
@@ -259,7 +296,9 @@
   "advancements.foragersinsight.adventure.birch_please.description": "Use a Bucket to collect from a full Tapper.",
 
   "advancements.foragersinsight.taste_the_rainbow_motha.title": "§4T§ca§6s§et§ae §bt§9h§de §4R§ca§6i§en§ab§bo§9w§d!",
-  "advancements.foragersinsight.taste_the_rainbow_motha.description": "Consume the whole visible spectrum in a convenient edible form!",
+  "advancements.foragersinsight.taste_the_rainbow_motha.description": "Consume the whole visible spectrum conveniently sandwiched between bread!",
 
-  "itemGroup.foragersinsight": "Forager's Insight"
+  "itemGroup.foragersinsight": "Forager's Insight",
+
+  "jei.foragersinsight.diffusing": "Diffusing"
 }

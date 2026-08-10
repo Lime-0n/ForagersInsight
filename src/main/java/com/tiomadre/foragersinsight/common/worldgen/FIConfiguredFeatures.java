@@ -4,6 +4,7 @@ import com.tiomadre.foragersinsight.common.block.BountifulLeavesBlock;
 import com.tiomadre.foragersinsight.common.block.SuspiciousLitterBlock;
 import com.tiomadre.foragersinsight.common.worldgen.trees.decorator.BountifulOakLeafDecorator;
 import com.tiomadre.foragersinsight.common.worldgen.trees.decorator.BountifulSpruceTipDecorator;
+import com.tiomadre.foragersinsight.common.worldgen.trees.decorator.WallMushroomTreeDecorator;
 import com.tiomadre.foragersinsight.common.worldgen.trees.foliage.LilacTreeFoliagePlacer;
 import com.tiomadre.foragersinsight.common.worldgen.trees.foliage.WoodlandsOakShrubFoliagePlacer;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
@@ -60,6 +61,7 @@ public class FIConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> LILAC_TREE_KEY = registerKey("lilac_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SPRUCE_TIP_TREE_KEY = registerKey("spruce_tip_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SAPPY_BIRCH_TREE_KEY = registerKey("sappy_birch_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> MUSHROOM_BIRCH_TREE_KEY = registerKey("mushroom_birch_tree");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> DARK_WOODLANDS_TREES_KEY = registerKey("dark_woodlands_trees");
     public static final ResourceKey<ConfiguredFeature<?, ?>> DARK_OAK_BUSH_KEY = registerKey("dark_oak_bush");
@@ -97,7 +99,7 @@ public class FIConfiguredFeatures {
                 .ignoreVines().build());
         register(context, YOUNG_ACORN_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(Blocks.DARK_OAK_LOG),
-                new StraightTrunkPlacer(5, 2, 1),
+                new StraightTrunkPlacer(4, 2, 1),
                 bountifulLeafStateProvider(Blocks.DARK_OAK_LEAVES, FIBlocks.BOUNTIFUL_DARK_OAK_LEAVES),
                 new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
                 new TwoLayersFeatureSize(1, 0, 1)
@@ -105,7 +107,7 @@ public class FIConfiguredFeatures {
 
         register(context, YOUNG_DARK_OAK_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(Blocks.DARK_OAK_LOG),
-                new StraightTrunkPlacer(5, 2, 1),
+                new StraightTrunkPlacer(4, 2, 1),
                 BlockStateProvider.simple(Blocks.DARK_OAK_LEAVES),
                 new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
                 new TwoLayersFeatureSize(1, 0, 1)
@@ -158,6 +160,14 @@ public class FIConfiguredFeatures {
                 new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(TreeFeatures.DARK_OAK)), 0.10F),
                 new WeightedPlacedFeature(PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(WOODLANDS_OAK_SHRUB_KEY)), 0.17F)),
                 PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(YOUNG_DARK_OAK_TREE_KEY))));
+        //Birch Forest
+        register(context, MUSHROOM_BIRCH_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
+                BlockStateProvider.simple(Blocks.BIRCH_LOG),
+                new StraightTrunkPlacer(5, 2, 0),
+                BlockStateProvider.simple(Blocks.BIRCH_LEAVES),
+                new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
+                new TwoLayersFeatureSize(1, 0, 1)
+        ).decorators(java.util.List.of(new WallMushroomTreeDecorator())).ignoreVines().build());
         //Other Patches
         Holder<PlacedFeature> oakFernPatch = PlacementUtils.inlinePlaced(
                 Feature.SIMPLE_BLOCK,

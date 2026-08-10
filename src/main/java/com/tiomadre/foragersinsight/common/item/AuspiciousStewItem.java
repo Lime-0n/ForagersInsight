@@ -15,8 +15,8 @@ public class AuspiciousStewItem extends ConsumableItem {
     private static final int EFFECT_DURATION = 400;
     private static final String EFFECT_TAG = "AuspiciousEffect";
 
-    public AuspiciousStewItem(Properties properties) {
-        super(properties);
+    public AuspiciousStewItem(Properties properties, boolean hasFoodEffectTooltip) {
+        super(properties, hasFoodEffectTooltip);
     }
 
     @Override

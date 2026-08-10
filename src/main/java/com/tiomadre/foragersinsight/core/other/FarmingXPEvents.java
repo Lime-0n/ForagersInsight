@@ -34,7 +34,7 @@ import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import vectorwing.farmersdelight.common.block.MushroomColonyBlock;
-import vectorwing.farmersdelight.common.block.TomatoVineBlock;
+import vectorwing.farmersdelight.common.block.TomatoBlock;
 import vectorwing.farmersdelight.common.item.KnifeItem;
 import net.minecraft.world.entity.animal.Cow;
 
@@ -174,14 +174,14 @@ public class FarmingXPEvents {
         }
 
         // Tomato Vine
-        if (block instanceof TomatoVineBlock vine) {
-            int current = state.getValue(TomatoVineBlock.VINE_AGE);
+        if (block instanceof TomatoBlock vine) {
+            int current = state.getValue(TomatoBlock.VINE_AGE);
             if (current >= vine.getMaxAge() && (held.isEmpty() || held.getItem() instanceof ShearsItem)) {
 
                 defer(level, () -> {
                     BlockState after = level.getBlockState(pos);
-                    if (!(after.getBlock() instanceof TomatoVineBlock)) return;
-                    if (after.getValue(TomatoVineBlock.VINE_AGE) < current) {
+                    if (!(after.getBlock() instanceof TomatoBlock)) return;
+                    if (after.getValue(TomatoBlock.VINE_AGE) < current) {
                         awardUnifiedXP(level, player, 1, 3, XPSource.CROP, false);
                     }
                 });

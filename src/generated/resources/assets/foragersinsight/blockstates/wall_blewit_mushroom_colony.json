@@ -1,0 +1,80 @@
+{
+  "variants": {
+    "age=0,facing=east": {
+      "model": "foragersinsight:block/wall_blewit_mushroom_stage_0",
+      "uvlock": true,
+      "y": 90
+    },
+    "age=0,facing=north": {
+      "model": "foragersinsight:block/wall_blewit_mushroom_stage_0",
+      "uvlock": true
+    },
+    "age=0,facing=south": {
+      "model": "foragersinsight:block/wall_blewit_mushroom_stage_0",
+      "uvlock": true,
+      "y": 180
+    },
+    "age=0,facing=west": {
+      "model": "foragersinsight:block/wall_blewit_mushroom_stage_0",
+      "uvlock": true,
+      "y": 270
+    },
+    "age=1,facing=east": {
+      "model": "foragersinsight:block/wall_blewit_mushroom_stage_1",
+      "uvlock": true,
+      "y": 90
+    },
+    "age=1,facing=north": {
+      "model": "foragersinsight:block/wall_blewit_mushroom_stage_1",
+      "uvlock": true
+    },
+    "age=1,facing=south": {
+      "model": "foragersinsight:block/wall_blewit_mushroom_stage_1",
+      "uvlock": true,
+      "y": 180
+    },
+    "age=1,facing=west": {
+      "model": "foragersinsight:block/wall_blewit_mushroom_stage_1",
+      "uvlock": true,
+      "y": 270
+    },
+    "age=2,facing=east": {
+      "model": "foragersinsight:block/wall_blewit_mushroom_stage_2",
+      "uvlock": true,
+      "y": 90
+    },
+    "age=2,facing=north": {
+      "model": "foragersinsight:block/wall_blewit_mushroom_stage_2",
+      "uvlock": true
+    },
+    "age=2,facing=south": {
+      "model": "foragersinsight:block/wall_blewit_mushroom_stage_2",
+      "uvlock": true,
+      "y": 180
+    },
+    "age=2,facing=west": {
+      "model": "foragersinsight:block/wall_blewit_mushroom_stage_2",
+      "uvlock": true,
+      "y": 270
+    },
+    "age=3,facing=east": {
+      "model": "foragersinsight:block/wall_blewit_mushroom_stage_3",
+      "uvlock": true,
+      "y": 90
+    },
+    "age=3,facing=north": {
+      "model": "foragersinsight:block/wall_blewit_mushroom_stage_3",
+      "uvlock": true
+    },
+    "age=3,facing=south": {
+      "model": "foragersinsight:block/wall_blewit_mushroom_stage_3",
+      "uvlock": true,
+      "y": 180
+    },
+    "age=3,facing=west": {
+      "model": "foragersinsight:block/wall_blewit_mushroom_stage_3",
+      "uvlock": true,
+      "y": 270
+    }
+  }
+}

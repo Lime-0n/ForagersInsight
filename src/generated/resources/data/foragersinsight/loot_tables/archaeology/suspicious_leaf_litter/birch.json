@@ -61,8 +61,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:honeycomb",
-          "quality": 1,
+          "name": "foragersinsight:tinder_conk",
           "weight": 4
         }
       ],

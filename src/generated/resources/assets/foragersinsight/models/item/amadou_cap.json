@@ -1,0 +1,18 @@
+{
+  "parent": "minecraft:item/generated",
+  "base": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "foragersinsight:item/amadou_cap"
+    }
+  },
+  "loader": "forge:separate_transforms",
+  "perspectives": {
+    "head": {
+      "parent": "foragersinsight:armor/amadou_cap"
+    }
+  },
+  "textures": {
+    "layer0": "foragersinsight:item/amadou_cap"
+  }
+}

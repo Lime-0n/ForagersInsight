@@ -6,6 +6,7 @@ import com.teamabnormals.blueprint.common.block.sign.BlueprintWallHangingSignBlo
 import com.teamabnormals.blueprint.common.block.sign.BlueprintWallSignBlock;
 import com.tiomadre.foragersinsight.common.block.*;
 import com.tiomadre.foragersinsight.common.block.feasts.RainbowSandwichFeastBlock;
+import com.tiomadre.foragersinsight.common.block.feasts.SliceableCakeBlock;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.teamabnormals.blueprint.common.block.LogBlock;
 import com.teamabnormals.blueprint.core.util.registry.BlockSubRegistryHelper;
@@ -53,9 +54,24 @@ public class FIBlocks {
     //Mushrooms
     public static final RegistryObject<Block> BLEWIT_MUSHROOM_COLONY = HELPER.createBlock("blewit_mushroom_colony", () ->
             new MushroomColonyBlock(copy(Blocks.RED_MUSHROOM), FIItems.BLEWIT_MUSHROOM));
-
     public static final RegistryObject<Block> BLEWIT_MUSHROOM = HELPER.createBlockNoItem("blewit_mushroom", () ->
             new WildMushroomBlock(copy(Blocks.RED_MUSHROOM), BLEWIT_MUSHROOM_COLONY));
+    public static final RegistryObject<Block> WALL_RED_MUSHROOM_COLONY = HELPER.createBlockNoItem("wall_red_mushroom_colony", () ->
+            new WallMushroomColonyBlock(copy(Blocks.RED_MUSHROOM), () -> Items.RED_MUSHROOM));
+    public static final RegistryObject<Block> WALL_BROWN_MUSHROOM_COLONY = HELPER.createBlockNoItem("wall_brown_mushroom_colony", () ->
+            new WallMushroomColonyBlock(copy(Blocks.BROWN_MUSHROOM), () -> Items.BROWN_MUSHROOM));
+    public static final RegistryObject<Block> WALL_BLEWIT_MUSHROOM_COLONY = HELPER.createBlockNoItem("wall_blewit_mushroom_colony", () ->
+            new WallMushroomColonyBlock(copy(Blocks.RED_MUSHROOM), FIItems.BLEWIT_MUSHROOM));
+    public static final RegistryObject<Block> WALL_RED_MUSHROOM = HELPER.createBlockNoItem("wall_red_mushroom", () ->
+            new WallMushroomBlock(copy(Blocks.RED_MUSHROOM), WALL_RED_MUSHROOM_COLONY));
+    public static final RegistryObject<Block> WALL_BROWN_MUSHROOM = HELPER.createBlockNoItem("wall_brown_mushroom", () ->
+            new WallMushroomBlock(copy(Blocks.BROWN_MUSHROOM), WALL_BROWN_MUSHROOM_COLONY));
+    public static final RegistryObject<Block> WALL_BLEWIT_MUSHROOM = HELPER.createBlockNoItem("wall_blewit_mushroom", () ->
+            new WallMushroomBlock(copy(Blocks.RED_MUSHROOM), WALL_BLEWIT_MUSHROOM_COLONY));
+        //Unique Mushrooms
+        public static final RegistryObject<Block> TINDER_CONK = HELPER.createBlockNoItem("tinder_conk", () ->
+            new TinderConkBlock(copy(Blocks.BROWN_MUSHROOM).randomTicks().noOcclusion()));
+
     //Trees
     //Oak
     public static final RegistryObject<Block> BOUNTIFUL_OAK_LEAVES = HELPER.createBlock("bountiful_oak_leaves", () ->
@@ -114,12 +130,6 @@ public class FIBlocks {
             new BlueprintWallHangingSignBlock(copy(Blocks.OAK_WALL_HANGING_SIGN), FIWoodTypes.LILAC));
     public static final RegistryObject<CabinetBlock> LILAC_CABINET = HELPER.createBlock("lilac_cabinet", () ->
             new CabinetBlock(copy(ModBlocks.OAK_CABINET.get())));
-        //Sealed Planks
-        public static final RegistryObject<Block> SEALED_PLANKS = HELPER.createBlock("sealed_planks", () ->
-                new Block(copy(Blocks.OAK_PLANKS).ignitedByLava()));
-    public static final RegistryObject<Block> SEALED_BAMBOO_PLANKS = HELPER.createBlock("sealed_bamboo_planks", () ->
-            new Block(copy(Blocks.BAMBOO_PLANKS).ignitedByLava()));
-
 
         //Syrup Tap
     public static final RegistryObject<Block> TAPPER = HELPER.createBlockNoItem("tapper", () ->
@@ -139,6 +149,8 @@ public class FIBlocks {
     public static final RegistryObject<Block> DENSE_SPRUCE_TIP_MAT = HELPER.createBlock("dense_spruce_tips", FoliageMatBlock::new);
     public static final RegistryObject<Block> DENSE_ROSELLE_PETAL_MAT = HELPER.createBlock("dense_roselle_petals", FoliageMatBlock::new);
     public static final RegistryObject<Block> DENSE_ROSE_PETAL_MAT = HELPER.createBlock("dense_rose_petals", FoliageMatBlock::new);
+        //Traps
+    public static final RegistryObject<Block> SAP_TRAP = HELPER.createBlock("sap_trap", SapTrapBlock::new);
         //Wildflowers + Flora
     public static final RegistryObject<Block> ROSELLE_BUSH = HELPER.createBlockNoItem("roselle_bush", () ->
           new TallFlowerBlock(copy(Blocks.LILAC)));
@@ -147,11 +159,16 @@ public class FIBlocks {
     public static final RegistryObject<Block> TALL_BEACH_ROSE_BUSH = HELPER.createBlockNoItem("tall_beach_rose_bush", () ->
             new TallSandyFlowerBlock(copy(Blocks.ROSE_BUSH)));
     public static final RegistryObject<Block> WOODLAND_FERN = HELPER.createBlockNoItem("woodland_fern", () ->
-            new GrassBlock(copy(Blocks.FERN)));
+            new BushBlock(copy(Blocks.FERN)));
     public static final RegistryObject<Block> GHOST_PIPE = HELPER.createBlockNoItem("ghost_pipe", () ->
             new BushBlock(copy(Blocks.ALLIUM).lightLevel(state -> 8).noCollission()));
     public static final RegistryObject<Block> SKUNK_CABBAGE = HELPER.createBlockNoItem("skunk_cabbage", () ->
             new SkunkCabbageBlock(copy(Blocks.ALLIUM).noCollission()));
+    //Lighting
+    public static final RegistryObject<GhostPipeTorchBlock> GHOST_PIPE_TORCH = HELPER.createBlockNoItem("ghost_pipe_torch", () ->
+            new GhostPipeTorchBlock(copy(Blocks.TORCH).lightLevel(state -> 11), FIParticleTypes.GHOST_PIPE));
+    public static final RegistryObject<GhostPipeWallTorchBlock> WALL_GHOST_PIPE_TORCH = HELPER.createBlockNoItem("wall_ghost_pipe_torch", () ->
+            new GhostPipeWallTorchBlock(copy(Blocks.WALL_TORCH).lightLevel(state -> 11), FIParticleTypes.GHOST_PIPE));
         //Other
     public static final RegistryObject<Block> SUSPICIOUS_LEAF_LITTER = HELPER.createBlock("suspicious_leaf_litter", SuspiciousLitterBlock::new);
     public static final RegistryObject<Block> HOLLOW_LOG = HELPER.createFuelBlock("hollow_log", () ->
@@ -159,27 +176,33 @@ public class FIBlocks {
     public static final RegistryObject<Block> CONDENSED_DIRT = HELPER.createBlock("condensed_dirt", () ->
             new ShallowBlock(copy(Blocks.DIRT).noOcclusion()));
     public static final RegistryObject<Block> CONDENSED_SAND = HELPER.createBlock("condensed_sand", () ->
-            new ShallowBlock(copy(Blocks.SAND).noOcclusion()));
-
+            new ShallowFallingBlock(copy(Blocks.SAND).noOcclusion()));
+    public static final RegistryObject<Block> SAP_SPLOTCH = HELPER.createBlock("sap_splotch", SapSplotchBlock::new);
 
     //STORAGE
-        //Crop Crates and Sacks
+        //Crop Storage
+            // Crates
     public static final RegistryObject<Block> APPLE_CRATE = HELPER.createBlock("apple_crate", () ->
             new Block(copy(ModBlocks.BEETROOT_CRATE.get())));
-    public static final RegistryObject<Block> DANDELION_ROOT_SACK = HELPER.createBlock("dandelion_root_sack", () ->
-            new Block(copy(ModBlocks.RICE_BAG.get())));
+    public static final RegistryObject<Block> BLEWIT_CRATE = HELPER.createBlock("blewit_mushroom_crate", () ->
+            new SlabBlock(copy(Blocks.OAK_SLAB)));
     public static final RegistryObject<Block> LILAC_BLOOM_CRATE = HELPER.createBlock("lilac_crate", () ->
             new SlabBlock(copy(Blocks.OAK_SLAB)));
+    public static final RegistryObject<Block> TINDER_CONK_CRATE = HELPER.createBlock("tinder_conk_crate", () ->
+            new Block(copy(ModBlocks.BEETROOT_CRATE.get())));
+            // Sacks
+    public static final RegistryObject<Block> BLACK_ACORN_SACK = HELPER.createBlock("black_acorn_sack", () ->
+            new Block(copy(ModBlocks.RICE_BAG.get())));
+    public static final RegistryObject<Block> DANDELION_ROOT_SACK = HELPER.createBlock("dandelion_root_sack", () ->
+            new Block(copy(ModBlocks.RICE_BAG.get())));
     public static final RegistryObject<Block> POPPY_SEEDS_SACK = HELPER.createBlock("poppy_seeds_sack", () ->
             new Block(copy(ModBlocks.RICE_BAG.get())));
     public static final RegistryObject<Block> ROSE_HIP_SACK = HELPER.createBlock("rose_hip_sack", () -> new Block(
             copy(ModBlocks.RICE_BAG.get())));
     public static final RegistryObject<Block> ROSELLE_CALYX_SACK = HELPER.createBlock("roselle_calyx_sack", () -> new Block(
             copy(ModBlocks.RICE_BAG.get())));
-    public static final RegistryObject<Block> BLACK_ACORN_SACK = HELPER.createBlock("black_acorn_sack", () -> new Block(
-            copy(ModBlocks.RICE_BAG.get())));
     public static final RegistryObject<Block> SPRUCE_TIPS_SACK = HELPER.createBlock("spruce_tips_sack", () -> new Block(
             copy(ModBlocks.RICE_BAG.get())));
-    public static final RegistryObject<Block> BLEWIT_CRATE = HELPER.createBlock("blewit_mushroom_crate", () ->
-            new SlabBlock(copy(Blocks.OAK_SLAB)));
+
+
 }

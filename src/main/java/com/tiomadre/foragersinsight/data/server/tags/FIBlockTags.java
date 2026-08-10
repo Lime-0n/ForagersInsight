@@ -15,7 +15,7 @@ import vectorwing.farmersdelight.common.tag.ModTags;
 
 import static com.tiomadre.foragersinsight.core.registry.FIBlocks.*;
 import static com.tiomadre.foragersinsight.data.server.tags.FITags.BlockTag.*;
-import static com.tiomadre.foragersinsight.data.server.tags.FITags.ItemTag.RICH_SOIL_TREE_STARTERS;
+
 
 public class FIBlockTags extends BlockTagsProvider {
 
@@ -58,7 +58,7 @@ public class FIBlockTags extends BlockTagsProvider {
                 .addOptional(new ResourceLocation("farmersdelight", "brown_mushroom_colony"))
                 .addOptional(new ResourceLocation("farmersdelight", "red_mushroom_colony"))
                 .addOptional(new ResourceLocation("farmersdelight", "tomato_vine"));
-        this.tag(RICH_SOIL_TREE_STARTERS)
+        this.tag(RICH_SOIL_TREE_SAPLINGS)
                 .add(Blocks.LILAC)
                 .addOptionalTag(new ResourceLocation("minecraft", "saplings"));
         this.tag(FORAGING)
@@ -77,10 +77,9 @@ public class FIBlockTags extends BlockTagsProvider {
     protected void registerMineables() {
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(TAPPER.get(), DIFFUSER.get());
         this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(CONDENSED_DIRT.get(),(CONDENSED_SAND.get()));
-        this.tag(BlockTags.MINEABLE_WITH_AXE).add(APPLE_CRATE.get(), BLEWIT_CRATE.get(), LILAC_BLOOM_CRATE.get(), SAPPY_BIRCH_LOG.get(),STRIPPED_SAPPY_BIRCH_LOG.get(),  LILAC_LOG.get(), STRIPPED_LILAC_LOG.get(), LILAC_PLANKS.get(), LILAC_STAIRS.get(),
+        this.tag(BlockTags.MINEABLE_WITH_AXE).add(APPLE_CRATE.get(), BLEWIT_CRATE.get(),TINDER_CONK_CRATE.get(), LILAC_BLOOM_CRATE.get(), SAPPY_BIRCH_LOG.get(),STRIPPED_SAPPY_BIRCH_LOG.get(),  LILAC_LOG.get(), STRIPPED_LILAC_LOG.get(), LILAC_PLANKS.get(), LILAC_STAIRS.get(),
                 LILAC_SLAB.get(), LILAC_FENCE.get(), LILAC_FENCE_GATE.get(), LILAC_DOOR.get(), LILAC_TRAPDOOR.get(), LILAC_PRESSURE_PLATE.get(), LILAC_BUTTON.get(),
-                LILAC_SIGN.get(), LILAC_WALL_SIGN.get(), LILAC_HANGING_SIGN.get(), LILAC_WALL_HANGING_SIGN.get(), LILAC_CABINET.get(),
-                SEALED_PLANKS.get(), SEALED_BAMBOO_PLANKS.get());
+                LILAC_SIGN.get(), LILAC_WALL_SIGN.get(), LILAC_HANGING_SIGN.get(), LILAC_WALL_HANGING_SIGN.get(), LILAC_CABINET.get());
         this.tag(BlockTags.MINEABLE_WITH_HOE).add(BOUNTIFUL_OAK_LEAVES.get(),BOUNTIFUL_DARK_OAK_LEAVES.get(),BOUNTIFUL_SPRUCE_LEAVES.get());
         this.tag(ModTags.MINEABLE_WITH_KNIFE).add(DANDELION_ROOT_SACK.get(),ROSELLE_CALYX_SACK.get(), ROSE_HIP_SACK.get(), POPPY_SEEDS_SACK.get(), SPRUCE_TIPS_SACK.get(), BLACK_ACORN_SACK.get());
     }
@@ -94,6 +93,7 @@ public class FIBlockTags extends BlockTagsProvider {
         tag(STORAGE_BLOCK_SPRUCE_TIPS).add(SPRUCE_TIPS_SACK.get());
         tag(STORAGE_BLOCK_BLACK_ACORNS).add(BLACK_ACORN_SACK.get());
         tag(STORAGE_BLOCK_BLEWIT_MUSHROOM).add(BLEWIT_CRATE.get());
+        tag(STORAGE_BLOCK_TINDER_CONK).add(TINDER_CONK_CRATE.get());
 
     }
 

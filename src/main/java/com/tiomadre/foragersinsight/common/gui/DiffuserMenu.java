@@ -1,10 +1,15 @@
 package com.tiomadre.foragersinsight.common.gui;
 
 import com.tiomadre.foragersinsight.common.block.entity.DiffuserBlockEntity;
+import com.tiomadre.foragersinsight.core.registry.FIAdvancementCriteria;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIMenuTypes;
+import com.tiomadre.foragersinsight.core.registry.FIMobEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
@@ -28,7 +33,7 @@ public class DiffuserMenu extends AbstractContainerMenu {
     private static final int PLAYER_INVENTORY_COLUMNS = 9;
     private static final int DATA_PROGRESS = 2;
     private static final int DATA_TOTAL = 3;
-    public static final int BUTTON_EXTINGUISH = 0;
+    public static final int BUTTON_POWER = 0;
 
     private static final int SLOT_SIZE = 18;
     private static final int SLOT_SPACING = SLOT_SIZE;
@@ -207,12 +212,22 @@ public class DiffuserMenu extends AbstractContainerMenu {
     }
     @Override
     public boolean clickMenuButton(@NotNull Player player, int id) {
-        if (id == BUTTON_EXTINGUISH) {
+        if (id == BUTTON_POWER) {
             this.access.execute((level, pos) -> {
                 BlockEntity blockEntity = level.getBlockEntity(pos);
                 if (blockEntity instanceof DiffuserBlockEntity diffuser) {
-                    diffuser.extinguish();
-                }
+                    if (diffuser.isLit()) {
+                        diffuser.extinguish();
+                    } else if (diffuser.tryStartDiffusion()) {
+                        level.playSound(null, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F,
+                                level.random.nextFloat() * 0.4F + 0.8F);
+                        if (player instanceof ServerPlayer serverPlayer) {
+                            FIAdvancementCriteria.SCENTSATIONAL.trigger(serverPlayer);
+                            diffuser.getActiveScent()
+                                    .filter(scent -> scent.usesEffect(FIMobEffects.ODOROUS.get()))
+                                    .ifPresent(scent -> FIAdvancementCriteria.STINKY_SITUATION.trigger(serverPlayer));
+                        }
+                    } }
             });
             return true;
         }

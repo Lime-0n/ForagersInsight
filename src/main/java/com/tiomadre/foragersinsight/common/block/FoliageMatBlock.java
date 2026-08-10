@@ -17,12 +17,15 @@ import org.jetbrains.annotations.NotNull;
 
 public class FoliageMatBlock extends CarpetBlock {
     public FoliageMatBlock() {
-        super(BlockBehaviour.Properties.of()
+        this(BlockBehaviour.Properties.of()
                 .strength(0.1F)
                 .sound(SoundType.PINK_PETALS)
                 .noOcclusion()
                 .mapColor(MapColor.PLANT)
                 .isValidSpawn((state, level, pos, entityType) -> false));
+    }
+    protected FoliageMatBlock(BlockBehaviour.Properties properties) {
+        super(properties);
     }
     @Override
     public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {

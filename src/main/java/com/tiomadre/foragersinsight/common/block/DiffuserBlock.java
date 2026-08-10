@@ -1,7 +1,6 @@
 package com.tiomadre.foragersinsight.common.block;
 
 import com.tiomadre.foragersinsight.common.block.entity.DiffuserBlockEntity;
-import com.tiomadre.foragersinsight.core.registry.FIAdvancementCriteria;
 import com.tiomadre.foragersinsight.data.server.recipes.FIDiffusingRecipes;
 import com.tiomadre.foragersinsight.core.registry.FIBlockEntityTypes;
 import com.tiomadre.foragersinsight.core.registry.FIParticleTypes;
@@ -20,7 +19,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -67,27 +65,15 @@ public class DiffuserBlock extends BaseEntityBlock implements SimpleWaterloggedB
     public @Nullable BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
         return new DiffuserBlockEntity(pos, state);
     }
-    //light the diffuser w/ a flint n steel
     @Override
     public @NotNull InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos,
                                           @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
-        ItemStack held = player.getItemInHand(hand);
-        boolean flintAndSteel = held.is(Items.FLINT_AND_STEEL);
         BlockEntity entity = level.getBlockEntity(pos);
         if (!(entity instanceof DiffuserBlockEntity diffuser)) {
             return InteractionResult.sidedSuccess(level.isClientSide);
         }
 
         if (!level.isClientSide) {
-            if (flintAndSteel && diffuser.tryStartDiffusion()) {
-                held.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
-                level.playSound(null, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F,
-                        level.random.nextFloat() * 0.4F + 0.8F);
-                if (player instanceof ServerPlayer serverPlayer) {
-                    FIAdvancementCriteria.SCENTSATIONAL.trigger(serverPlayer);
-                }
-                return InteractionResult.CONSUME;
-            }
 
             if (player instanceof ServerPlayer serverPlayer) {
                 NetworkHooks.openScreen(serverPlayer, diffuser, pos);
@@ -235,10 +221,10 @@ public class DiffuserBlock extends BaseEntityBlock implements SimpleWaterloggedB
     }
 
     private @Nullable SimpleParticleType getScentParticleType(FIDiffusingRecipes scent) {
-        if (scent == FIDiffusingRecipes.ROSEY.get()) {
+        if (scent == FIDiffusingRecipes.ROSEY.get() || scent == FIDiffusingRecipes.ROSEY_II.get()) {
             return FIParticleTypes.ROSE_SCENT.get();
         }
-        if (scent == FIDiffusingRecipes.CONIFEROUS.get()) {
+        if (scent == FIDiffusingRecipes.CONIFEROUS.get() || scent == FIDiffusingRecipes.CONIFEROUS_II.get()) {
             return FIParticleTypes.CONIFEROUS_SCENT.get();
         }
         if (scent == FIDiffusingRecipes.FLORAL.get()) {
@@ -247,7 +233,7 @@ public class DiffuserBlock extends BaseEntityBlock implements SimpleWaterloggedB
         if(scent ==  FIDiffusingRecipes.FLORAL_II.get()) {
             return FIParticleTypes.FLORAL_II_SCENT.get();
         }
-        if (scent == FIDiffusingRecipes.FOUL.get()) {
+        if (scent == FIDiffusingRecipes.FOUL.get() || scent == FIDiffusingRecipes.FOUL_II.get()) {
             return FIParticleTypes.FOUL_SCENT.get();
         }
         return null;

@@ -2,6 +2,8 @@ package com.tiomadre.foragersinsight.common.worldgen.feature;
 
 import com.mojang.serialization.Codec;
 import com.tiomadre.foragersinsight.common.block.HollowLogBlock;
+import com.tiomadre.foragersinsight.common.block.WallMushroomBlock;
+import com.tiomadre.foragersinsight.common.block.WallMushroomColonyBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -26,8 +28,11 @@ import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 
 public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
     private static final float SINGLE_MUSHROOM_LOG_CHANCE = 0.50F;
+    private static final float SINGLE_WALL_MUSHROOM_LOG_CHANCE = 0.50F;
     private static final float GROWING_COLONY_AND_MUSHROOM_LOG_CHANCE = 0.30F;
     private static final float COLONY_AND_MUSHROOM_LOG_CHANCE = 0.15F;
+    private static final float GROWING_WALL_COLONY_AND_MUSHROOM_LOG_CHANCE = 0.30F;
+    private static final float WALL_COLONY_AND_MUSHROOM_LOG_CHANCE = 0.15F;
 
     public FallenTreeFeature(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
@@ -56,6 +61,7 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
                 .setValue(RotatedPillarBlock.AXIS, direction.getAxis())
                 .setValue(HollowLogBlock.LOG_TEXTURE, biomeTexture);
         List<BlockPos> logTopPositions = new ArrayList<>();
+        List<BlockPos> logPositions = new ArrayList<>();
         List<BlockPos> sidePositions = new ArrayList<>();
         boolean placed = false;
         for (int i = 0; i < logLength; i++) {
@@ -63,6 +69,7 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
             this.setBlock(level, logPos, fallenLogState);
             placed = true;
 
+            logPositions.add(logPos);
             logTopPositions.add(logPos.above());
             sidePositions.add(logPos.relative(sideA));
             sidePositions.add(logPos.relative(sideB));
@@ -76,10 +83,13 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
             }
         }
 
-        boolean placedColonyAndMushroom = placeMushroomDecorations(level, random, logTopPositions);
+        DecorationResult topMushroomDecoration = placeMushroomDecorations(level, random, logTopPositions, sidePositions);
+        DecorationResult wallMushroomDecoration = placeWallMushroomDecorations(level, random, logPositions, direction, sideA, sideB);
         replaceGrassWithWoodlandFern(level, random, placedGrassPositions);
-        int ghostPipeReplacements = placedColonyAndMushroom ? 3 : 1;
-        replaceGrassWithGhostPipe(level, random, placedGrassPositions, ghostPipeReplacements);
+        List<BlockPos> ghostPipePositions = new ArrayList<>();
+        ghostPipePositions.addAll(topMushroomDecoration.ghostPipePositions());
+        ghostPipePositions.addAll(wallMushroomDecoration.ghostPipePositions());
+        placeGhostPipes(level, random, placedGrassPositions, ghostPipePositions, ghostPipePositions.size());
         return placed;
     }
 
@@ -105,17 +115,15 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
         return pos;
     }
 
-    private static void replaceGrassWithGhostPipe(WorldGenLevel level, RandomSource random, List<BlockPos> grassPositions, int replacements) {
-        if (grassPositions.isEmpty() || replacements <= 0) {
+    private static void placeGhostPipes(WorldGenLevel level, RandomSource random, List<BlockPos> grassPositions,
+                                        List<BlockPos> fallbackPositions, int replacements) {
+        if (replacements <= 0) {
             return;
         }
 
-        List<BlockPos> shuffledGrassPositions = new ArrayList<>(grassPositions);
-        Collections.shuffle(shuffledGrassPositions, new java.util.Random(random.nextLong()));
-
         BlockState ghostPipeState = FIBlocks.GHOST_PIPE.get().defaultBlockState();
         int replaced = 0;
-        for (BlockPos grassPos : shuffledGrassPositions) {
+        for (BlockPos grassPos : shuffledCopy(grassPositions, random)) {
             if (replaced >= replacements) {
                 return;
             }
@@ -124,7 +132,27 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
                 replaced++;
             }
         }
+
+        for (BlockPos fallbackPos : shuffledCopy(fallbackPositions, random)) {
+            if (replaced >= replacements) {
+                return;
+            }
+            if (canReplaceGhostPipeFallback(level, fallbackPos) && ghostPipeState.canSurvive(level, fallbackPos)) {
+                level.setBlock(fallbackPos, ghostPipeState, 2);
+                replaced++;
+            }
+        }
     }
+    private static List<BlockPos> shuffledCopy(List<BlockPos> positions, RandomSource random) {
+        if (positions.isEmpty()) {
+            return List.of();
+        }
+
+        List<BlockPos> shuffledPositions = new ArrayList<>(positions);
+        Collections.shuffle(shuffledPositions, new java.util.Random(random.nextLong()));
+        return shuffledPositions;
+    }
+
     private static void replaceGrassWithWoodlandFern(WorldGenLevel level, RandomSource random, List<BlockPos> grassPositions) {
         if (grassPositions.isEmpty() || random.nextFloat() >= 0.40F) {
             return;
@@ -142,9 +170,10 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
         }
     }
 
-    private static boolean placeMushroomDecorations(WorldGenLevel level, RandomSource random, List<BlockPos> logTopPositions) {
+    private static DecorationResult placeMushroomDecorations(WorldGenLevel level, RandomSource random, List<BlockPos> logTopPositions,
+                                                             List<BlockPos> ghostPipeFallbackPositions) {
         if (logTopPositions.isEmpty()) {
-            return false;
+            return DecorationResult.empty();
         }
 
         BlockState colonyState = getOptionalColonyState(random);
@@ -161,7 +190,7 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
                 boolean colonyPlaced = placeColony(level, colonyPos, growingColonyState);
                 boolean mushroomPlaced = placeSmallMushroom(level, mushroomPos, random);
                 if (colonyPlaced || mushroomPlaced) {
-                    return colonyPlaced && mushroomPlaced;
+                    return new DecorationResult(true, ghostPipeFallbackPositions);
                 }
             }
 
@@ -169,14 +198,104 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
                 boolean colonyPlaced = placeColony(level, colonyPos, colonyState);
                 boolean mushroomPlaced = placeSmallMushroom(level, mushroomPos, random);
                 if (colonyPlaced || mushroomPlaced) {
-                    return colonyPlaced && mushroomPlaced;
+                    return new DecorationResult(true, ghostPipeFallbackPositions);
                 }
             }
         }
 
         if (random.nextFloat() < SINGLE_MUSHROOM_LOG_CHANCE) {
             BlockPos mushroomPos = logTopPositions.get(random.nextInt(logTopPositions.size()));
-            placeSmallMushroom(level, mushroomPos, random);
+            return new DecorationResult(placeSmallMushroom(level, mushroomPos, random), List.of());
+        }
+
+        return DecorationResult.empty();
+    }
+
+    private static DecorationResult placeWallMushroomDecorations(WorldGenLevel level, RandomSource random, List<BlockPos> logPositions,
+                                                                 Direction logDirection, Direction sideA, Direction sideB) {
+        DecorationResult wallColonyDecoration = placeWallColonyAndMushroom(level, random, logPositions, logDirection, sideA, sideB);
+        if (wallColonyDecoration.placed()) {
+            return wallColonyDecoration;
+        }
+
+        if (random.nextFloat() < SINGLE_WALL_MUSHROOM_LOG_CHANCE && placeWallMushroom(level, random, logPositions, sideA, sideB)) {
+            return new DecorationResult(true, List.of());
+        }
+
+        return DecorationResult.empty();
+    }
+
+    private static DecorationResult placeWallColonyAndMushroom(WorldGenLevel level, RandomSource random, List<BlockPos> logPositions,
+                                                               Direction logDirection, Direction sideA, Direction sideB) {
+        BlockState wallColonyState = getOptionalWallColonyState(random);
+        if (wallColonyState == null || logPositions.size() <= 1) {
+            return DecorationResult.empty();
+        }
+
+        boolean growingWallColony = random.nextFloat() < GROWING_WALL_COLONY_AND_MUSHROOM_LOG_CHANCE;
+        boolean matureWallColony = !growingWallColony && random.nextFloat() < WALL_COLONY_AND_MUSHROOM_LOG_CHANCE;
+        if (!growingWallColony && !matureWallColony) {
+            return DecorationResult.empty();
+        }
+
+        Direction side = random.nextBoolean() ? sideA : sideB;
+        List<BlockPos> shuffledLogPositions = shuffledCopy(logPositions, random);
+        for (BlockPos logPos : shuffledLogPositions) {
+            BlockState colonyState = wallColonyState.setValue(WallMushroomColonyBlock.FACING, side);
+            if (growingWallColony) {
+                colonyState = getGrowingColonyState(colonyState, random);
+                if (colonyState == null) {
+                    continue;
+                }
+            }
+
+            BlockPos colonyPos = logPos.relative(side);
+            if (!placeWallColony(level, colonyPos, colonyState)) {
+                continue;
+            }
+
+            List<BlockPos> mushroomPositions = shuffledCopy(List.of(logPos.relative(logDirection).relative(side), logPos.relative(logDirection.getOpposite()).relative(side)), random);
+            for (BlockPos mushroomPos : mushroomPositions) {
+                if (placeWallMushroomAt(level, random, mushroomPos, side)) {
+                    return new DecorationResult(true, mushroomPositions);
+                }
+            }
+
+            return new DecorationResult(true, mushroomPositions);
+        }
+
+        return DecorationResult.empty();
+    }
+
+    private static boolean placeWallMushroom(WorldGenLevel level, RandomSource random, List<BlockPos> logPositions,
+                                             Direction sideA, Direction sideB) {
+        List<BlockPos> shuffledLogPositions = shuffledCopy(logPositions, random);
+        boolean trySideAFirst = random.nextBoolean();
+        Direction firstSide = trySideAFirst ? sideA : sideB;
+        Direction secondSide = trySideAFirst ? sideB : sideA;
+
+        for (BlockPos logPos : shuffledLogPositions) {
+            if (placeWallMushroomAt(level, random, logPos.relative(firstSide), firstSide)
+                    || placeWallMushroomAt(level, random, logPos.relative(secondSide), secondSide)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    private static boolean placeWallMushroomAt(WorldGenLevel level, RandomSource random, BlockPos pos, Direction facing) {
+        if (!canReplaceDecoration(level, pos)) {
+            return false;
+        }
+
+        BlockState mushroomState = (random.nextBoolean()
+                ? FIBlocks.WALL_RED_MUSHROOM.get()
+                : FIBlocks.WALL_BROWN_MUSHROOM.get())
+                .defaultBlockState()
+                .setValue(WallMushroomBlock.FACING, facing);
+        if (mushroomState.canSurvive(level, pos)) {
+            level.setBlock(pos, mushroomState, 2);
+            return true;
         }
 
         return false;
@@ -223,6 +342,26 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
         return colony != null ? colony.defaultBlockState() : null;
     }
 
+    private static BlockState getOptionalWallColonyState(RandomSource random) {
+        Block colony = random.nextBoolean()
+                ? FIBlocks.WALL_RED_MUSHROOM_COLONY.get()
+                : FIBlocks.WALL_BROWN_MUSHROOM_COLONY.get();
+        return colony.defaultBlockState();
+    }
+
+    private static boolean placeWallColony(WorldGenLevel level, BlockPos pos, BlockState colonyState) {
+        if (!canReplaceDecoration(level, pos)) {
+            return false;
+        }
+
+        if (colonyState.canSurvive(level, pos)) {
+            level.setBlock(pos, colonyState, 2);
+            return true;
+        }
+
+        return false;
+    }
+
     private static BlockState getGrowingColonyState(BlockState colonyState, RandomSource random) {
         for (var property : colonyState.getProperties()) {
             if (!(property instanceof IntegerProperty integerProperty) || !"age".equals(property.getName())) {
@@ -240,6 +379,9 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
 
         return null;
     }
+    private static boolean canReplaceGhostPipeFallback(WorldGenLevel level, BlockPos pos) {
+        return canReplaceDecoration(level, pos) && !(level.getBlockState(pos).getBlock() instanceof DoublePlantBlock);
+    }
 
     private static boolean canPlaceDoublePlant(WorldGenLevel level, BlockPos pos) {
         BlockPos belowPos = pos.below();
@@ -250,5 +392,11 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
 
     private static HollowLogBlock.LogTexture getBiomeLogTexture(WorldGenLevel level, BlockPos pos) {
         return HollowLogBlock.getDominantBiomeTexture(level.getBiome(pos));
+    }
+
+    private record DecorationResult(boolean placed, List<BlockPos> ghostPipePositions) {
+        private static DecorationResult empty() {
+            return new DecorationResult(false, List.of());
+        }
     }
 }

@@ -41,6 +41,7 @@ public class FITabs {
             FIBlocks.APPLE_CRATE,
             FIBlocks.BLEWIT_CRATE,
             FIBlocks.LILAC_BLOOM_CRATE,
+            FIBlocks.TINDER_CONK_CRATE,
             FIBlocks.BLACK_ACORN_SACK,
             FIBlocks.DANDELION_ROOT_SACK,
             FIBlocks.POPPY_SEEDS_SACK,
@@ -59,6 +60,8 @@ public class FITabs {
             FIBlocks.SCATTERED_SPRUCE_TIP_MAT,
             FIBlocks.SCATTERED_STRAW_MAT,
 
+            FIBlocks.GHOST_PIPE_TORCH,
+
             FIBlocks.BLEWIT_MUSHROOM,
             FIBlocks.BLEWIT_MUSHROOM_COLONY,
             FIItems.GHOST_PIPE_ITEM,
@@ -67,6 +70,9 @@ public class FITabs {
             FIItems.TALL_BEACH_ROSE_BUSH_ITEM,
             FIItems.WOODLAND_FERN_ITEM,
             FIItems.SKUNK_CABBAGE_ITEM,
+            FIItems.TINDER_CONK,
+            FIItems.TINDER_CONK_SPORES,
+
 
             FIBlocks.CONDENSED_DIRT,
             FIBlocks.CONDENSED_SAND,
@@ -77,6 +83,7 @@ public class FITabs {
     );
 
     private static final List<RegistryObject<? extends ItemLike>> INGREDIENT_ENTRIES = List.of(
+            FIItems.AMADOU,
             FIItems.APPLE_SLICE,
             FIItems.BLEWIT_MUSHROOM,
             FIItems.COOKED_RABBIT_LEG,
@@ -103,9 +110,7 @@ public class FITabs {
             FIItems.BIRCH_SYRUP_BUCKET,
             FIItems.BIRCH_SYRUP_BOTTLE,
             FIItems.BIRCH_SAP_BUCKET,
-            FIItems.BIRCH_SAP_BOTTLE,
-            FIItems.BIRCH_SAP_BOTTLE,
-            FIItems.SAPPY_BRUSH
+            FIItems.BIRCH_SAP_BOTTLE
     );
 
     private static final List<RegistryObject<? extends ItemLike>> CUISINE_ENTRIES = List.of(
@@ -162,10 +167,14 @@ public class FITabs {
             FIItems.GOLD_MALLET,
             FIItems.DIAMOND_MALLET,
             FIItems.NETHERITE_MALLET,
-            FIItems.TAPPER
+            FIBlocks.SAP_TRAP,
+            FIItems.STROP,
+            FIItems.TAPPER,
+            FIItems.AMADOU_CAP
+
     );
     private static final List<RegistryObject<? extends ItemLike>> WOODEN_ENTRIES = List.of(
-            //SPRUCE
+            //BIRCH
             FIBlocks.SAPPY_BIRCH_LOG,
             FIBlocks.STRIPPED_SAPPY_BIRCH_LOG,
             //LILAC
@@ -184,16 +193,10 @@ public class FITabs {
             FIItems.LILAC_HANGING_SIGN,
             FIBlocks.LILAC_CABINET,
             FIItems.LILAC_BOAT,
-            FIItems.LILAC_CHEST_BOAT,
-            FIBlocks.SEALED_BAMBOO_PLANKS,
-            FIBlocks.SEALED_PLANKS
+            FIItems.LILAC_CHEST_BOAT
     );
     private static final List<Supplier<MobEffect>> AUSPICIOUS_STEW_EFFECTS = List.of(
-            () -> MobEffects.REGENERATION,
-            () -> MobEffects.DAMAGE_RESISTANCE,
-            () -> MobEffects.HEALTH_BOOST,
-            FIMobEffects.BLOOM
-    );
+            FIMobEffects.BLOOM,  () -> MobEffects.DAMAGE_RESISTANCE, () -> MobEffects.HEALTH_BOOST, () -> MobEffects.REGENERATION);
 
 
     public static void register(IEventBus bus) {
@@ -211,6 +214,7 @@ public class FITabs {
                 .map(Supplier::get)
                 .map(FITabs::createAuspiciousStew)
                 .forEach(output::accept);
+
     }
 
     private static ItemStack createAuspiciousStew(MobEffect effect) {

@@ -1,0 +1,23 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "foragersinsight:block/wall_blewit_mushroom",
+      "uvlock": true,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "foragersinsight:block/wall_blewit_mushroom",
+      "uvlock": true
+    },
+    "facing=south": {
+      "model": "foragersinsight:block/wall_blewit_mushroom",
+      "uvlock": true,
+      "y": 180
+    },
+    "facing=west": {
+      "model": "foragersinsight:block/wall_blewit_mushroom",
+      "uvlock": true,
+      "y": 270
+    }
+  }
+}

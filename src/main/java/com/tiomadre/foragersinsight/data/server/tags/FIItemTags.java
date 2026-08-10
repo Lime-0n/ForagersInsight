@@ -14,9 +14,6 @@ import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.registry.ModItems;
-
-import static com.tiomadre.foragersinsight.core.registry.FIBlocks.SEALED_BAMBOO_PLANKS;
-import static com.tiomadre.foragersinsight.core.registry.FIBlocks.SEALED_PLANKS;
 import static com.tiomadre.foragersinsight.data.server.tags.FITags.ItemTag.*;
 
 public class FIItemTags extends ItemTagsProvider {
@@ -25,8 +22,6 @@ public class FIItemTags extends ItemTagsProvider {
     }
     @Override
     protected void addTags(HolderLookup.@NotNull Provider provider) {
-        //Aromatic
-        this.tag(AROMATICS).add(FIItems.ROSE_PETALS.get(), FIItems.ROSELLE_PETALS.get(), FIItems.SPRUCE_TIPS.get());
         //Other
         this.tag(FITags.ItemTag.DOUGH).add(ModItems.WHEAT_DOUGH.get(), FIItems.ACORN_DOUGH.get());
         this.tag(FITags.ItemTag.ICE).add(Items.ICE, FIItems.CRUSHED_ICE.get())
@@ -34,6 +29,7 @@ public class FIItemTags extends ItemTagsProvider {
         this.tag(NUTS).add(FIItems.BLACK_ACORN.get());
         this.tag(NUTS_ACORN).add(FIItems.BLACK_ACORN.get());
         this.tag(SEEDS).add(FIItems.POPPY_SEEDS.get());
+        this.tag(MILK).add(FIItems.SEED_MILK_BUCKET.get(), FIItems.SEED_MILK_BOTTLE.get());
         this.tag(MILK_BUCKET).add(FIItems.SEED_MILK_BUCKET.get());
         this.tag(MILK_BOTTLE).add(FIItems.SEED_MILK_BOTTLE.get());
         this.tag(ItemTags.SMALL_FLOWERS).add(FIBlocks.STOUT_BEACH_ROSE_BUSH.get().asItem(), FIBlocks.GHOST_PIPE.get().asItem());
@@ -42,6 +38,7 @@ public class FIItemTags extends ItemTagsProvider {
         this.tag(WOLF_PREY).add(FIItems.RAW_RABBIT_LEG.get());
 
         this.tag(WILD_FLOWER_DROPS).add(FIItems.ROSE_HIP.get(), FIItems.LILAC_BLOOM.get(), FIItems.POPPY_SEEDS.get(), FIItems.DANDELION_ROOT.get(), FIItems.ROSELLE_CALYX.get());
+
         var foragersInsightItems = this.tag(FORAGERS_INSIGHT_ITEMS);
         ForgeRegistries.ITEMS.getValues().stream()
                 .filter(item -> ForagersInsight.MOD_ID.equals(ForgeRegistries.ITEMS.getKey(item).getNamespace()))
@@ -56,8 +53,8 @@ public class FIItemTags extends ItemTagsProvider {
         this.tag(COCOA).add(Items.COCOA_BEANS, FIItems.COCOA_POWDER.get());
         this.tag(ROOTS).add(Items.CARROT, Items.BEETROOT, FIItems.DANDELION_ROOT.get());
         this.tag(MUSHROOM).add(Items.RED_MUSHROOM, Items.BROWN_MUSHROOM, FIItems.BLEWIT_MUSHROOM.get());
-            //tag as crops
-        this.tag(CROPS).addTags(APPLE,POPPY_SEEDS,ACORN,WHEAT,COCOA,ROOTS,MUSHROOM,LILAC);
+
+        this.tag(CROPS).addTags(APPLE,POPPY_SEEDS,ACORN,WHEAT,COCOA,ROOTS,MUSHROOM,LILAC).add(FIItems.TINDER_CONK.get());
         //Food
         this.tag(BLEWIT_STUFFING).addTags(SEEDS,NUTS,VEGETABLES,RAW_MEATS,RAW_FISHES);
 
@@ -93,7 +90,7 @@ public class FIItemTags extends ItemTagsProvider {
         .add(Items.INK_SAC, Items.GLOW_INK_SAC, Items.RABBIT_FOOT, Items.SUGAR,Items.SUGAR_CANE, Items.FEATHER, Items.KELP, Items.DRIED_KELP, Items.BAMBOO,
          Items.CACTUS, Items.VINE, Items.MOSS_BLOCK, Items.AZALEA, Items.FLOWERING_AZALEA, Items.HONEYCOMB)
         .add(FIItems.ROSE_PETALS.get(), FIItems.ROSELLE_PETALS.get(), FIItems.BIRCH_SAP_BOTTLE.get(), FIItems.BIRCH_SYRUP_BOTTLE.get(), FIItems.ROSELLE_BUSH_ITEM.get(),
-         FIItems.STOUT_BEACH_ROSE_BUSH_ITEM.get(),FIItems.TALL_BEACH_ROSE_BUSH_ITEM.get(), FIItems.LILAC_BLOOM.get())
+         FIItems.STOUT_BEACH_ROSE_BUSH_ITEM.get(),FIItems.TALL_BEACH_ROSE_BUSH_ITEM.get(), FIItems.LILAC_BLOOM.get(),FIItems.TINDER_CONK_SPORES.get(),FIItems.AMADOU.get())
         .add(ModItems.WILD_CABBAGES.get(), ModItems.WILD_BEETROOTS.get(), ModItems.WILD_POTATOES.get(), ModItems.WILD_TOMATOES.get(), ModItems.WILD_CARROTS.get(),
         ModItems.RICE_PANICLE.get(), ModItems.PUMPKIN_SLICE.get(), ModItems.CABBAGE_LEAF.get(), ModItems.MILK_BOTTLE.get());
 
@@ -118,9 +115,7 @@ public class FIItemTags extends ItemTagsProvider {
         this.tag(ItemTags.HANGING_SIGNS).add(FIItems.LILAC_HANGING_SIGN.get());
         this.tag(ItemTags.BOATS).add(FIItems.LILAC_BOAT.get());
         this.tag(ItemTags.CHEST_BOATS).add(FIItems.LILAC_CHEST_BOAT.get());
-        this.tag(ItemTags.PLANKS).add(FIBlocks.LILAC_PLANKS.get().asItem(), SEALED_PLANKS.get().asItem(), SEALED_BAMBOO_PLANKS.get().asItem()
-        );
-        this.tag(net.minecraft.tags.ItemTags.create(ForagersInsight.rl("sealed_planks"))).add(SEALED_PLANKS.get().asItem(), SEALED_BAMBOO_PLANKS.get().asItem()
+        this.tag(ItemTags.PLANKS).add(FIBlocks.LILAC_PLANKS.get().asItem()
         );
 
         registerForgeTags();
@@ -134,6 +129,7 @@ public class FIItemTags extends ItemTagsProvider {
         tag(STORAGE_BLOCK_BLACK_ACORNS).add(FIBlocks.BLACK_ACORN_SACK.get().asItem());
         tag(STORAGE_BLOCK_BLEWIT_MUSHROOM).add(FIBlocks.BLEWIT_CRATE.get().asItem());
         tag(STORAGE_BLOCK_LILAC_BLOOM).add(FIBlocks.LILAC_BLOOM_CRATE.get().asItem());
+        tag(STORAGE_BLOCK_TINDER_CONK).add(FIBlocks.TINDER_CONK_CRATE.get().asItem());
     }
     private void addOptionalTags(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> tagAppender, String namespace, String... paths) {
         for (String path : paths) {

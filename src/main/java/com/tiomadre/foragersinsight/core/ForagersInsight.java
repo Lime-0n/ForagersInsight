@@ -4,12 +4,12 @@ import com.tiomadre.foragersinsight.data.server.FIAdvancementData;
 import com.tiomadre.foragersinsight.data.server.recipes.FIDiffusingRecipes;
 import com.tiomadre.foragersinsight.core.registry.FIEnchantments;
 import com.tiomadre.foragersinsight.core.other.FIClientCompat;
-import com.tiomadre.foragersinsight.core.other.FICompostable;
+import com.tiomadre.foragersinsight.core.registry.FICompostable;
 import com.tiomadre.foragersinsight.core.registry.*;
 import com.tiomadre.foragersinsight.data.client.FIBlockStates;
 import com.tiomadre.foragersinsight.data.client.FIItemModels;
 import com.tiomadre.foragersinsight.data.client.FIParticles;
-import com.tiomadre.foragersinsight.data.server.FILoot;
+import com.tiomadre.foragersinsight.core.registry.FILoot;
 import com.tiomadre.foragersinsight.data.server.FIWorldgen;
 import com.tiomadre.foragersinsight.data.server.recipes.FICraftingRecipes;
 import com.tiomadre.foragersinsight.data.server.tags.FIBiomeTags;
@@ -53,6 +53,8 @@ public class ForagersInsight {
 		FIParticleTypes.register(bus);
 		FITabs.TABS.register(bus);
 		FITreeDecoratorTypes.TREE_DECORATOR_TYPES.register(bus);
+		FIRecipeSerializers.RECIPE_SERIALIZERS.register(bus);
+		FITappables.bootstrap();
 
 
 		bus.addListener(this::commonSetup);

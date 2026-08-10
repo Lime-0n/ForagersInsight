@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "triggered=false": {
+      "model": "foragersinsight:block/sap_trap"
+    },
+    "triggered=true": {
+      "model": "foragersinsight:block/sap_trap"
+    }
+  }
+}

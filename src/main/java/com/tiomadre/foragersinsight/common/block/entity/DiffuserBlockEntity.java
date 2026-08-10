@@ -5,7 +5,6 @@ import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.data.server.recipes.FIDiffusingRecipes;
 import com.tiomadre.foragersinsight.common.gui.DiffuserMenu;
 import com.tiomadre.foragersinsight.core.registry.FIBlockEntityTypes;
-import com.tiomadre.foragersinsight.data.server.tags.FITags;
 import com.tiomadre.foragersinsight.core.registry.FIItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -390,7 +389,7 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
     @Override
     public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
         if (slot < INPUT_SLOT_COUNT) {
-            return stack.is(FITags.ItemTag.AROMATICS) && !this.hasActiveScent();
+            return !this.hasActiveScent();
         }
         if (slot == ENHANCEMENT_SLOT_INDEX) {
             return isEnhancementItem(stack) && !this.hasActiveScent();
@@ -695,7 +694,7 @@ public class DiffuserBlockEntity extends BaseContainerBlockEntity {
         RADIUS(1.2D, 1.0D, "honeycomb"),
         RADIUS_BLOCK(2.0D, 1.0D, "honeycomb_block"),
         DURATION(1.0D, 1.2D, "birch_sap_bottle"),
-        DURATION_BUCKET(1.0D, 1.85D, "birch_sap_bucket");
+        DURATION_BUCKET(1.0D, 2.D, "birch_sap_bucket");
 
         private final double radiusMultiplier;
         private final double durationMultiplier;

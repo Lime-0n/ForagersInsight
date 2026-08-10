@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.common.block.entity.suspiciouslitter;
 
 import com.tiomadre.foragersinsight.common.block.SuspiciousLitterBlock;
+import com.tiomadre.foragersinsight.common.item.AmadouCapItem;
 import com.tiomadre.foragersinsight.core.other.FarmingXPEvents;
 import com.tiomadre.foragersinsight.core.registry.*;
 import net.minecraft.core.BlockPos;
@@ -56,8 +57,7 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
 
     public void startBrushing(Player player, ItemStack brushStack) {
         this.brusher = player.getUUID();
-        this.luckOfTheTreesLevel = EnchantmentHelper.getItemEnchantmentLevel(
-                FIEnchantments.LUCK_OF_THE_TREES.get(), brushStack);
+        this.luckOfTheTreesLevel = getLuckOfTheTreesLevel(player, brushStack);
         if (this.level instanceof ServerLevel serverLevel) {
             resolveRevealedItem(serverLevel, getBlockState());
             sync();
@@ -175,12 +175,16 @@ public class SuspiciousLitterBlockEntity extends BlockEntity {
                 continue;
             }
             this.brusher = player.getUUID();
-            this.luckOfTheTreesLevel = EnchantmentHelper.getItemEnchantmentLevel(
-                    FIEnchantments.LUCK_OF_THE_TREES.get(), player.getUseItem());
+            this.luckOfTheTreesLevel = getLuckOfTheTreesLevel(player, player.getUseItem());
             resolveRevealedItem(level, state);
             sync();
             return;
         }
+    }
+
+    private static int getLuckOfTheTreesLevel(Player player, ItemStack brushStack) {
+        int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(FIEnchantments.LUCK_OF_THE_TREES.get(), brushStack);
+        return AmadouCapItem.applyLuckOfTheTrees(player, enchantmentLevel);
     }
 
     private void resolveRevealedItem(ServerLevel level, BlockState state) {
