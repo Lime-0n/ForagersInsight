@@ -114,7 +114,7 @@ public class FIBiomeModifiers {
                 HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.FLOWER_SUSPICIOUS_LEAF_LITTER_PATCH_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION)
         );
-                //Other Flora Patchers
+                //Other Flora Patches
         context.register(ADD_WOODLAND_FERNS, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
                 tagSet(biomes, FITags.BiomeTag.HAS_WOODLAND_FERNS),
                 HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.WOODLAND_FERN_PATCH_PLACED_KEY)),
@@ -143,7 +143,7 @@ public class FIBiomeModifiers {
         );
         context.register(ADD_FLOWER_FALLEN_TREES, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
                 tagSet(biomes, FITags.BiomeTag.HAS_FLOWER_FOREST_LITTER),
-                HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.OAK_FALLEN_TREES_PLACED_KEY)),
+                HolderSet.direct(placedFeatures.getOrThrow(FIPlacedFeatures.FLOWER_FALLEN_TREES_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION)
         );  //Other
         context.register(ADD_PUDDLES, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
