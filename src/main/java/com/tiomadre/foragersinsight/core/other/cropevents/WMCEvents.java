@@ -17,18 +17,17 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.registries.DeferredBlock;
 import vectorwing.farmersdelight.common.block.MushroomColonyBlock;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 
-@Mod.EventBusSubscriber(modid = ForagersInsight.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+//@Mod.EventBusSubscriber(modid = ForagersInsight.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class WMCEvents {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void onPlaceMushroomOnWall(RightClickBlock event) {
+    public static void onPlaceMushroomOnWall(PlayerInteractEvent.RightClickBlock event) {
         Direction face = event.getFace();
         if (face == null || !face.getAxis().isHorizontal()) {
             return;
@@ -65,12 +64,12 @@ public class WMCEvents {
     }
 
     private static BlockState getWallPlacementState(Item item, Direction face) {
-        RegistryObject<Block> wallMushroom = getWallMushroom(item);
+        DeferredBlock<Block> wallMushroom = getWallMushroom(item);
         if (wallMushroom != null) {
             return wallMushroom.get().defaultBlockState().setValue(WallMushroomBlock.FACING, face);
         }
 
-        RegistryObject<Block> wallColony = getWallColony(item);
+        DeferredBlock<Block> wallColony = getWallColony(item);
         if (wallColony != null) {
             return wallColony.get().defaultBlockState()
                     .setValue(WallMushroomColonyBlock.FACING, face)
@@ -80,7 +79,7 @@ public class WMCEvents {
         return null;
     }
 
-    private static RegistryObject<Block> getWallMushroom(Item item) {
+    private static DeferredBlock<Block> getWallMushroom(Item item) {
         if (item == Items.RED_MUSHROOM) {
             return FIBlocks.WALL_RED_MUSHROOM;
         }
@@ -93,7 +92,7 @@ public class WMCEvents {
         return null;
     }
 
-    private static RegistryObject<Block> getWallColony(Item item) {
+    private static DeferredBlock<Block> getWallColony(Item item) {
         if (item == ModBlocks.RED_MUSHROOM_COLONY.get().asItem()) {
             return FIBlocks.WALL_RED_MUSHROOM_COLONY;
         }

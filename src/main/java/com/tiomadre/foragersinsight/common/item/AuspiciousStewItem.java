@@ -19,6 +19,8 @@ public class AuspiciousStewItem extends ConsumableItem {
         super(properties, hasFoodEffectTooltip);
     }
 
+
+    //need to rewrite this method because item stacks no longer have compound tags
     @Override
     public void affectConsumer(ItemStack stack, Level level, LivingEntity entity) {
         if (level.isClientSide) {

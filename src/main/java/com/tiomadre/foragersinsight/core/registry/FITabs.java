@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.core.registry;
 
 import com.tiomadre.foragersinsight.core.ForagersInsight;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -11,9 +12,9 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredRegister;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Supplier;
@@ -23,14 +24,14 @@ public class FITabs {
     public static final DeferredRegister<CreativeModeTab> TABS =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ForagersInsight.MOD_ID);
 
-    public static final RegistryObject<CreativeModeTab> FORAGERS_INSIGHT = TABS.register("foragersinsight", () ->
+    public static final Supplier<CreativeModeTab> FORAGERS_INSIGHT = TABS.register("foragersinsight", () ->
             CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.foragersinsight"))
                     .icon(() -> new ItemStack(FIBlocks.BLOSSOMING_LILAC_LEAVES.get()))
                     .displayItems((parameters, output) -> displayEntries(output))
                     .build());
 
-    private static final List<RegistryObject<? extends ItemLike>> BLOCK_ENTRIES = List.of(
+    private static final List<Supplier<? extends ItemLike>> BLOCK_ENTRIES = List.of(
 
             FIBlocks.BOUNTIFUL_DARK_OAK_LEAVES,
             FIBlocks.BOUNTIFUL_OAK_LEAVES,
@@ -82,7 +83,7 @@ public class FITabs {
 
     );
 
-    private static final List<RegistryObject<? extends ItemLike>> INGREDIENT_ENTRIES = List.of(
+    private static final List<Supplier<? extends ItemLike>> INGREDIENT_ENTRIES = List.of(
             FIItems.AMADOU,
             FIItems.APPLE_SLICE,
             FIItems.BLEWIT_MUSHROOM,
@@ -113,7 +114,7 @@ public class FITabs {
             FIItems.BIRCH_SAP_BOTTLE
     );
 
-    private static final List<RegistryObject<? extends ItemLike>> CUISINE_ENTRIES = List.of(
+    private static final List<Supplier<? extends ItemLike>> CUISINE_ENTRIES = List.of(
             FIItems.ACORN_COOKIE,
             FIItems.ROSE_COOKIE,
             FIItems.BLACK_FOREST_MUFFIN,
@@ -158,7 +159,7 @@ public class FITabs {
             FIItems.ROSELLE_JUICE
     );
 
-    private static final List<RegistryObject<? extends ItemLike>> TOOL_ENTRIES = List.of(
+    private static final List<Supplier<? extends ItemLike>> TOOL_ENTRIES = List.of(
             FIItems.DIFFUSER,
             FIItems.HANDBASKET,
             FIItems.FLINT_SHEARS,
@@ -173,7 +174,7 @@ public class FITabs {
             FIItems.AMADOU_CAP
 
     );
-    private static final List<RegistryObject<? extends ItemLike>> WOODEN_ENTRIES = List.of(
+    private static final List<Supplier<? extends ItemLike>> WOODEN_ENTRIES = List.of(
             //BIRCH
             FIBlocks.SAPPY_BIRCH_LOG,
             FIBlocks.STRIPPED_SAPPY_BIRCH_LOG,
@@ -196,7 +197,7 @@ public class FITabs {
             FIItems.LILAC_CHEST_BOAT
     );
     private static final List<Supplier<MobEffect>> AUSPICIOUS_STEW_EFFECTS = List.of(
-            FIMobEffects.BLOOM,  () -> MobEffects.DAMAGE_RESISTANCE, () -> MobEffects.HEALTH_BOOST, () -> MobEffects.REGENERATION);
+            FIMobEffects.BLOOM,  MobEffects.DAMAGE_RESISTANCE, () -> MobEffects.HEALTH_BOOST, () -> MobEffects.REGENERATION);
 
 
     public static void register(IEventBus bus) {
@@ -219,10 +220,13 @@ public class FITabs {
 
     private static ItemStack createAuspiciousStew(MobEffect effect) {
         ItemStack stack = new ItemStack(FIItems.AUSPICIOUS_STEW.get());
-        CompoundTag tag = stack.getOrCreateTag();
-        ResourceLocation effectId = BuiltInRegistries.MOB_EFFECT.getKey(effect);
-        if (effectId != null) {
-            tag.putString("AuspiciousEffect", effectId.toString());
+
+
+        //Check back on this later, had to redo the method cause no more item stack compound tags
+     DataComponentType<MobEffect> effectcomponent= DataComponentType.<MobEffect>builder().build();
+        if (effect != null) {
+            stack.getOrDefault(effectcomponent,effect);
+
         }
         return stack;
     }

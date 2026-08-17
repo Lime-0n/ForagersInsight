@@ -19,7 +19,7 @@ public class TonicItem extends DrinkableItem {
     public @NotNull ItemStack finishUsingItem(@NotNull ItemStack stack, @NotNull Level level, @NotNull LivingEntity entity) {
         ItemStack result = super.finishUsingItem(stack, level, entity);
         if (!level.isClientSide) {
-            entity.addEffect(new MobEffectInstance(FIMobEffects.MEDICINAL.get(), MEDICINAL_DURATION));
+            entity.addEffect(new MobEffectInstance(FIMobEffects.MEDICINAL, MEDICINAL_DURATION));
         }
         return result;
     }

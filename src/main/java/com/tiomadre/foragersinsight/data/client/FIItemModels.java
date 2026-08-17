@@ -3,9 +3,10 @@ package com.tiomadre.foragersinsight.data.client;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.teamabnormals.blueprint.core.data.client.BlueprintItemModelProvider;
 import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.client.model.generators.loaders.SeparateTransformsModelBuilder;
-import net.minecraftforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.client.model.generators.loaders.SeparateTransformsModelBuilder;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+
 
 import static com.tiomadre.foragersinsight.core.registry.FIItems.*;
 

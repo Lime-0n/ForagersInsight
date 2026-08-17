@@ -4,13 +4,14 @@ import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.tiomadre.foragersinsight.core.other.toolevents.WaxedBoots;
 import com.tiomadre.foragersinsight.core.registry.FIRecipeSerializers;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistries;
+
 import org.jetbrains.annotations.NotNull;
 
 public class WaxedBootsRecipe extends CustomRecipe {
@@ -108,7 +109,7 @@ public class WaxedBootsRecipe extends CustomRecipe {
     }
 
     private static Ingredient createBootsIngredient() {
-        java.util.List<ItemStack> boots = ForgeRegistries.ITEMS.getValues().stream()
+        java.util.List<ItemStack> boots = Registries.ITEM.getValues().stream()
                 .map(ItemStack::new)
                 .filter(WaxedBoots::isBoots)
                 .toList();

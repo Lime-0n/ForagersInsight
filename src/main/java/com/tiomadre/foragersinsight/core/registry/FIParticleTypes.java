@@ -3,14 +3,13 @@ package com.tiomadre.foragersinsight.core.registry;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.core.registries.Registries;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 public final class FIParticleTypes {
     public static final DeferredRegister<ParticleType<?>> PARTICLES =
-            DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, ForagersInsight.MOD_ID);
+            DeferredRegister.create(Registries.PARTICLE_TYPE, ForagersInsight.MOD_ID);
     //tapper drip particles
     public static final RegistryObject<SimpleParticleType> DRIPPING_SAP =
             PARTICLES.register("dripping_sap", () -> new SimpleParticleType(false));

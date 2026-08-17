@@ -2,24 +2,25 @@ package com.tiomadre.foragersinsight.data.client;
 
 import com.tiomadre.foragersinsight.core.ForagersInsight;
 import com.teamabnormals.blueprint.core.data.client.BlueprintBlockStateProvider;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredBlock;
+
 
 public abstract class FIBlockStatesHelper extends BlueprintBlockStateProvider {
     public FIBlockStatesHelper(PackOutput output, String modid, ExistingFileHelper helper) {
         super(output, modid, helper);
     }
 
-    public static ResourceLocation loc(RegistryObject<? extends Block> block) {
+    public static ResourceLocation loc(DeferredBlock<? extends Block> block) {
         return loc(block.get());
     }
 
     public static ResourceLocation loc(Block block) {
-        return ForgeRegistries.BLOCKS.getKey(block);
+        return Registries.BLOCK.getKey(block);
     }
 
     public static ResourceLocation modTexture(String string) {

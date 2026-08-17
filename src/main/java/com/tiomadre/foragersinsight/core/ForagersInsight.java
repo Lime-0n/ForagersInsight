@@ -18,15 +18,14 @@ import com.tiomadre.foragersinsight.data.server.tags.FIItemTags;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 @Mod(ForagersInsight.MOD_ID)
 public class ForagersInsight {
@@ -34,34 +33,32 @@ public class ForagersInsight {
 
 	public static final RegistryHelper REGISTRY_HELPER = new RegistryHelper(MOD_ID);
 
-	public ForagersInsight() {
-		ModLoadingContext context = ModLoadingContext.get();
-		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-		MinecraftForge.EVENT_BUS.register(this);
+	public ForagersInsight(IEventBus modEventBus, ModContainer modContainer) {
+		NeoForge.EVENT_BUS.register(this);
 
-		REGISTRY_HELPER.register(bus);
+		REGISTRY_HELPER.register(modEventBus);
 		FIBoatTypes.register();
 		FIAdvancementCriteria.register();
 		FIWoodTypes.register();
-		FIEnchantments.register(bus);
-		FIBiomeFeatures.register(bus);
-		FIBlockEntityTypes.register(bus);
-		FIFoliagePlacerType.FOLIAGE_PLACER_TYPE.register(bus);
-		FILootModifiers.LOOT_MODIFIERS.register(bus);
-		FIMenuTypes.MENUS.register(bus);
-		FIMobEffects.MOB_EFFECTS.register(bus);
-		FIParticleTypes.register(bus);
-		FITabs.TABS.register(bus);
-		FITreeDecoratorTypes.TREE_DECORATOR_TYPES.register(bus);
-		FIRecipeSerializers.RECIPE_SERIALIZERS.register(bus);
+		FIEnchantments.register(modEventBus);
+		FIBiomeFeatures.register(modEventBus);
+		FIBlockEntityTypes.register(modEventBus);
+		FIFoliagePlacerType.FOLIAGE_PLACER_TYPE.register(modEventBus);
+		FILootModifiers.LOOT_MODIFIERS.register(modEventBus);
+		FIMenuTypes.MENUS.register(modEventBus);
+		FIMobEffects.MOB_EFFECTS.register(modEventBus);
+		FIParticleTypes.register(modEventBus);
+		FITabs.TABS.register(modEventBus);
+		FITreeDecoratorTypes.TREE_DECORATOR_TYPES.register(modEventBus);
+		FIRecipeSerializers.RECIPE_SERIALIZERS.register(modEventBus);
 		FITappables.bootstrap();
 
 
-		bus.addListener(this::commonSetup);
-		bus.addListener(this::clientSetup);
-		bus.addListener(this::dataSetup);
+		modEventBus.addListener(this::commonSetup);
+		modEventBus.addListener(this::clientSetup);
+		modEventBus.addListener(this::dataSetup);
 
-		context.registerConfig(ModConfig.Type.COMMON, FIConfig.COMMON_SPEC);
+		modContainer.registerConfig(ModConfig.Type.COMMON, FIConfig.COMMON_SPEC);
 	}
 
 	public static ResourceLocation rl(String namespace) {
@@ -88,7 +85,7 @@ public class ForagersInsight {
 		gen.addProvider(server, new FIBiomeTags(event));
 		gen.addProvider(server, new FIItemTags(event, blockTags));
 		gen.addProvider(server, new FILoot(event));
-		gen.addProvider(server, new FICraftingRecipes(event));
+		gen.addProvider(server, new FICraftingRecipes(event.getGenerator().getPackOutput() ,event.getLookupProvider()));
 		gen.addProvider(server, new FIWorldgen(event));
 		gen.addProvider(server, new FIAdvancementData(event));
 

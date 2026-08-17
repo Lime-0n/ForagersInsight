@@ -5,26 +5,27 @@ import com.tiomadre.foragersinsight.common.block.entity.SapTrapBlockEntity;
 import com.tiomadre.foragersinsight.common.block.entity.TapperBlockEntity;
 import com.tiomadre.foragersinsight.common.block.entity.suspiciouslitter.SuspiciousLitterBlockEntity;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.function.Supplier;
 
 public class FIBlockEntityTypes {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES =
-            DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, ForagersInsight.MOD_ID);
+            DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, ForagersInsight.MOD_ID);
 
-    public static final RegistryObject<BlockEntityType<DiffuserBlockEntity>> DIFFUSER =
+    public static final Supplier<BlockEntityType<DiffuserBlockEntity>> DIFFUSER =
             BLOCK_ENTITY_TYPES.register("diffuser",
                     () -> BlockEntityType.Builder.of(DiffuserBlockEntity::new, FIBlocks.DIFFUSER.get()).build(null));
-    public static final RegistryObject<BlockEntityType<SuspiciousLitterBlockEntity>> SUSPICIOUS_LEAF_LITTER =
+    public static final Supplier<BlockEntityType<SuspiciousLitterBlockEntity>> SUSPICIOUS_LEAF_LITTER =
             BLOCK_ENTITY_TYPES.register("suspicious_leaf_litter",
                     () -> BlockEntityType.Builder.of(SuspiciousLitterBlockEntity::new, FIBlocks.SUSPICIOUS_LEAF_LITTER.get()).build(null));
-    public static final RegistryObject<BlockEntityType<TapperBlockEntity>> TAPPER =
+    public static final Supplier<BlockEntityType<TapperBlockEntity>> TAPPER =
             BLOCK_ENTITY_TYPES.register("tapper",
                     () -> BlockEntityType.Builder.of(TapperBlockEntity::new, FIBlocks.TAPPER.get()).build(null));
-    public static final RegistryObject<BlockEntityType<SapTrapBlockEntity>> SAP_TRAP =
+    public static final Supplier<BlockEntityType<SapTrapBlockEntity>> SAP_TRAP =
             BLOCK_ENTITY_TYPES.register("sap_trap",
                     () -> BlockEntityType.Builder.of(SapTrapBlockEntity::new, FIBlocks.SAP_TRAP.get()).build(null));
 
