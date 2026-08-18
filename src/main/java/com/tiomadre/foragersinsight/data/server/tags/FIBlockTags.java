@@ -7,10 +7,11 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.data.BlockTagsProvider;
-import net.minecraftforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.common.data.BlockTagsProvider;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
+import vectorwing.farmersdelight.common.tag.CommonTags;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
 import static com.tiomadre.foragersinsight.core.registry.FIBlocks.*;
@@ -55,18 +56,18 @@ public class FIBlockTags extends BlockTagsProvider {
         this.tag(SHEARABLE_CROPS)
                 .add(HANGING_LILAC_LEAVES.get(), BOUNTIFUL_OAK_LEAVES.get(), BOUNTIFUL_DARK_OAK_LEAVES.get(), BOUNTIFUL_SPRUCE_LEAVES.get(), BOUNTIFUL_SPRUCE_TIPS.get())
                 .add(Blocks.KELP, Blocks.KELP_PLANT, Blocks.SUGAR_CANE, Blocks.SWEET_BERRY_BUSH)
-                .addOptional(new ResourceLocation("farmersdelight", "brown_mushroom_colony"))
-                .addOptional(new ResourceLocation("farmersdelight", "red_mushroom_colony"))
-                .addOptional(new ResourceLocation("farmersdelight", "tomato_vine"));
+                .addOptional(ResourceLocation.fromNamespaceAndPath("farmersdelight", "brown_mushroom_colony"))
+                .addOptional(ResourceLocation.fromNamespaceAndPath("farmersdelight", "red_mushroom_colony"))
+                .addOptional(ResourceLocation.fromNamespaceAndPath("farmersdelight", "tomato_vine"));
         this.tag(RICH_SOIL_TREE_SAPLINGS)
                 .add(Blocks.LILAC)
-                .addOptionalTag(new ResourceLocation("minecraft", "saplings"));
+                .addOptionalTag(ResourceLocation.fromNamespaceAndPath("minecraft", "saplings"));
         this.tag(FORAGING)
         //FD Wild Crops
         .add(ModBlocks.WILD_BEETROOTS.get(),ModBlocks.WILD_CABBAGES.get(),ModBlocks.WILD_CARROTS.get(),
         ModBlocks.WILD_ONIONS.get(),ModBlocks.WILD_POTATOES.get(),ModBlocks.WILD_TOMATOES.get(),ModBlocks.WILD_RICE.get(),
         //Grasses
-        ModBlocks.SANDY_SHRUB.get(),Blocks.TALL_GRASS,Blocks.GRASS,
+        ModBlocks.SANDY_SHRUB.get(),Blocks.TALL_GRASS,Blocks.GRASS_BLOCK,
         //Vanilla & Forager Wild Flowers
         Blocks.ROSE_BUSH,Blocks.DANDELION,Blocks.POPPY,STOUT_BEACH_ROSE_BUSH.get(), TALL_BEACH_ROSE_BUSH.get(),ROSELLE_BUSH.get());
         registerForgeTags();
@@ -81,7 +82,7 @@ public class FIBlockTags extends BlockTagsProvider {
                 LILAC_SLAB.get(), LILAC_FENCE.get(), LILAC_FENCE_GATE.get(), LILAC_DOOR.get(), LILAC_TRAPDOOR.get(), LILAC_PRESSURE_PLATE.get(), LILAC_BUTTON.get(),
                 LILAC_SIGN.get(), LILAC_WALL_SIGN.get(), LILAC_HANGING_SIGN.get(), LILAC_WALL_HANGING_SIGN.get(), LILAC_CABINET.get());
         this.tag(BlockTags.MINEABLE_WITH_HOE).add(BOUNTIFUL_OAK_LEAVES.get(),BOUNTIFUL_DARK_OAK_LEAVES.get(),BOUNTIFUL_SPRUCE_LEAVES.get());
-        this.tag(ModTags.MINEABLE_WITH_KNIFE).add(DANDELION_ROOT_SACK.get(),ROSELLE_CALYX_SACK.get(), ROSE_HIP_SACK.get(), POPPY_SEEDS_SACK.get(), SPRUCE_TIPS_SACK.get(), BLACK_ACORN_SACK.get());
+        this.tag(CommonTags.Blocks.MINEABLE_WITH_KNIFE).add(DANDELION_ROOT_SACK.get(),ROSELLE_CALYX_SACK.get(), ROSE_HIP_SACK.get(), POPPY_SEEDS_SACK.get(), SPRUCE_TIPS_SACK.get(), BLACK_ACORN_SACK.get());
     }
 
 

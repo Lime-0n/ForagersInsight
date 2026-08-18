@@ -2,32 +2,34 @@ package com.tiomadre.foragersinsight.core.registry;
 
 import com.tiomadre.foragersinsight.common.worldgen.trees.foliage.*;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.function.Supplier;
+
 
 public class FIFoliagePlacerType {
     public static final DeferredRegister<FoliagePlacerType<?>> FOLIAGE_PLACER_TYPE =
-            DeferredRegister.create(ForgeRegistries.FOLIAGE_PLACER_TYPES, ForagersInsight.MOD_ID);
+            DeferredRegister.create(Registries.FOLIAGE_PLACER_TYPE, ForagersInsight.MOD_ID);
 
-    public static final RegistryObject<FoliagePlacerType<AppleTreeFoliagePlacer>> APPLE_FOLIAGE_PLACER =
+    public static final Supplier<FoliagePlacerType<AppleTreeFoliagePlacer>> APPLE_FOLIAGE_PLACER =
             FOLIAGE_PLACER_TYPE.register("apple_tree_foliage_placer", () ->
                     new FoliagePlacerType<>(AppleTreeFoliagePlacer.CODEC));
 
-    public static final RegistryObject<FoliagePlacerType<AcornTreeFoliagePlacer>> ACORN_FOLIAGE_PLACER =
+    public static final Supplier<FoliagePlacerType<AcornTreeFoliagePlacer>> ACORN_FOLIAGE_PLACER =
             FOLIAGE_PLACER_TYPE.register("acorn_tree_foliage_placer", () ->
                     new FoliagePlacerType<>(AcornTreeFoliagePlacer.CODEC));
 
-    public static final RegistryObject<FoliagePlacerType<SpruceTipTreeFoliagePlacer>> SPRUCE_TIP_FOLIAGE_PLACER =
+    public static final Supplier<FoliagePlacerType<SpruceTipTreeFoliagePlacer>> SPRUCE_TIP_FOLIAGE_PLACER =
             FOLIAGE_PLACER_TYPE.register("spruce_tip_tree_foliage_placer", () ->
                     new FoliagePlacerType<>(SpruceTipTreeFoliagePlacer.CODEC));
 
-    public static final RegistryObject<FoliagePlacerType<LilacTreeFoliagePlacer>> LILAC_FOLIAGE_PLACER =
+    public static final Supplier<FoliagePlacerType<LilacTreeFoliagePlacer>> LILAC_FOLIAGE_PLACER =
             FOLIAGE_PLACER_TYPE.register("lilac_tree_foliage_placer", () ->
                     new FoliagePlacerType<>(LilacTreeFoliagePlacer.CODEC));
 
-    public static final RegistryObject<FoliagePlacerType<WoodlandsOakShrubFoliagePlacer>> WOODLANDS_OAK_SHRUB_FOLIAGE_PLACER =
+    public static final Supplier<FoliagePlacerType<WoodlandsOakShrubFoliagePlacer>> WOODLANDS_OAK_SHRUB_FOLIAGE_PLACER =
             FOLIAGE_PLACER_TYPE.register("woodlands_oak_shrub_foliage_placer", () ->
                     new FoliagePlacerType<>(WoodlandsOakShrubFoliagePlacer.CODEC));
 }

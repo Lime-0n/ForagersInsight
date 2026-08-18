@@ -111,7 +111,7 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
             return null;
         }
 
-        level.setBlock(pos, Blocks.GRASS.defaultBlockState(), 2);
+        level.setBlock(pos, Blocks.GRASS_BLOCK.defaultBlockState(), 2);
         return pos;
     }
 
@@ -127,7 +127,7 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
             if (replaced >= replacements) {
                 return;
             }
-            if (level.getBlockState(grassPos).is(Blocks.GRASS) && ghostPipeState.canSurvive(level, grassPos)) {
+            if (level.getBlockState(grassPos).is(Blocks.GRASS_BLOCK) && ghostPipeState.canSurvive(level, grassPos)) {
                 level.setBlock(grassPos, ghostPipeState, 2);
                 replaced++;
             }
@@ -163,7 +163,7 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
 
         BlockState woodlandFernState = FIBlocks.WOODLAND_FERN.get().defaultBlockState();
         for (BlockPos grassPos : shuffledGrassPositions) {
-            if (level.getBlockState(grassPos).is(Blocks.GRASS) && woodlandFernState.canSurvive(level, grassPos)) {
+            if (level.getBlockState(grassPos).is(Blocks.GRASS_BLOCK) && woodlandFernState.canSurvive(level, grassPos)) {
                 level.setBlock(grassPos, woodlandFernState, 2);
                 return;
             }
@@ -336,8 +336,8 @@ public class FallenTreeFeature extends Feature<NoneFeatureConfiguration> {
 
     private static BlockState getOptionalColonyState(RandomSource random) {
         ResourceLocation colonyId = random.nextBoolean()
-                ? new ResourceLocation("farmersdelight", "red_mushroom_colony")
-                : new ResourceLocation("farmersdelight", "brown_mushroom_colony");
+                ? ResourceLocation.fromNamespaceAndPath("farmersdelight", "red_mushroom_colony")
+                : ResourceLocation.fromNamespaceAndPath("farmersdelight", "brown_mushroom_colony");
         Block colony = BuiltInRegistries.BLOCK.getOptional(colonyId).orElse(null);
         return colony != null ? colony.defaultBlockState() : null;
     }

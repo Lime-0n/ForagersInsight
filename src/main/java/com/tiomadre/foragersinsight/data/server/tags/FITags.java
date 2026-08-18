@@ -56,18 +56,18 @@ public class FITags {
             public static final TagKey<net.minecraft.world.item.Item> COOKED_SALMON = TagUtil.itemTag("forge", "cooked_fishes/salmon");
         //Food
         public static final TagKey<Item> BLEWIT_STUFFING = TagKey.create(Registries.ITEM,
-                new ResourceLocation(ForagersInsight.MOD_ID, "blewit_stuffing"));
+                ResourceLocation.fromNamespaceAndPath(ForagersInsight.MOD_ID, "blewit_stuffing"));
         //Advancement Tags
 
         public static final TagKey<Item> FORAGERS_INSIGHT_ITEMS = TagKey.create(Registries.ITEM,
-                new ResourceLocation(ForagersInsight.MOD_ID, "foragers_insight_items"));
+                ResourceLocation.fromNamespaceAndPath(ForagersInsight.MOD_ID, "foragers_insight_items"));
         public static final TagKey<Item> WILD_FLOWER_DROPS = TagKey.create(Registries.ITEM,
-                new ResourceLocation(ForagersInsight.MOD_ID, "wild_flower_drops"));
+                ResourceLocation.fromNamespaceAndPath(ForagersInsight.MOD_ID, "wild_flower_drops"));
         public static final TagKey<Block> RICH_SOIL_TREE_STARTERS = TagKey.create(Registries.BLOCK,
-                new ResourceLocation(ForagersInsight.MOD_ID, "rich_soil_tree_starters"));
+                ResourceLocation.fromNamespaceAndPath(ForagersInsight.MOD_ID, "rich_soil_tree_starters"));
         //Handbasket
-        public static final TagKey<Item> HANDBASKET_ALLOWED = TagKey.create(Registries.ITEM, new ResourceLocation("foragersinsight","handbasket_allowed"));
-        public static final TagKey<Item> HANDBASKET_OTHER = TagKey.create(Registries.ITEM, new ResourceLocation(ForagersInsight.MOD_ID, "handbasket/other"));
+        public static final TagKey<Item> HANDBASKET_ALLOWED = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("foragersinsight","handbasket_allowed"));
+        public static final TagKey<Item> HANDBASKET_OTHER = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(ForagersInsight.MOD_ID, "handbasket/other"));
 
         public static final TagKey<Item> STORAGE_BLOCK_ROSE_HIP = storageTag("rose_hip");
         public static final TagKey<Item> STORAGE_BLOCK_SPRUCE_TIPS = storageTag("spruce_tips");

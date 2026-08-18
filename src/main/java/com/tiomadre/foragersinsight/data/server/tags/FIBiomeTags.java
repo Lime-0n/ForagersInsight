@@ -4,7 +4,7 @@ import com.tiomadre.foragersinsight.core.ForagersInsight;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.tags.BiomeTagsProvider;
 import net.minecraft.world.level.biome.Biomes;
-import net.minecraftforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 import org.jetbrains.annotations.NotNull;
 
 public class FIBiomeTags extends BiomeTagsProvider {

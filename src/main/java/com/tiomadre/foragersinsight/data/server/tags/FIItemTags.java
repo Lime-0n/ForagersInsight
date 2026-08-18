@@ -10,8 +10,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.registries.ForgeRegistries;
+
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import static com.tiomadre.foragersinsight.data.server.tags.FITags.ItemTag.*;
@@ -25,7 +25,7 @@ public class FIItemTags extends ItemTagsProvider {
         //Other
         this.tag(FITags.ItemTag.DOUGH).add(ModItems.WHEAT_DOUGH.get(), FIItems.ACORN_DOUGH.get());
         this.tag(FITags.ItemTag.ICE).add(Items.ICE, FIItems.CRUSHED_ICE.get())
-        .addOptional(new ResourceLocation("neapolitan", "ice_cubes"));
+        .addOptional(ResourceLocation.fromNamespaceAndPath("neapolitan", "ice_cubes"));
         this.tag(NUTS).add(FIItems.BLACK_ACORN.get());
         this.tag(NUTS_ACORN).add(FIItems.BLACK_ACORN.get());
         this.tag(SEEDS).add(FIItems.POPPY_SEEDS.get());
@@ -60,22 +60,22 @@ public class FIItemTags extends ItemTagsProvider {
 
         // Handbasket support tags
         this.tag(RAW_MEATS).add(Items.RABBIT, Items.CHICKEN, Items.PORKCHOP, Items.BEEF, Items.MUTTON, FIItems.RAW_RABBIT_LEG.get())
-                .addOptional(new ResourceLocation("farmersdelight", "chicken_cuts"))
-                .addOptional(new ResourceLocation("farmersdelight", "minced_beef"))
-                .addOptional(new ResourceLocation("farmersdelight", "bacon"))
-                .addOptional(new ResourceLocation("farmersdelight", "mutton_chops"));
+                .addOptional(ResourceLocation.fromNamespaceAndPath("farmersdelight", "chicken_cuts"))
+                .addOptional(ResourceLocation.fromNamespaceAndPath("farmersdelight", "minced_beef"))
+                .addOptional(ResourceLocation.fromNamespaceAndPath("farmersdelight", "bacon"))
+                .addOptional(ResourceLocation.fromNamespaceAndPath("farmersdelight", "mutton_chops"));
         this.tag(COOKED_MEATS).add(Items.COOKED_RABBIT, Items.COOKED_CHICKEN, Items.COOKED_PORKCHOP, Items.COOKED_BEEF,
                         Items.COOKED_MUTTON, FIItems.COOKED_RABBIT_LEG.get())
-                .addOptional(new ResourceLocation("farmersdelight", "cooked_bacon"))
-                .addOptional(new ResourceLocation("farmersdelight", "cooked_mutton_chops"))
-                .addOptional(new ResourceLocation("farmersdelight", "ham"))
-                .addOptional(new ResourceLocation("farmersdelight", "beef_patty"));
+                .addOptional(ResourceLocation.fromNamespaceAndPath("farmersdelight", "cooked_bacon"))
+                .addOptional(ResourceLocation.fromNamespaceAndPath("farmersdelight", "cooked_mutton_chops"))
+                .addOptional(ResourceLocation.fromNamespaceAndPath("farmersdelight", "ham"))
+                .addOptional(ResourceLocation.fromNamespaceAndPath("farmersdelight", "beef_patty"));
         this.tag(RAW_FISHES).add(Items.COD, Items.SALMON)
-                .addOptional(new ResourceLocation("farmersdelight", "cod_slice"))
-                .addOptional(new ResourceLocation("farmersdelight", "salmon_slice"));
+                .addOptional(ResourceLocation.fromNamespaceAndPath("farmersdelight", "cod_slice"))
+                .addOptional(ResourceLocation.fromNamespaceAndPath("farmersdelight", "salmon_slice"));
         this.tag(COOKED_FISHES).add(Items.COOKED_COD, Items.COOKED_SALMON)
-                .addOptional(new ResourceLocation("farmersdelight", "cooked_cod_slice"))
-                .addOptional(new ResourceLocation("farmersdelight", "cooked_salmon_slice"));
+                .addOptional(ResourceLocation.fromNamespaceAndPath("farmersdelight", "cooked_cod_slice"))
+                .addOptional(ResourceLocation.fromNamespaceAndPath("farmersdelight", "cooked_salmon_slice"));
         this.tag(FRUITS).add(FIItems.ROSE_HIP.get(), FIItems.ROSELLE_CALYX.get(), FIItems.APPLE_SLICE.get())
                 .addTag(APPLE);
         this.tag(VEGETABLES).add(FIItems.SPRUCE_TIPS.get())
@@ -133,7 +133,7 @@ public class FIItemTags extends ItemTagsProvider {
     }
     private void addOptionalTags(IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item> tagAppender, String namespace, String... paths) {
         for (String path : paths) {
-            tagAppender.addOptionalTag(new ResourceLocation(namespace, path));
+            tagAppender.addOptionalTag(ResourceLocation.fromNamespaceAndPath(namespace, path));
         }
     }
 

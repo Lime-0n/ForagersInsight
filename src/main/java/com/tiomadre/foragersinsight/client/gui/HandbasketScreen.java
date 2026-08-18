@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class HandbasketScreen extends AbstractContainerScreen<HandbasketMenu> {
     private static final ResourceLocation TEXTURE =
-            new ResourceLocation("foragersinsight", "textures/gui/handbasket.png");
+            ResourceLocation.fromNamespaceAndPath("foragersinsight", "textures/gui/handbasket.png");
 
     public HandbasketScreen(HandbasketMenu menu, Inventory inv, Component title) {
         super(menu, inv, title);

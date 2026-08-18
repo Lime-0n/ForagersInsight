@@ -1,9 +1,6 @@
 package com.tiomadre.foragersinsight.common.enchantments;
 
-import net.minecraft.world.item.HoeItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ShearsItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.entity.EquipmentSlot;
 import vectorwing.farmersdelight.common.item.KnifeItem;

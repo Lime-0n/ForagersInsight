@@ -28,12 +28,12 @@ public abstract class FIBlockStatesHelper extends BlueprintBlockStateProvider {
     }
 
     public static ResourceLocation concatRL(ResourceLocation loc, String str) {
-        return new ResourceLocation(loc.getNamespace(), loc.getPath() + str);
+        return ResourceLocation.fromNamespaceAndPath(loc.getNamespace(), loc.getPath() + str);
     }
 
     public static ResourceLocation itemTexture(Block item) {
         ResourceLocation loc = loc(item);
-        return new ResourceLocation(loc.getNamespace(), "item/" + loc.getPath());
+        return ResourceLocation.fromNamespaceAndPath(loc.getNamespace(), "item/" + loc.getPath());
     }
 
 }

@@ -3,7 +3,8 @@ package com.tiomadre.foragersinsight.common.enchantments;
 import net.minecraft.world.item.BrushItem;
 import net.minecraft.world.item.ShearsItem;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
-import net.minecraftforge.registries.ForgeRegistries;
+
+//enchantments changed, come back to this later
 
 public class FIEnchantCategories {
 

@@ -23,9 +23,9 @@ import java.util.Locale;
 
 public class DiffuserScreen extends AbstractContainerScreen<DiffuserMenu> {
     private static final ResourceLocation UNLIT_TEXTURE =
-            new ResourceLocation("foragersinsight", "textures/gui/diffuser.png");
+            ResourceLocation.fromNamespaceAndPath("foragersinsight", "textures/gui/diffuser.png");
     private static final ResourceLocation LIT_TEXTURE =
-            new ResourceLocation("foragersinsight", "textures/gui/diffuser_lit.png");
+            ResourceLocation.fromNamespaceAndPath("foragersinsight", "textures/gui/diffuser_lit.png");
 
     private static final int ARROW_U = 177;
     private static final int ARROW_V = 0;

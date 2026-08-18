@@ -5,7 +5,7 @@ import com.tiomadre.foragersinsight.data.server.tags.FITags;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
@@ -57,7 +57,7 @@ public class FIPlacedFeatures {
         return ResourceKey.create(Registries.PLACED_FEATURE, ForagersInsight.rl(name));
     }
 
-    public static void bootstap(BootstapContext<PlacedFeature> context) {
+    public static void bootstap(BootstrapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
         //Trees
         register(context, APPLE_TREE_PLACED_KEY, configuredFeatures.getOrThrow(FIConfiguredFeatures.APPLE_TREE_KEY),
@@ -141,7 +141,7 @@ public class FIPlacedFeatures {
 
     }
 
-    private static void register(BootstapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> configuration,
+    private static void register(BootstrapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> configuration,
                                  List<PlacementModifier> modifiers) {
         context.register(key, new PlacedFeature(configuration, List.copyOf(modifiers)));
     }

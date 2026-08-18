@@ -9,13 +9,15 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
+
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class HandbasketMenu extends AbstractContainerMenu {
-    private final IItemHandler basketInv;
     private final ItemStack basketStack;
     private final int basketSlotIndex;
 
@@ -35,9 +37,9 @@ public class HandbasketMenu extends AbstractContainerMenu {
     public HandbasketMenu(int id, Inventory playerInv, ItemStack basketStack, int basketSlotIndex) {
         super(FIMenuTypes.HANDBASKET_MENU.get(), id);
         this.basketStack = basketStack;
-        this.basketInv = basketStack
-                .getCapability(ForgeCapabilities.ITEM_HANDLER)
-                .orElseThrow(() -> new IllegalStateException("Missing handler"));
+        IItemHandler basketInv = basketStack
+                .getCapability(Capabilities.ItemHandler.ITEM);
+//                .orElseThrow(() -> new IllegalStateException("Missing handler"));
         this.basketSlotIndex = basketSlotIndex;
         // basket’s 2×5 griddy
         for (int row = 0; row < BASKET_ROWS; row++) {
@@ -45,7 +47,7 @@ public class HandbasketMenu extends AbstractContainerMenu {
                 int index = col + row * BASKET_COLS;
                 int x = BASKET_START_X + col * SLOT_SIZE + SHIFT_X;
                 int y = BASKET_START_Y + row * SLOT_SIZE + SHIFT_Y;
-                addSlot(new SlotItemHandler(basketInv, index, x, y) {
+                addSlot(new SlotItemHandler(Objects.requireNonNull(basketInv), index, x, y) {
                     @Override
                     public boolean mayPlace(@NotNull ItemStack stack) {
                         return stack.is(FITags.ItemTag.HANDBASKET_ALLOWED);
@@ -80,7 +82,7 @@ public class HandbasketMenu extends AbstractContainerMenu {
         ItemStack copyOfSourceStack = sourceStack.copy();
 
         // no basket in itself
-        if (ItemStack.isSameItemSameTags(sourceStack, this.basketStack)) {
+        if (ItemStack.isSameItemSameComponents(sourceStack, this.basketStack)) {
             return ItemStack.EMPTY;
         }
 

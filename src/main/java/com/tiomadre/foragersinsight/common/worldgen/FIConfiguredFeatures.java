@@ -15,7 +15,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
@@ -86,7 +86,7 @@ public class FIConfiguredFeatures {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, ForagersInsight.rl(name));
     }
 
-    public static void bootstap(BootstapContext<ConfiguredFeature<?, ?>> context) {
+    public static void bootstap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
         //Tree Stuff
         register(context, APPLE_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
@@ -186,7 +186,7 @@ public class FIConfiguredFeatures {
         //Wild Flowers
         Holder<PlacedFeature> roselleBush = PlacementUtils.inlinePlaced(
                 Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-                        .add(Blocks.GRASS.defaultBlockState(), 6)
+                        .add(Blocks.GRASS_BLOCK.defaultBlockState(), 6)
                         .add(FIBlocks.ROSELLE_BUSH.get().defaultBlockState().setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 2)
                         .build())),
                 BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
@@ -243,7 +243,7 @@ public class FIConfiguredFeatures {
 
     }
 
-    private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstapContext<ConfiguredFeature<?, ?>> context,
+    private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstrapContext<ConfiguredFeature<?, ?>> context,
                                                                                           ResourceKey<ConfiguredFeature<?, ?>> key,
                                                                                           F feature,
                                                                                           FC configuration) {
@@ -256,7 +256,7 @@ public class FIConfiguredFeatures {
         Holder<PlacedFeature> placedFeature = PlacementUtils.inlinePlaced(
                 Feature.SIMPLE_BLOCK,
                 new SimpleBlockConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-                        .add(Blocks.GRASS.defaultBlockState(), 6)
+                        .add(Blocks.GRASS_BLOCK.defaultBlockState(), 6)
                         .add(state, 2)
                         .build())),
                 BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
@@ -271,7 +271,7 @@ public class FIConfiguredFeatures {
         Holder<PlacedFeature> placedFeature = PlacementUtils.inlinePlaced(
                 Feature.SIMPLE_BLOCK,
                 new SimpleBlockConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-                        .add(Blocks.GRASS.defaultBlockState(), 5)
+                        .add(Blocks.GRASS_BLOCK.defaultBlockState(), 5)
                         .add(Blocks.TALL_GRASS.defaultBlockState().setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 3)
                         .add(FIBlocks.WOODLAND_FERN.get().defaultBlockState(), 3)
                         .add(Blocks.LILAC.defaultBlockState().setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 1)
@@ -291,7 +291,7 @@ public class FIConfiguredFeatures {
                 new SimpleBlockConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                         .add(Blocks.DARK_OAK_LOG.defaultBlockState().setValue(RotatedPillarBlock.AXIS, Direction.Axis.X), 4)
                         .add(Blocks.DARK_OAK_LOG.defaultBlockState().setValue(RotatedPillarBlock.AXIS, Direction.Axis.Z), 4)
-                        .add(Blocks.GRASS.defaultBlockState(), 2)
+                        .add(Blocks.GRASS_BLOCK.defaultBlockState(), 2)
                         .build())),
                 BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
                         BlockPredicate.replaceable(),
