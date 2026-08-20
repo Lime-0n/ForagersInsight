@@ -9,7 +9,6 @@ import com.tiomadre.foragersinsight.core.registry.*;
 import com.tiomadre.foragersinsight.data.client.FIBlockStates;
 import com.tiomadre.foragersinsight.data.client.FIItemModels;
 import com.tiomadre.foragersinsight.data.client.FIParticles;
-import com.tiomadre.foragersinsight.core.registry.FILoot;
 import com.tiomadre.foragersinsight.data.server.FIWorldgen;
 import com.tiomadre.foragersinsight.data.server.recipes.FICraftingRecipes;
 import com.tiomadre.foragersinsight.data.server.tags.FIBiomeTags;
