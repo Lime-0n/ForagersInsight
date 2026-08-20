@@ -4,7 +4,7 @@ import com.tiomadre.foragersinsight.data.server.FIAdvancementData;
 import com.tiomadre.foragersinsight.data.server.recipes.FIDiffusingRecipes;
 import com.tiomadre.foragersinsight.core.registry.FIEnchantments;
 import com.tiomadre.foragersinsight.core.other.FIClientCompat;
-import com.tiomadre.foragersinsight.core.registry.FICompostable;
+import com.tiomadre.foragersinsight.core.registry.FICompostableProvider;
 import com.tiomadre.foragersinsight.core.registry.*;
 import com.tiomadre.foragersinsight.data.client.FIBlockStates;
 import com.tiomadre.foragersinsight.data.client.FIItemModels;
@@ -62,12 +62,12 @@ public class ForagersInsight {
 	}
 
 	public static ResourceLocation rl(String namespace) {
-		return new ResourceLocation(MOD_ID, namespace);
+		return ResourceLocation.fromNamespaceAndPath(MOD_ID, namespace);
 	}
 
 	private void commonSetup(FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
-			FICompostable.registerCompat();
+
 			FIDiffusingRecipes.bootstrap();
 		});
 	}
@@ -88,6 +88,7 @@ public class ForagersInsight {
 		gen.addProvider(server, new FICraftingRecipes(event.getGenerator().getPackOutput() ,event.getLookupProvider()));
 		gen.addProvider(server, new FIWorldgen(event));
 		gen.addProvider(server, new FIAdvancementData(event));
+		gen.addProvider(server, new FICompostableProvider(gen.getPackOutput(), event.getLookupProvider()));
 
 
 		boolean client = event.includeClient();

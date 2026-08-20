@@ -14,6 +14,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import vectorwing.farmersdelight.common.block.CabinetBlock;
 import vectorwing.farmersdelight.common.block.MushroomColonyBlock;
@@ -53,7 +54,7 @@ public class FIBlocks {
 
     //Mushrooms
     public static final DeferredBlock<Block> BLEWIT_MUSHROOM_COLONY = HELPER.createBlock("blewit_mushroom_colony", () ->
-            new MushroomColonyBlock(FIItems.BLEWIT_MUSHROOM,Block.Properties.ofFullCopy(Blocks.RED_MUSHROOM));
+            new MushroomColonyBlock(FIItems.BLEWIT_MUSHROOM,Block.Properties.ofFullCopy(Blocks.RED_MUSHROOM)));
     public static final DeferredBlock<Block> BLEWIT_MUSHROOM = HELPER.createBlockNoItem("blewit_mushroom", () ->
             new WildMushroomBlock(ofFullCopy(Blocks.RED_MUSHROOM), BLEWIT_MUSHROOM_COLONY));
     public static final DeferredBlock<Block> WALL_RED_MUSHROOM_COLONY = HELPER.createBlockNoItem("wall_red_mushroom_colony", () ->
@@ -85,10 +86,10 @@ public class FIBlocks {
     public static final DeferredBlock<Block> BOUNTIFUL_SPRUCE_TIPS = HELPER.createBlockNoItem("bountiful_spruce_tips", () ->
             new SpruceTipBlock(ofFullCopy(Blocks.SWEET_BERRY_BUSH).noCollission()));
     //Birch
-    public static final DeferredBlock<Block> SAPPY_BIRCH_LOG = HELPER.createFuelBlock("sappy_birch_log", () ->
-            new LogBlock(FIBlocks.STRIPPED_SAPPY_BIRCH_LOG, ofFullCopy(Blocks.BIRCH_LOG)), 300);
-    public static final DeferredBlock<Block> STRIPPED_SAPPY_BIRCH_LOG = HELPER.createFuelBlock("stripped_sappy_birch_log", () ->
-            new RotatedPillarBlock(ofFullCopy(Blocks.STRIPPED_BIRCH_LOG)), 300);
+    public static final DeferredBlock<Block> SAPPY_BIRCH_LOG = HELPER.createBlock("sappy_birch_log", () ->
+            new LogBlock(FIBlocks.STRIPPED_SAPPY_BIRCH_LOG, ofFullCopy(Blocks.BIRCH_LOG)));
+    public static final DeferredBlock<Block> STRIPPED_SAPPY_BIRCH_LOG = HELPER.createBlock("stripped_sappy_birch_log", () ->
+            new RotatedPillarBlock(ofFullCopy(Blocks.STRIPPED_BIRCH_LOG)));
     //Lilac
     public static final DeferredBlock<Block> LILAC_LEAVES = HELPER.createBlock("lilac_leaves", () ->
             new LeavesBlock(vanillaLeafProperties(Blocks.AZALEA_LEAVES)));
@@ -96,10 +97,10 @@ public class FIBlocks {
             new BlossomingLilacLeavesBlock(vanillaLeafProperties(Blocks.FLOWERING_AZALEA_LEAVES)));
     public static final DeferredBlock<Block> HANGING_LILAC_LEAVES = HELPER.createBlockNoItem("hanging_lilac_leaves", () ->
             new HangingLilacLeavesBlock(ofFullCopy(Blocks.AZALEA_LEAVES).noCollission()));
-    public static final DeferredBlock<Block> LILAC_LOG = HELPER.createFuelBlock("lilac_log", () ->
-            new ThinLogBlock(FIBlocks.STRIPPED_LILAC_LOG, ofFullCopy(Blocks.OAK_LOG).noOcclusion()), 300);
-    public static final DeferredBlock<Block> STRIPPED_LILAC_LOG = HELPER.createFuelBlock("stripped_lilac_log", () ->
-            new ThinLogBlock(ofFullCopy(Blocks.STRIPPED_OAK_LOG).noOcclusion()), 300);
+    public static final DeferredBlock<Block> LILAC_LOG = HELPER.createBlock("lilac_log", () ->
+            new ThinLogBlock(FIBlocks.STRIPPED_LILAC_LOG, ofFullCopy(Blocks.OAK_LOG).noOcclusion()));
+    public static final DeferredBlock<Block> STRIPPED_LILAC_LOG = HELPER.createBlock("stripped_lilac_log", () ->
+            new ThinLogBlock(ofFullCopy(Blocks.STRIPPED_OAK_LOG).noOcclusion()));
     //Wood Stuff
         //Lilac
     public static final DeferredBlock<Block> LILAC_PLANKS = HELPER.createBlock("lilac_planks", () ->
@@ -111,15 +112,15 @@ public class FIBlocks {
     public static final DeferredBlock<Block> LILAC_FENCE = HELPER.createBlock("lilac_fence", () ->
             new FenceBlock(ofFullCopy(Blocks.OAK_FENCE)));
     public static final DeferredBlock<Block> LILAC_FENCE_GATE = HELPER.createBlock("lilac_fence_gate", () ->
-            new FenceGateBlock(ofFullCopy(Blocks.OAK_FENCE_GATE), FIWoodTypes.LILAC));
+            new FenceGateBlock(FIWoodTypes.LILAC, ofFullCopy(Blocks.OAK_FENCE_GATE)));
     public static final DeferredBlock<Block> LILAC_DOOR = HELPER.createBlock("lilac_door", () ->
-            new DoorBlock(ofFullCopy(Blocks.OAK_DOOR), FIWoodTypes.LILAC.setType()));
+            new DoorBlock(FIWoodTypes.LILAC.setType(), ofFullCopy(Blocks.OAK_DOOR)));
     public static final DeferredBlock<Block> LILAC_TRAPDOOR = HELPER.createBlock("lilac_trapdoor", () ->
-            new TrapDoorBlock(ofFullCopy(Blocks.OAK_TRAPDOOR), FIWoodTypes.LILAC.setType()));
+            new TrapDoorBlock( FIWoodTypes.LILAC.setType(),ofFullCopy(Blocks.OAK_TRAPDOOR)));
     public static final DeferredBlock<Block> LILAC_PRESSURE_PLATE = HELPER.createBlock("lilac_pressure_plate", () ->
-            new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, ofFullCopy(Blocks.OAK_PRESSURE_PLATE), FIWoodTypes.LILAC.setType()));
+            new PressurePlateBlock( FIWoodTypes.LILAC.setType(), ofFullCopy(Blocks.OAK_PRESSURE_PLATE)));
     public static final DeferredBlock<Block> LILAC_BUTTON = HELPER.createBlock("lilac_button", () ->
-            new ButtonBlock(ofFullCopy(Blocks.OAK_BUTTON), FIWoodTypes.LILAC.setType(), 30, true));
+            new ButtonBlock(FIWoodTypes.LILAC.setType(), 30,ofFullCopy(Blocks.OAK_BUTTON)));
     public static final DeferredBlock<BlueprintStandingSignBlock> LILAC_SIGN = HELPER.createBlockNoItem("lilac_sign", () ->
             new BlueprintStandingSignBlock(ofFullCopy(Blocks.OAK_SIGN), FIWoodTypes.LILAC));
     public static final DeferredBlock<BlueprintWallSignBlock> LILAC_WALL_SIGN = HELPER.createBlockNoItem("lilac_wall_sign", () ->
@@ -159,9 +160,9 @@ public class FIBlocks {
     public static final DeferredBlock<Block> TALL_BEACH_ROSE_BUSH = HELPER.createBlockNoItem("tall_beach_rose_bush", () ->
             new TallSandyFlowerBlock(ofFullCopy(Blocks.ROSE_BUSH)));
     public static final DeferredBlock<Block> WOODLAND_FERN = HELPER.createBlockNoItem("woodland_fern", () ->
-            new BushBlock(ofFullCopy(Blocks.FERN)));
+            new GrassBlock(ofFullCopy(Blocks.FERN)));
     public static final DeferredBlock<Block> GHOST_PIPE = HELPER.createBlockNoItem("ghost_pipe", () ->
-            new BushBlock(ofFullCopy(Blocks.ALLIUM).lightLevel(state -> 8).noCollission()));
+            new GrassBlock(ofFullCopy(Blocks.ALLIUM).lightLevel(state -> 8).noCollission()));
     public static final DeferredBlock<Block> SKUNK_CABBAGE = HELPER.createBlockNoItem("skunk_cabbage", () ->
             new SkunkCabbageBlock(ofFullCopy(Blocks.ALLIUM).noCollission()));
     //Lighting
@@ -171,8 +172,8 @@ public class FIBlocks {
             new GhostPipeWallTorchBlock(ofFullCopy(Blocks.WALL_TORCH).lightLevel(state -> 11), FIParticleTypes.GHOST_PIPE));
         //Other
     public static final DeferredBlock<Block> SUSPICIOUS_LEAF_LITTER = HELPER.createBlock("suspicious_leaf_litter", SuspiciousLitterBlock::new);
-    public static final DeferredBlock<Block> HOLLOW_LOG = HELPER.createFuelBlock("hollow_log", () ->
-            new HollowLogBlock(ofFullCopy(Blocks.OAK_LOG).noOcclusion()), 300);
+    public static final DeferredBlock<Block> HOLLOW_LOG = HELPER.createBlock("hollow_log", () ->
+            new HollowLogBlock(ofFullCopy(Blocks.OAK_LOG).noOcclusion()));
     public static final DeferredBlock<Block> CONDENSED_DIRT = HELPER.createBlock("condensed_dirt", () ->
             new ShallowBlock(ofFullCopy(Blocks.DIRT).noOcclusion()));
     public static final DeferredBlock<Block> CONDENSED_SAND = HELPER.createBlock("condensed_sand", () ->
