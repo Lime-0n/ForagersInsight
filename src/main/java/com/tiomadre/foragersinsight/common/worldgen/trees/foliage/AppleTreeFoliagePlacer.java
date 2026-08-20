@@ -1,5 +1,6 @@
 package com.tiomadre.foragersinsight.common.worldgen.trees.foliage;
 
+import com.mojang.serialization.MapCodec;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIFoliagePlacerType;
 import com.mojang.serialization.Codec;
@@ -16,6 +17,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.material.MapColor;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -24,8 +26,8 @@ import java.util.List;
 public class AppleTreeFoliagePlacer extends FoliagePlacer {
     protected final int height;
 
-    public static final Codec<AppleTreeFoliagePlacer> CODEC = RecordCodecBuilder
-            .create(instance -> foliagePlacerParts(instance)
+    public static final MapCodec<AppleTreeFoliagePlacer> CODEC = RecordCodecBuilder
+            .mapCodec(instance -> foliagePlacerParts(instance)
                     .and(Codec.intRange(0, 16).fieldOf("height").forGetter(fp -> fp.height)).apply(instance, AppleTreeFoliagePlacer::new));
 
     public AppleTreeFoliagePlacer(IntProvider pRadius, IntProvider pOffset, int height) {

@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.common.worldgen.trees.foliage;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.tiomadre.foragersinsight.core.registry.FIFoliagePlacerType;
 import net.minecraft.core.BlockPos;
@@ -13,7 +14,7 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerTy
 import org.jetbrains.annotations.NotNull;
 
 public class WoodlandsOakShrubFoliagePlacer extends FoliagePlacer {
-    public static final Codec<WoodlandsOakShrubFoliagePlacer> CODEC = RecordCodecBuilder.create(instance ->
+    public static final MapCodec<WoodlandsOakShrubFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
             foliagePlacerParts(instance).apply(instance, WoodlandsOakShrubFoliagePlacer::new));
 
     public WoodlandsOakShrubFoliagePlacer(IntProvider radius, IntProvider offset) {

@@ -1,7 +1,8 @@
 package com.tiomadre.foragersinsight.core.registry;
 
 import com.teamabnormals.blueprint.core.annotations.ConfigKey;
-import net.minecraftforge.common.ForgeConfigSpec;
+
+import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class FIConfig {
@@ -9,17 +10,17 @@ public class FIConfig {
     public static class Common {
 
         @ConfigKey("config")
-        public final ForgeConfigSpec.DoubleValue xpGlobalMultiplier;
-        public final ForgeConfigSpec.BooleanValue enableCropHarvestXP;
-        public final ForgeConfigSpec.BooleanValue enableForagingXP;
-        public final ForgeConfigSpec.BooleanValue enableAnimalShearXP;
-        public final ForgeConfigSpec.BooleanValue enableTapperXP;
-        public final ForgeConfigSpec.BooleanValue enableBeehiveXP;
-        public final ForgeConfigSpec.BooleanValue enableMilkingXP;
-        public final ForgeConfigSpec.BooleanValue milkRemovesOdorous;
+        public final ModConfigSpec.DoubleValue xpGlobalMultiplier;
+        public final ModConfigSpec.BooleanValue enableCropHarvestXP;
+        public final ModConfigSpec.BooleanValue enableForagingXP;
+        public final ModConfigSpec.BooleanValue enableAnimalShearXP;
+        public final ModConfigSpec.BooleanValue enableTapperXP;
+        public final ModConfigSpec.BooleanValue enableBeehiveXP;
+        public final ModConfigSpec.BooleanValue enableMilkingXP;
+        public final ModConfigSpec.BooleanValue milkRemovesOdorous;
 
 
-        public Common(ForgeConfigSpec.Builder builder) {
+        public Common(ModConfigSpec.Builder builder) {
 
             // Farming + Foraging Multiplier
             builder.push("Farming & Foraging XP");
@@ -69,12 +70,12 @@ public class FIConfig {
         }
     }
 
-    public static final ForgeConfigSpec COMMON_SPEC;
+    public static final ModConfigSpec COMMON_SPEC;
     public static final Common COMMON;
 
     static {
-        Pair<Common, ForgeConfigSpec> pair =
-                new ForgeConfigSpec.Builder().configure(Common::new);
+        Pair<Common, ModConfigSpec> pair =
+                new ModConfigSpec.Builder().configure(Common::new);
         COMMON_SPEC = pair.getRight();
         COMMON = pair.getLeft();
     }

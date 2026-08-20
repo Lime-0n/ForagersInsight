@@ -1,6 +1,7 @@
 package com.tiomadre.foragersinsight.common.worldgen.trees.foliage;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.tiomadre.foragersinsight.core.registry.FIBlocks;
 import com.tiomadre.foragersinsight.core.registry.FIFoliagePlacerType;
@@ -45,8 +46,8 @@ public class LilacTreeFoliagePlacer extends FoliagePlacer {
     };
     protected final int height;
 
-    public static final Codec<LilacTreeFoliagePlacer> CODEC = RecordCodecBuilder
-            .create(instance -> foliagePlacerParts(instance)
+    public static final MapCodec<LilacTreeFoliagePlacer> CODEC = RecordCodecBuilder
+            .mapCodec(instance -> foliagePlacerParts(instance)
                     .and(Codec.intRange(0, 16).fieldOf("height").forGetter(fp -> fp.height))
                     .apply(instance, LilacTreeFoliagePlacer::new));
 
