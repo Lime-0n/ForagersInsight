@@ -2,6 +2,8 @@ package com.tiomadre.foragersinsight.core.registry;
 
 import com.tiomadre.foragersinsight.common.block.SuspiciousLitterBlock;
 import com.tiomadre.foragersinsight.core.ForagersInsight;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -17,34 +19,36 @@ import static com.tiomadre.foragersinsight.core.registry.FIItems.*;
 
 public final class FIForageLoot {
 
-    public static final ResourceLocation SUSPICIOUS_LEAF_LITTER_OAK = ForagersInsight.rl("archaeology/suspicious_leaf_litter/oak");
-    public static final ResourceLocation SUSPICIOUS_LEAF_LITTER_BIRCH = ForagersInsight.rl("archaeology/suspicious_leaf_litter/birch");
-    public static final ResourceLocation SUSPICIOUS_LEAF_LITTER_SPRUCE = ForagersInsight.rl("archaeology/suspicious_leaf_litter/spruce");
-    public static final ResourceLocation SUSPICIOUS_LEAF_LITTER_DARK_OAK = ForagersInsight.rl("archaeology/suspicious_leaf_litter/dark_oak");
-    public static final ResourceLocation SUSPICIOUS_LEAF_LITTER_FLOWER = ForagersInsight.rl("archaeology/suspicious_leaf_litter/flower");
+    public static final ResourceKey<LootTable> SUSPICIOUS_LEAF_LITTER_OAK = ResourceKey.create(Registries.LOOT_TABLE,ForagersInsight.rl("archaeology/suspicious_leaf_litter/oak"));
+    public static final ResourceKey<LootTable> SUSPICIOUS_LEAF_LITTER_BIRCH = ResourceKey.create(Registries.LOOT_TABLE,ForagersInsight.rl("archaeology/suspicious_leaf_litter/birch"));
+    public static final ResourceKey<LootTable> SUSPICIOUS_LEAF_LITTER_SPRUCE = ResourceKey.create(Registries.LOOT_TABLE,ForagersInsight.rl("archaeology/suspicious_leaf_litter/spruce"));
+    public static final ResourceKey<LootTable> SUSPICIOUS_LEAF_LITTER_DARK_OAK = ResourceKey.create(Registries.LOOT_TABLE,ForagersInsight.rl("archaeology/suspicious_leaf_litter/dark_oak"));
+    public static final ResourceKey<LootTable> SUSPICIOUS_LEAF_LITTER_FLOWER = ResourceKey.create(Registries.LOOT_TABLE,ForagersInsight.rl("archaeology/suspicious_leaf_litter/flower"));
 
     private FIForageLoot() {
     }
 
     public static ResourceLocation suspiciousLeafLitterByFoliage(SuspiciousLitterBlock.FoliageType foliageType) {
         return switch (foliageType) {
-            case BIRCH -> SUSPICIOUS_LEAF_LITTER_BIRCH;
-            case SPRUCE -> SUSPICIOUS_LEAF_LITTER_SPRUCE;
-            case DARK_OAK -> SUSPICIOUS_LEAF_LITTER_DARK_OAK;
-            case FLOWER -> SUSPICIOUS_LEAF_LITTER_FLOWER;
-            case OAK -> SUSPICIOUS_LEAF_LITTER_OAK;
+            case BIRCH -> ForagersInsight.rl("archaeology/suspicious_leaf_litter/birch");
+            case SPRUCE -> ForagersInsight.rl("archaeology/suspicious_leaf_litter/spruce");
+            case DARK_OAK -> ForagersInsight.rl("archaeology/suspicious_leaf_litter/dark_oak");
+            case FLOWER -> ForagersInsight.rl("archaeology/suspicious_leaf_litter/flower");
+            case OAK -> ForagersInsight.rl("archaeology/suspicious_leaf_litter/oak");
         };
     }
+
 
     public static class FIForagingFinds implements LootTableSubProvider {
 
         @Override
-        public void generate(BiConsumer<ResourceLocation, LootTable.Builder> output) {
+        public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
             output.accept(FIForageLoot.SUSPICIOUS_LEAF_LITTER_OAK, suspiciousLitterOak());
             output.accept(FIForageLoot.SUSPICIOUS_LEAF_LITTER_BIRCH, suspiciousLitterBirch());
             output.accept(FIForageLoot.SUSPICIOUS_LEAF_LITTER_SPRUCE, suspiciousLitterSpruce());
             output.accept(FIForageLoot.SUSPICIOUS_LEAF_LITTER_DARK_OAK, suspiciousLitterDarkOak());
             output.accept(FIForageLoot.SUSPICIOUS_LEAF_LITTER_FLOWER, suspiciousLitterFlower());
+
         }
 
         private static LootTable.Builder suspiciousLitterOak() {
@@ -106,5 +110,7 @@ public final class FIForageLoot {
                             .add(LootItem.lootTableItem(Items.BROWN_MUSHROOM).setWeight(5).setQuality(1))
                             .add(LootItem.lootTableItem(BLEWIT_MUSHROOM.get()).setWeight(2).setQuality(2)));
         }
+
+
     }
 }

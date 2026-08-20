@@ -3,6 +3,8 @@ package com.tiomadre.foragersinsight.common.block.entity.suspiciouslitter;
 import com.tiomadre.foragersinsight.common.block.SuspiciousLitterBlock;
 import com.tiomadre.foragersinsight.core.registry.FIForageLoot;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
@@ -32,7 +34,7 @@ public final class SuspiciousLitterLoot {
 
         SuspiciousLitterBlock.FoliageType type = state.getValue(SuspiciousLitterBlock.FOLIAGE);
         ResourceLocation lootTableId = FIForageLoot.suspiciousLeafLitterByFoliage(type);
-        LootTable lootTable = level.getServer().getLootData().getLootTable(lootTableId);
+        LootTable lootTable = level.getServer().reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE,lootTableId));
 
         LootParams params = new LootParams.Builder(level)
                 .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(pos))

@@ -17,7 +17,10 @@ import com.tiomadre.foragersinsight.data.server.tags.FIBlockTags;
 import com.tiomadre.foragersinsight.data.server.tags.FIItemTags;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -26,6 +29,9 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
+
+import java.util.Collections;
+import java.util.List;
 
 @Mod(ForagersInsight.MOD_ID)
 public class ForagersInsight {
@@ -84,7 +90,9 @@ public class ForagersInsight {
 		gen.addProvider(server, blockTags);
 		gen.addProvider(server, new FIBiomeTags(event));
 		gen.addProvider(server, new FIItemTags(event, blockTags));
-		gen.addProvider(server, new FILoot(event));
+		gen.addProvider(server, new LootTableProvider(event.getGenerator().getPackOutput(), Collections.emptySet(), List.of(new LootTableProvider.SubProviderEntry(FIBlockLoot::new, LootContextParamSets.BLOCK)),event.getLookupProvider()));
+//		 generator.addProvider(event.includeServer(), new LootTableProvider(packOutput, Collections.emptySet(),
+//                List.of(new LootTableProvider.SubProviderEntry(ModBlockLootTableProvider::new, LootContextParamSets.BLOCK)), lookupProvider));
 		gen.addProvider(server, new FICraftingRecipes(event.getGenerator().getPackOutput() ,event.getLookupProvider()));
 		gen.addProvider(server, new FIWorldgen(event));
 		gen.addProvider(server, new FIAdvancementData(event));
